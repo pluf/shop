@@ -243,7 +243,8 @@ MicroShop::ServiceCategory
     <panel_attributes>&lt;&lt;Product&gt;&gt;
 MicroShop::Product
 --
-+manuficturere: string
++manuficturer: string
++brand
 +model: string
 // یه مدل داده‌ای کلید مقدار برای نگهداری سایر خصوصیت‌ها
 +properties
@@ -497,7 +498,7 @@ DetailedObject
       <h>153</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Util&gt;&gt;
-MicroShop::valuable
+MicroShop::PricedObject
 --
 +price: int
 +off: int
