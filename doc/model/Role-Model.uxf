@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <help_text>// fontsize=14
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// MicroShop Data model
+//
+//////////////////////////////////////////////////////////////////////////////////////////////
+</help_text>
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>460</x>
+      <y>210</y>
+      <w>60</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>CRM</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>650</x>
+      <y>210</y>
+      <w>100</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Zone owner
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>670</x>
+      <y>450</y>
+      <w>60</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Worker
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>840</x>
+      <y>210</y>
+      <w>120</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Workshop Owner
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
