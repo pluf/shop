@@ -29,6 +29,9 @@
 		"pluf/core" : "^2.0",
 		"pluf/bank" : "^0.1.0"
 	},
+	"include-path" : [
+		"src/"
+	],
 	"homepage" : "https://gitlab.com/english-elearning-entertainment/eee-server",
 	"support" : {
 		"email" : "info@pluf.ir",

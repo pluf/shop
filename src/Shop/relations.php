@@ -2,11 +2,9 @@
 return array(
 //     'Shop_Product' => array(
 //         'relate_to' => array(
-//             'SDP_Asset',
-//             'Pluf_User',
-//             'SaaSBank_Receipt'
+//             'Pluf_User'
 //         )
-//     ),
+//     )
 //     'SDP_Service' => array(
 //         'relate_to' => array(
 //             'CMS_Content',
