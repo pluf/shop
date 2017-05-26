@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "title": "Simple online shop and service",
   "model": [
-		"Shop_DetailedObject",
-		"Shop_Valuable",
 		"Shop_Product",
-		"Shop_ProductItem",
 		"Shop_Service",
-		"Shop_ServiceItem"
+		"Shop_TaxClass",
+		"Shop_ProductItem",
+		"Shop_ServiceItem",
+		"Shop_Order"
 	],
 	"permisson": []
 }

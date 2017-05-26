@@ -117,25 +117,14 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
-      <y>612</y>
-      <w>207</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>210.0;10.0;10.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>558</x>
       <y>495</y>
       <w>171</w>
       <h>45</h>
     </coordinates>
     <panel_attributes>lt=-
-m1=0..n
-m2=0..1
+m1=0..1
+m2=0..n
 customer</panel_attributes>
     <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
   </element>
@@ -171,18 +160,14 @@ payment</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>495</x>
-      <y>702</y>
+      <y>855</y>
       <w>189</w>
-      <h>153</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Order&gt;&gt;
 MicroShop::ProductItem
 --
-+id: int
 +count: int
-+price: int
-+off: int
-+creation_dtime: DateTime
 --</panel_attributes>
     <additional_attributes/>
   </element>
@@ -190,17 +175,14 @@ MicroShop::ProductItem
     <id>UMLClass</id>
     <coordinates>
       <x>909</x>
-      <y>711</y>
+      <y>855</y>
       <w>189</w>
-      <h>153</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Order&gt;&gt;
 MicroShop::ServiceItem
 --
-+id: int
-+price: int
-+off: int
-+creation_dtime: DateTime
+
 --</panel_attributes>
     <additional_attributes/>
   </element>
@@ -208,7 +190,7 @@ MicroShop::ServiceItem
     <id>UMLClass</id>
     <coordinates>
       <x>909</x>
-      <y>1008</y>
+      <y>1053</y>
       <w>189</w>
       <h>153</h>
     </coordinates>
@@ -222,7 +204,7 @@ MicroShop::Service
     <id>UMLClass</id>
     <coordinates>
       <x>1296</x>
-      <y>1008</y>
+      <y>1053</y>
       <w>189</w>
       <h>153</h>
     </coordinates>
@@ -236,7 +218,7 @@ MicroShop::ServiceCategory
     <id>UMLClass</id>
     <coordinates>
       <x>495</x>
-      <y>990</y>
+      <y>1062</y>
       <w>189</w>
       <h>153</h>
     </coordinates>
@@ -254,8 +236,8 @@ MicroShop::Product
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>693</x>
-      <y>1296</y>
+      <x>711</x>
+      <y>1332</y>
       <w>189</w>
       <h>153</h>
     </coordinates>
@@ -267,6 +249,7 @@ MicroShop::Product
 &lt;&lt;Tax&gt;&gt;
 MicroShop::TaxClass
 --
++title: string
 +rate: double
 --</panel_attributes>
     <additional_attributes/>
@@ -274,47 +257,47 @@ MicroShop::TaxClass
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>837</x>
+      <x>792</x>
       <y>612</y>
-      <w>171</w>
-      <h>117</h>
+      <w>27</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;170.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>576</x>
-      <y>846</y>
-      <w>99</w>
-      <h>162</h>
+      <y>936</y>
+      <w>108</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=-
-m1=0..n
-m2=0..1
-teaches to &gt;</panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+m1=1
+m2=0..n
+is related to &gt;</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>990</x>
-      <y>855</y>
-      <w>99</w>
-      <h>171</h>
+      <y>936</y>
+      <w>108</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>lt=-
-m1=0..n
-m2=0..1
-teaches to &gt;</panel_attributes>
-    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+m1=1
+m2=0..n
+is related to &gt;</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1089</x>
-      <y>1071</y>
+      <y>1116</y>
       <w>225</w>
       <h>45</h>
     </coordinates>
@@ -327,30 +310,30 @@ category</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>810</x>
-      <y>1152</y>
-      <w>216</w>
-      <h>162</h>
+      <x>828</x>
+      <y>1197</y>
+      <w>198</w>
+      <h>153</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=0..n
-m2=0..1
+m2=0..n
 tax class</panel_attributes>
-    <additional_attributes>220.0;10.0;10.0;160.0</additional_attributes>
+    <additional_attributes>200.0;10.0;10.0;150.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>594</x>
-      <y>1134</y>
-      <w>189</w>
-      <h>180</h>
+      <y>1206</y>
+      <w>198</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=0..n
-m2=0..1
+m2=0..n
 tax class</panel_attributes>
-    <additional_attributes>10.0;10.0;180.0;180.0</additional_attributes>
+    <additional_attributes>10.0;10.0;200.0;140.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -448,35 +431,35 @@ DetailedObject
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>333</x>
-      <y>1134</y>
-      <w>243</w>
-      <h>162</h>
+      <x>351</x>
+      <y>1206</y>
+      <w>225</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;160.0;250.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;230.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>180</x>
-      <y>1440</y>
-      <w>612</w>
-      <h>216</h>
+      <y>1476</y>
+      <w>630</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;220.0;660.0;220.0;660.0;10.0</additional_attributes>
+    <additional_attributes>10.0;180.0;680.0;180.0;680.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>432</x>
-      <y>1080</y>
-      <w>495</w>
-      <h>297</h>
+      <x>450</x>
+      <y>1125</y>
+      <w>477</w>
+      <h>288</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;310.0;530.0;10.0</additional_attributes>
+    <additional_attributes>10.0;300.0;510.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -492,8 +475,8 @@ DetailedObject
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>252</x>
-      <y>1278</y>
+      <x>270</x>
+      <y>1314</y>
       <w>189</w>
       <h>153</h>
     </coordinates>
@@ -510,23 +493,23 @@ MicroShop::PricedObject
     <id>Relation</id>
     <coordinates>
       <x>99</x>
-      <y>1350</y>
-      <w>171</w>
-      <h>225</h>
+      <y>1386</y>
+      <w>189</w>
+      <h>189</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;230.0;10.0;10.0;170.0;10.0</additional_attributes>
+    <additional_attributes>10.0;190.0;10.0;10.0;190.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>180</x>
-      <y>1152</y>
+      <y>1197</y>
       <w>1179</w>
-      <h>540</h>
+      <h>495</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;580.0;1290.0;580.0;1290.0;10.0</additional_attributes>
+    <additional_attributes>10.0;530.0;1290.0;530.0;1290.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
@@ -660,5 +643,45 @@ m1=0..n
 m2=0..1
 owner</panel_attributes>
     <additional_attributes>140.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>711</x>
+      <y>675</y>
+      <w>189</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Order&gt;&gt;
+MicroShop::OrderItem
+--
++id: int
++price: int
++off: int
++creation_dtime: DateTime
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>846</x>
+      <y>783</y>
+      <w>144</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>612</x>
+      <y>783</y>
+      <w>162</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;80.0</additional_attributes>
   </element>
 </diagram>

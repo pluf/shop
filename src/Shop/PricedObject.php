@@ -10,10 +10,11 @@ class Shop_PricedObject extends Shop_DetailedObject
      */
     function init()
     {
-//         $this->_a['table'] = 'shop_pricedobject';
-//         $this->_a['verbose'] = 'Shop_PricedObject';
+        // $this->_a['table'] = 'shop_pricedobject';
+        // $this->_a['verbose'] = 'Shop_PricedObject';
         parent::init();
-        $this->_a['cols'] = array(
+        // Merge parent columns with new columns
+        $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'price' => array(
                 'type' => 'Pluf_DB_Field_Integer',
                 'blank' => false,
@@ -32,7 +33,7 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'default' => false,
                 'editable' => false,
                 'readable' => false
-            ),
-        );
+            )
+        ));
     }
 }

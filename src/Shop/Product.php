@@ -10,9 +10,11 @@ class Shop_Product extends Shop_PricedObject
      */
     function init()
     {
+        parent::init();
         $this->_a['table'] = 'shop_product';
         $this->_a['verbose'] = 'Shop_Product';
-        $this->_a['cols'] = array(
+        // Merge parent columns with new columns
+        $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'manufacturer' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => false,
@@ -40,33 +42,16 @@ class Shop_Product extends Shop_PricedObject
                 'size' => 3000,
                 'editable' => true,
                 'readable' => true
-            )
+            ),
             // relations
-        );
-        
-//         $this->_a['idx'] = array(
-//             'page_class_idx' => array(
-//                 'col' => 'title',
-//                 'type' => 'unique', // normal, unique, fulltext, spatial
-//                 'index_type' => '', // hash, btree
-//                 'index_option' => '',
-//                 'algorithm_option' => '',
-//                 'lock_option' => ''
-//             )
-//         );
+            'taxes' => array(
+                'type' => 'Pluf_DB_Field_Manytomany',
+                'model' => 'Shop_TaxClass',
+                'relate_name' => 'taxes',
+                'editable' => false,
+                'readable' => false
+            )
+        ));
     }
 
-    /**
-     * \brief پیش ذخیره را انجام می‌دهد
-     *
-     * @param $create حالت
-     *            ساخت یا به روز رسانی را تعیین می‌کند
-     */
-    function preSave($create = false)
-    {
-        if ($this->id == '') {
-            $this->creation_dtime = gmdate('Y-m-d H:i:s');
-        }
-        $this->modif_dtime = gmdate('Y-m-d H:i:s');
-    }
 }

@@ -1,7 +1,7 @@
 {
 	"name" : "pluf/shop",
 	"description" : "Simple online shop and service",
-	"type" : "project",
+	"type" : "library",
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "Mostafa Barmshory",
@@ -20,13 +20,12 @@
 		}
 	],
 	"minimum-stability" : "stable",
-	"prefer-stable" : true,
 	"require" : {
 		"pluf/installer" : "^0.1.0",
 		"pluf/spa" : "^0.1.0",
 		"pluf/cache" : "^0.1.0",
 		"pluf/cms" : "^0.1.0",
-		"pluf/core" : "^2.0",
+		"pluf/core" : "^2.1.0",
 		"pluf/bank" : "^0.1.0"
 	},
 	"include-path" : [
