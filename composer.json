@@ -3,6 +3,7 @@
 	"description" : "Simple online shop and service",
 	"type" : "library",
 	"license" : "MIT",
+	"version" : "0.1.0",
 	"authors" : [{
 			"name" : "Mostafa Barmshory",
 			"email" : "mostafa.barmshory@dpq.co.ir",
@@ -21,12 +22,11 @@
 	],
 	"minimum-stability" : "stable",
 	"require" : {
-		"pluf/installer" : "^0.1.0",
-		"pluf/spa" : "^0.1.0",
-		"pluf/cache" : "^0.1.0",
-		"pluf/cms" : "^0.1.0",
+		"pluf/cache" : "^2.1.0",
+		"pluf/cms" : "^2.1.0",
 		"pluf/core" : "^2.1.0",
-		"pluf/bank" : "^0.1.0"
+		"pluf/bank" : "^2.1.0",
+		"pluf/assort" : "^0.1.0"
 	},
 	"include-path" : [
 		"src/"

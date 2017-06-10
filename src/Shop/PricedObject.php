@@ -33,6 +33,25 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'default' => false,
                 'editable' => false,
                 'readable' => false
+            ),
+            // relations
+            'categories' => array(
+                'type' => 'Pluf_DB_Field_Manytomany',
+                'model' => 'Assort_Category',
+                'relate_name' => 'categories',
+                'blank' => false,
+                'is_null' => false,
+                'editable' => false,
+                'readable' => false
+            ),
+            'tags' => array(
+                'type' => 'Pluf_DB_Field_Manytomany',
+                'model' => 'Assort_Tag',
+                'relate_name' => 'tags',
+                'is_null' => false,
+                'blank' => false,
+                'editable' => false,
+                'readable' => false
             )
         ));
     }

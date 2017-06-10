@@ -2,12 +2,16 @@
 return array(
     'Shop_Product' => array(
         'relate_to_many' => array(
-            'Shop_TaxClass'
+            'Shop_TaxClass',
+            'Assort_Category', 
+            'Assort_Tag' 
         )
     ),
     'Shop_Service' => array(
         'relate_to_many' => array(
-            'Shop_TaxClass'
+            'Shop_TaxClass',
+            'Assort_Category',
+            'Assort_Tag' 
         )
     ),
     'Shop_ProductItem' => array(
