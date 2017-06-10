@@ -121,6 +121,52 @@ return array(
             'Pluf_Precondition::memberRequired'
         )
     ),
+    // ************************************************************* Categories of Product
+    array(
+        'regex' => '#^/product/(?P<modelId>\d+)/category/find$#',
+        'model' => 'Shop_Views',
+        'method' => 'categories',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Product'
+        )
+    ),
+    array(
+        'regex' => '#^/product/(?P<modelId>\d+)/category/new$#',
+        'model' => 'Shop_Views',
+        'method' => 'addCategory',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Product'
+        )
+    ),
+    array(
+        'regex' => '#^/product/(?P<modelId>\d+)/category/(?P<categoryId>\d+)$#',
+        'model' => 'Shop_Views',
+        'method' => 'addCategory',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Product'
+        )
+    ),
+    array(
+        'regex' => '#^/product/(?P<modelId>\d+)/category/(?P<categoryId>\d+)$#',
+        'model' => 'Shop_Views',
+        'method' => 'removeCategory',
+        'http-method' => 'DELETE',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Product'
+        )
+    ),
     // ************************************************************* Tags on Product
     array(
         'regex' => '#^/product/(?P<modelId>\d+)/tag/find$#',
@@ -129,7 +175,7 @@ return array(
         'http-method' => 'GET',
         'params' => array(
             'model' => 'Shop_Product'
-        ),
+        )
     ),
     array(
         'regex' => '#^/product/(?P<modelId>\d+)/tag/new$#',
@@ -141,7 +187,7 @@ return array(
         ),
         'params' => array(
             'model' => 'Shop_Product'
-        ),
+        )
     ),
     array(
         'regex' => '#^/product/(?P<modelId>\d+)/tag/(?P<tagId>\d+)$#',
@@ -153,7 +199,7 @@ return array(
         ),
         'params' => array(
             'model' => 'Shop_Product'
-        ),
+        )
     ),
     array(
         'regex' => '#^/product/(?P<modelId>\d+)/tag/(?P<tagId>\d+)$#',
@@ -165,7 +211,7 @@ return array(
         ),
         'params' => array(
             'model' => 'Shop_Product'
-        ),
+        )
     ),
     // ************************************************************* Service
     array( // Find
@@ -276,6 +322,52 @@ return array(
         'precond' => array(
             'Pluf_Precondition::loginRequired',
             'Pluf_Precondition::memberRequired'
+        )
+    ),
+    // ************************************************************* Categories of Product
+    array(
+        'regex' => '#^/service/(?P<modelId>\d+)/category/find$#',
+        'model' => 'Shop_Views',
+        'method' => 'categories',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Service'
+        )
+    ),
+    array(
+        'regex' => '#^/service/(?P<modelId>\d+)/category/new$#',
+        'model' => 'Shop_Views',
+        'method' => 'addCategory',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Service'
+        )
+    ),
+    array(
+        'regex' => '#^/service/(?P<modelId>\d+)/category/(?P<categoryId>\d+)$#',
+        'model' => 'Shop_Views',
+        'method' => 'addCategory',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Service'
+        )
+    ),
+    array(
+        'regex' => '#^/service/(?P<modelId>\d+)/category/(?P<categoryId>\d+)$#',
+        'model' => 'Shop_Views',
+        'method' => 'removeCategory',
+        'http-method' => 'DELETE',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Service'
         )
     ),
     // ************************************************************* Tags on Service
