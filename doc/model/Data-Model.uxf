@@ -413,7 +413,8 @@ history</panel_attributes>
       <w>189</w>
       <h>153</h>
     </coordinates>
-    <panel_attributes>// از این کلاس به عنوان پایه‌ای برای توصیف موجودیت
+    <panel_attributes>bg=blue
+// از این کلاس به عنوان پایه‌ای برای توصیف موجودیت
 // استفاده می‌شود.
 &lt;&lt;Util&gt;&gt;
 DetailedObject
@@ -480,13 +481,15 @@ DetailedObject
       <w>189</w>
       <h>153</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;Util&gt;&gt;
+    <panel_attributes>bg=blue
+&lt;&lt;Util&gt;&gt;
 MicroShop::PricedObject
 --
 +price: int
 +off: int
 +deleted
---</panel_attributes>
+--
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -514,8 +517,8 @@ MicroShop::PricedObject
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>288</x>
-      <y>1485</y>
+      <x>162</x>
+      <y>1197</y>
       <w>171</w>
       <h>81</h>
     </coordinates>
@@ -683,5 +686,57 @@ MicroShop::OrderItem
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>160.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>405</x>
+      <y>1566</y>
+      <w>144</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>Assort_Category
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>225</x>
+      <y>1566</y>
+      <w>144</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>Assort_Tag
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>396</x>
+      <y>1458</y>
+      <w>117</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n
+categories</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>279</x>
+      <y>1458</y>
+      <w>81</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n
+tags</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;120.0</additional_attributes>
   </element>
 </diagram>
