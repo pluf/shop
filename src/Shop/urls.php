@@ -121,6 +121,52 @@ return array(
             'Pluf_Precondition::memberRequired'
         )
     ),
+    // ************************************************************* Tags on Product
+    array(
+        'regex' => '#^/product/(?P<modelId>\d+)/tag/find$#',
+        'model' => 'Shop_Views',
+        'method' => 'tags',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Product'
+        ),
+    ),
+    array(
+        'regex' => '#^/product/(?P<modelId>\d+)/tag/new$#',
+        'model' => 'Shop_Views',
+        'method' => 'addTag',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Product'
+        ),
+    ),
+    array(
+        'regex' => '#^/product/(?P<modelId>\d+)/tag/(?P<tagId>\d+)$#',
+        'model' => 'Shop_Views',
+        'method' => 'addTag',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Product'
+        ),
+    ),
+    array(
+        'regex' => '#^/product/(?P<modelId>\d+)/tag/(?P<tagId>\d+)$#',
+        'model' => 'Shop_Views',
+        'method' => 'removeTag',
+        'http-method' => 'DELETE',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Product'
+        ),
+    ),
     // ************************************************************* Service
     array( // Find
         'regex' => '#^/service/find$#',
@@ -231,6 +277,52 @@ return array(
             'Pluf_Precondition::loginRequired',
             'Pluf_Precondition::memberRequired'
         )
+    ),
+    // ************************************************************* Tags on Service
+    array(
+        'regex' => '#^/service/(?P<modelId>\d+)/tag/find$#',
+        'model' => 'Shop_Views',
+        'method' => 'tags',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Service'
+        ),
+    ),
+    array(
+        'regex' => '#^/service/(?P<modelId>\d+)/tag/new$#',
+        'model' => 'Shop_Views',
+        'method' => 'addTag',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Service'
+        ),
+    ),
+    array(
+        'regex' => '#^/service/(?P<modelId>\d+)/tag/(?P<tagId>\d+)$#',
+        'model' => 'Shop_Views',
+        'method' => 'addTag',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Service'
+        ),
+    ),
+    array(
+        'regex' => '#^/service/(?P<modelId>\d+)/tag/(?P<tagId>\d+)$#',
+        'model' => 'Shop_Views',
+        'method' => 'removeTag',
+        'http-method' => 'DELETE',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Service'
+        ),
     ),
     // ************************************************************* TaxClass
     array( // Find
