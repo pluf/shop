@@ -26,7 +26,8 @@
 		"pluf/cms" : "^2.1.0",
 		"pluf/core" : "^2.1.0",
 		"pluf/bank" : "^2.1.0",
-		"pluf/assort" : "^2.1.0"
+		"pluf/assort" : "^2.1.0",
+		"pluf/geo" : "^2.1"
 	},
 	"include-path" : [
 		"src/"

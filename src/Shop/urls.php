@@ -1,5 +1,36 @@
 <?php
 return array(
+    // ************************************************************* Shop Profile
+    array( // Get profile of current shop
+        'regex' => '#^/profile$#',
+        'model' => 'Shop_Views',
+        'method' => 'getProfile',
+        'http-method' => 'GET'
+    ),
+    array( // Update profile of current shop
+        'regex' => '#^/profile$#',
+        'model' => 'Shop_Views',
+        'method' => 'updateProfile',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'http-method' => 'POST'
+    ),
+    array( // Get profile of shop (by id)
+        'regex' => '#^/(?P<userId>\d+)/profile$#',
+        'model' => 'User_Views_Profile',
+        'method' => 'get',
+        'http-method' => 'GET'
+    ),
+    array( // Update profile of user (by id)
+        'regex' => '#^/(?P<userId>\d+)/profile$#',
+        'model' => 'User_Views_Profile',
+        'method' => 'update',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'http-method' => 'POST'
+    ),
     // ************************************************************* Product
     array( // Find
         'regex' => '#^/product/find$#',

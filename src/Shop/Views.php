@@ -6,11 +6,52 @@ Pluf::loadFunction('Shop_Shortcuts_GetAssociationTableName');
 
 class Shop_Views
 {
+
+    // *******************************************************************
+    // Profile of shop
+    // *******************************************************************
+    /**
+     * Updates or creates profile for shop by using given data.
+     *
+     */
+    public static function updateProfile($request, $match)
+    {
+        $profile = Pluf::factory('Shop_Profile')->getList(array(
+            'order' => 'id ASC'
+        ));
+        if ($profile == null || empty($profile) || $profile->count() == 0) {
+            $form = new Shop_Form_Profile(array_merge($request->REQUEST, $request->FILES), array());
+            $profile = $form->save();
+        } else {
+            $profile = $profile[0];
+            $form = Pluf_Shortcuts_GetFormForUpdateModel($profile, $request->REQUEST, array());
+            $profile = $form->save();
+        }
+        return new Pluf_HTTP_Response_Json($profile);
+    }
+
+    /**
+     * Returns information of profile of shop
+     *
+     */
+    public static function getProfile($request, $match)
+    {
+        $profile = Pluf::factory('Shop_Profile')->getList(array(
+            'order' => 'id ASC'
+        ));
+        if ($profile == null || empty($profile) || $profile->count() == 0) {
+            $profile = Pluf::factory('Shop_Profile');
+        } else {
+            $profile = $profile[0];
+        }
+        // TODO: hadi, 1395: we should hide secure information of profile.
+        return new Pluf_HTTP_Response_Json($profile);
+    }
+
     // *******************************************************************
     // Tags of an item
     // *******************************************************************
-    
-    public static function tags ($request, $match, $p)
+    public static function tags($request, $match, $p)
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
@@ -25,10 +66,9 @@ class Shop_Views
         
         $itemIdColName = Shop_Shortcuts_GetIdColumnName($item);
         $paginator = new Pluf_Paginator($tag);
-        $sql = new Pluf_SQL($itemIdColName . '=%s',
-            array(
-                $item->id
-            ));
+        $sql = new Pluf_SQL($itemIdColName . '=%s', array(
+            $item->id
+        ));
         $paginator->forced_where = $sql;
         $paginator->model_view = 'myView';
         $paginator->list_filters = array(
@@ -50,8 +90,8 @@ class Shop_Views
         $paginator->setFromRequest($request);
         return new Pluf_HTTP_Response_Json($paginator->render_object());
     }
-    
-    public static function addTag ($request, $match, $p)
+
+    public static function addTag($request, $match, $p)
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
@@ -64,8 +104,8 @@ class Shop_Views
         $item->setAssoc($tag);
         return new Pluf_HTTP_Response_Json($tag);
     }
-    
-    public static function removeTag ($request, $match, $p)
+
+    public static function removeTag($request, $match, $p)
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
@@ -82,7 +122,7 @@ class Shop_Views
     // *******************************************************************
     // Categories of an item
     // *******************************************************************
-    public static function categories ($request, $match, $p)
+    public static function categories($request, $match, $p)
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
@@ -97,10 +137,9 @@ class Shop_Views
         
         $itemIdColName = Shop_Shortcuts_GetIdColumnName($item);
         $paginator = new Pluf_Paginator($category);
-        $sql = new Pluf_SQL($itemIdColName . '=%s',
-            array(
-                $item->id
-            ));
+        $sql = new Pluf_SQL($itemIdColName . '=%s', array(
+            $item->id
+        ));
         $paginator->forced_where = $sql;
         $paginator->model_view = 'myView';
         $paginator->list_filters = array(
@@ -124,8 +163,8 @@ class Shop_Views
         $paginator->setFromRequest($request);
         return new Pluf_HTTP_Response_Json($paginator->render_object());
     }
-    
-    public static function addCategory ($request, $match, $p)
+
+    public static function addCategory($request, $match, $p)
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
@@ -138,8 +177,8 @@ class Shop_Views
         $item->setAssoc($category);
         return new Pluf_HTTP_Response_Json($category);
     }
-    
-    public static function removeCategory ($request, $match, $p)
+
+    public static function removeCategory($request, $match, $p)
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
