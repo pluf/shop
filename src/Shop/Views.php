@@ -8,47 +8,6 @@ class Shop_Views
 {
 
     // *******************************************************************
-    // Profile of shop
-    // *******************************************************************
-//     /**
-//      * Updates or creates profile for shop by using given data.
-//      *
-//      */
-//     public static function updateProfile($request, $match)
-//     {
-//         $profile = Pluf::factory('Shop_Profile')->getList(array(
-//             'order' => 'id ASC'
-//         ));
-//         if ($profile == null || empty($profile) || $profile->count() == 0) {
-//             $form = new Shop_Form_Profile(array_merge($request->REQUEST, $request->FILES), array());
-//             $profile = $form->save();
-//         } else {
-//             $profile = $profile[0];
-//             $form = Pluf_Shortcuts_GetFormForUpdateModel($profile, $request->REQUEST, array());
-//             $profile = $form->save();
-//         }
-//         return new Pluf_HTTP_Response_Json($profile);
-//     }
-
-//     /**
-//      * Returns information of profile of shop
-//      *
-//      */
-//     public static function getProfile($request, $match)
-//     {
-//         $profile = Pluf::factory('Shop_Profile')->getList(array(
-//             'order' => 'id ASC'
-//         ));
-//         if ($profile == null || empty($profile) || $profile->count() == 0) {
-//             $profile = Pluf::factory('Shop_Profile');
-//         } else {
-//             $profile = $profile[0];
-//         }
-//         // TODO: hadi, 1395: we should hide secure information of profile.
-//         return new Pluf_HTTP_Response_Json($profile);
-//     }
-
-    // *******************************************************************
     // Tags of an item
     // *******************************************************************
     public static function tags($request, $match, $p)
