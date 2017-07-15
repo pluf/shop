@@ -3,7 +3,7 @@
 	"description" : "Simple online shop and service",
 	"type" : "library",
 	"license" : "MIT",
-	"version" : "0.1.0",
+	"version" : "0.2.0",
 	"authors" : [{
 			"name" : "Mostafa Barmshory",
 			"email" : "mostafa.barmshory@dpq.co.ir",
