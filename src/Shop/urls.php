@@ -1,35 +1,95 @@
 <?php
 return array(
-    // ************************************************************* Shop Profile
-    array( // Get profile of current shop
-        'regex' => '#^/profile$#',
-        'model' => 'Shop_Views',
-        'method' => 'getProfile',
-        'http-method' => 'GET'
+    // ************************************************************* Shop Agency
+    array(
+        'regex' => '#^/agency/find$#',
+        'model' => 'Pluf_Views',
+        'method' => 'findObject',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Agency',
+            'sql' => new Pluf_SQL('deleted=false'),
+            'listFilters' => array(
+                'id',
+                'title',
+                'province',
+                'city',
+                'address',
+                'phone'
+            ),
+            'listDisplay' => array(
+                'title' => 'title',
+                'province' => 'province',
+                'city' => 'city',
+                'address' => 'address',
+                'phone' => 'phone',
+                'description' => 'description'
+            ),
+            'searchFields' => array(
+                'title',
+                'province',
+                'city',
+                'address',
+                'phone',
+                'description'
+            ),
+            'sortFields' => array(
+                'id',
+                'title',
+                'province',
+                'city',
+                'phone',
+                'point',
+                'creation_date',
+                'modif_dtime'
+            )
+        )
     ),
-    array( // Update profile of current shop
-        'regex' => '#^/profile$#',
-        'model' => 'Shop_Views',
-        'method' => 'updateProfile',
+    array(
+        'regex' => '#^/agency/new$#',
+        'model' => 'Pluf_Views',
+        'method' => 'createObject',
+        'http-method' => 'POST',
         'precond' => array(
             'Pluf_Precondition::ownerRequired'
         ),
-        'http-method' => 'POST'
+        'params' => array(
+            'model' => 'Shop_Agency'
+        )
     ),
-    array( // Get profile of shop (by id)
-        'regex' => '#^/(?P<userId>\d+)/profile$#',
-        'model' => 'User_Views_Profile',
-        'method' => 'get',
-        'http-method' => 'GET'
+    array(
+        'regex' => '#^/agency/(?P<modelId>\d+)$#',
+        'model' => 'Pluf_Views',
+        'method' => 'getObject',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Agency'
+        )
     ),
-    array( // Update profile of user (by id)
-        'regex' => '#^/(?P<userId>\d+)/profile$#',
-        'model' => 'User_Views_Profile',
-        'method' => 'update',
+    array(
+        'regex' => '#^/agency/(?P<modelId>\d+)$#',
+        'model' => 'Pluf_Views',
+        'method' => 'deleteObject',
+        'http-method' => 'DELETE',
         'precond' => array(
             'Pluf_Precondition::ownerRequired'
         ),
-        'http-method' => 'POST'
+        'params' => array(
+            'model' => 'Shop_Agency',
+            'permanently' => false
+        )
+    ),
+    array(
+        'regex' => '#^/agency/(?P<modelId>\d+)$#',
+        'model' => 'Pluf_Views',
+        'method' => 'updateObject',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        ),
+        'params' => array(
+            'model' => 'Shop_Agency'
+        )
     ),
     // ************************************************************* Product
     array( // Find

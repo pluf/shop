@@ -32,7 +32,7 @@
 	"include-path" : [
 		"src/"
 	],
-	"homepage" : "https://gitlab.com/english-elearning-entertainment/eee-server",
+	"homepage" : "https://gitlab.com/microshop/shop",
 	"support" : {
 		"email" : "info@pluf.ir",
 		"issues" : "https://gitlab.com/microshop/shop/issues",

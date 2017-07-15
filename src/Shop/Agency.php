@@ -1,12 +1,12 @@
 <?php
 
 /**
- * ساختار داده‌ای پروفایل کاربر را تعیین می‌کند.
+ * ساختار داده‌ای شعب یک فروشگاه را تعیین می‌کند.
  * 
  * @author hadi <mohammad.hadi.mansouri@dpq.co.ir>
  *
  */
-class Shop_Profile extends Pluf_Model
+class Shop_Agency extends Pluf_Model
 {
 
     /**
@@ -19,9 +19,9 @@ class Shop_Profile extends Pluf_Model
      */
     function init()
     {
-        $this->_a['table'] = 'shop_profile';
-        $this->_a['model'] = 'Shop_Profile';
-        $this->_model = 'Shop_Profile';
+        $this->_a['table'] = 'shop_agency';
+        $this->_a['model'] = 'Shop_Agency';
+        $this->_model = 'Shop_Agency';
         
         $this->_a['cols'] = array(
             'id' => array(
@@ -36,10 +36,17 @@ class Shop_Profile extends Pluf_Model
 //                 'unique' => true,
 //                 'editable' => false
 //             ),
-            'name' => array(
+            'title' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'size' => 250,
                 'is_null' => false,
+                'editable' => true,
+                'readable' => true
+            ),
+            'description' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'is_null' => true,
+                'size' => 250,
                 'editable' => true,
                 'readable' => true
             ),
@@ -82,6 +89,13 @@ class Shop_Profile extends Pluf_Model
                 'type' => 'Geo_DB_Field_Point',
                 'is_null' => false
             ),
+            'deleted' => array(
+                'type' => 'Pluf_DB_Field_Boolean',
+                'is_null' => false,
+                'default' => false,
+                'editable' => false,
+                'readable' => false
+            ),
             'creation_dtime' => array(
                 'type' => 'Pluf_DB_Field_Datetime',
                 'blank' => true,
@@ -93,7 +107,15 @@ class Shop_Profile extends Pluf_Model
                 'blank' => true,
                 'verbose' => __('modification date'),
                 'editable' => false
-            )
+            ),
+            // رابطه‌ها
+            'owner' => array(
+                'type' => 'Pluf_DB_Field_Manytomany',
+                'model' => 'Pluf_User',
+                'relate_name' => 'owner',
+                'editable' => true,
+                'readable' => true
+            ),
         );
     }
 

@@ -30,5 +30,10 @@ return array(
         'relate_to' => array(
             'Pluf_User'
         )
-    )
+    ),
+    'Shop_Agency' => array(
+        'relate_to_many' => array(
+            'Pluf_User'
+        )
+    ),
 );

@@ -9,7 +9,7 @@
 		"Shop_ProductItem",
 		"Shop_ServiceItem",
 		"Shop_Order",
-		"Shop_Profile"
+		"Shop_Agency"
 	],
 	"permisson": []
 }
