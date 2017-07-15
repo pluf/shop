@@ -555,7 +555,7 @@ Extends from DetailedObject</panel_attributes>
     </coordinates>
     <panel_attributes>// Extends from DetailedObject
 &lt;&lt;Order&gt;&gt;
-MicroShop::Workshop
+MicroShop::Agency
 --
 +address: string
 +latitude: double
@@ -738,5 +738,16 @@ m1=0..n
 m2=0..n
 tags</panel_attributes>
     <additional_attributes>60.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>306</y>
+      <w>1341</w>
+      <h>1404</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;1540.0;1470.0;1540.0;1470.0;10.0</additional_attributes>
   </element>
 </diagram>

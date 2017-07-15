@@ -132,7 +132,6 @@ class Shop_Agency extends Pluf_Model
     {
         if ($this->id == '') {
             $this->creation_dtime = gmdate('Y-m-d H:i:s');
-            $this->access_count = 0;
         }
         $this->modif_dtime = gmdate('Y-m-d H:i:s');
     }
