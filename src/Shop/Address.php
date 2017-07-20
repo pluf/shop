@@ -1,12 +1,12 @@
 <?php
 
 /**
- * ساختار داده‌ای شعب یک فروشگاه را تعیین می‌کند.
+ * ساختار داده‌ای برای ذخیره آدرس‌ها و اطلاعات مکانی.
  * 
  * @author hadi <mohammad.hadi.mansouri@dpq.co.ir>
  *
  */
-class Shop_Agency extends Shop_DetailedObject
+class Shop_Address extends Pluf_Model
 {
 
     /**
@@ -19,22 +19,28 @@ class Shop_Agency extends Shop_DetailedObject
      */
     function init()
     {
-        $this->_a['table'] = 'shop_agency';
-        $this->_a['model'] = 'Shop_Agency';
-        $this->_model = 'Shop_Agency';
+        $this->_a['table'] = 'shop_address';
+        $this->_a['verbose'] = 'Shop_Address';
+        $this->_model = 'Shop_Address';
+        $this->_a['multitenant'] = false;
         
-        $this->_a['cols'] = array_merge($this->_a['col'], array(
+        $this->_a['cols'] = array(
+            'id' => array(
+                'type' => 'Pluf_DB_Field_Sequence',
+                'blank' => true,
+                'editable' => false
+            ),
             'province' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'size' => 100,
-                'is_null' => false,
+                'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'city' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'size' => 100,
-                'is_null' => false,
+                'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
@@ -45,68 +51,32 @@ class Shop_Agency extends Shop_DetailedObject
                 'editable' => true,
                 'readable' => true
             ),
-            'phone' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
-                'size' => 50,
+            'point' => array(
+                'type' => 'Geo_DB_Field_Point',
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
-            'point' => array(
-                'type' => 'Geo_DB_Field_Point',
-                'is_null' => false
-            ),
-            'deleted' => array(
-                'type' => 'Pluf_DB_Field_Boolean',
-                'is_null' => false,
-                'default' => false,
-                'editable' => false,
-                'readable' => false
-            ),
             'creation_dtime' => array(
                 'type' => 'Pluf_DB_Field_Datetime',
                 'blank' => true,
-                'verbose' => __('creation date'),
                 'editable' => false
             ),
             'modif_dtime' => array(
                 'type' => 'Pluf_DB_Field_Datetime',
                 'blank' => true,
-                'verbose' => __('modification date'),
                 'editable' => false
             ),
             // رابطه‌ها
-            'owner' => array(
+            'user' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'Pluf_User',
                 'relate_name' => 'owner',
-                'editable' => true,
-                'readable' => true
-            ),
-            'content' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'CMS_Content',
-                'relate_name' => 'agency_content',
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
-            )
-        ));
-    }
-
-    /**
-     * Checks if given user is a owner of zone
-     *
-     * @param Pluf_User $user            
-     * @return boolean
-     */
-    function isOwner($user)
-    {
-        $usres = $this->get_owner_list();
-        foreach ($usres as $u)
-            if ($u->getId() == $user->getId())
-                return true;
-        return false;
+            ),
+        );
     }
 
     /**

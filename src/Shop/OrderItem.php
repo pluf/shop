@@ -10,13 +10,46 @@ class Shop_OrderItem extends Pluf_Model
      */
     function init()
     {
-//         $this->_a['table'] = 'shop_order_item';
-//         $this->_a['verbose'] = 'Shop_OrderItem';
+        $this->_a['table'] = 'shop_order_item';
+        $this->_a['verbose'] = 'Shop_OrderItem';
         $this->_a['cols'] = array(
             'id' => array(
                 'type' => 'Pluf_DB_Field_Sequence',
                 'blank' => false,
                 'editable' => false,
+                'readable' => true
+            ),
+            'title' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'blank' => false,
+                'size' => 250,
+                'editable' => true,
+                'readable' => true
+            ),
+            'item_id' => array(
+                'type' => 'Pluf_DB_Field_Integer',
+                'blank' => false,
+                'editable' => true,
+                'readable' => true
+            ),
+            'item_type' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'blank' => false,
+                'size' => 50,
+                'editable' => true,
+                'readable' => true
+            ),
+//             'properties' => array(
+//                 'type' => 'Pluf_DB_Field_Text',
+//                 'blank' => true,
+//                 'size' => 3000,
+//                 'editable' => true,
+//                 'readable' => true
+//             ),
+            'count' => array(
+                'type' => 'Pluf_DB_Field_Integer',
+                'blank' => false,
+                'editable' => true,
                 'readable' => true
             ),
             'price' => array(
