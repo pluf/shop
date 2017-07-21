@@ -87,6 +87,13 @@ class Shop_Order extends Pluf_Model
                 'editable' => true,
                 'readable' => true
             ),
+            'workflow' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'blank' => true,
+                'size' => 100,
+                'editable' => true,
+                'readable' => true
+            ),
             'state' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => true,
