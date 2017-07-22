@@ -16,11 +16,10 @@ class Shop_Zone extends Shop_DetailedObject
      */
     function init()
     {
+        parent::init();
         $this->_model = 'Shop_Zone';
-        
         $this->_a['table'] = 'shop_zone';
         $this->_a['verbose'] = 'Shop zone';
-        $this->_model = 'Shop_Zone';
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'province' => array(
                 'type' => 'Pluf_DB_Field_Varchar',

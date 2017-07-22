@@ -19,6 +19,7 @@ class Shop_Agency extends Shop_DetailedObject
      */
     function init()
     {
+        parent::init();
         $this->_a['table'] = 'shop_agency';
         $this->_a['model'] = 'Shop_Agency';
         $this->_model = 'Shop_Agency';
