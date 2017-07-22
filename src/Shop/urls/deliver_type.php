@@ -1,36 +1,38 @@
 <?php
 return array(
-    // ************************************************************* TaxClass
+    // ************************************************************* DeliverType
     array( // Find
-        'regex' => '#^/tax/find$#',
+        'regex' => '#^/deliver/find$#',
         'model' => 'Pluf_Views',
         'method' => 'findObject',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_TaxClass',
+            'model' => 'Shop_DeliverType',
             'listFilters' => array(
                 'id',
                 'title',
-                'rate'
+                'price',
+                'off'
             ),
             'searchFields' => array(
                 'title',
-                'rate'
+                'description'
             ),
             'sortFields' => array(
                 'id',
                 'title',
-                'rate'
+                'price',
+                'off'
             )
         )
     ),
     array( // Create
-        'regex' => '#^/tax/new$#',
+        'regex' => '#^/deliver/new$#',
         'model' => 'Pluf_Views',
         'method' => 'createObject',
         'http-method' => 'POST',
         'params' => array(
-            'model' => 'Shop_TaxClass'
+            'model' => 'Shop_DeliverType'
         ),
         'precond' => array(
             'Pluf_Precondition::loginRequired',
@@ -38,21 +40,21 @@ return array(
         )
     ),
     array( // Get info
-        'regex' => '#^/tax/(?P<modelId>\d+)$#',
+        'regex' => '#^/deliver/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'getObject',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_TaxClass'
+            'model' => 'Shop_DeliverType'
         )
     ),
     array( // Delete
-        'regex' => '#^/tax/(?P<modelId>\d+)$#',
+        'regex' => '#^/deliver/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
         'params' => array(
-            'model' => 'Shop_TaxClass',
+            'model' => 'Shop_DeliverType',
             'permanently' => true
         ),
         'precond' => array(
@@ -61,16 +63,18 @@ return array(
         )
     ),
     array( // Update
-        'regex' => '#^/tax/(?P<modelId>\d+)$#',
+        'regex' => '#^/deliver/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'updateObject',
         'http-method' => 'POST',
         'params' => array(
-            'model' => 'Shop_TaxClass'
+            'model' => 'Shop_DeliverType'
         ),
         'precond' => array(
             'Pluf_Precondition::loginRequired',
             'Pluf_Precondition::memberRequired'
         )
     )
+    
+    // TODO: Hadi: add REST to set deliver type for products and services
 );

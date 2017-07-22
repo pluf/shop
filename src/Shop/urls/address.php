@@ -1,36 +1,41 @@
 <?php
 return array(
-    // ************************************************************* TaxClass
+    // ************************************************************* Address
     array( // Find
-        'regex' => '#^/tax/find$#',
+        'regex' => '#^/address/find$#',
         'model' => 'Pluf_Views',
         'method' => 'findObject',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_TaxClass',
+            'model' => 'Shop_Address',
             'listFilters' => array(
                 'id',
-                'title',
-                'rate'
+                'province',
+                'city',
+                'point',
+                'user'
             ),
             'searchFields' => array(
-                'title',
-                'rate'
+                'province',
+                'city',
+                'address'
             ),
             'sortFields' => array(
                 'id',
-                'title',
-                'rate'
+                'province',
+                'city',
+                'point',
+                'user'
             )
         )
     ),
     array( // Create
-        'regex' => '#^/tax/new$#',
+        'regex' => '#^/address/new$#',
         'model' => 'Pluf_Views',
         'method' => 'createObject',
         'http-method' => 'POST',
         'params' => array(
-            'model' => 'Shop_TaxClass'
+            'model' => 'Shop_Address'
         ),
         'precond' => array(
             'Pluf_Precondition::loginRequired',
@@ -38,21 +43,21 @@ return array(
         )
     ),
     array( // Get info
-        'regex' => '#^/tax/(?P<modelId>\d+)$#',
+        'regex' => '#^/address/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'getObject',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_TaxClass'
+            'model' => 'Shop_Address'
         )
     ),
     array( // Delete
-        'regex' => '#^/tax/(?P<modelId>\d+)$#',
+        'regex' => '#^/address/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
         'params' => array(
-            'model' => 'Shop_TaxClass',
+            'model' => 'Shop_Address',
             'permanently' => true
         ),
         'precond' => array(
@@ -61,16 +66,18 @@ return array(
         )
     ),
     array( // Update
-        'regex' => '#^/tax/(?P<modelId>\d+)$#',
+        'regex' => '#^/address/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'updateObject',
         'http-method' => 'POST',
         'params' => array(
-            'model' => 'Shop_TaxClass'
+            'model' => 'Shop_Address'
         ),
         'precond' => array(
             'Pluf_Precondition::loginRequired',
             'Pluf_Precondition::memberRequired'
         )
     )
+    
+    // TODO: Hadi: add REST to add/remove address for users
 );
