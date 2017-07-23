@@ -7,7 +7,8 @@ $paths = array(
     'urls/product.php',
     'urls/service.php',
     'urls/tag_category.php',
-    'urls/tax.php'
+    'urls/tax.php',
+    'urls/zone.php'
 );
 
 $shopApi = array();
