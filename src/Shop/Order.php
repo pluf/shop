@@ -170,7 +170,7 @@ class Shop_Order extends Pluf_Model
             ),
             'agency' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'Shop_DeliverType',
+                'model' => 'Shop_Agency',
                 'relate_name' => 'agency',
                 'is_null' => true,
                 'editable' => false,
