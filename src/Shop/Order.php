@@ -87,12 +87,12 @@ class Shop_Order extends Pluf_Model
                 'editable' => true,
                 'readable' => true
             ),
-            'workflow' => array(
+            'manager' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => true,
                 'size' => 100,
-                'editable' => true,
-                'readable' => true
+                'editable' => false,
+                'readable' => false
             ),
             'state' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
@@ -121,17 +121,25 @@ class Shop_Order extends Pluf_Model
                 'readable' => true
             ),
             // relations
-//             'items' => array(
-//                 'type' => 'Pluf_DB_Field_Manytomany',
-//                 'model' => 'Shop_OrderItem',
-//                 'relate_name' => 'items',
-//                 'editable' => false,
-//                 'readable' => false
-//             ),
+            // 'items' => array(
+            // 'type' => 'Pluf_DB_Field_Manytomany',
+            // 'model' => 'Shop_OrderItem',
+            // 'relate_name' => 'items',
+            // 'editable' => false,
+            // 'readable' => false
+            // ),
             'customer' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Pluf_User',
                 'relate_name' => 'customer',
+                'is_null' => true,
+                'editable' => false,
+                'readable' => true
+            ),
+            'assignee' => array(
+                'type' => 'Pluf_DB_Field_Foreignkey',
+                'model' => 'Pluf_User',
+                'relate_name' => 'assignee',
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true
@@ -192,7 +200,60 @@ class Shop_Order extends Pluf_Model
     {
         if ($this->id == '') {
             $this->creation_dtime = gmdate('Y-m-d H:i:s');
+            $this->secureId = $this->getSecureId();
+            $this->manager = Config_Service::get('Shop.Order.Manaager', 'Shop_Views_DefaulOrderManager');
         }
         $this->modif_dtime = gmdate('Y-m-d H:i:s');
+    }
+
+    /**
+     * حالت کار ایجاد شده را به روز می‌کند
+     *
+     * @see Pluf_Model::postSave()
+     */
+    function postSave($create = false)
+    {
+        //
+    }
+
+    /**
+     * یک کلید جدید را ایجاد می‌کند.
+     *
+     * از این کلید برای دستیابی به داده‌ها استفاده می‌شود.
+     */
+    function getSecureId()
+    {
+        while (1) {
+            $key = md5(microtime() . rand(0, 123456789) . rand(0, 123456789) . Pluf::f('secret_key'));
+            $sess = $this->getList(array(
+                'filter' => 'secureId=\'' . $key . '\''
+            ));
+            if (count($sess) == 0) {
+                break;
+            }
+        }
+        return $key;
+    }
+
+    function getManager()
+    {
+        $managerClassName = $this->get_manager();
+        if (! isset($managerClassName))
+            $managerClassName = Config_Service::get('Shop.Order.Manager', 'Shop_Views_DefaultOrderManager');
+        return $managerClassName;
+    }
+    
+    /**
+     * Computes and returns total price of order
+     * @return number
+     */
+    function computeTotalPrice(){
+        $orderItem = new Shop_OrderItem();
+        $items = $orderItem->getList('order=' . $this->getId());
+        $totalPrice = 0;
+        foreach ($items as $item){
+            $totalPrice += $item->price - $item->off;
+        }
+        return $totalPrice;
     }
 }

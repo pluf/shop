@@ -23,7 +23,7 @@ class Shop_OrderItem extends Pluf_Model
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => false,
                 'size' => 250,
-                'editable' => true,
+                'editable' => false,
                 'readable' => true
             ),
             'item_id' => array(
@@ -55,13 +55,13 @@ class Shop_OrderItem extends Pluf_Model
             'price' => array(
                 'type' => 'Pluf_DB_Field_Integer',
                 'blank' => false,
-                'editable' => true,
+                'editable' => false,
                 'readable' => true
             ),
             'off' => array(
                 'type' => 'Pluf_DB_Field_Integer',
                 'blank' => false,
-                'editable' => true,
+                'editable' => false,
                 'readable' => true
             ),
             'creation_dtime' => array(
@@ -93,5 +93,9 @@ class Shop_OrderItem extends Pluf_Model
         if ($this->id == '') {
             $this->creation_dtime = gmdate('Y-m-d H:i:s');
         }
+        $originItem = Pluf_Shortcuts_GetObjectOr404($this->item_type, $this->item_id);
+        $this->title = $originItem->title;
+        $this->price = $originItem->price;
+        $this->off = $originItem->off;
     }
 }

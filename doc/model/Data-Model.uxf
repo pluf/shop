@@ -94,7 +94,7 @@ MicroShop::Order
 +address: string
 +point: POINT
 +description: string
-+workflow: string
++manager: string
 +state: string
 +creation_dtime: DateTime
 +modif_dtime: DateTime</panel_attributes>
