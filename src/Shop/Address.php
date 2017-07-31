@@ -69,11 +69,11 @@ class Shop_Address extends Pluf_Model
             ),
             // رابطه‌ها
             'user' => array(
-                'type' => 'Pluf_DB_Field_Manytomany',
+                'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Pluf_User',
-                'relate_name' => 'owner',
+                'relate_name' => 'user',
                 'is_null' => true,
-                'editable' => true,
+                'editable' => false,
                 'readable' => true
             ),
         );

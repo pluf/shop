@@ -28,6 +28,7 @@ class Shop_Contact extends Pluf_Model
             'contact' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => false,
+                'is_null' => false,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
@@ -49,10 +50,11 @@ class Shop_Contact extends Pluf_Model
             'user' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Pluf_User',
-                'relate_name' => 'owner',
-                'editable' => true,
+                'relate_name' => 'user',
+                'is_null' => true,
+                'editable' => false,
                 'readable' => true
-            ),
+            )
         );
         
         // $this->_a['idx'] = array(

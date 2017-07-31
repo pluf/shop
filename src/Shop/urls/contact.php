@@ -3,78 +3,47 @@ return array(
     // ************************************************************* Contact
     array( // Find
         'regex' => '#^/contact/find$#',
-        'model' => 'Pluf_Views',
-        'method' => 'findObject',
+        'model' => 'Shop_Views_Contact',
+        'method' => 'find',
         'http-method' => 'GET',
-        'params' => array(
-            'model' => 'Shop_Contact',
-            'listFilters' => array(
-                'id',
-                'contact',
-                'type',
-                'user'
-            ),
-            'searchFields' => array(
-                'contact',
-                'type'
-            ),
-            'sortFields' => array(
-                'id',
-                'contact',
-                'type',
-                'user'
-            )
+        'precond' => array(
+            'Pluf_Precondition::loginRequired'
         )
     ),
     array( // Create
         'regex' => '#^/contact/new$#',
-        'model' => 'Pluf_Views',
-        'method' => 'createObject',
+        'model' => 'Shop_Views_Contact',
+        'method' => 'create',
         'http-method' => 'POST',
-        'params' => array(
-            'model' => 'Shop_Contact'
-        ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'Pluf_Precondition::loginRequired'
         )
     ),
     array( // Get info
-        'regex' => '#^/contact/(?P<modelId>\d+)$#',
-        'model' => 'Pluf_Views',
-        'method' => 'getObject',
+        'regex' => '#^/contact/(?P<contactId>\d+)$#',
+        'model' => 'Shop_Views_Contact',
+        'method' => 'get',
         'http-method' => 'GET',
-        'params' => array(
-            'model' => 'Shop_Contact'
+        'precond' => array(
+            'Pluf_Precondition::loginRequired'
         )
     ),
     array( // Delete
-        'regex' => '#^/contact/(?P<modelId>\d+)$#',
-        'model' => 'Pluf_Views',
-        'method' => 'deleteObject',
+        'regex' => '#^/contact/(?P<contactId>\d+)$#',
+        'model' => 'Shop_Views_Contact',
+        'method' => 'delete',
         'http-method' => 'DELETE',
-        'params' => array(
-            'model' => 'Shop_Contact',
-            'permanently' => true
-        ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'Pluf_Precondition::loginRequired'
         )
     ),
     array( // Update
-        'regex' => '#^/contact/(?P<modelId>\d+)$#',
-        'model' => 'Pluf_Views',
-        'method' => 'updateObject',
+        'regex' => '#^/contact/(?P<contactId>\d+)$#',
+        'model' => 'Shop_Views_Contact',
+        'method' => 'update',
         'http-method' => 'POST',
-        'params' => array(
-            'model' => 'Shop_Contact'
-        ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'Pluf_Precondition::loginRequired'
         )
     )
-    
-    // TODO: Hadi: add REST to add/remove contact for users
 );
