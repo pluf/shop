@@ -10,7 +10,7 @@ Pluf::loadFunction('Pluf_Shortcuts_GetRequestParam');
  * @author hadi<mohammad.hadi.mansouri@dpq.co.ir>
  *        
  */
-class Shop_Views_DefaultOrderManager
+class Shop_DefaultOrderManager
 {
     /**
      * ایجاد فیلتر سفارشات بر اساس درخواست

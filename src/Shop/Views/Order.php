@@ -8,20 +8,31 @@ class Shop_Views_Order
     /**
      * یک تقاضای جدید در سیستم ایجاد می‌کند.
      *
-     * @param unknown $request            
-     * @param unknown $match            
+     * @param Pluf_HTTP_Request $request            
+     * @param array $match            
      * @return Pluf_HTTP_Response_Json
      */
     public static function create($request, $match)
     {
-        $extra = array(
-            'user' => $request->user
-        );
-        $form = new Shop_Form_OrderCreate($request->REQUEST, $extra);
+        $user = $request->user;
+        $data = $request->REQUEST;
+        if (isset($user)) {
+            $request->REQUEST['full_name'] = isset($data['full_name']) ? $data['full_name'] : $user->first_name . ' ' . $user->last_name;
+            $request->REQUEST['email'] = isset($data['email']) ? $data['email'] : $user->email;
+            // TODO: hadi: get phone number from profile and set it if alread is not set.
+        }
+        $form = Pluf_Shortcuts_GetFormForModel(Pluf::factory('Shop_Order'), $request->REQUEST);
         $order = $form->save();
+        $user = $request->user;
+        if (isset($user)) {
+            $order->set_customer($user);
+        }
+        $order->update();
+        
         $match['orderId'] = $order->id;
         $match['action'] = 'create';
-        $manager = Pluf::factory($order->getManager());
+        $mngModel = $order->manager;
+        $manager = new $mngModel();
         $manager->run($request, $match);
         return new Pluf_HTTP_Response_Json(array_merge($order->jsonSerialize(), array(
             'secureId' => $order->secureId
@@ -241,7 +252,7 @@ class Shop_Views_Order
 
     /**
      * Checks
-     * 
+     *
      * @param unknown $order            
      * @return Pluf_HTTP_Response_Json|unknown
      */
@@ -254,5 +265,25 @@ class Shop_Views_Order
         Bank_Service::update($receipt);
         if ($order->get_payment()->isPayed())
             return $order;
+    }
+
+    /**
+     *
+     * @param Pluf_HTTP_Request $request            
+     * @param array $match            
+     * @return Pluf_HTTP_Response_Json
+     */
+    public static function setDeliverType($request, $match)
+    {
+        if (isset($match['secureId'])) {
+            $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
+        } else {
+            $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+            checkAccess($request, $order);
+        }
+        $deliver = Pluf_Shortcuts_GetObjectOr404('Shop_DeliverType', $match['deliverId']);
+        $order->set_deliver_type($deliver);
+        $order->update();
+        return new Pluf_HTTP_Response_Json($order);
     }
 }

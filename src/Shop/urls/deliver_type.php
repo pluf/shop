@@ -35,8 +35,7 @@ return array(
             'model' => 'Shop_DeliverType'
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'Pluf_Precondition::ownerRequired'
         )
     ),
     array( // Get info
@@ -71,10 +70,7 @@ return array(
             'model' => 'Shop_DeliverType'
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'Pluf_Precondition::ownerRequired'
         )
     )
-    
-    // TODO: Hadi: add REST to set deliver type for products and services
 );

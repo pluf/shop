@@ -87,4 +87,20 @@ return array(
             'Pluf_Precondition::ownerRequired'
         )
     ),
+    // ************************************************************* Order Deliver Type
+    array( // set deliver type
+        'regex' => '#^/order/(?P<orderId>\d+)/deliver/(?P<deliverId>\d+)$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'setDeliverType',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::loginRequired'
+        )
+    ),
+    array( // set deliver type
+        'regex' => '#^/order/(?P<secureId>[^/]+)/deliver/(?P<deliverId>\d+)$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'setDeliverType',
+        'http-method' => 'POST'
+    ),
 );

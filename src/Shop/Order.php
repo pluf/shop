@@ -28,7 +28,7 @@ class Shop_Order extends Pluf_Model
             ),
             'title' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
-                'blank' => false,
+                'blank' => true,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
@@ -201,7 +201,7 @@ class Shop_Order extends Pluf_Model
         if ($this->id == '') {
             $this->creation_dtime = gmdate('Y-m-d H:i:s');
             $this->secureId = $this->getSecureId();
-            $this->manager = Config_Service::get('Shop.Order.Manaager', 'Shop_Views_DefaulOrderManager');
+            $this->manager = Config_Service::get('Shop.Order.Manager', 'Shop_DefaultOrderManager');
         }
         $this->modif_dtime = gmdate('Y-m-d H:i:s');
     }
@@ -237,9 +237,9 @@ class Shop_Order extends Pluf_Model
 
     function getManager()
     {
-        $managerClassName = $this->get_manager();
+        $managerClassName = $this->manager;
         if (! isset($managerClassName))
-            $managerClassName = Config_Service::get('Shop.Order.Manager', 'Shop_Views_DefaultOrderManager');
+            $managerClassName = Config_Service::get('Shop.Order.Manager', 'Shop_DefaultOrderManager');
         return $managerClassName;
     }
     
