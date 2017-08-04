@@ -1,7 +1,7 @@
 <?php
 return array(
     // ************************************************************* Shop Agency
-    array(
+    array( // Find
         'regex' => '#^/agency/find$#',
         'model' => 'Pluf_Views',
         'method' => 'findObject',
@@ -45,7 +45,7 @@ return array(
             )
         )
     ),
-    array(
+    array( // Create
         'regex' => '#^/agency/new$#',
         'model' => 'Pluf_Views',
         'method' => 'createObject',
@@ -57,7 +57,7 @@ return array(
             'model' => 'Shop_Agency'
         )
     ),
-    array(
+    array( // Get info
         'regex' => '#^/agency/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'getObject',
@@ -66,7 +66,7 @@ return array(
             'model' => 'Shop_Agency'
         )
     ),
-    array(
+    array( // Delete
         'regex' => '#^/agency/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'deleteObject',
@@ -79,7 +79,7 @@ return array(
             'permanently' => false
         )
     ),
-    array(
+    array( // Update info
         'regex' => '#^/agency/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'updateObject',
@@ -89,6 +89,43 @@ return array(
         ),
         'params' => array(
             'model' => 'Shop_Agency'
+        )
+    ),
+    // ************************************************************* Owners of Agency
+    array( // Find owners
+        'regex' => '#^/agency/(?P<agencyId>\d+)/owner/find$#',
+        'model' => 'Shop_Views_Agency',
+        'method' => 'owners',
+        'http-method' => 'GET',
+        'precond' => array(
+            'Pluf_Precondition::loginRequired'
+        )
+    ),
+    array( // Add owner
+        'regex' => '#^/agency/(?P<agencyId>\d+)/owner/new$#',
+        'model' => 'Shop_Views_Agency',
+        'method' => 'addOwner',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        )
+    ),
+    array( // Add owner
+        'regex' => '#^/agency/(?P<agencyId>\d+)/owner/(?P<userId>\d+)$#',
+        'model' => 'Shop_Views_Agency',
+        'method' => 'addOwner',
+        'http-method' => 'POST',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
+        )
+    ),
+    array( // Delete owner
+        'regex' => '#^/agency/(?P<agencyId>\d+)/owner/(?P<userId>\d+)$#',
+        'model' => 'Shop_Views_Agency',
+        'method' => 'removeOwner',
+        'http-method' => 'DELETE',
+        'precond' => array(
+            'Pluf_Precondition::ownerRequired'
         )
     )
 );

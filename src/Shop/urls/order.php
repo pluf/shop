@@ -1,7 +1,7 @@
 <?php
 return array(
     // ************************************************************* Order
-    array(
+    array( // find orders
         'regex' => '#^/order/find$#',
         'model' => 'Shop_Views_Order',
         'method' => 'find',
@@ -10,13 +10,13 @@ return array(
             'Pluf_Precondition::authorizedRequired'
         )
     ),
-    array(
+    array( // create new order
         'regex' => '#^/order/new$#',
         'model' => 'Shop_Views_Order',
         'method' => 'create',
         'http-method' => 'POST'
     ),
-    array(
+    array( // get order info
         'regex' => '#^/order/(?P<orderId>\d+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'get',
@@ -25,7 +25,14 @@ return array(
             'Pluf_Precondition::loginRequired'
         )
     ),
-    array(
+    array( // get order info (by secure id)
+        'regex' => '#^/order/(?P<secureId>[^/]+)$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'getBySecureId',
+        'http-method' => 'GET',
+        'precond' => array()
+    ),
+    array( // delete order
         'regex' => '#^/order/(?P<orderId>\d+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'delete',
@@ -34,7 +41,7 @@ return array(
             'Pluf_Precondition::ownerRequired'
         )
     ),
-    array(
+    array( // update order
         'regex' => '#^/order/(?P<orderId>\d+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'update',
@@ -43,28 +50,44 @@ return array(
             'Pluf_Precondition::memberRequired'
         )
     ),
-    array(
-        'regex' => '#^/order/(?P<orderId>\d+)/(?P<action>[^/]+)$#',
-        'model' => 'Shop_Views_OrderWorkflow',
-        'method' => 'properties',
+    // ************************************************************* Processing Order
+    array( // get possible actions
+        'regex' => '#^/order/(?P<orderId>\d+)/actions$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'actions',
         'http-method' => 'GET',
-        'precond' => array()
-    ),
-    array(
-        'regex' => '#^/order/(?P<orderId>\d+)/(?P<action>[^/]+)$#',
-        'model' => 'Shop_Views_OrderWorkflow',
-        'method' => 'run',
-        'http-method' => 'POST',
+        'precond' => array(),
         'precond' => array(
-            'Pluf_Precondition::authorizedRequired'
+            'Pluf_Precondition::loginRequired'
         )
     ),
-    array(
-        'regex' => '#^/order/(?P<secureId>[^/]+)$#',
+    array( // get possible actions (by secure id)
+        'regex' => '#^/order/(?P<secureId>[^/]+)/actions$#',
         'model' => 'Shop_Views_Order',
-        'method' => 'getBySecureId',
+        'method' => 'actions',
         'http-method' => 'GET',
-        'precond' => array()
+        'precond' => array(),
+        'precond' => array(
+            'Pluf_Precondition::loginRequired'
+        )
+    ),
+    array( // do action on order
+        'regex' => '#^/order/(?P<orderId>\d+)/(?P<action>[^/]+)$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'act',
+        'http-method' => 'PUT',
+        'precond' => array(
+            'Pluf_Precondition::loginRequired'
+        )
+    ),
+    array( // do action on order (by secure id)
+        'regex' => '#^/order/(?P<secureId>[^/]+)/(?P<action>[^/]+)$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'act',
+        'http-method' => 'PUT',
+        'precond' => array(
+            'Pluf_Precondition::loginRequired'
+        )
     ),
     // ************************************************************* Order Payments
     array( // pay for order
@@ -77,10 +100,10 @@ return array(
             'Pluf_Precondition::ownerRequired'
         )
     ),
-    array( // Activate order that has been payed
-        'regex' => '#^/order/(?P<orderId>\d+)/activate$#',
+    array( // Check payment state of order 
+        'regex' => '#^/order/(?P<orderId>\d+)/payment$#',
         'model' => 'Shop_Views_Order',
-        'method' => 'checkPay',
+        'method' => 'payInfo',
         'http-method' => 'GET',
         'precond' => array(
             'Pluf_Precondition::loginRequired',
@@ -102,5 +125,5 @@ return array(
         'model' => 'Shop_Views_Order',
         'method' => 'setDeliverType',
         'http-method' => 'POST'
-    ),
+    )
 );

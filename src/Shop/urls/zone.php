@@ -1,7 +1,7 @@
 <?php
 return array(
     // ************************************************************* Zone
-    array(
+    array( // Find
         'regex' => '#^/zone/find$#',
         'model' => 'Pluf_Views',
         'method' => 'findObject',
@@ -36,7 +36,7 @@ return array(
             )
         )
     ),
-    array(
+    array( // Create
         'regex' => '#^/zone/new$#',
         'model' => 'Pluf_Views',
         'method' => 'createObject',
@@ -48,7 +48,7 @@ return array(
             'model' => 'Shop_Zone'
         )
     ),
-    array(
+    array( // Get info
         'regex' => '#^/zone/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'getObject',
@@ -57,7 +57,7 @@ return array(
             'model' => 'Shop_Zone'
         )
     ),
-    array(
+    array( // Delete
         'regex' => '#^/zone/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'deleteObject',
@@ -70,7 +70,7 @@ return array(
             'permanently' => false
         )
     ),
-    array(
+    array( // Update info
         'regex' => '#^/zone/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'updateObject',
@@ -82,8 +82,8 @@ return array(
             'model' => 'Shop_Zone'
         )
     ),
-    
-    array(
+    // ************************************************************* Members of Zone
+    array( // Find members
         'regex' => '#^/zone/(?P<zoneId>\d+)/member/find$#',
         'model' => 'Shop_Views_Zone',
         'method' => 'members',
@@ -92,7 +92,7 @@ return array(
             'Pluf_Precondition::loginRequired'
         )
     ),
-    array(
+    array( // Add member
         'regex' => '#^/zone/(?P<zoneId>\d+)/member/new$#',
         'model' => 'Shop_Views_Zone',
         'method' => 'addMember',
@@ -101,7 +101,7 @@ return array(
             'Pluf_Precondition::ownerRequired'
         )
     ),
-    array(
+    array( // Add member
         'regex' => '#^/zone/(?P<zoneId>\d+)/member/(?P<userId>\d+)$#',
         'model' => 'Shop_Views_Zone',
         'method' => 'addMember',
@@ -110,7 +110,7 @@ return array(
             'Pluf_Precondition::ownerRequired'
         )
     ),
-    array(
+    array( // Delete member
         'regex' => '#^/zone/(?P<zoneId>\d+)/member/(?P<userId>\d+)$#',
         'model' => 'Shop_Views_Zone',
         'method' => 'removeMember',
@@ -119,4 +119,5 @@ return array(
             'Pluf_Precondition::ownerRequired'
         )
     )
+    // TODO: Hadi 1395-05: add REST to manage owner of zone
 );

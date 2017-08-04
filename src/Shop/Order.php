@@ -28,7 +28,8 @@ class Shop_Order extends Pluf_Model
             ),
             'title' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
-                'blank' => true,
+                'blank' => false,
+                'is_null' => false,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
@@ -235,25 +236,56 @@ class Shop_Order extends Pluf_Model
         return $key;
     }
 
+    /**
+     * Returns an object which manages order
+     * 
+     * @return unknown
+     */
     function getManager()
     {
         $managerClassName = $this->manager;
-        if (! isset($managerClassName))
+        if (! isset($managerClassName) || empty($managerClassName))
             $managerClassName = Config_Service::get('Shop.Order.Manager', 'Shop_DefaultOrderManager');
-        return $managerClassName;
+        return new $managerClassName();
     }
-    
+
     /**
      * Computes and returns total price of order
+     * 
      * @return number
      */
-    function computeTotalPrice(){
+    function computeTotalPrice()
+    {
         $orderItem = new Shop_OrderItem();
-        $items = $orderItem->getList('order=' . $this->getId());
+        $q = new Pluf_SQL('`order`=%s', array(
+            $this->getId()
+        ));
+        $items = $orderItem->getList(array(
+            'filter' => $q->gen()
+        ));
         $totalPrice = 0;
-        foreach ($items as $item){
-            $totalPrice += $item->price - $item->off;
+        foreach ($items as $item) {
+            $totalPrice += ($item->price - $item->off) * $item->count;
         }
+        // TODO: hadi: add tax and delivery cost
         return $totalPrice;
+    }
+
+    function hasPayment(){
+        return $this->payment != null || $this->payment != 0;
+    }
+    
+    function isPayed()
+    {
+        if (! $this->payment) {
+            return false;
+        }
+        $receipt = $this->get_payment();
+        Bank_Service::update($receipt);
+        return $this->get_payment()->isPayed();
+    }
+    
+    function invalidatePayment(){
+        $this->payment = null;
     }
 }

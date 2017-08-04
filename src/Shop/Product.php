@@ -54,4 +54,13 @@ class Shop_Product extends Shop_PricedObject
         ));
     }
 
+    function toString(){
+        $str = $this->title . ' (' . $this->brand;
+        if(isset($this->model)){
+            $str = $str . ' - ' . $this->model;
+        }
+        $str = $str . ')';
+        return $str;
+    }
+    
 }

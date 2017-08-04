@@ -10,9 +10,9 @@ function Shop_Shortcuts_NormalizeItemPerPage($request)
 
 /**
  * Returns association table name for given 'Pluf_Model's in many-to-many relation.
- * It does not check if given models have realy many-to-many relation. It returns table name 
+ * It does not check if given models have realy many-to-many relation. It returns table name
  * if such relation would be existed.
- * 
+ *
  * Returned name is base of rule which Pluf is used to define association tables for two models
  * in a many-to-many relation.
  *
@@ -35,12 +35,52 @@ function Shop_Shortcuts_GetAssociationTableName($model1, $model2)
  * Returns name of field for id of given model in a association table.
  * Returned name is base of rule which Pluf is used to define columns in a association table
  * for two model in a many-to-many relation.
- * 
- * @param Pluf_Model $model
+ *
+ * @param Pluf_Model $model            
  * @return string
  */
-function Shop_Shortcuts_GetIdColumnName($model){
-    return strtolower($model->_a['model'])  . '_id';
+function Shop_Shortcuts_GetIdColumnName($model)
+{
+    return strtolower($model->_a['model']) . '_id';
 }
 
+/**
+ * Returns name of class which is related to given item type.
+ * Mapping class names are now as follow:
+ *
+ * service => Shop_Service
+ * product => Shop_Product
+ *
+ * @param string $itemType            
+ * @throws Pluf_Exception
+ * @return string
+ */
+function Shop_Shortcuts_GetItemClass($itemType)
+{
+    $mapper = array(
+        'product' => 'Shop_Product',
+        'service' => 'Shop_Service'
+    );
+    if (isset($mapper[$itemType]))
+        return $mapper[$itemType];
+    throw new Pluf_Exception('Unknown order item: ' . $itemType);
+}
 
+/**
+ * Get an object by secure id or raise a 404 error.
+ * 
+ * @param string $model
+ *            class name of object
+ * @param string $secureId
+ *            secure id of object
+ * @return object defined by $model
+ */
+function Shop_Shortcuts_GetObjectBySecureIdOr404($model, $secureId)
+{
+    $myObject = new $model();
+    $obj = $myObject->getOne("secureId='" . $secureId . "'");
+    if ($obj != null && $obj->id > 0 && $obj->secureId === $secureId) {
+        return $obj;
+    }
+    throw new Pluf_HTTP_Error404("Object whit given secure id not found (" . $model . ", " . $secureId . ")");
+}

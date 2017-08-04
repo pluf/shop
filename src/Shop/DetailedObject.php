@@ -80,4 +80,8 @@ class Shop_DetailedObject extends Pluf_Model
         }
         $this->modif_dtime = gmdate('Y-m-d H:i:s');
     }
+    
+    function toString(){
+        return $this->title;
+    }
 }

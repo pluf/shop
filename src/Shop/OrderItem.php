@@ -1,4 +1,5 @@
 <?php
+Pluf::loadFunction('Shop_Shortcuts_GetItemClass');
 
 class Shop_OrderItem extends Pluf_Model
 {
@@ -29,12 +30,14 @@ class Shop_OrderItem extends Pluf_Model
             'item_id' => array(
                 'type' => 'Pluf_DB_Field_Integer',
                 'blank' => false,
+                'is_null' => false,
                 'editable' => true,
                 'readable' => true
             ),
             'item_type' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => false,
+                'is_null' => false,
                 'size' => 50,
                 'editable' => true,
                 'readable' => true
@@ -49,18 +52,23 @@ class Shop_OrderItem extends Pluf_Model
             'count' => array(
                 'type' => 'Pluf_DB_Field_Integer',
                 'blank' => false,
+                'is_null' => false,
+                'default' => 1,
                 'editable' => true,
                 'readable' => true
             ),
             'price' => array(
                 'type' => 'Pluf_DB_Field_Integer',
                 'blank' => false,
+                'is_null' => false,
                 'editable' => false,
                 'readable' => true
             ),
             'off' => array(
                 'type' => 'Pluf_DB_Field_Integer',
                 'blank' => false,
+                'is_null' => false,
+                'default' => 0,
                 'editable' => false,
                 'readable' => true
             ),
@@ -93,9 +101,19 @@ class Shop_OrderItem extends Pluf_Model
         if ($this->id == '') {
             $this->creation_dtime = gmdate('Y-m-d H:i:s');
         }
-        $originItem = Pluf_Shortcuts_GetObjectOr404($this->item_type, $this->item_id);
-        $this->title = $originItem->title;
+        $itemClassName = Shop_Shortcuts_GetItemClass($this->item_type);
+        $originItem = Pluf_Shortcuts_GetObjectOr404($itemClassName, $this->item_id);
+        $this->title = $originItem->toString();
         $this->price = $originItem->price;
         $this->off = $originItem->off;
+    }
+    
+    /**
+     * Check if this item is blong to given Shop_Order
+     * @param Shop_Order $order
+     * @return boolean
+     */
+    function isBelongTo($order){
+        return $this->order === $order->id;
     }
 }

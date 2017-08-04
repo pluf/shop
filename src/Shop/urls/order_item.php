@@ -5,6 +5,15 @@ return array(
         'regex' => '#^/order/(?P<orderId>\d+)/item/find$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'find',
+        'http-method' => 'GET',
+        'precond' => array(
+            'Pluf_Precondition::loginRequired'
+        )
+    ),
+    array( // Find (by secureId of order)
+        'regex' => '#^/order/(?P<secureId>[^/]+)/item/find$#',
+        'model' => 'Shop_Views_OrderItem',
+        'method' => 'find',
         'http-method' => 'GET'
     ),
     array( // Create
@@ -16,15 +25,23 @@ return array(
             'Pluf_Precondition::loginRequired'
         )
     ),
-    array( // Create by secureId of order
+    array( // Create (by secureId of order)
         'regex' => '#^/order/(?P<secureId>[^/]+)/item/new$#',
         'model' => 'Shop_Views_OrderItem',
-        'method' => 'createBySecureId',
-        'http-method' => 'POST',
-        'precond' => array()
+        'method' => 'create',
+        'http-method' => 'POST'
     ),
     array( // Get info
         'regex' => '#^/order/(?P<orderId>\d+)/item/(?P<itemId>\d+)$#',
+        'model' => 'Shop_Views_OrderItem',
+        'method' => 'get',
+        'http-method' => 'GET',
+        'precond' => array(
+            'Pluf_Precondition::loginRequired'
+        )
+    ),
+    array( // Get info (by secureId of order)
+        'regex' => '#^/order/(?P<secureId>[^/]+)/item/(?P<itemId>\d+)$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'get',
         'http-method' => 'GET'
@@ -38,17 +55,25 @@ return array(
             'Pluf_Precondition::loginRequired'
         )
     ),
+    array( // Delete (by secureId of order)
+        'regex' => '#^/order/(?P<secureId>[^/]+)/item/(?P<itemId>\d+)$#',
+        'model' => 'Shop_Views_OrderItem',
+        'method' => 'delete',
+        'http-method' => 'DELETE'
+    ),
     array( // Update
-        'regex' => '#^//order/(?P<orderId>\d+)/item/(?P<modelId>\d+)$#',
+        'regex' => '#^/order/(?P<orderId>\d+)/item/(?P<itemId>\d+)$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'update',
         'http-method' => 'POST',
-        'params' => array(
-            'model' => 'Shop_OrderItem'
-        ),
         'precond' => array(
             'Pluf_Precondition::loginRequired'
         )
+    ),
+    array( // Update (by secure id of order)
+        'regex' => '#^/order/(?P<secureId>[^/]+)/item/(?P<itemId>\d+)$#',
+        'model' => 'Shop_Views_OrderItem',
+        'method' => 'update',
+        'http-method' => 'POST'
     )
-    // TODO: Hadi: add REST to action on items by using secureId of order.
 );

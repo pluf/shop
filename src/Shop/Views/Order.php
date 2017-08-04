@@ -1,6 +1,7 @@
 <?php
 Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
+Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
 
 class Shop_Views_Order
 {
@@ -19,20 +20,18 @@ class Shop_Views_Order
         if (isset($user)) {
             $request->REQUEST['full_name'] = isset($data['full_name']) ? $data['full_name'] : $user->first_name . ' ' . $user->last_name;
             $request->REQUEST['email'] = isset($data['email']) ? $data['email'] : $user->email;
-            // TODO: hadi: get phone number from profile and set it if alread is not set.
+            // TODO: hadi: get phone number from profile and set it if already is not set.
         }
         $form = Pluf_Shortcuts_GetFormForModel(Pluf::factory('Shop_Order'), $request->REQUEST);
         $order = $form->save();
-        $user = $request->user;
         if (isset($user)) {
-            $order->set_customer($user);
+            $order->__set('customer', $user);
         }
         $order->update();
         
         $match['orderId'] = $order->id;
         $match['action'] = 'create';
-        $mngModel = $order->manager;
-        $manager = new $mngModel();
+        $manager = $order->getManager();
         $manager->run($request, $match);
         return new Pluf_HTTP_Response_Json(array_merge($order->jsonSerialize(), array(
             'secureId' => $order->secureId
@@ -50,8 +49,7 @@ class Shop_Views_Order
     {
         $order = new Shop_Order();
         $pag = new Pluf_Paginator($order);
-        // TODO: hadi: use sqlgenerator
-        $manager = Pluf::factory($order->getManager());
+        $manager = $order->getManager();
         $pag->forced_where = $manager->createOrderFilter($request);
         $pag->list_filters = array(
             'phone',
@@ -91,7 +89,7 @@ class Shop_Views_Order
         // NOTE: maso, 1395: User app are responsible to get more items
         $pag->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $pag->configure(array(), $search_fields, $sort_fields);
-        $pag->setFromOrder($request);
+        $pag->setFromRequest($request);
         return new Pluf_HTTP_Response_Json($pag->render_object());
     }
 
@@ -105,7 +103,7 @@ class Shop_Views_Order
     public static function get($request, $match)
     {
         $myOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-        Shop_Views_Order::checkAccess($request, $myOrder);
+        self::checkAccess($request, $myOrder);
         // اجرای درخواست
         return new Pluf_HTTP_Response_Json($myOrder);
     }
@@ -154,12 +152,23 @@ class Shop_Views_Order
     public static function update($request, $match)
     {
         $myOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+        if ($myOrder->deleted) {
+            throw new Pluf_HTTP_Error404("Order is deleted");
+        }
         // $manager = Pluf::factory($myOrder->getManager());
         // if (! $manager->canAccess($request, $myOrder)) {
         // throw new Pluf_Exception("You are not allowed to access to this order.");
         // }
-        $form = Pluf_Shortcuts_GetFormForModel($myOrder, $request->REQUEST);
-        return new Pluf_HTTP_Response_Json($form->save());
+        
+        $form = Pluf_Shortcuts_GetFormForUpdateModel($myOrder, $request->REQUEST);
+        $myOrder = $form->save();
+        
+        $match['orderId'] = $myOrder->id;
+        $match['action'] = 'update';
+        $manager = $myOrder->getManager();
+        $manager->run($request, $match);
+        
+        return new Pluf_HTTP_Response_Json($myOrder);
     }
 
     /**
@@ -171,13 +180,24 @@ class Shop_Views_Order
      */
     public static function delete($request, $match)
     {
-        $myOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['requestId']);
+        $myOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
         // $manager = Pluf::factory($myOrder->getManager());
         // if (! $manager->canAccess($request, $myOrder)) {
         // throw new Pluf_Exception("You are not allowed to access to this order.");
         // }
+        
+        if($myOrder->isPayed()){
+            throw new Pluf_Exception_PermissionDenied('Could not deletea an already payed order');
+        }
+        
         $myOrder->deleted = true;
         $myOrder->update();
+        
+        $match['orderId'] = $myOrder->id;
+        $match['action'] = 'delete';
+        $manager = $myOrder->getManager();
+        $manager->run($request, $match);
+        
         return new Pluf_HTTP_Response_Json($myOrder);
     }
 
@@ -211,10 +231,23 @@ class Shop_Views_Order
     public static function pay($request, $match)
     {
         /**
-         *
          * @var Shop_Order $order
          */
-        $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+        $order = null;
+        if (isset($match['secureId'])) {
+            $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
+        } else {
+            $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+            $user = $request->user;
+            // Note: Hadi - 1396-05-06: only customer of order could add item to its order.
+            if (! isset($user) || $user->id !== $order->customer) {
+                return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
+            }
+        }
+        
+        if($order->isPayed()){
+            throw new Pluf_Exception_PermissionDenied('Could not pay again for an already payed order');
+        }
         
         $user = $request->user;
         $url = $request->REQUEST['callback'];
@@ -223,7 +256,7 @@ class Shop_Views_Order
         
         $receiptData = array(
             'amount' => $price, // مقدار پرداخت به تومان
-            'title' => $order->title,
+            'title' => $order->id . ' - ' . $order->title,
             'description' => $order->id . ' - ' . $order->title,
             'email' => $user->email,
             // 'phone' => $user->phone,
@@ -239,6 +272,25 @@ class Shop_Views_Order
         return new Pluf_HTTP_Response_Json($payment);
     }
 
+    public static function payInfo($request, $match){
+        /**
+         * @var Shop_Order $order
+         */
+        $order = null;
+        if (isset($match['secureId'])) {
+            $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
+        } else {
+            $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+            self::checkAccess($request, $order);
+        }
+        self::checkPay($request, $match);
+        $receipt = $order->get_payment();
+        if($receipt == null){
+            return new Pluf_HTTP_Error404('Could not found payment');
+        }
+        return new Pluf_HTTP_Response_Json($receipt);
+    }
+    
     /**
      *
      * @param Pluf_HTTP_Request $request            
@@ -247,26 +299,29 @@ class Shop_Views_Order
     public static function checkPay($request, $match)
     {
         $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-        return new Pluf_HTTP_Response_Json($order);
+        $payed = self::updateReceiptInfo($order);
+        return new Pluf_HTTP_Response_Json($payed);
     }
 
     /**
-     * Checks
-     *
-     * @param unknown $order            
-     * @return Pluf_HTTP_Response_Json|unknown
+     * Checks receipt info and returns true if receipt is payed and false otherwise.
+     * @param Shop_Order $order
+     * @return boolean
      */
-    private static function updateActivationInfo($order)
+    private static function updateReceiptInfo($order)
     {
         if (! $order->payment) {
-            return $order;
+            return false;
         }
         $receipt = $order->get_payment();
         Bank_Service::update($receipt);
-        if ($order->get_payment()->isPayed())
-            return $order;
+        return $order->get_payment()->isPayed();
     }
 
+    // ***********************************************************
+    // Deliver
+    // **********************************************************
+    
     /**
      *
      * @param Pluf_HTTP_Request $request            
@@ -275,15 +330,67 @@ class Shop_Views_Order
      */
     public static function setDeliverType($request, $match)
     {
+        /**
+         * @var Shop_Order $order
+         */
+        $order = null;
         if (isset($match['secureId'])) {
             $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-            checkAccess($request, $order);
+            self::checkAccess($request, $order);
         }
+        
+        if ($order->isPayed()) {
+            throw new Pluf_Exception_PermissionDenied('Could not change an already payed order');
+        }
+        
         $deliver = Pluf_Shortcuts_GetObjectOr404('Shop_DeliverType', $match['deliverId']);
-        $order->set_deliver_type($deliver);
+        $order->__set('deliver_type', $deliver);
+        // Remove payment because it is not valid yet.
+        // TODO: Hadi 1396-05: remove related receipt / or uupdate receipt info instead of remove it
+        $order->invalidatePayment();
         $order->update();
         return new Pluf_HTTP_Response_Json($order);
+    }
+
+    // ***********************************************************
+    // Workflow
+    // **********************************************************
+    public static function actions($request, $match)
+    {
+        if (isset($match['secureId'])) {
+            $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
+        } else {
+            $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+            self::checkAccess($request, $order);
+        }
+        $manager = $order->getManager();
+        // TODO: hadi: complete code. I think it should be similar to followin codes.
+        // $wf = $manager->getWorkflow();
+        // $actions = $wf->nextStates();
+        $actions = array(
+            'reject',
+            'accept',
+            'cancel',
+            'close'
+        );
+        return new Pluf_HTTP_Response_Json($actions);
+    }
+
+    public static function act($request, $match)
+    {
+        if (isset($match['secureId'])) {
+            $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
+        } else {
+            $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+            self::checkAccess($request, $order);
+        }
+        $action = $match['action'];
+        $manager = $order->getManager();
+        // TODO: hadi: complete code. I think it should be similar to followin codes.
+        // $wf = $manager->getWorkflow();
+        // $actions = $wf->act($order, $action);
+        return new Pluf_HTTP_Response_Json($action);
     }
 }

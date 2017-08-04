@@ -331,7 +331,8 @@ DetailedObject
 +description: string
 +creation_dtime: DateTime
 +modif_dtime: DateTime
---</panel_attributes>
+--
++toString()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
