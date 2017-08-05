@@ -51,10 +51,10 @@ return array(
         )
     ),
     // ************************************************************* Processing Order
-    array( // get possible actions
-        'regex' => '#^/order/(?P<orderId>\d+)/actions$#',
+    array( // get possible next states
+        'regex' => '#^/order/(?P<orderId>\d+)/states$#',
         'model' => 'Shop_Views_Order',
-        'method' => 'actions',
+        'method' => 'states',
         'http-method' => 'GET',
         'precond' => array(),
         'precond' => array(
@@ -62,9 +62,9 @@ return array(
         )
     ),
     array( // get possible actions (by secure id)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/actions$#',
+        'regex' => '#^/order/(?P<secureId>[^/]+)/states$#',
         'model' => 'Shop_Views_Order',
-        'method' => 'actions',
+        'method' => 'states',
         'http-method' => 'GET',
         'precond' => array(),
         'precond' => array(
@@ -72,18 +72,18 @@ return array(
         )
     ),
     array( // do action on order
-        'regex' => '#^/order/(?P<orderId>\d+)/(?P<action>[^/]+)$#',
+        'regex' => '#^/order/(?P<orderId>\d+)/state/(?P<state>[^/]+)$#',
         'model' => 'Shop_Views_Order',
-        'method' => 'act',
+        'method' => 'putToState',
         'http-method' => 'PUT',
         'precond' => array(
             'Pluf_Precondition::loginRequired'
         )
     ),
     array( // do action on order (by secure id)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/(?P<action>[^/]+)$#',
+        'regex' => '#^/order/(?P<secureId>[^/]+)/state/(?P<state>[^/]+)$#',
         'model' => 'Shop_Views_Order',
-        'method' => 'act',
+        'method' => 'putToState',
         'http-method' => 'PUT',
         'precond' => array(
             'Pluf_Precondition::loginRequired'
