@@ -156,7 +156,7 @@ class Shop_DefaultOrderManager
         $STATE_MACHINE = include __DIR__ . '/workflow/' . $flow . '.php';
         
         // load object
-        $object = null; // load order
+        $object = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']); // load order
                         
         // load transaction
         $transaction = $match['action'];
