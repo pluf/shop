@@ -357,7 +357,7 @@ class Shop_Views_Order
     // ***********************************************************
     // Workflow
     // **********************************************************
-    public static function actions($request, $match)
+    public static function states($request, $match)
     {
         if (isset($match['secureId'])) {
             $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
@@ -378,7 +378,7 @@ class Shop_Views_Order
         return new Pluf_HTTP_Response_Json($actions);
     }
 
-    public static function act($request, $match)
+    public static function putToState($request, $match)
     {
         if (isset($match['secureId'])) {
             $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
@@ -386,7 +386,7 @@ class Shop_Views_Order
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             self::checkAccess($request, $order);
         }
-        $action = $match['action'];
+        $action = $match['stateList'];
         $manager = $order->getManager();
         // TODO: hadi: complete code. I think it should be similar to followin codes.
         // $wf = $manager->getWorkflow();
