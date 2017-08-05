@@ -5,13 +5,15 @@ Pluf::loadFunction('Pluf_Shortcuts_GetRequestParamOr403');
 Pluf::loadFunction('Pluf_Shortcuts_GetRequestParam');
 
 /**
- * مدیریت عملیات مربوط به سفارشات (شامل چرخه حیات و همچنین کنترل دسترسی) را بر عهده دارد
+ * مدیریت عملیات مربوط به سفارشات (شامل چرخه حیات و همچنین کنترل دسترسی) را بر
+ * عهده دارد
  *
  * @author hadi<mohammad.hadi.mansouri@dpq.co.ir>
  *        
  */
 class Shop_DefaultOrderManager
 {
+
     /**
      * ایجاد فیلتر سفارشات بر اساس درخواست
      *
@@ -19,10 +21,10 @@ class Shop_DefaultOrderManager
      * کند. این فراخونی بر اساس درخواست کاربر یک عبارت منطقی برای فیلتر کردن
      * سفارشات ایجاد می‌کند.
      *
-     * @param Pluf_HTTP_Request $request            
+     * @param Pluf_HTTP_Request $request
      * @return Pluf_SQL
      */
-    public static function createOrderFilter($request)
+    public static function createOrderFilter ($request)
     {
         // افرادی که عضو نیستن هیچی نمی‌بینن
         if (! Pluf_Precondition::isAuthorized($request)) {
@@ -43,15 +45,17 @@ class Shop_DefaultOrderManager
         // return $sql;
         // }
         
-        $sqlIn = new Pluf_SQL('customer=%s', array(
-            $request->user->id
-        ));
+        $sqlIn = new Pluf_SQL('customer=%s',
+                array(
+                        $request->user->id
+                ));
         
         // Zone Owner
         if ($request->user->hasPerm('Shop.zoneOwner')) {
-            $zones = (new Shop_Zone())->getList(array(
-                'filter' => 'owner=' . $request->user->getId()
-            ));
+            $zones = (new Shop_Zone())->getList(
+                    array(
+                            'filter' => 'owner=' . $request->user->getId()
+                    ));
             $conditions = array();
             foreach ($zones as $z) {
                 array_push($conditions, 'zone=' . $z->getId());
@@ -60,7 +64,9 @@ class Shop_DefaultOrderManager
             $sqlNew = new Pluf_SQL($conditions);
             // $sql->SAnd(new Pluf_SQL('state="check" OR state="fixed" OR
             // state="fail"'));
-            $sqlNew->SAnd(new Pluf_SQL('state<>"new" AND state<>"close" AND state<>"archived"'));
+            $sqlNew->SAnd(
+                    new Pluf_SQL(
+                            'state<>"new" AND state<>"close" AND state<>"archived"'));
             
             $sqlIn->SOr($sqlNew);
         }
@@ -77,9 +83,10 @@ class Shop_DefaultOrderManager
         
         // Agency
         if ($request->user->hasPerm('Shop.agency')) {
-            $agencys = (new Shop_Agency())->getList(array(
-                'filter' => 'owner=' . $request->user->getId()
-            ));
+            $agencys = (new Shop_Agency())->getList(
+                    array(
+                            'filter' => 'owner=' . $request->user->getId()
+                    ));
             $conditions = array();
             foreach ($agencys as $ws) {
                 array_push($conditions, 'agency=' . $ws->getId());
@@ -99,11 +106,11 @@ class Shop_DefaultOrderManager
 
     /**
      *
-     * @param Pluf_HTTP_Request $request            
-     * @param Shop_Order $order            
+     * @param Pluf_HTTP_Request $request
+     * @param Shop_Order $order
      * @return boolean|unknown
      */
-    public static function canAccess($request, $order)
+    public static function canAccess ($request, $order)
     {
         // Admin has access to all objects
         if ($request->user->administrator) {
@@ -116,16 +123,19 @@ class Shop_DefaultOrderManager
         // ZoneOwner has access to all orders in the its zones
         if ($request->user->hasPerm('Shop.zoneOwner')) {
             // Check if request is in related zone
-            if (isset($order->zone) && $order->get_zone()->owner === $request->user->id)
+            if (isset($order->zone) &&
+                     $order->get_zone()->owner === $request->user->id)
                 return true;
         }
         // AgencyOwner has access to all orders in the its agency
         if ($request->user->hasPerm('Shop.agency')) {
-            if (isset($order->agency) && $order->get_agency()->owner === $request->user->id)
+            if (isset($order->agency) &&
+                     $order->get_agency()->owner === $request->user->id)
                 return true;
         }
         // Responsible of a request has access to request
-        if ($order->responsible != null && $order->responsible === $request->user->id)
+        if ($order->responsible != null &&
+                 $order->responsible === $request->user->id)
             return true;
         // Customer has access to all its requests
         if ($order->customer != null && $order->customer === $request->user->id)
@@ -136,53 +146,77 @@ class Shop_DefaultOrderManager
     /**
      * یک عمل در چرخه حیاط درخواست انجام می‌شود.
      *
-     * @param Pluf_HTTP_Request $request            
-     * @param array $match            
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
      */
-    public static function run($request, $match)
-    {}
-
-    /**
-     *
-     * @param
-     *            $event
-     */
-    public static function notifyState($signal, $event)
-    {}
-
-    /**
-     *
-     * @param string $signal            
-     * @param
-     *            $event
-     */
-    public static function history($signal, $event)
-    {}
-
-    /**
-     *
-     * @param Pluf_HTTP_Request $request            
-     * @param Shop_Zone $zone            
-     * @return boolean
-     */
-    public static function isZoneOwner($request, $zone)
+    public static function run ($request, $match)
     {
-        if (Pluf_Precondition::isOwner($request))
-            return true;
-        return $request->user->hasPerm('Shop.zoneOwner') && $zone->isOwner($request->user);
+        // Load flow
+        $flow = Setting_Service::get('shop.order.flow', 'simple');
+        $STATE_MACHINE = include __DIR__ . '/workflow/' . $flow . '.php';
+        
+        // load object
+        $object = null; // load order
+                        
+        // load transaction
+        $transaction = $match['action'];
+        
+        // run transaction
+        $machine = new Workflow_Machine();
+        $machine->setStates($STATE_MACHINE)
+            ->setSignals(
+                array(
+                        'DigiDoci_Request::stateChange'
+                ))
+            ->setProperty('state')
+            ->transact($request, $object, $transaction);
+        
+        return true;
     }
 
     /**
      *
-     * @param unknown $request            
-     * @param Shop_Agency $agency            
+     * @param
+     *            $event
+     */
+    public static function notifyState ($signal, $event)
+    {}
+
+    /**
+     *
+     * @param string $signal
+     * @param
+     *            $event
+     */
+    public static function history ($signal, $event)
+    {}
+
+    /**
+     *
+     * @param Pluf_HTTP_Request $request
+     * @param Shop_Zone $zone
      * @return boolean
      */
-    public static function isAgencyOwner($request, $agency)
+    public static function isZoneOwner ($request, $zone)
     {
         if (Pluf_Precondition::isOwner($request))
             return true;
-        return $request->user->hasPerm('Shop.agencyOwner') && $agency->isOwner($request->user);
+        return $request->user->hasPerm('Shop.zoneOwner') &&
+                 $zone->isOwner($request->user);
+    }
+
+    /**
+     *
+     * @param unknown $request
+     * @param Shop_Agency $agency
+     * @return boolean
+     */
+    public static function isAgencyOwner ($request, $agency)
+    {
+        if (Pluf_Precondition::isOwner($request))
+            return true;
+        return $request->user->hasPerm('Shop.agencyOwner') &&
+                 $agency->isOwner($request->user);
     }
 
     /**
@@ -191,13 +225,13 @@ class Shop_DefaultOrderManager
      * با تعیین شدن کارگاه برای یک درخواست، مالک کارگاه می‌تونه درخواست رو در
      * فهرست درخواست‌های خودش مشاهده کنه.
      *
-     * @param unknown $request            
-     * @param unknown $match            
+     * @param unknown $request
+     * @param unknown $match
      */
-    public static function setAgency($request, $object)
+    public static function setAgency ($request, $object)
     {}
 
-    public static function setZone($request, $object)
+    public static function setZone ($request, $object)
     {}
 
     /**
@@ -209,9 +243,9 @@ class Shop_DefaultOrderManager
      * حالت نهایی درخواست ثبت می شود
      * از پارامتر $action نیز برای ثبت تاریخچه استفاده می‌شود
      *
-     * @param Pluf_HTTP_Request $request            
-     * @param Pluf_Model $object            
+     * @param Pluf_HTTP_Request $request
+     * @param Pluf_Model $object
      */
-    public static function close($request, $object)
+    public static function close ($request, $object)
     {}
 }
