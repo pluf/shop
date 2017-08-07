@@ -72,7 +72,7 @@ return array(
         )
     ),
     array( // do action on order
-        'regex' => '#^/order/(?P<orderId>\d+)/state/(?P<state>[^/]+)$#',
+        'regex' => '#^/order/(?P<orderId>\d+)/states/(?P<state>[^/]+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'putToState',
         'http-method' => 'PUT',
@@ -81,7 +81,7 @@ return array(
         )
     ),
     array( // do action on order (by secure id)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/state/(?P<state>[^/]+)$#',
+        'regex' => '#^/order/(?P<secureId>[^/]+)/states/(?P<state>[^/]+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'putToState',
         'http-method' => 'PUT',
