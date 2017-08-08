@@ -155,29 +155,20 @@ class Shop_Views_Order
      * درخواست را به روز می‌کند
      *
      * @param Pluf_HTTP_Request $request
-     * @param unknown $match
+     * @param array $match
      */
-    public static function update ($request, $match)
+    public function update ($request, $match)
     {
-        $myOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-        if ($myOrder->deleted) {
+        /**
+         * @var Shop_Order $myOrder
+         */
+        $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+        if ($order->deleted) {
             throw new Pluf_HTTP_Error404("Order is deleted");
         }
-        // $manager = Pluf::factory($myOrder->getManager());
-        // if (! $manager->canAccess($request, $myOrder)) {
-        // throw new Pluf_Exception("You are not allowed to access to this
-        // order.");
-        // }
-        
-        $form = Pluf_Shortcuts_GetFormForUpdateModel($myOrder, $request->REQUEST);
-        $myOrder = $form->save();
-        
-        $match['orderId'] = $myOrder->id;
-        $match['action'] = 'update';
-        $manager = $myOrder->getManager();
-        $manager->run($request, $match);
-        
-        return new Pluf_HTTP_Response_Json($myOrder);
+        $order->getManager()->apply($order, 'update');
+        $order = new Shop_Order($order->id);
+        return $order;
     }
 
     /**

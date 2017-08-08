@@ -29,7 +29,14 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
                     ),
                     'update' => array(
                             'next' => 'Live',
-                            'visible' => false
+                            'visible' => false,
+                            'action' => array(
+                                    'Shop_Order_Manager_Default',
+                                    'update'
+                            ),
+                            'preconditions' => array(
+                                    'Pluf_Precondition::isOwner'
+                            )
                     ),
                     'read' => array(
                             'next' => 'Live',
@@ -37,7 +44,14 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
                     ),
                     'delete' => array(
                             'next' => 'Deleted',
-                            'visible' => false
+                            'visible' => false,
+                            'action' => array(
+                                    'Shop_Order_Manager_Default',
+                                    'update'
+                            ),
+                            'preconditions' => array(
+                                    'Pluf_Precondition::isOwner'
+                            )
                     )
             ),
             'Deleted' => array()
@@ -65,7 +79,7 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
     public function apply ($object, $action)
     {
         $machine = new Workflow_Machine();
-        $machine->setStates(self::STATE_MACHINE)
+        $machine->setStates(self::$STATE_MACHINE)
             ->setSignals(
                 array(
                         'Shot_Order::stateChange'
@@ -88,5 +102,27 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
             $states[] = $state;
         }
         return $states;
+    }
+
+    /**
+     * Update an order
+     *
+     * @param Pluf_HTTP_Request $request
+     * @param Shop_Order $object
+     */
+    public static function update ($request, $object)
+    {
+        Pluf_Shortcuts_GetFormForUpdateModel($object, $request->REQUEST)->save();
+    }
+
+    /**
+     * Deletes an order
+     *
+     * @param Pluf_HTTP_Request $request
+     * @param Shop_Order $object
+     */
+    public static function delete ($request, $object)
+    {
+        $object->delete();
     }
 }
