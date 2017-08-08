@@ -194,8 +194,7 @@ class Shop_Order extends Pluf_Model
     /**
      * \brief پیش ذخیره را انجام می‌دهد
      *
-     * @param $create حالت
-     *            ساخت یا به روز رسانی را تعیین می‌کند
+     * @param $create bool status of creation
      */
     function preSave($create = false)
     {
@@ -239,13 +238,13 @@ class Shop_Order extends Pluf_Model
     /**
      * Returns an object which manages order
      * 
-     * @return unknown
+     * @return Shop_Order_Manager
      */
     function getManager()
     {
         $managerClassName = $this->manager;
         if (! isset($managerClassName) || empty($managerClassName))
-            $managerClassName = Config_Service::get('Shop.Order.Manager', 'Shop_DefaultOrderManager');
+            $managerClassName = Config_Service::get('Shop.Order.Manager', 'Shop_Order_Manager_Default');
         return new $managerClassName();
     }
 
