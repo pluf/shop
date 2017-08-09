@@ -53,7 +53,7 @@ class Shop_Views_OrderItem
     /**
      * فهرست کردن تقاضا‌های موجود
      *
-     * @param Pluf_HTTP_Order $request            
+     * @param Pluf_HTTP_Request $request            
      * @param array $match            
      * @return Pluf_HTTP_Response_Json
      */
@@ -98,8 +98,8 @@ class Shop_Views_OrderItem
     /**
      * یک درخواست را با شناسه تعیین می‌کند
      *
-     * @param unknown $request            
-     * @param unknown $match            
+     * @param Pluf_HTTP_Request $request            
+     * @param array $match            
      * @return Pluf_HTTP_Response_Json
      */
     public static function get($request, $match)
@@ -125,8 +125,8 @@ class Shop_Views_OrderItem
     /**
      * درخواست را به روز می‌کند
      *
-     * @param unknown $request            
-     * @param unknown $match            
+     * @param Pluf_HTTP_Request $request            
+     * @param array $match            
      */
     public static function update($request, $match)
     {

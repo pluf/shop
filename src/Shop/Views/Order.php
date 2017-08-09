@@ -101,8 +101,8 @@ class Shop_Views_Order
     /**
      * یک درخواست را با شناسه تعیین می‌کند
      *
-     * @param unknown $request
-     * @param unknown $match
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
      * @return Pluf_HTTP_Response_Json
      */
     public static function get ($request, $match)
@@ -120,8 +120,8 @@ class Shop_Views_Order
      *
      * توی این فراخوانی دسترسی‌های امنیتی بررسی نمی‌شوند.
      *
-     * @param unknown $request
-     * @param unknown $match
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
      * @throws Pluf_Exception_DoesNotExist
      * @return Pluf_HTTP_Response_Json
      */

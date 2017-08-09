@@ -125,7 +125,7 @@ class Shop_OrderHistory extends Pluf_Model
     /**
      * \brief پیش ذخیره را انجام می‌دهد
      *
-     * @param $create حالت
+     * @param $create boolean
      *            ساخت یا به روز رسانی را تعیین می‌کند
      */
     function preSave($create = false)
@@ -133,15 +133,5 @@ class Shop_OrderHistory extends Pluf_Model
         if ($this->id == '') {
             $this->creation_dtime = gmdate('Y-m-d H:i:s');
         }
-    }
-
-    /**
-     * حالت کار ایجاد شده را به روز می‌کند
-     *
-     * @see Pluf_Model::postSave()
-     */
-    function postSave($create = false)
-    {
-        //
     }
 }

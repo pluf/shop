@@ -70,7 +70,7 @@ class Shop_DetailedObject extends Pluf_Model
     /**
      * \brief پیش ذخیره را انجام می‌دهد
      *
-     * @param $create حالت
+     * @param $create boolean
      *            ساخت یا به روز رسانی را تعیین می‌کند
      */
     function preSave($create = false)

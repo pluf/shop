@@ -116,7 +116,7 @@ class Shop_Agency extends Shop_DetailedObject
      * در این فرآیند نیازهای ابتدایی سیستم به آن اضافه می‌شود. این نیازها مقادیری هستند که
      * در زمان ایجاد باید تعیین شوند. از این جمله می‌توان به کاربر و تاریخ اشاره کرد.
      *
-     * @param $create حالت
+     * @param $create boolean
      *            ساخت یا به روز رسانی را تعیین می‌کند
      */
     function preSave($create = false)

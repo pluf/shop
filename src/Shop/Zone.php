@@ -116,7 +116,7 @@ class Shop_Zone extends Shop_DetailedObject
     /**
      * پیش ذخیره را انجام می‌دهد
      *
-     * @param $create حالت
+     * @param $create boolean
      *            ساخت یا به روز رسانی را تعیین می‌کند
      */
     function preSave($create = false)
@@ -125,15 +125,5 @@ class Shop_Zone extends Shop_DetailedObject
             $this->creation_dtime = gmdate('Y-m-d H:i:s');
         }
         $this->modif_dtime = gmdate('Y-m-d H:i:s');
-    }
-
-    /**
-     * حالت کار ایجاد شده را به روز می‌کند
-     *
-     * @see Pluf_Model::postSave()
-     */
-    function postSave($create = false)
-    {
-        //
     }
 }
