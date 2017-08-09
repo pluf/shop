@@ -123,6 +123,7 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
      */
     public static function delete ($request, $object)
     {
-        $object->delete();
+        $object->deleted = true;
+        $object->update();
     }
 }

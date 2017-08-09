@@ -95,7 +95,7 @@ class Shop_Views_Order
         $pag->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $pag->configure(array(), $search_fields, $sort_fields);
         $pag->setFromRequest($request);
-        return new Pluf_HTTP_Response_Json($pag->render_object());
+        return $pag->render_object();
     }
 
     /**
@@ -108,9 +108,10 @@ class Shop_Views_Order
     public static function get ($request, $match)
     {
         // Get order
-        $myOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+        $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
         // check access
-        self::checkAccess($request, $myOrder);
+        self::checkAccess($request, $order);
+        $order->getManager()->apply($order, 'read');
         return $order;
     }
 
@@ -126,13 +127,10 @@ class Shop_Views_Order
      */
     public static function getBySecureId ($request, $match)
     {
-        $myOrder = Shop_Views_Order::getOrderBySecureId($match['secureId']);
-        // اجرای درخواست
-        return new Pluf_HTTP_Response_Json(
-                array_merge($myOrder->jsonSerialize(),
-                        array(
-                                'secureId' => $match['secureId']
-                        )));
+        $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
+        $request->REQUEST['secureId'] = $match['secureId'];
+        $order->getManager()->apply($order, 'read');
+        return $order;
     }
 
     /**
@@ -163,9 +161,6 @@ class Shop_Views_Order
          * @var Shop_Order $myOrder
          */
         $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-        if ($order->deleted) {
-            throw new Pluf_HTTP_Error404("Order is deleted");
-        }
         $order->getManager()->apply($order, 'update');
         $order = new Shop_Order($order->id);
         return $order;
@@ -180,27 +175,9 @@ class Shop_Views_Order
      */
     public static function delete ($request, $match)
     {
-        $myOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-        // $manager = Pluf::factory($myOrder->getManager());
-        // if (! $manager->canAccess($request, $myOrder)) {
-        // throw new Pluf_Exception("You are not allowed to access to this
-        // order.");
-        // }
-        
-        if ($myOrder->isPayed()) {
-            throw new Pluf_Exception_PermissionDenied(
-                    'Could not deletea an already payed order');
-        }
-        
-        $myOrder->deleted = true;
-        $myOrder->update();
-        
-        $match['orderId'] = $myOrder->id;
-        $match['action'] = 'delete';
-        $manager = $myOrder->getManager();
-        $manager->run($request, $match);
-        
-        return new Pluf_HTTP_Response_Json($myOrder);
+        $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+        $order->getManager()->apply($order, 'delete');
+        return $order;
     }
 
     /**
