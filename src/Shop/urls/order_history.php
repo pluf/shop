@@ -11,6 +11,13 @@ return array(
         )
     ),
     array(
+        'regex' => '#^/order/(?P<secureId>[^/]+)/history/find$#',
+        'model' => 'Shop_Views_OrderHistory',
+        'method' => 'find',
+        'http-method' => 'GET',
+        'precond' => array()
+    ),
+    array(
         'regex' => '#^/order/(?P<orderId>\d+)/history/(?P<historyId>\d+)$#',
         'model' => 'Shop_Views_OrderHistory',
         'method' => 'get',
@@ -36,12 +43,5 @@ return array(
         'precond' => array(
             'Pluf_Precondition::ownerRequired'
         )
-    ),
-    array(
-        'regex' => '#^/order/(?P<secureId>[^/]+)/history/find$#',
-        'model' => 'Shop_Views_OrderHistory',
-        'method' => 'find',
-        'http-method' => 'GET',
-        'precond' => array()
     )
 );
