@@ -281,7 +281,7 @@ class Shop_Views_Order
                     $match['orderId']);
             self::checkAccess($request, $order);
         }
-        self::checkPay($request, $match);
+        self::updateReceiptInfo($order);
         $receipt = $order->get_payment();
         if ($receipt == null) {
             return new Pluf_HTTP_Error404('Could not found payment');
@@ -390,12 +390,16 @@ class Shop_Views_Order
                     $match['orderId']);
             self::checkAccess($request, $order);
         }
-        $action = $match['stateList'];
+        $action = $match['state'];
         $manager = $order->getManager();
         // TODO: hadi: complete code. I think it should be similar to followin
         // codes.
         // $wf = $manager->getWorkflow();
         // $actions = $wf->act($order, $action);
-        return new Pluf_HTTP_Response_Json($action);
+        if($manager->apply($order, $action)){
+            $updatedOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $order->id);
+            return new Pluf_HTTP_Response_Json($updatedOrder);
+        }
+        return new Pluf_Exception('An error is occurred while processing order');
     }
 }

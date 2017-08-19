@@ -19,6 +19,7 @@ class Shop_Views_OrderItem
     {
         // TODO: Hadi: if item is added previously to order it is good to increase its count only
         /**
+         *
          * @var Shop_Order $order
          */
         $order = null;
@@ -32,10 +33,12 @@ class Shop_Views_OrderItem
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
-//         if ($order->isPayed()) {
-//             throw new Pluf_Exception_PermissionDenied('Could not change items of already payed order');
-//         }
-        // $originItem = Pluf_Shortcuts_GetObjectOr404($request->REQUEST['item_type'], $request->REQUEST['item_id']);
+        // if ($order->isPayed()) {
+        // throw new Pluf_Exception_PermissionDenied('Could not change items of already payed order');
+        // }
+        if(!isset($match['count']) || $match['count'] == 0){
+            $match['count'] = 1;
+        }
         $form = Pluf_Shortcuts_GetFormForModel(Pluf::factory('Shop_OrderItem'), $request->REQUEST);
         $orderItem = $form->save();
         
@@ -175,6 +178,7 @@ class Shop_Views_OrderItem
     public static function delete($request, $match)
     {
         /**
+         *
          * @var Shop_Order $order
          */
         $order = null;
