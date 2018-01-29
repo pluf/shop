@@ -1,4 +1,6 @@
-# shop
+# Shop
+
+[![Build Status](https://travis-ci.org/pluf/shop.svg?branch=master)](https://travis-ci.org/pluf/shop)
 
 این پروژه یک ماژول برای سرورهای pluf است که امکانات یک فروشگاه آنلاین ساده را فراهم می‌کند.
 
