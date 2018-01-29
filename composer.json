@@ -1,0 +1,47 @@
+{
+	"name" : "pluf/shop",
+	"description" : "Simple online shop and service",
+	"type" : "library",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Mostafa Barmshory",
+			"email" : "mostafa.barmshory@dpq.co.ir",
+			"homepage" : "http://dpq.co.ir",
+			"role" : "developer"
+		}, {
+			"name" : "Mohammad Hadi Mansouri",
+			"email" : "mohammad.hadi.mansouri@dpq.co.ir",
+			"homepage" : "http://dpq.co.ir",
+			"role" : "developer"
+		}, {
+			"name" : "MahdiIsComing",
+			"role" : "developer",
+			"email" : "mahdi.ar@dpq.co.ir"
+		}
+	],
+	"minimum-stability" : "stable",
+	"require" : {
+		"pluf/cache" : "^2.1.0",
+		"pluf/cms" : "^2.1.0",
+		"pluf/core" : "^2.1.0",
+		"pluf/bank" : "^2.1.0",
+		"pluf/assort" : "^2.1.0",
+		"pluf/geo" : "^2.1"
+	},
+	"include-path" : [
+		"src/"
+	],
+	"homepage" : "https://gitlab.com/microshop/shop",
+	"support" : {
+		"email" : "info@pluf.ir",
+		"issues" : "https://gitlab.com/microshop/shop/issues",
+		"wiki" : "https://gitlab.com/microshop/shop/wikis/home",
+		"source" : "https://gitlab.com/microshop/shop"
+	},
+	"keywords" : [
+		"pluf",
+		"shop",
+		"sell",
+		"service"
+	]
+}

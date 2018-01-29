@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2.0">
+  <help_text>// fontsize=14
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// MicroShop Data model
+//
+//////////////////////////////////////////////////////////////////////////////////////////////
+</help_text>
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>343</x>
+      <y>364</y>
+      <w>105</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>bg=orange
+Pluf_User
+--
++id: int
++login: string
++email: string
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>245</x>
+      <y>392</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+contacts</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>105</x>
+      <y>343</y>
+      <w>147</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>bg=orange
+&lt;&lt;Route&amp;Notification&gt;&gt;
+MicroShop::Contact
+--
++id: int
++contact: string
++type: string
++creation_dtime: DateTime
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>854</x>
+      <y>441</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Bank_Payment</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>308</y>
+      <w>147</w>
+      <h>217</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Order&gt;&gt;
+MicroShop::Order
+--
++id: int
++secure_id: string
++title: string
++full_name: string
++phone: string
++email: string
++province: string
++city: string
++address: string
++point: POINT
++description: string
++manager: string
++state: string
++creation_dtime: DateTime
++modif_dtime: DateTime</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>441</x>
+      <y>385</y>
+      <w>133</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=0..n
+customer</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>385</x>
+      <y>203</y>
+      <w>56</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+adresses</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>441</y>
+      <w>168</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=0..1
+payment</panel_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>714</x>
+      <y>819</y>
+      <w>147</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Service&gt;&gt;
+MicroShop::Service
+--
++properties
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>392</x>
+      <y>819</y>
+      <w>147</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Product&gt;&gt;
+MicroShop::Product
+--
++manuficturer: string
++brand
++model: string
+// یه مدل داده‌ای کلید مقدار برای نگهداری سایر خصوصیت‌ها
++properties
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>1036</y>
+      <w>147</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>// Tax Class
+//
+// Defines tax class to applay for service and products
+// with a rate.
+//
+&lt;&lt;Tax&gt;&gt;
+MicroShop::TaxClass
+--
++title: string
++rate: double
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>623</x>
+      <y>518</y>
+      <w>42</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..n
+items</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>651</x>
+      <y>931</y>
+      <w>154</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n
+tax class</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>469</x>
+      <y>931</y>
+      <w>154</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n
+tax class</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>581</x>
+      <y>49</y>
+      <w>147</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Order&gt;&gt;
+MicroShop::OrderHistory
+--
++id: int
++object_id: int
++object_type:string
++subject_id: int
++subject_type: string
++action: string
++state: string
++workflow: string
++description: string
++creation_dtime: DateTime
++modif_dtime: DateTime
+--
+Responsibilities
+-- Order history</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>203</x>
+      <y>581</y>
+      <w>147</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Order&gt;&gt;
+MicroShop::DeliverType
+--
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>343</x>
+      <y>420</y>
+      <w>231</w>
+      <h>203</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..1
+m2=0..1
+deliver type</panel_attributes>
+    <additional_attributes>310.0;10.0;10.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>651</x>
+      <y>224</y>
+      <w>49</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=0..*
+history</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>7</x>
+      <y>1211</y>
+      <w>147</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+// از این کلاس به عنوان پایه‌ای برای توصیف موجودیت
+// استفاده می‌شود.
+&lt;&lt;Util&gt;&gt;
+DetailedObject
+--
++id: int
++title: string
+// یه url برای تصویر ممکن هست که محتوی باشه
++avatar: string
++description: string
++creation_dtime: DateTime
++modif_dtime: DateTime
+--
++toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>931</y>
+      <w>175</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;130.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>147</x>
+      <y>1148</y>
+      <w>490</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;180.0;680.0;180.0;680.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>357</x>
+      <y>931</y>
+      <w>399</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;220.0;550.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>217</x>
+      <y>1022</y>
+      <w>147</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+&lt;&lt;Util&gt;&gt;
+MicroShop::PricedObject
+--
++price: int
++off: int
++deleted
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>84</x>
+      <y>1078</y>
+      <w>147</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;190.0;10.0;10.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>119</x>
+      <y>231</y>
+      <w>154</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>bg=orange
+این کلاس‌ها multitenant نیستند
+
+multitenant = false</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>861</x>
+      <y>112</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>// Extends from DetailedObject
+&lt;&lt;Order&gt;&gt;
+MicroShop::Zone
+--
++province: string
++city: string
++address: string
+// یه ارایه از ارایه‌های دوتایی که نقطه‌هستن
++polygon: POLYGON
++creation_dtime: DateTime
++modif_dtime: DateTime
+--
+Extends from DetailedObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1050</x>
+      <y>112</y>
+      <w>147</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>// Extends from DetailedObject
+&lt;&lt;Order&gt;&gt;
+MicroShop::Agency
+--
++province: string
++city: string
++address: string
++point: POINT
++creation_dtime: DateTime
++modif_dtime: DateTime
+--
+Extends from DetailedObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>238</y>
+      <w>252</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+zone</panel_attributes>
+    <additional_attributes>10.0;190.0;320.0;190.0;320.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>231</y>
+      <w>455</w>
+      <h>196</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+agency (workshop)</panel_attributes>
+    <additional_attributes>10.0;250.0;610.0;250.0;610.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>973</x>
+      <y>0</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Pluf_User
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>896</x>
+      <y>7</y>
+      <w>91</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n
+member</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>938</x>
+      <y>28</y>
+      <w>98</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+owner</panel_attributes>
+    <additional_attributes>10.0;120.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1043</x>
+      <y>28</y>
+      <w>105</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n
+owner</panel_attributes>
+    <additional_attributes>120.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>602</y>
+      <w>147</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Order&gt;&gt;
+MicroShop::OrderItem
+--
++id: int
++title: string
++item_id: string
++item_type: string
++count: int
++price: int
++off: int
++creation_dtime: DateTime
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>322</x>
+      <y>1218</y>
+      <w>112</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Assort_Category
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>182</x>
+      <y>1218</y>
+      <w>112</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Assort_Tag
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>1134</y>
+      <w>91</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n
+categories</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>1134</y>
+      <w>63</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..n
+tags</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>147</x>
+      <y>231</y>
+      <w>1036</w>
+      <h>1099</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;1550.0;1460.0;1550.0;1460.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>623</x>
+      <y>721</y>
+      <w>168</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+m1=0..n
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;10.0;220.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>455</x>
+      <y>721</y>
+      <w>175</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+m1=0..n
+m2=1
+</panel_attributes>
+    <additional_attributes>230.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>322</x>
+      <y>63</y>
+      <w>147</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>bg=orange
+&lt;&lt;Route &amp; Notification&gt;&gt;
+MicroShop::Address
+--
++id: int
++province: string
++city: string
++address: string
++point: POINT
++creation_dtime: DateTime
++modif_dtime: DateTime
+--
+Responsibilities
+-- User address</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>266</x>
+      <y>637</y>
+      <w>21</w>
+      <h>399</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;550.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>147</x>
+      <y>238</y>
+      <w>840</w>
+      <h>1071</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;1510.0;1180.0;1510.0;1180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1036</x>
+      <y>322</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>CMS_Content</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1057</x>
+      <y>231</y>
+      <w>49</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+content</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>987</y>
+      <w>182</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+&lt;&lt;Util&gt;&gt;
+این کلاس‌ها برای کم کردن حجم مدل
+و یا پیاده سازی استفاده می‌شه</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

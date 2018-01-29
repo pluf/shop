@@ -1,0 +1,24 @@
+<?php
+$paths = array(
+    'urls/address.php',
+    'urls/agency.php',
+    'urls/contact.php',
+    'urls/deliver_type.php',
+    'urls/order_history.php',
+    'urls/order_item.php',
+    'urls/order.php',
+    'urls/product.php',
+    'urls/service.php',
+    'urls/tag_category.php',
+    'urls/tax.php',
+    'urls/zone.php'
+);
+
+$shopApi = array();
+
+foreach ($paths as $path){
+    $myApi = include $path;
+    $shopApi = array_merge($shopApi, $myApi);
+}
+
+return $shopApi;

@@ -1,0 +1,29 @@
+{
+	"name": "Shop",
+	"version": "0.1.0",
+	"title": "Simple online shop and service",
+	"model": [
+		"Shop_Address",
+		"Shop_Agency",
+		"Shop_Contact",
+		"Shop_DeliverType",
+		"Shop_Order",
+		"Shop_OrderItem",
+		"Shop_Product",
+		"Shop_Service",
+		"Shop_TaxClass",
+		"Shop_Zone"
+	],
+	"permisson": [
+		{
+			"name": "Zone Owner",
+			"code_name": "zoneOwner",
+			"description": "Zone owner."
+		},
+		{
+			"name": "Agency Owner",
+			"code_name": "agencyOwner",
+			"description": "Agency owner."
+		}
+	]
+}
