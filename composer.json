@@ -37,9 +37,9 @@
 	"homepage" : "https://gitlab.com/microshop/shop",
 	"support" : {
 		"email" : "info@pluf.ir",
-		"issues" : "https://gitlab.com/microshop/shop/issues",
-		"wiki" : "https://gitlab.com/microshop/shop/wikis/home",
-		"source" : "https://gitlab.com/microshop/shop"
+		"issues" : "https://github.com/pluf/shop/issues",
+		"wiki" : "https://github.com/pluf/shop/wiki",
+		"source" : "https://github.com/pluf/shop"
 	},
 	"keywords" : [
 		"pluf",
