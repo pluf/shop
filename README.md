@@ -1,6 +1,9 @@
 # Shop
 
 [![Build Status](https://travis-ci.org/pluf/shop.svg?branch=master)](https://travis-ci.org/pluf/shop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8ea001e01c76e99541f8/maintainability)](https://codeclimate.com/github/pluf/shop/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8ea001e01c76e99541f8/test_coverage)](https://codeclimate.com/github/pluf/shop/test_coverage)
+
 
 این پروژه یک ماژول برای سرورهای pluf است که امکانات یک فروشگاه آنلاین ساده را فراهم می‌کند.
 
