@@ -1,7 +1,11 @@
-# Eclipse
-.project
+# maso, 2018: .project is not reated to the developer environment
+#.project
+.buildpath
 .settings
-/.buildpath
+
+
+# Examples
+/site/tenant
 
 # Composer
 /vendor/
@@ -9,8 +13,5 @@ composer.lock
 composer-setup.php
 composer.phar
 
-# Project
-storage
-
-# KDE
-.directory
+clover.xml
+/build/
