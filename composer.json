@@ -21,12 +21,15 @@
 	],
 	"minimum-stability" : "stable",
 	"require" : {
-		"pluf/cache" : "^2.1.0",
-		"pluf/cms" : "^2.1.0",
-		"pluf/core" : "^2.1.0",
-		"pluf/bank" : "^2.1.0",
-		"pluf/assort" : "^2.1.0",
-		"pluf/geo" : "^2.1"
+		"pluf/core" : "^3.0.0",
+		"pluf/cache" : "^3.0.0",
+		"pluf/cms" : "^3.0.0",
+		"pluf/bank" : "^3.0.0",
+		"pluf/assort" : "^3.0.0",
+		"pluf/geo" : "^3.0.0"
+	},
+	"require-dev" : {
+		"pluf/test" : "^3.0.0"
 	},
 	"include-path" : [
 		"src/"
