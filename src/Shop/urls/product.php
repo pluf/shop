@@ -44,8 +44,8 @@ return array(
             'model' => 'Shop_Product'
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array( // Get info
@@ -67,8 +67,8 @@ return array(
             'permanently' => true
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array( // Update
@@ -80,8 +80,8 @@ return array(
             'model' => 'Shop_Product'
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     // ************************************************************* Taxes of Products
@@ -97,8 +97,8 @@ return array(
         'method' => 'addProductTax',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array(
@@ -107,8 +107,8 @@ return array(
         'method' => 'addProductTax',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array(
@@ -117,8 +117,8 @@ return array(
         'method' => 'removeProductTax',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     // ************************************************************* Categories of Product
@@ -137,7 +137,7 @@ return array(
         'method' => 'addCategory',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Product'
@@ -149,7 +149,7 @@ return array(
         'method' => 'addCategory',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Product'
@@ -161,7 +161,7 @@ return array(
         'method' => 'removeCategory',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Product'
@@ -183,7 +183,7 @@ return array(
         'method' => 'addTag',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Product'
@@ -195,7 +195,7 @@ return array(
         'method' => 'addTag',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Product'
@@ -207,7 +207,7 @@ return array(
         'method' => 'removeTag',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Product'

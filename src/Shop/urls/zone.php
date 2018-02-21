@@ -42,7 +42,7 @@ return array(
         'method' => 'createObject',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Zone'
@@ -63,7 +63,7 @@ return array(
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Zone',
@@ -76,7 +76,7 @@ return array(
         'method' => 'updateObject',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Zone'
@@ -89,7 +89,7 @@ return array(
         'method' => 'members',
         'http-method' => 'GET',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // Add member
@@ -98,7 +98,7 @@ return array(
         'method' => 'addMember',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array( // Add member
@@ -107,7 +107,7 @@ return array(
         'method' => 'addMember',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array( // Delete member
@@ -116,7 +116,7 @@ return array(
         'method' => 'removeMember',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     )
     // TODO: Hadi 1395-05: add REST to manage owner of zone

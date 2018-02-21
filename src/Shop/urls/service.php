@@ -35,8 +35,8 @@ return array(
             'model' => 'Shop_Service'
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array( // Get info
@@ -58,8 +58,8 @@ return array(
             'permanently' => true
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array( // Update
@@ -71,8 +71,8 @@ return array(
             'model' => 'Shop_Service'
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ), // ************************************************************* Taxes of Service
     array(
@@ -87,8 +87,8 @@ return array(
         'method' => 'addServiceTax',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array(
@@ -97,8 +97,8 @@ return array(
         'method' => 'addServiceTax',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array(
@@ -107,8 +107,8 @@ return array(
         'method' => 'removeServiceTax',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     // ************************************************************* Categories of Service
@@ -127,7 +127,7 @@ return array(
         'method' => 'addCategory',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Service'
@@ -139,7 +139,7 @@ return array(
         'method' => 'addCategory',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Service'
@@ -151,7 +151,7 @@ return array(
         'method' => 'removeCategory',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Service'
@@ -173,7 +173,7 @@ return array(
         'method' => 'addTag',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Service'
@@ -185,7 +185,7 @@ return array(
         'method' => 'addTag',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Service'
@@ -197,7 +197,7 @@ return array(
         'method' => 'removeTag',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Service'

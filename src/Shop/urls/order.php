@@ -7,7 +7,7 @@ return array(
         'method' => 'find',
         'http-method' => 'GET',
         'precond' => array(
-            'Pluf_Precondition::authorizedRequired'
+            'User_Precondition::authorizedRequired'
         )
     ),
     array( // create new order
@@ -22,7 +22,7 @@ return array(
         'method' => 'get',
         'http-method' => 'GET',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // get order info (by secure id)
@@ -38,7 +38,7 @@ return array(
         'method' => 'delete',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array( // update order
@@ -47,7 +47,7 @@ return array(
         'method' => 'update',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::memberRequired'
         )
     ),
     // ************************************************************* Processing Order
@@ -58,7 +58,7 @@ return array(
         'http-method' => 'GET',
         'precond' => array(),
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // get possible actions (by secure id)
@@ -68,7 +68,7 @@ return array(
         'http-method' => 'GET',
         'precond' => array(),
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // do action on order
@@ -77,7 +77,7 @@ return array(
         'method' => 'putToState',
         'http-method' => 'PUT',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // do action on order (by secure id)
@@ -86,7 +86,7 @@ return array(
         'method' => 'putToState',
         'http-method' => 'PUT',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     // ************************************************************* Order Payments
@@ -96,8 +96,8 @@ return array(
         'method' => 'pay',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::ownerRequired'
         )
     ),
     array( // Check payment state of order 
@@ -106,8 +106,8 @@ return array(
         'method' => 'payInfo',
         'http-method' => 'GET',
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::ownerRequired'
         )
     ),
     // ************************************************************* Order Deliver Type
@@ -117,7 +117,7 @@ return array(
         'method' => 'setDeliverType',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // set deliver type

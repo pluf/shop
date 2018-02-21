@@ -6,7 +6,7 @@ class Shop_Views_Zone
     public static function members($request, $match)
     {
         $zone = Pluf_Shortcuts_GetObjectOr404('Shop_Zone', $match['zoneId']);
-        $user = new Pluf_User();
+        $user = new User();
         $associationTable = Shop_Shortcuts_GetAssociationTableName($zone, $user);
         $user->_a['views']['myView'] = array(
             'select' => $user->getSecureSelect(),
@@ -57,7 +57,7 @@ class Shop_Views_Zone
         } else {
             $userId = $request->REQUEST['userId'];
         }
-        $user = Pluf_Shortcuts_GetObjectOr404('Pluf_User', $userId);
+        $user = Pluf_Shortcuts_GetObjectOr404('User', $userId);
         $zone->setAssoc($user);
         return new Pluf_HTTP_Response_Json($user);
     }
@@ -70,7 +70,7 @@ class Shop_Views_Zone
         } else {
             $userId = $request->REQUEST['userId'];
         }
-        $user = Pluf_Shortcuts_GetObjectOr404('Pluf_User', $userId);
+        $user = Pluf_Shortcuts_GetObjectOr404('User', $userId);
         $zone->delAssoc($user);
         return new Pluf_HTTP_Response_Json($user);
     }

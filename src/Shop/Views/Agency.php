@@ -6,7 +6,7 @@ class Shop_Views_Agency
     public static function owners($request, $match)
     {
         $agency = Pluf_Shortcuts_GetObjectOr404('Shop_Agency', $match['agencyId']);
-        $user = new Pluf_User();
+        $user = new User();
         $associationTable = Shop_Shortcuts_GetAssociationTableName($agency, $user);
         $user->_a['views']['myView'] = array(
             'select' => $user->getSecureSelect(),
@@ -57,7 +57,7 @@ class Shop_Views_Agency
         } else {
             $userId = $request->REQUEST['userId'];
         }
-        $user = Pluf_Shortcuts_GetObjectOr404('Pluf_User', $userId);
+        $user = Pluf_Shortcuts_GetObjectOr404('User', $userId);
         $agency->setAssoc($user);
         return new Pluf_HTTP_Response_Json($user);
     }
@@ -70,7 +70,7 @@ class Shop_Views_Agency
         } else {
             $userId = $request->REQUEST['userId'];
         }
-        $user = Pluf_Shortcuts_GetObjectOr404('Pluf_User', $userId);
+        $user = Pluf_Shortcuts_GetObjectOr404('User', $userId);
         $agency->delAssoc($user);
         return new Pluf_HTTP_Response_Json($user);
     }

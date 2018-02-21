@@ -33,8 +33,8 @@ return array(
             'model' => 'Shop_TaxClass'
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array( // Get info
@@ -56,8 +56,8 @@ return array(
             'permanently' => true
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array( // Update
@@ -69,8 +69,8 @@ return array(
             'model' => 'Shop_TaxClass'
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     )
 );

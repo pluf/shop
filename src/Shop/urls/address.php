@@ -7,7 +7,7 @@ return array(
         'method' => 'find',
         'http-method' => 'GET',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // Create
@@ -16,7 +16,7 @@ return array(
         'method' => 'create',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // Get info
@@ -25,7 +25,7 @@ return array(
         'method' => 'get',
         'http-method' => 'GET',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // Delete
@@ -34,7 +34,7 @@ return array(
         'method' => 'delete',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // Update
@@ -43,7 +43,7 @@ return array(
         'method' => 'update',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     )
 );

@@ -9,7 +9,7 @@ class Shop_Views_Contact
     {
         $contact = new Shop_Contact();
         $pag = new Pluf_Paginator($contact);
-        if (Pluf_Precondition::ownerRequired($request)) {
+        if (User_Precondition::ownerRequired($request)) {
             $pag->forced_where = new Pluf_SQL();
         } else {
             $pag->forced_where = new Pluf_SQL('user=' . $request->user->id);
@@ -100,6 +100,6 @@ class Shop_Views_Contact
     {
         $currentUser = $request->user;
         $user = $contact->get_user();
-        return ($user != null && $currentUser->getId() === $user->getId()) || Pluf_Precondition::ownerRequired($request);
+        return ($user != null && $currentUser->getId() === $user->getId()) || User_Precondition::ownerRequired($request);
     }
 }
