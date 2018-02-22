@@ -18,6 +18,7 @@ class Shop_PricedObject extends Shop_DetailedObject
             'price' => array(
                 'type' => 'Pluf_DB_Field_Integer',
                 'blank' => false,
+                'is_null' => false,
                 'editable' => true,
                 'readable' => true
             ),
@@ -40,8 +41,6 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'Assort_Category',
                 'relate_name' => 'categories',
-                'blank' => false,
-                'is_null' => false,
                 'editable' => false,
                 'readable' => false
             ),
@@ -49,8 +48,6 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'Assort_Tag',
                 'relate_name' => 'tags',
-                'is_null' => false,
-                'blank' => false,
                 'editable' => false,
                 'readable' => false
             )

@@ -22,6 +22,7 @@ class Shop_DetailedObject extends Pluf_Model
             'title' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => false,
+                'is_null' => false,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
@@ -29,6 +30,7 @@ class Shop_DetailedObject extends Pluf_Model
             'description' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => true,
+                'is_null' => true,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
@@ -48,6 +50,7 @@ class Shop_DetailedObject extends Pluf_Model
             'avatar' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => true,
+                'is_null' => true,
                 'size' => 300,
                 'editable' => true,
                 'readable' => true

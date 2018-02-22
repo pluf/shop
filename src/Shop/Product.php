@@ -18,6 +18,7 @@ class Shop_Product extends Shop_PricedObject
             'manufacturer' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => false,
+                'is_null' => false,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
@@ -25,6 +26,7 @@ class Shop_Product extends Shop_PricedObject
             'brand' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => false,
+                'is_null' => false,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
@@ -32,6 +34,7 @@ class Shop_Product extends Shop_PricedObject
             'model' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => true,
+                'is_null' => true,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
@@ -39,6 +42,7 @@ class Shop_Product extends Shop_PricedObject
             'properties' => array(
                 'type' => 'Pluf_DB_Field_Text',
                 'blank' => true,
+                'is_null' => true,
                 'size' => 3000,
                 'editable' => true,
                 'readable' => true
@@ -61,6 +65,13 @@ class Shop_Product extends Shop_PricedObject
         }
         $str = $str . ')';
         return $str;
+    }
+    
+    function clean_off(){
+        if($this->off !== null){
+            return $this->off;
+        }
+        return 0;
     }
     
 }
