@@ -27,7 +27,7 @@ function Shop_Shortcuts_GetAssociationTableName($model1, $model2)
         strtolower($model2->_a['model'])
     );
     sort($hay);
-    $table = $hay[0] . '_' . $hay[1] . '_assoc';
+    $table = $model1->_con->pfx . $hay[0] . '_' . $hay[1] . '_assoc';
     return $table;
 }
 
@@ -42,6 +42,19 @@ function Shop_Shortcuts_GetAssociationTableName($model1, $model2)
 function Shop_Shortcuts_GetIdColumnName($model)
 {
     return strtolower($model->_a['model']) . '_id';
+}
+
+/**
+ * Returns name of table for given model.
+ * Returned name is base of rule which Pluf is used to define name of tables
+ * for a model.
+ *
+ * @param Pluf_Model $model            
+ * @return string
+ */
+function Shop_Shortcuts_GetTableName($model)
+{
+    return $model->_con->pfx . $model->_a['table'];
 }
 
 /**

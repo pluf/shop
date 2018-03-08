@@ -70,7 +70,7 @@ class Shop_Address extends Pluf_Model
             // رابطه‌ها
             'user' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'Pluf_User',
+                'model' => 'User',
                 'relate_name' => 'user',
                 'is_null' => true,
                 'editable' => false,

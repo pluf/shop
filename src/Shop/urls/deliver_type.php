@@ -35,7 +35,7 @@ return array(
             'model' => 'Shop_DeliverType'
         ),
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array( // Get info
@@ -57,8 +57,8 @@ return array(
             'permanently' => true
         ),
         'precond' => array(
-            'Pluf_Precondition::loginRequired',
-            'Pluf_Precondition::memberRequired'
+            'User_Precondition::loginRequired',
+            'User_Precondition::memberRequired'
         )
     ),
     array( // Update
@@ -70,7 +70,7 @@ return array(
             'model' => 'Shop_DeliverType'
         ),
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     )
 );

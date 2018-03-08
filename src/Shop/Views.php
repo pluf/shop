@@ -2,6 +2,7 @@
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
 Pluf::loadFunction('Shop_Shortcuts_GetIdColumnName');
+Pluf::loadFunction('Shop_Shortcuts_GetTableName');
 Pluf::loadFunction('Shop_Shortcuts_GetAssociationTableName');
 
 class Shop_Views
@@ -15,7 +16,7 @@ class Shop_Views
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
         $tag = new Assort_Tag();
-        $tagTable = $tag->_a['table'];
+        $tagTable = Shop_Shortcuts_GetTableName($tag);
         $tagIdColName = Shop_Shortcuts_GetIdColumnName($tag);
         $assocTable = Shop_Shortcuts_GetAssociationTableName($item, $tag);
         $tag->_a['views']['myView'] = array(
@@ -86,7 +87,7 @@ class Shop_Views
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
         $category = new Assort_Category();
-        $categoryTable = $category->_a['table'];
+        $categoryTable = Shop_Shortcuts_GetTableName($category);
         $catIdColName = Shop_Shortcuts_GetIdColumnName($category);
         $assocTable = Shop_Shortcuts_GetAssociationTableName($item, $category);
         $category->_a['views']['myView'] = array(

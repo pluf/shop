@@ -51,7 +51,7 @@ return array(
         'method' => 'createObject',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Agency'
@@ -72,7 +72,7 @@ return array(
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Agency',
@@ -85,7 +85,7 @@ return array(
         'method' => 'updateObject',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         ),
         'params' => array(
             'model' => 'Shop_Agency'
@@ -98,7 +98,7 @@ return array(
         'method' => 'owners',
         'http-method' => 'GET',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // Add owner
@@ -107,7 +107,7 @@ return array(
         'method' => 'addOwner',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array( // Add owner
@@ -116,7 +116,7 @@ return array(
         'method' => 'addOwner',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array( // Delete owner
@@ -125,7 +125,7 @@ return array(
         'method' => 'removeOwner',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     )
 );

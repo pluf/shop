@@ -131,7 +131,7 @@ class Shop_Order extends Pluf_Model
             // ),
             'customer' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'Pluf_User',
+                'model' => 'User',
                 'relate_name' => 'customer',
                 'is_null' => true,
                 'editable' => false,
@@ -139,7 +139,7 @@ class Shop_Order extends Pluf_Model
             ),
             'assignee' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'Pluf_User',
+                'model' => 'User',
                 'relate_name' => 'assignee',
                 'is_null' => true,
                 'editable' => false,

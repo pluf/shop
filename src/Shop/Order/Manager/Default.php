@@ -17,44 +17,44 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
      * State machine of the manager
      */
     public static $STATE_MACHINE = array(
-            Workflow_Machine::STATE_UNDEFINED => array(
-                    'next' => 'Live'
+        Workflow_Machine::STATE_UNDEFINED => array(
+            'next' => 'Live'
+        ),
+        // State
+        'Live' => array(
+            // Transaction or event
+            'addItem' => array(
+                'next' => 'Live',
+                'visible' => true
             ),
-            // State
-            'Live' => array(
-                    // Transaction or event
-                    'addItem' => array(
-                            'next' => 'Live',
-                            'visible' => true
-                    ),
-                    'update' => array(
-                            'next' => 'Live',
-                            'visible' => false,
-                            'action' => array(
-                                    'Shop_Order_Manager_Default',
-                                    'update'
-                            ),
-                            'preconditions' => array(
-                                    'Pluf_Precondition::isOwner'
-                            )
-                    ),
-                    'read' => array(
-                            'next' => 'Live',
-                            'visible' => false
-                    ),
-                    'delete' => array(
-                            'next' => 'Deleted',
-                            'visible' => false,
-                            'action' => array(
-                                    'Shop_Order_Manager_Default',
-                                    'update'
-                            ),
-                            'preconditions' => array(
-                                    'Pluf_Precondition::isOwner'
-                            )
-                    )
+            'update' => array(
+                'next' => 'Live',
+                'visible' => false,
+                'action' => array(
+                    'Shop_Order_Manager_Default',
+                    'update'
+                ),
+                'preconditions' => array(
+                    'User_Precondition::isOwner'
+                )
             ),
-            'Deleted' => array()
+            'read' => array(
+                'next' => 'Live',
+                'visible' => false
+            ),
+            'delete' => array(
+                'next' => 'Deleted',
+                'visible' => false,
+                'action' => array(
+                    'Shop_Order_Manager_Default',
+                    'update'
+                ),
+                'preconditions' => array(
+                    'User_Precondition::isOwner'
+                )
+            )
+        ),
+        'Deleted' => array()
     );
 
     /**
@@ -62,10 +62,10 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
      * {@inheritdoc}
      * @see Shop_Order_Manager::createOrderFilter()
      */
-    public function createOrderFilter ($request)
+    public function createOrderFilter($request)
     {
         $sql = new Pluf_SQL('deleted=false');
-        if (Pluf_Precondition::isOwner($request)) {
+        if (User_Precondition::isOwner($request)) {
             return $sql;
         }
         return new Pluf_SQL('false');
@@ -76,14 +76,13 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
      * {@inheritdoc}
      * @see Shop_Order_Manager::apply()
      */
-    public function apply ($object, $action)
+    public function apply($object, $action)
     {
         $machine = new Workflow_Machine();
         $machine->setStates(self::$STATE_MACHINE)
-            ->setSignals(
-                array(
-                        'Shot_Order::stateChange'
-                ))
+            ->setSignals(array(
+            'Shot_Order::stateChange'
+        ))
             ->setProperty('state')
             ->apply($object, $action);
         return true;
@@ -94,7 +93,7 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
      * {@inheritdoc}
      * @see Shop_Order_Manager::nextStates()
      */
-    public function nextStates ($order)
+    public function nextStates($order)
     {
         $states = array();
         foreach (self::$STATE_MACHINE[$order->state] as $id => $state) {
@@ -110,7 +109,7 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
      * @param Pluf_HTTP_Request $request
      * @param Shop_Order $object
      */
-    public static function update ($request, $object)
+    public static function update($request, $object)
     {
         Pluf_Shortcuts_GetFormForUpdateModel($object, $request->REQUEST)->save();
     }
@@ -121,7 +120,7 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
      * @param Pluf_HTTP_Request $request
      * @param Shop_Order $object
      */
-    public static function delete ($request, $object)
+    public static function delete($request, $object)
     {
         $object->deleted = true;
         $object->update();

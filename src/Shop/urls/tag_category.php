@@ -13,7 +13,7 @@ return array(
         'method' => 'addItem',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array(
@@ -22,7 +22,7 @@ return array(
         'method' => 'addItem',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array(
@@ -31,7 +31,7 @@ return array(
         'method' => 'removeItem',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     // ************************************************************* Items (product or service) with Tag
@@ -47,7 +47,7 @@ return array(
         'method' => 'addItem',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array(
@@ -56,7 +56,7 @@ return array(
         'method' => 'addItem',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     ),
     array(
@@ -65,7 +65,7 @@ return array(
         'method' => 'removeItem',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::ownerRequired'
+            'User_Precondition::ownerRequired'
         )
     )
 );
