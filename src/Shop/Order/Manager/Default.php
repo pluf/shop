@@ -25,7 +25,44 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
             // Transaction or event
             'addItem' => array(
                 'next' => 'Live',
-                'visible' => true
+                'visible' => true,
+                'title' => 'Add Item',
+                'description' => 'Add an item to order',
+                'properties' => array(
+                    array(
+                        'name' => 'itemId',
+                        'type' => 'Long',
+                        'unit' => 'none',
+                        'title' => 'Item Id',
+                        'description' => 'Id of item to add to order',
+                        'editable' => true,
+                        'visible' => true,
+                        'priority' => 5,
+                        'symbol' => 'id',
+                        'defaultValue' => 0,
+                        'validators' => [
+                            'NotNull',
+                            'NotEmpty',
+                            'Positive'
+                        ]
+                    ),
+                    array(
+                        'name' => 'itemType',
+                        'type' => 'String',
+                        'unit' => 'none',
+                        'title' => 'Item Type',
+                        'description' => 'Type of item to add to order',
+                        'editable' => true,
+                        'visible' => true,
+                        'priority' => 5,
+                        'symbol' => 'type',
+                        'defaultValue' => 'product',
+                        'validators' => [
+                            'NotNull',
+                            'NotEmpty'
+                        ]
+                    )
+                )
             ),
             'update' => array(
                 'next' => 'Live',
@@ -91,16 +128,19 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
     /**
      *
      * {@inheritdoc}
-     * @see Shop_Order_Manager::nextStates()
+     * @see Shop_Order_Manager::transitions()
      */
-    public function nextStates($order)
+    public function transitions($order)
     {
-        $states = array();
-        foreach (self::$STATE_MACHINE[$order->state] as $id => $state) {
-            $state['id'] = $id;
-            $states[] = $state;
+        $transtions = array();
+        foreach (self::$STATE_MACHINE[$order->state] as $id => $trans) {
+            $trans['id'] = $id;
+            // TODO: chech preconditions and return only verified transitions
+            unset($trans['preconditions']);
+            unset($trans['action']);
+            $transtions[] = $trans;
         }
-        return $states;
+        return $transtions;
     }
 
     /**
