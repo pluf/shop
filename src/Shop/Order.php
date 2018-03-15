@@ -243,7 +243,7 @@ class Shop_Order extends Pluf_Model
     {
         $managerClassName = $this->manager;
         if (! isset($managerClassName) || empty($managerClassName))
-            $managerClassName = Config_Service::get('Shop.Order.Manager', 'Shop_Order_Manager_Default');
+            $managerClassName = Tenant_Service::setting('Shop.Order.Manager', 'Shop_Order_Manager_Default');
         return new $managerClassName();
     }
 
