@@ -8,6 +8,16 @@
  */
 class Shop_Monitor_OrderItem
 {
+    /**
+     * Conts of order items
+     *
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
+     * @return number
+     */
+    public static function count($request, $match){
+        return 113;
+    }
 
     /**
      * Conts of orders

@@ -39,6 +39,13 @@
 				"cacheable": true
 			},{
 				"monitor":"order-item",
+				"name": "count",
+				"title": "Order items count",
+				"description": "Number of order item.",
+				"function": "Shop_Monitor_OrderItem::count",
+				"cacheable": true
+			},{
+				"monitor":"order-item",
 				"name": "serviceCount",
 				"title": "Service count",
 				"description": "Number of service.",
