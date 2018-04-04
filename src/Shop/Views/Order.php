@@ -390,7 +390,7 @@ class Shop_Views_Order
                     $match['orderId']);
             self::checkAccess($request, $order);
         }
-        $action = $match['action'];
+        $action =  $request->REQUEST['action'];
         $manager = $order->getManager();
         // TODO: hadi: complete code. I think it should be similar to following
         // codes.
