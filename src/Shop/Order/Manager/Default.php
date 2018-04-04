@@ -67,6 +67,7 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
             'update' => array(
                 'next' => 'Live',
                 'visible' => false,
+                'title' => 'Update',
                 'action' => array(
                     'Shop_Order_Manager_Default',
                     'update'
@@ -77,10 +78,12 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
             ),
             'read' => array(
                 'next' => 'Live',
+                'title' => 'Get Information',
                 'visible' => false
             ),
             'delete' => array(
                 'next' => 'Deleted',
+                'title' => 'Delete',
                 'visible' => false,
                 'action' => array(
                     'Shop_Order_Manager_Default',
