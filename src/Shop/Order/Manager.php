@@ -39,10 +39,12 @@ interface Shop_Order_Manager
     public function apply ($order, $action);
 
     /**
-     * Returns next possible states
+     * Returns possible transitions for given order
+     * 
+     * Returns possible transitions respect to currecnt state of given order.
      *
      * @param Shop_Order $order
-     * @return array of states
+     * @return array array of transitions
      */
-    public function nextStates ($order);
+    public function transitions ($order);
 }

@@ -14,16 +14,51 @@
 		"Shop_TaxClass",
 		"Shop_Zone"
 	],
-	"permisson": [
-		{
-			"name": "Zone Owner",
-			"code_name": "zoneOwner",
-			"description": "Zone owner."
-		},
-		{
-			"name": "Agency Owner",
-			"code_name": "agencyOwner",
-			"description": "Agency owner."
-		}
-	]
+	"init": {
+		"Role": [
+			{
+				"name": "zone ownership",
+				"application": "shop",
+				"code_name": "zoneOwner",
+				"description": "Permission given to zone owners."
+			},
+			{
+				"name": "Agency ownership",
+				"application": "shop",
+				"code_name": "agencyOwner",
+				"description": "Permission given to agency owner."
+			}
+		],
+		"Monitor_Property": [
+			{
+				"monitor":"order",
+				"name": "count",
+				"title": "Order count",
+				"description": "Number of orders.",
+				"function": "Shop_Monitor_Order::count",
+				"cacheable": true
+			},{
+				"monitor":"order-item",
+				"name": "count",
+				"title": "Order items count",
+				"description": "Number of order item.",
+				"function": "Shop_Monitor_OrderItem::count",
+				"cacheable": true
+			},{
+				"monitor":"order-item",
+				"name": "serviceCount",
+				"title": "Service count",
+				"description": "Number of service.",
+				"function": "Shop_Monitor_OrderItem::serviceCount",
+				"cacheable": true
+			},{
+				"monitor":"order-item",
+				"name": "productCount",
+				"title": "Product count",
+				"description": "Number of product.",
+				"function": "Shop_Monitor_OrderItem::productCount",
+				"cacheable": true
+			}
+		]
+	}
 }

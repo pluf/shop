@@ -363,13 +363,13 @@ class Shop_Views_Order
     // Workflow
     // **********************************************************
     /**
-     * Gets lit of possible next states
+     * Gets lit of possible actions
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
-     * @return string[]
+     * @return array an array of transitions
      */
-    public function states ($request, $match)
+    public function actions ($request, $match)
     {
         if (isset($match['secureId'])) {
             $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
@@ -378,10 +378,10 @@ class Shop_Views_Order
                     $match['orderId']);
             self::checkAccess($request, $order);
         }
-        return $order->getManager()->nextStates($order);
+        return $order->getManager()->transitions($order);
     }
 
-    public static function putToState ($request, $match)
+    public static function doAction ($request, $match)
     {
         if (isset($match['secureId'])) {
             $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
@@ -390,9 +390,9 @@ class Shop_Views_Order
                     $match['orderId']);
             self::checkAccess($request, $order);
         }
-        $action = $match['state'];
+        $action =  $request->REQUEST['action'];
         $manager = $order->getManager();
-        // TODO: hadi: complete code. I think it should be similar to followin
+        // TODO: hadi: complete code. I think it should be similar to following
         // codes.
         // $wf = $manager->getWorkflow();
         // $actions = $wf->act($order, $action);
