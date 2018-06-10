@@ -100,6 +100,12 @@ return array(
             'User_Precondition::ownerRequired'
         )
     ),
+    array( // pay for order by secure id
+        'regex' => '#^/order/(?P<secureId>[^/]+)/payment$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'pay',
+        'http-method' => 'POST'
+    ),
     array( // Check payment state of order 
         'regex' => '#^/order/(?P<orderId>\d+)/payment$#',
         'model' => 'Shop_Views_Order',
@@ -109,6 +115,12 @@ return array(
             'User_Precondition::loginRequired',
             'User_Precondition::ownerRequired'
         )
+    ),
+    array( // Check payment state of order (by secure id)
+        'regex' => '#^/order/(?P<secureId>[^/]+)/payment$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'payInfo',
+        'http-method' => 'GET'
     ),
     // ************************************************************* Order Deliver Type
     array( // set deliver type
