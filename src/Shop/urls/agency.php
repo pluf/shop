@@ -8,41 +8,7 @@ return array(
         'http-method' => 'GET',
         'params' => array(
             'model' => 'Shop_Agency',
-            'sql' => new Pluf_SQL('deleted=false'),
-            'listFilters' => array(
-                'id',
-                'title',
-                'province',
-                'city',
-                'address',
-                'phone'
-            ),
-            'listDisplay' => array(
-                'title' => 'title',
-                'province' => 'province',
-                'city' => 'city',
-                'address' => 'address',
-                'phone' => 'phone',
-                'description' => 'description'
-            ),
-            'searchFields' => array(
-                'title',
-                'province',
-                'city',
-                'address',
-                'phone',
-                'description'
-            ),
-            'sortFields' => array(
-                'id',
-                'title',
-                'province',
-                'city',
-                'phone',
-                'point',
-                'creation_date',
-                'modif_dtime'
-            )
+            'sql' => new Pluf_SQL('deleted=false')
         )
     ),
     array( // Create

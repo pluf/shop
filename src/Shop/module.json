@@ -38,21 +38,21 @@
 				"function": "Shop_Monitor_Order::count",
 				"cacheable": true
 			},{
-				"monitor":"order-item",
+				"monitor":"order_item",
 				"name": "count",
 				"title": "Order items count",
 				"description": "Number of order item.",
 				"function": "Shop_Monitor_OrderItem::count",
 				"cacheable": true
 			},{
-				"monitor":"order-item",
+				"monitor":"order_item",
 				"name": "serviceCount",
 				"title": "Service count",
 				"description": "Number of service.",
 				"function": "Shop_Monitor_OrderItem::serviceCount",
 				"cacheable": true
 			},{
-				"monitor":"order-item",
+				"monitor":"order_item",
 				"name": "productCount",
 				"title": "Product count",
 				"description": "Number of product.",

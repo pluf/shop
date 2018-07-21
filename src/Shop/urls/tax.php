@@ -7,21 +7,7 @@ return array(
         'method' => 'findObject',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_TaxClass',
-            'listFilters' => array(
-                'id',
-                'title',
-                'rate'
-            ),
-            'searchFields' => array(
-                'title',
-                'rate'
-            ),
-            'sortFields' => array(
-                'id',
-                'title',
-                'rate'
-            )
+            'model' => 'Shop_TaxClass'
         )
     ),
     array( // Create

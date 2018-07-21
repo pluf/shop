@@ -7,32 +7,7 @@ return array(
         'method' => 'findObject',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_Product',
-            'listFilters' => array(
-                'id',
-                'title',
-                'price',
-                'off',
-                'manufacturer',
-                'brand',
-                'model'
-            ),
-            'searchFields' => array(
-                'title',
-                'description',
-                'manufacturer',
-                'brand',
-                'model'
-            ),
-            'sortFields' => array(
-                'id',
-                'title',
-                'price',
-                'off',
-                'manufacturer',
-                'brand',
-                'model'
-            )
+            'model' => 'Shop_Product'
         )
     ),
     array( // Create

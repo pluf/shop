@@ -88,7 +88,7 @@ class Shop_Views_Order
                 'deliver_type',
                 'zone',
                 'agency',
-                'creation_date',
+                'creation_dtime',
                 'modif_dtime'
         );
         // NOTE: maso, 1395: User app are responsible to get more items
