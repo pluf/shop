@@ -9,18 +9,24 @@
 class Shop_Monitor_OrderItem
 {
     /**
-     * Conts of order items
+     * Returns number of order items (includes products and services)
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
      * @return number
      */
     public static function count($request, $match){
-        return 113;
+        $model = new Shop_OrderItem();
+        $params = array(
+            'count' => true
+        );
+        $result = $model->getList($params);
+        // convert to numeric value and return
+        return $result[0]['nb_items'] + 0;
     }
 
     /**
-     * Conts of orders
+     * Returns total number of services
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
@@ -28,11 +34,17 @@ class Shop_Monitor_OrderItem
      */
     public static function serviceCount($request, $match)
     {
-        return 114;
+        $model = new Shop_Service();
+        $params = array(
+            'count' => true
+        );
+        $result = $model->getList($params);
+        // convert to numeric value and return
+        return $result[0]['nb_items'] + 0;
     }
 
     /**
-     * Conts of orders
+     * Returns total number of products
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
@@ -40,6 +52,12 @@ class Shop_Monitor_OrderItem
      */
     public static function productCount($request, $match)
     {
-        return 115;
+        $model = new Shop_Product();
+        $params = array(
+            'count' => true
+        );
+        $result = $model->getList($params);
+        // convert to numeric value and return
+        return $result[0]['nb_items'] + 0;
     }
 }
