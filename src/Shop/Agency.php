@@ -54,7 +54,7 @@ class Shop_Agency extends Shop_DetailedObject
                 'readable' => true
             ),
             'point' => array(
-                'type' => 'Geo_DB_Field_Point',
+                'type' => 'Pluf_DB_Field_Geometry',
                 'is_null' => false
             ),
             'deleted' => array(

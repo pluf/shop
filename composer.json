@@ -26,7 +26,6 @@
 		"pluf/cms" : "^3.0.0",
 		"pluf/bank" : "^3.0.0",
 		"pluf/assort" : "^3.0.0",
-		"pluf/geo" : "^3.0.0",
 		"pluf/monitor" : "^3.0.0"
 	},
 	"require-dev" : {
