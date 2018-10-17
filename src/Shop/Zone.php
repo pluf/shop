@@ -43,7 +43,7 @@ class Shop_Zone extends Shop_DetailedObject
                 'readable' => true
             ),
             'polygon' => array(
-                'type' => 'Geo_DB_Field_Polygon',
+                'type' => 'Pluf_DB_Field_Geometry',
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true

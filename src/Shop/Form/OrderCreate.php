@@ -60,7 +60,7 @@ class Shop_Form_OrderCreate extends Pluf_Form
             'help_text' => 'Address to do order'
         ));
         
-        $this->fields['point'] = new Geo_Form_Field_Point(array(
+        $this->fields['point'] = new Pluf_Form_Field_Geometry(array(
             'required' => false,
             'label' => 'Point',
             'help_text' => 'GeoPoint location to do order'

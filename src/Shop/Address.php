@@ -52,7 +52,7 @@ class Shop_Address extends Pluf_Model
                 'readable' => true
             ),
             'point' => array(
-                'type' => 'Geo_DB_Field_Point',
+                'type' => 'Pluf_DB_Field_Geometry',
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
