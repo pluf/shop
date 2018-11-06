@@ -81,19 +81,19 @@ class Product_RestTest extends TestCase
         $this->client = new Test_Client(array(
             array(
                 'app' => 'Shop',
-                'regex' => '#^/api/shop#',
+                'regex' => '#^/shop#',
                 'base' => '',
                 'sub' => include 'Shop/urls.php'
             ),
             array(
                 'app' => 'User',
-                'regex' => '#^/api/user#',
+                'regex' => '#^/user#',
                 'base' => '',
                 'sub' => include 'User/urls.php'
             )
         ));
         // login
-        $response = $this->client->post('/api/user/login', array(
+        $response = $this->client->post('/user/login', array(
             'login' => 'test',
             'password' => 'test'
         ));
@@ -113,7 +113,7 @@ class Product_RestTest extends TestCase
             'price' => rand(),
             'off' => '10'
         );
-        $response = $this->client->post('/api/shop/product/new', $form);
+        $response = $this->client->post('/shop/product/new', $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -134,7 +134,7 @@ class Product_RestTest extends TestCase
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
         // Get item
-        $response = $this->client->get('/api/shop/product/' . $item->id);
+        $response = $this->client->get('/shop/product/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -158,7 +158,7 @@ class Product_RestTest extends TestCase
         $form = array(
             'title' => 'new title' . rand()
         );
-        $response = $this->client->post('/api/shop/product/' . $item->id, $form);
+        $response = $this->client->post('/shop/product/' . $item->id, $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -180,7 +180,7 @@ class Product_RestTest extends TestCase
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
 
         // delete
-        $response = $this->client->delete('/api/shop/product/' . $item->id);
+        $response = $this->client->delete('/shop/product/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -191,7 +191,7 @@ class Product_RestTest extends TestCase
      */
     public function findRestTest()
     {
-        $response = $this->client->get('/api/shop/product/find');
+        $response = $this->client->get('/shop/product/find');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -220,12 +220,12 @@ class Product_RestTest extends TestCase
         $item->setAssoc($cat);
 
         // find
-        $response = $this->client->get('/api/shop/product/' . $item->id . '/category/find');
+        $response = $this->client->get('/shop/product/' . $item->id . '/category/find');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
         // create
-        $response = $this->client->post('/api/shop/product/' . $item->id . '/category/new', array(
+        $response = $this->client->post('/shop/product/' . $item->id . '/category/new', array(
             'categoryId' => $cat->id
         ));
         $this->assertNotNull($response);
@@ -233,12 +233,12 @@ class Product_RestTest extends TestCase
 
         // TODO: hadi, 2018: add get method to product.url
         // // get
-        // $response = $this->client->get('/api/shop/product/' . $item->id . '/category/' . $cat->id);
+        // $response = $this->client->get('/shop/product/' . $item->id . '/category/' . $cat->id);
         // $this->assertNotNull($response);
         // $this->assertEquals($response->status_code, 200);
 
         // delete
-        $response = $this->client->delete('/api/shop/product/' . $item->id . '/category/' . $cat->id);
+        $response = $this->client->delete('/shop/product/' . $item->id . '/category/' . $cat->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -267,24 +267,24 @@ class Product_RestTest extends TestCase
         $item->setAssoc($tag);
 
         // find
-        $response = $this->client->get('/api/shop/product/' . $item->id . '/tag/find');
+        $response = $this->client->get('/shop/product/' . $item->id . '/tag/find');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
         // create
-        $response = $this->client->post('/api/shop/product/' . $item->id . '/tag/new', array(
+        $response = $this->client->post('/shop/product/' . $item->id . '/tag/new', array(
             'tagId' => $tag->id
         ));
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
         // // get
-        // $response = $this->client->get('/api/shop/product/' . $item->id . '/tag/' . $tag->id);
+        // $response = $this->client->get('/shop/product/' . $item->id . '/tag/' . $tag->id);
         // $this->assertNotNull($response);
         // $this->assertEquals($response->status_code, 200);
 
         // delete
-        $response = $this->client->delete('/api/shop/product/' . $item->id . '/tag/' . $tag->id);
+        $response = $this->client->delete('/shop/product/' . $item->id . '/tag/' . $tag->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
