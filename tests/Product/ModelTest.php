@@ -39,22 +39,25 @@ class Product_ModelTest extends TestCase
         $m->install();
         $m->init();
         
-        $user = new User();
+        // Test user
+        $user = new User_Account();
         $user->login = 'test';
-        $user->first_name = 'test';
-        $user->last_name = 'test';
-        $user->email = 'toto@example.com';
-        $user->setPassword('test');
-        $user->active = true;
+        $user->is_active = true;
         if (true !== $user->create()) {
             throw new Exception();
         }
+        // Credential of user
+        $credit = new User_Credential();
+        $credit->setFromFormData(array(
+            'account_id' => $user->id
+        ));
+        $credit->setPassword('test');
+        if (true !== $credit->create()) {
+            throw new Exception();
+        }
         
-        $rol = Role::getFromString('Pluf.owner');
-        $user->setAssoc($rol);
-        
-        $t = new User($user->id);
-        Test_Assert::assertTrue($t->hasPerm('Pluf.owner'));
+        $per = User_Role::getFromString('tenant.owner');
+        $user->setAssoc($per);
     }
 
     /**

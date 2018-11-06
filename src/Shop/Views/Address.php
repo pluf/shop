@@ -104,8 +104,8 @@ class Shop_Views_Address
      * @return boolean
      */
     private static function canAccess($request, $address){
-        $currentUser = $request->user;
+        $currentUser_Account = $request->user;
         $user = $address->get_user();
-        return ($user != null && $currentUser->getId() === $user->getId()) || User_Precondition::ownerRequired($request);
+        return ($user != null && $currentUser_Account->getId() === $user->getId()) || User_Precondition::ownerRequired($request);
     }
 }

@@ -49,7 +49,7 @@ class Shop_Contact extends Pluf_Model
             // Relations
             'user' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'User',
+                'model' => 'User_Account',
                 'relate_name' => 'user',
                 'is_null' => true,
                 'editable' => false,

@@ -79,7 +79,7 @@ class Shop_Agency extends Shop_DetailedObject
             // رابطه‌ها
             'owner' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
-                'model' => 'User',
+                'model' => 'User_Account',
                 'relate_name' => 'owner',
                 'editable' => true,
                 'readable' => true
@@ -98,7 +98,7 @@ class Shop_Agency extends Shop_DetailedObject
     /**
      * Checks if given user is a owner of zone
      *
-     * @param User $user            
+     * @param User_Account $user            
      * @return boolean
      */
     function isOwner($user)

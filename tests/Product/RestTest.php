@@ -21,6 +21,7 @@ use PHPUnit\Framework\IncompleteTestError;
 require_once 'Pluf.php';
 
 /**
+ *
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
@@ -30,6 +31,7 @@ class Product_RestTest extends TestCase
     var $client;
 
     /**
+     *
      * @beforeClass
      */
     public static function createDataBase()
@@ -38,26 +40,30 @@ class Product_RestTest extends TestCase
         $m = new Pluf_Migration(Pluf::f('installed_apps'));
         $m->install();
         $m->init();
-        
-        $user = new User();
+
+        // Test user
+        $user = new User_Account();
         $user->login = 'test';
-        $user->first_name = 'test';
-        $user->last_name = 'test';
-        $user->email = 'toto@example.com';
-        $user->setPassword('test');
-        $user->active = true;
+        $user->is_active = true;
         if (true !== $user->create()) {
             throw new Exception();
         }
-        
-        $rol = Role::getFromString('Pluf.owner');
-        $user->setAssoc($rol);
-        
-        $t = new User($user->id);
-        Test_Assert::assertTrue($t->hasPerm('Pluf.owner'));
+        // Credential of user
+        $credit = new User_Credential();
+        $credit->setFromFormData(array(
+            'account_id' => $user->id
+        ));
+        $credit->setPassword('test');
+        if (true !== $credit->create()) {
+            throw new Exception();
+        }
+
+        $per = User_Role::getFromString('tenant.owner');
+        $user->setAssoc($per);
     }
 
     /**
+     *
      * @afterClass
      */
     public static function removeDatabses()
@@ -67,6 +73,7 @@ class Product_RestTest extends TestCase
     }
 
     /**
+     *
      * @before
      */
     public function init()
@@ -93,6 +100,7 @@ class Product_RestTest extends TestCase
     }
 
     /**
+     *
      * @test
      */
     public function createRestTest()
@@ -111,6 +119,7 @@ class Product_RestTest extends TestCase
     }
 
     /**
+     *
      * @test
      */
     public function getRestTest()
@@ -131,6 +140,7 @@ class Product_RestTest extends TestCase
     }
 
     /**
+     *
      * @test
      */
     public function updateRestTest()
@@ -154,6 +164,7 @@ class Product_RestTest extends TestCase
     }
 
     /**
+     *
      * @test
      */
     public function deleteRestTest()
@@ -167,14 +178,15 @@ class Product_RestTest extends TestCase
         $item->off = 10;
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
-        
+
         // delete
         $response = $this->client->delete('/api/shop/product/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
-    
+
     /**
+     *
      * @test
      */
     public function findRestTest()
@@ -185,6 +197,7 @@ class Product_RestTest extends TestCase
     }
 
     /**
+     *
      * @test
      */
     public function assocProductCategoryRestTest()
@@ -198,32 +211,32 @@ class Product_RestTest extends TestCase
         $item->off = 10;
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
-        
+
         $cat = new Assort_Category();
         $cat->name = 'category-' . rand();
         $cat->create();
         Test_Assert::assertFalse($cat->isAnonymous(), 'Could not create Assort_Category');
-        
+
         $item->setAssoc($cat);
-        
+
         // find
         $response = $this->client->get('/api/shop/product/' . $item->id . '/category/find');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
-        
+
         // create
         $response = $this->client->post('/api/shop/product/' . $item->id . '/category/new', array(
-            'categoryId' => $cat->id,
+            'categoryId' => $cat->id
         ));
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
-        
+
         // TODO: hadi, 2018: add get method to product.url
-//         // get
-//         $response = $this->client->get('/api/shop/product/' . $item->id . '/category/' . $cat->id);
-//         $this->assertNotNull($response);
-//         $this->assertEquals($response->status_code, 200);
-        
+        // // get
+        // $response = $this->client->get('/api/shop/product/' . $item->id . '/category/' . $cat->id);
+        // $this->assertNotNull($response);
+        // $this->assertEquals($response->status_code, 200);
+
         // delete
         $response = $this->client->delete('/api/shop/product/' . $item->id . '/category/' . $cat->id);
         $this->assertNotNull($response);
@@ -231,6 +244,7 @@ class Product_RestTest extends TestCase
     }
 
     /**
+     *
      * @test
      */
     public function assocProductTagRestTest()
@@ -244,31 +258,31 @@ class Product_RestTest extends TestCase
         $item->off = 10;
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
-        
+
         $tag = new Assort_Tag();
         $tag->name = 'tag-' . rand();
         $tag->create();
         Test_Assert::assertFalse($tag->isAnonymous(), 'Could not create Assort_Tag');
-        
+
         $item->setAssoc($tag);
-        
+
         // find
         $response = $this->client->get('/api/shop/product/' . $item->id . '/tag/find');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
-        
+
         // create
         $response = $this->client->post('/api/shop/product/' . $item->id . '/tag/new', array(
-            'tagId' => $tag->id,
+            'tagId' => $tag->id
         ));
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
-        
-//         // get
-//         $response = $this->client->get('/api/shop/product/' . $item->id . '/tag/' . $tag->id);
-//         $this->assertNotNull($response);
-//         $this->assertEquals($response->status_code, 200);
-        
+
+        // // get
+        // $response = $this->client->get('/api/shop/product/' . $item->id . '/tag/' . $tag->id);
+        // $this->assertNotNull($response);
+        // $this->assertEquals($response->status_code, 200);
+
         // delete
         $response = $this->client->delete('/api/shop/product/' . $item->id . '/tag/' . $tag->id);
         $this->assertNotNull($response);

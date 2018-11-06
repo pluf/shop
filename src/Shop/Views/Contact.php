@@ -98,8 +98,8 @@ class Shop_Views_Contact
      */
     private static function canAccess($request, $contact)
     {
-        $currentUser = $request->user;
+        $currentUser_Account = $request->user;
         $user = $contact->get_user();
-        return ($user != null && $currentUser->getId() === $user->getId()) || User_Precondition::ownerRequired($request);
+        return ($user != null && $currentUser_Account->getId() === $user->getId()) || User_Precondition::ownerRequired($request);
     }
 }

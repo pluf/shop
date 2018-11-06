@@ -15,7 +15,7 @@
 		"Shop_Zone"
 	],
 	"init": {
-		"Role": [
+		"User_Role": [
 			{
 				"name": "zone ownership",
 				"application": "shop",
@@ -29,38 +29,37 @@
 				"description": "Permission given to agency owner."
 			}
 		],
-		"Monitor_Property": [
+		"Monitor_Metric": [
 			{
-				"monitor":"order",
-				"name": "count",
+				"name": "shop.order.count",
 				"title": "Order count",
 				"description": "Number of orders.",
 				"function": "Shop_Monitor_Order::count",
 				"cacheable": false
-			},{
-				"monitor":"order",
-				"name": "amount",
+			},
+			{
+				"name": "shop.order.amount",
 				"title": "Total ammount",
 				"description": "Total amount of orders.",
 				"function": "Shop_Monitor_Order::amount",
 				"cacheable": false
-			},{
-				"monitor":"order_item",
-				"name": "count",
+			},
+			{
+				"name": "shop.order.item.count",
 				"title": "Order items count",
 				"description": "Total number of order items.",
 				"function": "Shop_Monitor_OrderItem::count",
 				"cacheable": false
-			},{
-				"monitor":"order_item",
-				"name": "service_count",
+			},
+			{
+				"name": "shop.service.count",
 				"title": "Service count",
 				"description": "Total number of services.",
 				"function": "Shop_Monitor_OrderItem::serviceCount",
 				"cacheable": false
-			},{
-				"monitor":"order_item",
-				"name": "product_count",
+			},
+			{
+				"name": "shop.product.count",
 				"title": "Product count",
 				"description": "Total number of products.",
 				"function": "Shop_Monitor_OrderItem::productCount",
