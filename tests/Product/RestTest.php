@@ -113,7 +113,7 @@ class Product_RestTest extends TestCase
             'price' => rand(),
             'off' => '10'
         );
-        $response = $this->client->post('/shop/product/new', $form);
+        $response = $this->client->post('/shop/products', $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -134,7 +134,7 @@ class Product_RestTest extends TestCase
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
         // Get item
-        $response = $this->client->get('/shop/product/' . $item->id);
+        $response = $this->client->get('/shop/products/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -158,7 +158,7 @@ class Product_RestTest extends TestCase
         $form = array(
             'title' => 'new title' . rand()
         );
-        $response = $this->client->post('/shop/product/' . $item->id, $form);
+        $response = $this->client->post('/shop/products/' . $item->id, $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -180,7 +180,7 @@ class Product_RestTest extends TestCase
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
 
         // delete
-        $response = $this->client->delete('/shop/product/' . $item->id);
+        $response = $this->client->delete('/shop/products/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -191,7 +191,7 @@ class Product_RestTest extends TestCase
      */
     public function findRestTest()
     {
-        $response = $this->client->get('/shop/product/find');
+        $response = $this->client->get('/shop/products');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -220,12 +220,12 @@ class Product_RestTest extends TestCase
         $item->setAssoc($cat);
 
         // find
-        $response = $this->client->get('/shop/product/' . $item->id . '/category/find');
+        $response = $this->client->get('/shop/products/' . $item->id . '/categories');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
         // create
-        $response = $this->client->post('/shop/product/' . $item->id . '/category/new', array(
+        $response = $this->client->post('/shop/products/' . $item->id . '/categories', array(
             'categoryId' => $cat->id
         ));
         $this->assertNotNull($response);
@@ -238,7 +238,7 @@ class Product_RestTest extends TestCase
         // $this->assertEquals($response->status_code, 200);
 
         // delete
-        $response = $this->client->delete('/shop/product/' . $item->id . '/category/' . $cat->id);
+        $response = $this->client->delete('/shop/products/' . $item->id . '/categories/' . $cat->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -267,12 +267,12 @@ class Product_RestTest extends TestCase
         $item->setAssoc($tag);
 
         // find
-        $response = $this->client->get('/shop/product/' . $item->id . '/tag/find');
+        $response = $this->client->get('/shop/products/' . $item->id . '/tags');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
         // create
-        $response = $this->client->post('/shop/product/' . $item->id . '/tag/new', array(
+        $response = $this->client->post('/shop/products/' . $item->id . '/tags', array(
             'tagId' => $tag->id
         ));
         $this->assertNotNull($response);
@@ -284,7 +284,7 @@ class Product_RestTest extends TestCase
         // $this->assertEquals($response->status_code, 200);
 
         // delete
-        $response = $this->client->delete('/shop/product/' . $item->id . '/tag/' . $tag->id);
+        $response = $this->client->delete('/shop/products/' . $item->id . '/tags/' . $tag->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
