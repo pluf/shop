@@ -2,7 +2,7 @@
 return array(
     // ************************************************************* Zone
     array( // Find
-        'regex' => '#^/zone/find$#',
+        'regex' => '#^/zones$#',
         'model' => 'Pluf_Views',
         'method' => 'findObject',
         'http-method' => 'GET',
@@ -12,7 +12,7 @@ return array(
         )
     ),
     array( // Create
-        'regex' => '#^/zone/new$#',
+        'regex' => '#^/zones$#',
         'model' => 'Pluf_Views',
         'method' => 'createObject',
         'http-method' => 'POST',
@@ -24,7 +24,7 @@ return array(
         )
     ),
     array( // Get info
-        'regex' => '#^/zone/(?P<modelId>\d+)$#',
+        'regex' => '#^/zones/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'getObject',
         'http-method' => 'GET',
@@ -33,7 +33,7 @@ return array(
         )
     ),
     array( // Delete
-        'regex' => '#^/zone/(?P<modelId>\d+)$#',
+        'regex' => '#^/zones/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
@@ -46,7 +46,7 @@ return array(
         )
     ),
     array( // Update info
-        'regex' => '#^/zone/(?P<modelId>\d+)$#',
+        'regex' => '#^/zones/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'updateObject',
         'http-method' => 'POST',
@@ -59,7 +59,7 @@ return array(
     ),
     // ************************************************************* Members of Zone
     array( // Find members
-        'regex' => '#^/zone/(?P<zoneId>\d+)/member/find$#',
+        'regex' => '#^/zones/(?P<zoneId>\d+)/members$#',
         'model' => 'Shop_Views_Zone',
         'method' => 'members',
         'http-method' => 'GET',
@@ -68,7 +68,7 @@ return array(
         )
     ),
     array( // Add member
-        'regex' => '#^/zone/(?P<zoneId>\d+)/member/new$#',
+        'regex' => '#^/zones/(?P<zoneId>\d+)/members$#',
         'model' => 'Shop_Views_Zone',
         'method' => 'addMember',
         'http-method' => 'POST',
@@ -77,7 +77,7 @@ return array(
         )
     ),
     array( // Add member
-        'regex' => '#^/zone/(?P<zoneId>\d+)/member/(?P<userId>\d+)$#',
+        'regex' => '#^/zones/(?P<zoneId>\d+)/members/(?P<userId>\d+)$#',
         'model' => 'Shop_Views_Zone',
         'method' => 'addMember',
         'http-method' => 'POST',
@@ -86,7 +86,7 @@ return array(
         )
     ),
     array( // Delete member
-        'regex' => '#^/zone/(?P<zoneId>\d+)/member/(?P<userId>\d+)$#',
+        'regex' => '#^/zones/(?P<zoneId>\d+)/members/(?P<userId>\d+)$#',
         'model' => 'Shop_Views_Zone',
         'method' => 'removeMember',
         'http-method' => 'DELETE',

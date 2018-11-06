@@ -2,7 +2,7 @@
 return array(
     // ************************************************************* TaxClass
     array( // Find
-        'regex' => '#^/tax/find$#',
+        'regex' => '#^/taxes$#',
         'model' => 'Pluf_Views',
         'method' => 'findObject',
         'http-method' => 'GET',
@@ -11,7 +11,7 @@ return array(
         )
     ),
     array( // Create
-        'regex' => '#^/tax/new$#',
+        'regex' => '#^/taxes$#',
         'model' => 'Pluf_Views',
         'method' => 'createObject',
         'http-method' => 'POST',
@@ -24,7 +24,7 @@ return array(
         )
     ),
     array( // Get info
-        'regex' => '#^/tax/(?P<modelId>\d+)$#',
+        'regex' => '#^/taxes/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'getObject',
         'http-method' => 'GET',
@@ -33,7 +33,7 @@ return array(
         )
     ),
     array( // Delete
-        'regex' => '#^/tax/(?P<modelId>\d+)$#',
+        'regex' => '#^/taxes/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
@@ -47,7 +47,7 @@ return array(
         )
     ),
     array( // Update
-        'regex' => '#^/tax/(?P<modelId>\d+)$#',
+        'regex' => '#^/taxes/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'updateObject',
         'http-method' => 'POST',

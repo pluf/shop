@@ -2,7 +2,7 @@
 return array(
     // ************************************************************* DeliverType
     array( // Find
-        'regex' => '#^/deliver/find$#',
+        'regex' => '#^/delivers$#',
         'model' => 'Pluf_Views',
         'method' => 'findObject',
         'http-method' => 'GET',
@@ -11,7 +11,7 @@ return array(
         )
     ),
     array( // Create
-        'regex' => '#^/deliver/new$#',
+        'regex' => '#^/delivers$#',
         'model' => 'Pluf_Views',
         'method' => 'createObject',
         'http-method' => 'POST',
@@ -23,7 +23,7 @@ return array(
         )
     ),
     array( // Get info
-        'regex' => '#^/deliver/(?P<modelId>\d+)$#',
+        'regex' => '#^/delivers/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'getObject',
         'http-method' => 'GET',
@@ -32,7 +32,7 @@ return array(
         )
     ),
     array( // Delete
-        'regex' => '#^/deliver/(?P<modelId>\d+)$#',
+        'regex' => '#^/delivers/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
@@ -46,7 +46,7 @@ return array(
         )
     ),
     array( // Update
-        'regex' => '#^/deliver/(?P<modelId>\d+)$#',
+        'regex' => '#^/delivers/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'updateObject',
         'http-method' => 'POST',
