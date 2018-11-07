@@ -15,6 +15,7 @@ $cfg['installed_apps'] = array(
     'User',
     'Group',
     'Role',
+    'Tenant',
     'Assort',
     'Shop',
     'Monitor'
