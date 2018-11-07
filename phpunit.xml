@@ -12,6 +12,7 @@
 		</testsuite>
 		<testsuite name="Order">
 			<directory>tests/Order/</directory>
+			<directory>tests/OrderItem/</directory>
 		</testsuite>
     </testsuites>
     

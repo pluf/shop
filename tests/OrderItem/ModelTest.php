@@ -27,8 +27,11 @@ Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Order_ModelTest extends TestCase
+class OrderItem_ModelTest extends TestCase
 {
+    private $order;
+    private $product;
+    
     /**
      * @beforeClass
      */
@@ -58,6 +61,7 @@ class Order_ModelTest extends TestCase
         
         $per = User_Role::getFromString('tenant.owner');
         $user->setAssoc($per);
+        
     }
 
     /**
@@ -69,13 +73,33 @@ class Order_ModelTest extends TestCase
         $m->unInstall();
     }
 
-    private function get_random_order(){
-        $order = new Shop_Order();
-        $order->title = 'order-' . rand();
-        $order->full_name = 'user-' . rand();
-        $order->phone = '0917' . rand(10000000, 100000000);
-        $order->email = 'email' . rand(1000, 10000) . '@test.ir';
-        return $order;
+    private function get_random_orderItem(){
+        $item = new Shop_OrderItem();
+        $item->item_id = $this->product->id;
+        $item->item_type = 'product';
+        $item->count = rand(1, 10);
+        $item->order_id = $this->order;
+        return $item;
+    }
+
+    /**
+     * 
+     * @before
+     */
+    public function init(){
+        $this->product = new Shop_Product();
+        $this->product->manufacturer = 'manufacturer-' . rand();
+        $this->product->brand = 'brand-' . rand();
+        $this->product->model = 'model-' . rand();
+        $this->product->price = 20000;
+        $this->product->create();
+        
+        $this->order = new Shop_Order();
+        $this->order->title = 'order-' . rand();
+        $this->order->full_name = 'user-' . rand();
+        $this->order->phone = '0917' . rand(10000000, 100000000);
+        $this->order->email = 'email' . rand(1000, 10000) . '@test.ir';
+        $this->order->create();
     }
     
     /**
@@ -83,37 +107,20 @@ class Order_ModelTest extends TestCase
      */
     public function shouldPossibleCreateNew()
     {
-        $order = $this->get_random_order();
-        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
+        $orderItem = $this->get_random_orderItem();
+        Test_Assert::assertTrue($orderItem->create(), 'Impossible to create order-item');
     }
 
     /**
      * @test
      */
-    public function getPossibleTransitions()
+    public function shouldPossibleToGetOrder()
     {
-        $order = $this->get_random_order();
-        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
+        $orderItem = $this->get_random_orderItem();
+        Test_Assert::assertTrue($orderItem->create(), 'Impossible to create order-item');
         
-        // Initial by order-manager
-        $manager = $order->getManager();
-        $manager->apply($order, 'create');
-        
-        $order = new Shop_Order($order->id);
-        $trans = $order->getManager()->transitions($order);
-        Test_Assert::assertNotNull($trans);
-    }
-    
-    /**
-     * @test
-     */
-    public function shouldPossibleToGetOrderitems()
-    {
-        $order = $this->get_random_order();
-        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
-        
-        $oitems = $order->get_order_item_list();
-        Test_Assert::assertEquals(0, $oitems->count());
+        $order = $orderItem->get_order();
+        Test_Assert::assertNotNull($order);
     }
     
 }
