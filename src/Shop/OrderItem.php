@@ -79,10 +79,10 @@ class Shop_OrderItem extends Pluf_Model
                 'readable' => true
             ),
             // relations
-            'order' => array(
+            'order_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Order',
-                'relate_name' => 'order',
+                'name' => 'order',
                 'blank' => false,
                 'editable' => false,
                 'readable' => true
@@ -114,6 +114,6 @@ class Shop_OrderItem extends Pluf_Model
      * @return boolean
      */
     function isBelongTo($order){
-        return $this->order === $order->id;
+        return $this->order_id === $order->id;
     }
 }

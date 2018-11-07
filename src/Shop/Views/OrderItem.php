@@ -69,7 +69,7 @@ class Shop_Views_OrderItem
             Shop_Views_Order::checkAccess($request, $order);
         }
         $pag = new Pluf_Paginator(new Shop_OrderItem());
-        $pag->forced_where = new Pluf_SQL('`order`=' . $order->id);
+        $pag->forced_where = new Pluf_SQL('`order_id`=' . $order->id);
         $pag->list_filters = array(
             'id',
             'title',

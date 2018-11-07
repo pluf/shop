@@ -255,7 +255,7 @@ class Shop_Order extends Pluf_Model
     function computeTotalPrice()
     {
         $orderItem = new Shop_OrderItem();
-        $q = new Pluf_SQL('`order`=%s', array(
+        $q = new Pluf_SQL('`order_id`=%s', array(
             $this->getId()
         ));
         $items = $orderItem->getList(array(
