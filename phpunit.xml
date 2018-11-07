@@ -7,6 +7,9 @@
 		<testsuite name="Product">
 			<directory>tests/Product/</directory>
 		</testsuite>
+		<testsuite name="Service">
+			<directory>tests/Service/</directory>
+		</testsuite>
     </testsuites>
     
     <filter>
