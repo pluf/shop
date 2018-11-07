@@ -1,5 +1,5 @@
 <?php 
-$var = include 'mysql.config.php';
+$cfg = include 'mysql.config.php';
 
 // NOTE: sqlit dose not support Geometry
 // $cfg = include 'sqlite.config.php';

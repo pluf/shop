@@ -52,7 +52,7 @@ return array(
     ),
     // ************************************************************* Processing Order
     array( // get possible actions
-        'regex' => '#^/orders/(?P<orderId>\d+|?P<secureId>[^/]+)/possible-transitions$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/possible-transitions$#',
         'model' => 'Shop_Views_Order',
         'method' => 'actions',
         'http-method' => 'GET',
@@ -61,18 +61,18 @@ return array(
             'User_Precondition::loginRequired'
         )
     ),
-    // array( // get possible actions (by secure id)
-    // 'regex' => '#^/orders/(?P<secureId>[^/]+)/actions$#',
-    // 'model' => 'Shop_Views_Order',
-    // 'method' => 'actions',
-    // 'http-method' => 'GET',
-    // 'precond' => array(),
-    // 'precond' => array(
-    // 'User_Precondition::loginRequired'
-    // )
-    // ),
+    array( // get possible actions (by secure id)
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/possible-transitions$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'actions',
+        'http-method' => 'GET',
+        'precond' => array(),
+        'precond' => array(
+            'User_Precondition::loginRequired'
+        )
+    ),
     array( // do action on order
-        'regex' => '#^/orders/(?P<orderId>\d+|?P<secureId>[^/]+)/transitions$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/transitions$#',
         'model' => 'Shop_Views_Order',
         'method' => 'doAction',
         'http-method' => 'POST',
@@ -80,15 +80,15 @@ return array(
             'User_Precondition::loginRequired'
         )
     ),
-    // array( // do action on order (by secure id)
-    // 'regex' => '#^/orders/(?P<secureId>[^/]+)/transitions#',
-    // 'model' => 'Shop_Views_Order',
-    // 'method' => 'doAction',
-    // 'http-method' => 'POST',
-    // 'precond' => array(
-    // 'User_Precondition::loginRequired'
-    // )
-    // ),
+    array( // do action on order (by secure id)
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/transitions#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'doAction',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::loginRequired'
+        )
+    ),
     // ************************************************************* Order Payments
     array( // pay for order
         'regex' => '#^/orders/(?P<orderId>\d+)/payments$#',
