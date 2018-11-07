@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
     <testsuites>
+		<testsuite name="Basic">
+			<directory>tests/Shop/</directory>
+		</testsuite>
 		<testsuite name="Product">
 			<directory>tests/Product/</directory>
 		</testsuite>
