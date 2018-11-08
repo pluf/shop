@@ -2,7 +2,7 @@
 return array(
     // ************************************************************* Address
     array( // Find
-        'regex' => '#^/address/find$#',
+        'regex' => '#^/addresses$#',
         'model' => 'Shop_Views_Address',
         'method' => 'find',
         'http-method' => 'GET',
@@ -11,7 +11,7 @@ return array(
         )
     ),
     array( // Create
-        'regex' => '#^/address/new$#',
+        'regex' => '#^/addresses$#',
         'model' => 'Shop_Views_Address',
         'method' => 'create',
         'http-method' => 'POST',
@@ -20,7 +20,7 @@ return array(
         )
     ),
     array( // Get info
-        'regex' => '#^/address/(?P<addressId>\d+)$#',
+        'regex' => '#^/addresses/(?P<addressId>\d+)$#',
         'model' => 'Shop_Views_Address',
         'method' => 'get',
         'http-method' => 'GET',
@@ -29,7 +29,7 @@ return array(
         )
     ),
     array( // Delete
-        'regex' => '#^/address/(?P<addressId>\d+)$#',
+        'regex' => '#^/addresses/(?P<addressId>\d+)$#',
         'model' => 'Shop_Views_Address',
         'method' => 'delete',
         'http-method' => 'DELETE',
@@ -38,7 +38,7 @@ return array(
         )
     ),
     array( // Update
-        'regex' => '#^/address/(?P<addressId>\d+)$#',
+        'regex' => '#^/addresses/(?P<addressId>\d+)$#',
         'model' => 'Shop_Views_Address',
         'method' => 'update',
         'http-method' => 'POST',

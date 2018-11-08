@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
     <testsuites>
+		<testsuite name="Basic">
+			<directory>tests/Shop/</directory>
+		</testsuite>
 		<testsuite name="Product">
 			<directory>tests/Product/</directory>
+		</testsuite>
+		<testsuite name="Service">
+			<directory>tests/Service/</directory>
+		</testsuite>
+		<testsuite name="Order">
+			<directory>tests/Order/</directory>
+			<directory>tests/OrderItem/</directory>
 		</testsuite>
     </testsuites>
     

@@ -25,7 +25,7 @@ require_once 'Pluf.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Product_RestTest extends TestCase
+class Service_RestTest extends TestCase
 {
 
     var $client;
@@ -106,14 +106,11 @@ class Product_RestTest extends TestCase
     public function createRestTest()
     {
         $form = array(
-            'title' => 'product-' . rand(),
-            'manufacturer' => 'manufacturer-' . rand(),
-            'brand' => 'brand-' . rand(),
-            'model' => 'model-' . rand(),
+            'title' => 'service-' . rand(),
             'price' => rand(),
             'off' => '10'
         );
-        $response = $this->client->post('/shop/products', $form);
+        $response = $this->client->post('/shop/services', $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -124,17 +121,14 @@ class Product_RestTest extends TestCase
      */
     public function getRestTest()
     {
-        $item = new Shop_Product();
-        $item->title = 'product-' . rand();
-        $item->manufacturer = 'manufacturer-' . rand();
-        $item->brand = 'brand-' . rand();
-        $item->model = 'model-' . rand();
+        $item = new Shop_Service();
+        $item->title = 'service-' . rand();
         $item->price = rand();
         $item->off = 10;
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Service');
         // Get item
-        $response = $this->client->get('/shop/products/' . $item->id);
+        $response = $this->client->get('/shop/services/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -145,20 +139,17 @@ class Product_RestTest extends TestCase
      */
     public function updateRestTest()
     {
-        $item = new Shop_Product();
-        $item->title = 'product-' . rand();
-        $item->manufacturer = 'manufacturer-' . rand();
-        $item->brand = 'brand-' . rand();
-        $item->model = 'model-' . rand();
+        $item = new Shop_Service();
+        $item->title = 'service-' . rand();
         $item->price = rand();
         $item->off = 10;
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Service');
         // Update item
         $form = array(
             'title' => 'new title' . rand()
         );
-        $response = $this->client->post('/shop/products/' . $item->id, $form);
+        $response = $this->client->post('/shop/services/' . $item->id, $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -169,18 +160,15 @@ class Product_RestTest extends TestCase
      */
     public function deleteRestTest()
     {
-        $item = new Shop_Product();
-        $item->title = 'product-' . rand();
-        $item->manufacturer = 'manufacturer-' . rand();
-        $item->brand = 'brand-' . rand();
-        $item->model = 'model-' . rand();
+        $item = new Shop_Service();
+        $item->title = 'service-' . rand();
         $item->price = rand();
         $item->off = 10;
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Service');
 
         // delete
-        $response = $this->client->delete('/shop/products/' . $item->id);
+        $response = $this->client->delete('/shop/services/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -191,7 +179,7 @@ class Product_RestTest extends TestCase
      */
     public function findRestTest()
     {
-        $response = $this->client->get('/shop/products');
+        $response = $this->client->get('/shop/services');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -200,17 +188,15 @@ class Product_RestTest extends TestCase
      *
      * @test
      */
-    public function assocProductCategoryRestTest()
+    public function assocServiceCategoryRestTest()
     {
-        $item = new Shop_Product();
-        $item->title = 'product-' . rand();
-        $item->manufacturer = 'manufacturer-' . rand();
-        $item->brand = 'brand-' . rand();
+        $item = new Shop_Service();
+        $item->title = 'service-' . rand();
         $item->model = 'model-' . rand();
         $item->price = rand();
         $item->off = 10;
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Service');
 
         $cat = new Assort_Category();
         $cat->name = 'category-' . rand();
@@ -220,25 +206,25 @@ class Product_RestTest extends TestCase
         $item->setAssoc($cat);
 
         // find
-        $response = $this->client->get('/shop/products/' . $item->id . '/categories');
+        $response = $this->client->get('/shop/services/' . $item->id . '/categories');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
         // create
-        $response = $this->client->post('/shop/products/' . $item->id . '/categories', array(
+        $response = $this->client->post('/shop/services/' . $item->id . '/categories', array(
             'categoryId' => $cat->id
         ));
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
-        // TODO: hadi, 2018: add get method to product.url
+        // TODO: hadi, 2018: add get method to service.url
         // // get
-        // $response = $this->client->get('/shop/product/' . $item->id . '/category/' . $cat->id);
+        // $response = $this->client->get('/shop/service/' . $item->id . '/category/' . $cat->id);
         // $this->assertNotNull($response);
         // $this->assertEquals($response->status_code, 200);
 
         // delete
-        $response = $this->client->delete('/shop/products/' . $item->id . '/categories/' . $cat->id);
+        $response = $this->client->delete('/shop/services/' . $item->id . '/categories/' . $cat->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -247,17 +233,14 @@ class Product_RestTest extends TestCase
      *
      * @test
      */
-    public function assocProductTagRestTest()
+    public function assocServiceTagRestTest()
     {
-        $item = new Shop_Product();
-        $item->title = 'product-' . rand();
-        $item->manufacturer = 'manufacturer-' . rand();
-        $item->brand = 'brand-' . rand();
-        $item->model = 'model-' . rand();
+        $item = new Shop_Service();
+        $item->title = 'service-' . rand();
         $item->price = rand();
         $item->off = 10;
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Product');
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Service');
 
         $tag = new Assort_Tag();
         $tag->name = 'tag-' . rand();
@@ -267,24 +250,24 @@ class Product_RestTest extends TestCase
         $item->setAssoc($tag);
 
         // find
-        $response = $this->client->get('/shop/products/' . $item->id . '/tags');
+        $response = $this->client->get('/shop/services/' . $item->id . '/tags');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
         // create
-        $response = $this->client->post('/shop/products/' . $item->id . '/tags', array(
+        $response = $this->client->post('/shop/services/' . $item->id . '/tags', array(
             'tagId' => $tag->id
         ));
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
         // // get
-        // $response = $this->client->get('/shop/product/' . $item->id . '/tag/' . $tag->id);
+        // $response = $this->client->get('/shop/service/' . $item->id . '/tag/' . $tag->id);
         // $this->assertNotNull($response);
         // $this->assertEquals($response->status_code, 200);
 
         // delete
-        $response = $this->client->delete('/shop/products/' . $item->id . '/tags/' . $tag->id);
+        $response = $this->client->delete('/shop/services/' . $item->id . '/tags/' . $tag->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }

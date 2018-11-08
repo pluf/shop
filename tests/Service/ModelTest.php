@@ -27,7 +27,7 @@ Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Product_ModelTest extends TestCase
+class Service_ModelTest extends TestCase
 {
     /**
      * @beforeClass
@@ -69,17 +69,20 @@ class Product_ModelTest extends TestCase
         $m->unInstall();
     }
 
+    private function get_random_service(){
+        $service = new Shop_Service();
+        $service->title = 'service-' . rand();
+        $service->price = 20000;
+        return $service;
+    }
+    
     /**
      * @test
      */
     public function shouldPossibleCreateNew()
     {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $service = $this->get_random_service();
+        Test_Assert::assertTrue($service->create(), 'Impossible to create service');
     }
 
     /**
@@ -87,15 +90,11 @@ class Product_ModelTest extends TestCase
      */
     public function shouldPossibleToGetCategories()
     {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $service = $this->get_random_service();
+        Test_Assert::assertTrue($service->create(), 'Impossible to create service');
         
-        $product = new Shop_Product($product->id);
-        $cats = $product->get_categories_list();
+        $service = new Shop_Service($service->id);
+        $cats = $service->get_categories_list();
         Test_Assert::assertEquals(0, $cats->count());
     }
     
@@ -104,15 +103,11 @@ class Product_ModelTest extends TestCase
      */
     public function shouldPossibleToGetTags()
     {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $service = $this->get_random_service();
+        Test_Assert::assertTrue($service->create(), 'Impossible to create service');
         
-        $product = new Shop_Product($product->id);
-        $tags = $product->get_tags_list();
+        $service = new Shop_Service($service->id);
+        $tags = $service->get_tags_list();
         Test_Assert::assertEquals(0, $tags->count());
     }
     
@@ -121,15 +116,11 @@ class Product_ModelTest extends TestCase
      */
     public function shouldPossibleToGetTaxes()
     {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $service = $this->get_random_service();
+        Test_Assert::assertTrue($service->create(), 'Impossible to create service');
         
-        $product = new Shop_Product($product->id);
-        $taxes = $product->get_taxes_list();
+        $service = new Shop_Service($service->id);
+        $taxes = $service->get_taxes_list();
         Test_Assert::assertEquals(0, $taxes->count());
     }
 

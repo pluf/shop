@@ -27,8 +27,11 @@ Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Product_ModelTest extends TestCase
+class OrderItem_ModelTest extends TestCase
 {
+    private $order;
+    private $product;
+    
     /**
      * @beforeClass
      */
@@ -58,6 +61,7 @@ class Product_ModelTest extends TestCase
         
         $per = User_Role::getFromString('tenant.owner');
         $user->setAssoc($per);
+        
     }
 
     /**
@@ -69,70 +73,56 @@ class Product_ModelTest extends TestCase
         $m->unInstall();
     }
 
+    private function get_random_orderItem(){
+        $item = new Shop_OrderItem();
+        $item->item_id = $this->product->id;
+        $item->item_type = 'product';
+        $item->count = rand(1, 10);
+        $item->order_id = $this->order;
+        return $item;
+    }
+
+    /**
+     * 
+     * @before
+     */
+    public function init(){
+        $this->product = new Shop_Product();
+        $this->product->manufacturer = 'manufacturer-' . rand();
+        $this->product->brand = 'brand-' . rand();
+        $this->product->model = 'model-' . rand();
+        $this->product->price = 20000;
+        $this->product->create();
+        
+        $this->order = new Shop_Order();
+        $this->order->title = 'order-' . rand();
+        $this->order->full_name = 'user-' . rand();
+        $this->order->phone = '0917' . rand(10000000, 100000000);
+        $this->order->email = 'email' . rand(1000, 10000) . '@test.ir';
+        $this->order->create();
+    }
+    
     /**
      * @test
      */
     public function shouldPossibleCreateNew()
     {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $orderItem = $this->get_random_orderItem();
+        Test_Assert::assertTrue($orderItem->create(), 'Impossible to create order-item');
     }
 
     /**
      * @test
      */
-    public function shouldPossibleToGetCategories()
+    public function shouldPossibleToGetOrder()
     {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $orderItem = $this->get_random_orderItem();
+        Test_Assert::assertTrue($orderItem->create(), 'Impossible to create order-item');
         
-        $product = new Shop_Product($product->id);
-        $cats = $product->get_categories_list();
-        Test_Assert::assertEquals(0, $cats->count());
+        $order = $orderItem->get_order();
+        Test_Assert::assertNotNull($order);
     }
     
-    /**
-     * @test
-     */
-    public function shouldPossibleToGetTags()
-    {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
-        
-        $product = new Shop_Product($product->id);
-        $tags = $product->get_tags_list();
-        Test_Assert::assertEquals(0, $tags->count());
-    }
-    
-    /**
-     * @test
-     */
-    public function shouldPossibleToGetTaxes()
-    {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
-        
-        $product = new Shop_Product($product->id);
-        $taxes = $product->get_taxes_list();
-        Test_Assert::assertEquals(0, $taxes->count());
-    }
-
 }
 
 

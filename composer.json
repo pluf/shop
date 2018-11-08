@@ -22,6 +22,7 @@
 	"minimum-stability" : "stable",
 	"require" : {
 		"pluf/core" : "^4.0.0",
+		"pluf/tenant" : "^4.0.0",
 		"pluf/cache" : "^4.0.0",
 		"pluf/cms" : "^4.0.0",
 		"pluf/bank" : "^4.0.0",

@@ -2,7 +2,7 @@
 return array(
     // ************************************************************* OrderItem
     array( // Find
-        'regex' => '#^/order/(?P<orderId>\d+)/item/find$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/items$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'find',
         'http-method' => 'GET',
@@ -11,13 +11,13 @@ return array(
         )
     ),
     array( // Find (by secureId of order)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/item/find$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'find',
         'http-method' => 'GET'
     ),
     array( // Create
-        'regex' => '#^/order/(?P<orderId>\d+)/item/new$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/items$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'create',
         'http-method' => 'POST',
@@ -26,13 +26,13 @@ return array(
         )
     ),
     array( // Create (by secureId of order)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/item/new$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'create',
         'http-method' => 'POST'
     ),
     array( // Get info
-        'regex' => '#^/order/(?P<orderId>\d+)/item/(?P<itemId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/items/(?P<itemId>\d+)$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'get',
         'http-method' => 'GET',
@@ -41,13 +41,13 @@ return array(
         )
     ),
     array( // Get info (by secureId of order)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/item/(?P<itemId>\d+)$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'get',
         'http-method' => 'GET'
     ),
     array( // Delete
-        'regex' => '#^/order/(?P<orderId>\d+)/item/(?P<itemId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/items/(?P<itemId>\d+)$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'delete',
         'http-method' => 'DELETE',
@@ -56,13 +56,13 @@ return array(
         )
     ),
     array( // Delete (by secureId of order)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/item/(?P<itemId>\d+)$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'delete',
         'http-method' => 'DELETE'
     ),
     array( // Update
-        'regex' => '#^/order/(?P<orderId>\d+)/item/(?P<itemId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/items/(?P<itemId>\d+)$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'update',
         'http-method' => 'POST',
@@ -71,7 +71,7 @@ return array(
         )
     ),
     array( // Update (by secure id of order)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/item/(?P<itemId>\d+)$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)$#',
         'model' => 'Shop_Views_OrderItem',
         'method' => 'update',
         'http-method' => 'POST'

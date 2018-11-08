@@ -27,7 +27,7 @@ Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Product_ModelTest extends TestCase
+class Order_ModelTest extends TestCase
 {
     /**
      * @beforeClass
@@ -69,70 +69,53 @@ class Product_ModelTest extends TestCase
         $m->unInstall();
     }
 
+    private function get_random_order(){
+        $order = new Shop_Order();
+        $order->title = 'order-' . rand();
+        $order->full_name = 'user-' . rand();
+        $order->phone = '0917' . rand(10000000, 100000000);
+        $order->email = 'email' . rand(1000, 10000) . '@test.ir';
+        return $order;
+    }
+    
     /**
      * @test
      */
     public function shouldPossibleCreateNew()
     {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $order = $this->get_random_order();
+        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
     }
 
     /**
      * @test
      */
-    public function shouldPossibleToGetCategories()
+    public function getPossibleTransitions()
     {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $order = $this->get_random_order();
+        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
         
-        $product = new Shop_Product($product->id);
-        $cats = $product->get_categories_list();
-        Test_Assert::assertEquals(0, $cats->count());
+        // Initial by order-manager
+        $manager = $order->getManager();
+        $manager->apply($order, 'create');
+        
+        $order = new Shop_Order($order->id);
+        $trans = $order->getManager()->transitions($order);
+        Test_Assert::assertNotNull($trans);
     }
     
     /**
      * @test
      */
-    public function shouldPossibleToGetTags()
+    public function shouldPossibleToGetOrderitems()
     {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $order = $this->get_random_order();
+        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
         
-        $product = new Shop_Product($product->id);
-        $tags = $product->get_tags_list();
-        Test_Assert::assertEquals(0, $tags->count());
+        $oitems = $order->get_order_item_list();
+        Test_Assert::assertEquals(0, $oitems->count());
     }
     
-    /**
-     * @test
-     */
-    public function shouldPossibleToGetTaxes()
-    {
-        $product = new Shop_Product();
-        $product->manufacturer = 'manufacturer-' . rand();
-        $product->brand = 'brand-' . rand();
-        $product->model = 'model-' . rand();
-        $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
-        
-        $product = new Shop_Product($product->id);
-        $taxes = $product->get_taxes_list();
-        Test_Assert::assertEquals(0, $taxes->count());
-    }
-
 }
 
 

@@ -131,7 +131,7 @@ class Shop_Order extends Pluf_Model
             // ),
             'customer' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'User',
+                'model' => 'User_Account',
                 'relate_name' => 'customer',
                 'is_null' => true,
                 'editable' => false,
@@ -139,7 +139,7 @@ class Shop_Order extends Pluf_Model
             ),
             'assignee' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'User',
+                'model' => 'User_Account',
                 'relate_name' => 'assignee',
                 'is_null' => true,
                 'editable' => false,
@@ -255,7 +255,7 @@ class Shop_Order extends Pluf_Model
     function computeTotalPrice()
     {
         $orderItem = new Shop_OrderItem();
-        $q = new Pluf_SQL('`order`=%s', array(
+        $q = new Pluf_SQL('`order_id`=%s', array(
             $this->getId()
         ));
         $items = $orderItem->getList(array(

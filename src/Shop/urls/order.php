@@ -2,7 +2,7 @@
 return array(
     // ************************************************************* Order
     array( // find orders
-        'regex' => '#^/order/find$#',
+        'regex' => '#^/orders$#',
         'model' => 'Shop_Views_Order',
         'method' => 'find',
         'http-method' => 'GET',
@@ -11,13 +11,13 @@ return array(
         )
     ),
     array( // create new order
-        'regex' => '#^/order/new$#',
+        'regex' => '#^/orders$#',
         'model' => 'Shop_Views_Order',
         'method' => 'create',
         'http-method' => 'POST'
     ),
     array( // get order info
-        'regex' => '#^/order/(?P<orderId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'get',
         'http-method' => 'GET',
@@ -26,14 +26,14 @@ return array(
         )
     ),
     array( // get order info (by secure id)
-        'regex' => '#^/order/(?P<secureId>[^/]+)$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'getBySecureId',
         'http-method' => 'GET',
         'precond' => array()
     ),
     array( // delete order
-        'regex' => '#^/order/(?P<orderId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'delete',
         'http-method' => 'DELETE',
@@ -42,7 +42,7 @@ return array(
         )
     ),
     array( // update order
-        'regex' => '#^/order/(?P<orderId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'update',
         'http-method' => 'POST',
@@ -52,7 +52,7 @@ return array(
     ),
     // ************************************************************* Processing Order
     array( // get possible actions
-        'regex' => '#^/order/(?P<orderId>\d+)/actions$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/possible-transitions$#',
         'model' => 'Shop_Views_Order',
         'method' => 'actions',
         'http-method' => 'GET',
@@ -62,7 +62,7 @@ return array(
         )
     ),
     array( // get possible actions (by secure id)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/actions$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/possible-transitions$#',
         'model' => 'Shop_Views_Order',
         'method' => 'actions',
         'http-method' => 'GET',
@@ -72,7 +72,7 @@ return array(
         )
     ),
     array( // do action on order
-        'regex' => '#^/order/(?P<orderId>\d+)/actions$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/transitions$#',
         'model' => 'Shop_Views_Order',
         'method' => 'doAction',
         'http-method' => 'POST',
@@ -81,7 +81,7 @@ return array(
         )
     ),
     array( // do action on order (by secure id)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/actions#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/transitions#',
         'model' => 'Shop_Views_Order',
         'method' => 'doAction',
         'http-method' => 'POST',
@@ -91,7 +91,7 @@ return array(
     ),
     // ************************************************************* Order Payments
     array( // pay for order
-        'regex' => '#^/order/(?P<orderId>\d+)/payment$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/payments$#',
         'model' => 'Shop_Views_Order',
         'method' => 'pay',
         'http-method' => 'POST',
@@ -101,13 +101,13 @@ return array(
         )
     ),
     array( // pay for order by secure id
-        'regex' => '#^/order/(?P<secureId>[^/]+)/payment$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/payments$#',
         'model' => 'Shop_Views_Order',
         'method' => 'pay',
         'http-method' => 'POST'
     ),
-    array( // Check payment state of order 
-        'regex' => '#^/order/(?P<orderId>\d+)/payment$#',
+    array( // Check payment state of order
+        'regex' => '#^/orders/(?P<orderId>\d+)/payments$#',
         'model' => 'Shop_Views_Order',
         'method' => 'payInfo',
         'http-method' => 'GET',
@@ -117,14 +117,14 @@ return array(
         )
     ),
     array( // Check payment state of order (by secure id)
-        'regex' => '#^/order/(?P<secureId>[^/]+)/payment$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/payments$#',
         'model' => 'Shop_Views_Order',
         'method' => 'payInfo',
         'http-method' => 'GET'
     ),
     // ************************************************************* Order Deliver Type
     array( // set deliver type
-        'regex' => '#^/order/(?P<orderId>\d+)/deliver/(?P<deliverId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/delivers/(?P<deliverId>\d+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'setDeliverType',
         'http-method' => 'POST',
@@ -133,7 +133,7 @@ return array(
         )
     ),
     array( // set deliver type
-        'regex' => '#^/order/(?P<secureId>[^/]+)/deliver/(?P<deliverId>\d+)$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/delivers/(?P<deliverId>\d+)$#',
         'model' => 'Shop_Views_Order',
         'method' => 'setDeliverType',
         'http-method' => 'POST'

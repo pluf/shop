@@ -2,7 +2,7 @@
 return array(
     // ************************************************************* Shop Agency
     array( // Find
-        'regex' => '#^/agency/find$#',
+        'regex' => '#^/agencies$#',
         'model' => 'Pluf_Views',
         'method' => 'findObject',
         'http-method' => 'GET',
@@ -12,7 +12,7 @@ return array(
         )
     ),
     array( // Create
-        'regex' => '#^/agency/new$#',
+        'regex' => '#^/agencies$#',
         'model' => 'Pluf_Views',
         'method' => 'createObject',
         'http-method' => 'POST',
@@ -24,7 +24,7 @@ return array(
         )
     ),
     array( // Get info
-        'regex' => '#^/agency/(?P<modelId>\d+)$#',
+        'regex' => '#^/agencies/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'getObject',
         'http-method' => 'GET',
@@ -33,7 +33,7 @@ return array(
         )
     ),
     array( // Delete
-        'regex' => '#^/agency/(?P<modelId>\d+)$#',
+        'regex' => '#^/agencies/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
@@ -46,7 +46,7 @@ return array(
         )
     ),
     array( // Update info
-        'regex' => '#^/agency/(?P<modelId>\d+)$#',
+        'regex' => '#^/agencies/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'updateObject',
         'http-method' => 'POST',
@@ -59,7 +59,7 @@ return array(
     ),
     // ************************************************************* Owners of Agency
     array( // Find owners
-        'regex' => '#^/agency/(?P<agencyId>\d+)/owner/find$#',
+        'regex' => '#^/agencies/(?P<agencyId>\d+)/owners$#',
         'model' => 'Shop_Views_Agency',
         'method' => 'owners',
         'http-method' => 'GET',
@@ -68,7 +68,7 @@ return array(
         )
     ),
     array( // Add owner
-        'regex' => '#^/agency/(?P<agencyId>\d+)/owner/new$#',
+        'regex' => '#^/agencies/(?P<agencyId>\d+)/owners$#',
         'model' => 'Shop_Views_Agency',
         'method' => 'addOwner',
         'http-method' => 'POST',
@@ -77,7 +77,7 @@ return array(
         )
     ),
     array( // Add owner
-        'regex' => '#^/agency/(?P<agencyId>\d+)/owner/(?P<userId>\d+)$#',
+        'regex' => '#^/agencies/(?P<agencyId>\d+)/owners/(?P<userId>\d+)$#',
         'model' => 'Shop_Views_Agency',
         'method' => 'addOwner',
         'http-method' => 'POST',
@@ -86,7 +86,7 @@ return array(
         )
     ),
     array( // Delete owner
-        'regex' => '#^/agency/(?P<agencyId>\d+)/owner/(?P<userId>\d+)$#',
+        'regex' => '#^/agencies/(?P<agencyId>\d+)/owners/(?P<userId>\d+)$#',
         'model' => 'Shop_Views_Agency',
         'method' => 'removeOwner',
         'http-method' => 'DELETE',

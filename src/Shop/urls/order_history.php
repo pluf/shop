@@ -2,7 +2,7 @@
 return array(
     // ************************************************************* OrderHistory
     array(
-        'regex' => '#^/order/(?P<orderId>\d+)/history/find$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/histories$#',
         'model' => 'Shop_Views_OrderHistory',
         'method' => 'find',
         'http-method' => 'GET',
@@ -11,14 +11,14 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/order/(?P<secureId>[^/]+)/history/find$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/histories$#',
         'model' => 'Shop_Views_OrderHistory',
         'method' => 'find',
         'http-method' => 'GET',
         'precond' => array()
     ),
     array(
-        'regex' => '#^/order/(?P<orderId>\d+)/history/(?P<historyId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/histories/(?P<historyId>\d+)$#',
         'model' => 'Shop_Views_OrderHistory',
         'method' => 'get',
         'http-method' => 'GET',
@@ -27,7 +27,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/order/(?P<orderId>\d+)/history/(?P<historyId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/histories/(?P<historyId>\d+)$#',
         'model' => 'Shop_Views_OrderHistory',
         'method' => 'delete',
         'http-method' => 'DELETE',
@@ -36,7 +36,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/order/(?P<orderId>\d+)/history/(?P<historyId>\d+)$#',
+        'regex' => '#^/orders/(?P<orderId>\d+)/histories/(?P<historyId>\d+)$#',
         'model' => 'Shop_Views_OrderHistory',
         'method' => 'update',
         'http-method' => 'POST',

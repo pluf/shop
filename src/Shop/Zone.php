@@ -70,7 +70,7 @@ class Shop_Zone extends Shop_DetailedObject
             // رابطه‌ها
             'owner' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'User',
+                'model' => 'User_Account',
                 'relate_name' => 'owner',
                 'blank' => true,
                 'editable' => true,
@@ -78,7 +78,7 @@ class Shop_Zone extends Shop_DetailedObject
             ),
             'member' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
-                'model' => 'User',
+                'model' => 'User_Account',
                 'relate_name' => 'member',
                 'blank' => false,
                 'editable' => false,
@@ -90,7 +90,7 @@ class Shop_Zone extends Shop_DetailedObject
     /**
      * Checks if given user is a memeber of zone
      *
-     * @param User $user            
+     * @param User_Account $user            
      * @return boolean
      */
     function isMember($user)
@@ -105,7 +105,7 @@ class Shop_Zone extends Shop_DetailedObject
     /**
      * Checks if given user is owner of zone
      *
-     * @param User $user            
+     * @param User_Account $user            
      * @return boolean
      */
     function isOwner($user)

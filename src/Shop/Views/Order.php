@@ -88,7 +88,7 @@ class Shop_Views_Order
             'creation_dtime',
             'modif_dtime'
         );
-        // NOTE: maso, 1395: User app are responsible to get more items
+        // NOTE: maso, 1395: User_Account app are responsible to get more items
         $pag->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $pag->configure(array(), $search_fields, $sort_fields);
         $pag->setFromRequest($request);

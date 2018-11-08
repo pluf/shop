@@ -2,12 +2,12 @@
 return array(
     'Shop_Address' => array(
         'relate_to_many' => array(
-            'User'
+            'User_Account'
         )
     ),
     'Shop_Agency' => array(
         'relate_to_many' => array(
-            'User'
+            'User_Account'
         ),
         'relate_to' => array(
             'CMS_Content'
@@ -15,7 +15,7 @@ return array(
     ),
     'Shop_Contact' => array(
         'relate_to_many' => array(
-            'User'
+            'User_Account'
         )
     ),
     'Shop_DeliverType' => array(
@@ -26,7 +26,7 @@ return array(
     ),
     'Shop_Order' => array(
         'relate_to' => array(
-            'User',
+            'User_Account',
             'Bank_Receipt',
             'Shop_DeliverType',
             'Shop_Zone',
@@ -54,10 +54,10 @@ return array(
     ),
     'Shop_Zone' => array(
         'relate_to' => array(
-            'User'
+            'User_Account'
         ),
         'relate_to_many' => array(
-            'User'
+            'User_Account'
         )
     )
 );

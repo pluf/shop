@@ -2,7 +2,7 @@
 return array(
     // ************************************************************* Contact
     array( // Find
-        'regex' => '#^/contact/find$#',
+        'regex' => '#^/contacts$#',
         'model' => 'Shop_Views_Contact',
         'method' => 'find',
         'http-method' => 'GET',
@@ -11,7 +11,7 @@ return array(
         )
     ),
     array( // Create
-        'regex' => '#^/contact/new$#',
+        'regex' => '#^/contacts$#',
         'model' => 'Shop_Views_Contact',
         'method' => 'create',
         'http-method' => 'POST',
@@ -20,7 +20,7 @@ return array(
         )
     ),
     array( // Get info
-        'regex' => '#^/contact/(?P<contactId>\d+)$#',
+        'regex' => '#^/contacts/(?P<contactId>\d+)$#',
         'model' => 'Shop_Views_Contact',
         'method' => 'get',
         'http-method' => 'GET',
@@ -29,7 +29,7 @@ return array(
         )
     ),
     array( // Delete
-        'regex' => '#^/contact/(?P<contactId>\d+)$#',
+        'regex' => '#^/contacts/(?P<contactId>\d+)$#',
         'model' => 'Shop_Views_Contact',
         'method' => 'delete',
         'http-method' => 'DELETE',
@@ -38,7 +38,7 @@ return array(
         )
     ),
     array( // Update
-        'regex' => '#^/contact/(?P<contactId>\d+)$#',
+        'regex' => '#^/contacts/(?P<contactId>\d+)$#',
         'model' => 'Shop_Views_Contact',
         'method' => 'update',
         'http-method' => 'POST',
