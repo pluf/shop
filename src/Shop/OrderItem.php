@@ -83,6 +83,7 @@ class Shop_OrderItem extends Pluf_Model
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Order',
                 'name' => 'order',
+                'relate_name' => 'order_item',
                 'blank' => false,
                 'editable' => false,
                 'readable' => true
