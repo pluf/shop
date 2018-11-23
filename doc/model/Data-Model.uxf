@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2.0">
+<diagram program="umlet" version="14.3.0">
   <help_text>// fontsize=14
 // fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-// MicroShop Data model
+// Shop Data model
 //
 //////////////////////////////////////////////////////////////////////////////////////////////
 </help_text>
@@ -17,8 +17,7 @@
       <w>105</w>
       <h>63</h>
     </coordinates>
-    <panel_attributes>bg=orange
-Pluf_User
+    <panel_attributes>Pluf_User
 --
 +id: int
 +login: string
@@ -51,7 +50,7 @@ contacts</panel_attributes>
     </coordinates>
     <panel_attributes>bg=orange
 &lt;&lt;Route&amp;Notification&gt;&gt;
-MicroShop::Contact
+Shop::Contact
 --
 +id: int
 +contact: string
@@ -81,7 +80,7 @@ MicroShop::Contact
       <h>217</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Order&gt;&gt;
-MicroShop::Order
+Shop::Order
 --
 +id: int
 +secure_id: string
@@ -119,7 +118,7 @@ customer</panel_attributes>
     <coordinates>
       <x>385</x>
       <y>203</y>
-      <w>56</w>
+      <w>63</w>
       <h>175</h>
     </coordinates>
     <panel_attributes>lt=-
@@ -151,7 +150,7 @@ payment</panel_attributes>
       <h>119</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Service&gt;&gt;
-MicroShop::Service
+Shop::Service
 --
 +properties
 --</panel_attributes>
@@ -166,7 +165,7 @@ MicroShop::Service
       <h>119</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Product&gt;&gt;
-MicroShop::Product
+Shop::Product
 --
 +manuficturer: string
 +brand
@@ -190,7 +189,7 @@ MicroShop::Product
 // with a rate.
 //
 &lt;&lt;Tax&gt;&gt;
-MicroShop::TaxClass
+Shop::TaxClass
 --
 +title: string
 +rate: double
@@ -248,7 +247,7 @@ tax class</panel_attributes>
       <h>182</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Order&gt;&gt;
-MicroShop::OrderHistory
+Shop::OrderHistory
 --
 +id: int
 +object_id: int
@@ -275,7 +274,7 @@ Responsibilities
       <h>63</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Order&gt;&gt;
-MicroShop::DeliverType
+Shop::DeliverType
 --
 
 --
@@ -378,7 +377,7 @@ DetailedObject
     </coordinates>
     <panel_attributes>bg=blue
 &lt;&lt;Util&gt;&gt;
-MicroShop::PricedObject
+Shop::PricedObject
 --
 +price: int
 +off: int
@@ -422,7 +421,7 @@ multitenant = false</panel_attributes>
     </coordinates>
     <panel_attributes>// Extends from DetailedObject
 &lt;&lt;Order&gt;&gt;
-MicroShop::Zone
+Shop::Zone
 --
 +province: string
 +city: string
@@ -445,7 +444,7 @@ Extends from DetailedObject</panel_attributes>
     </coordinates>
     <panel_attributes>// Extends from DetailedObject
 &lt;&lt;Order&gt;&gt;
-MicroShop::Agency
+Shop::Agency
 --
 +province: string
 +city: string
@@ -549,7 +548,7 @@ owner</panel_attributes>
       <h>126</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Order&gt;&gt;
-MicroShop::OrderItem
+Shop::OrderItem
 --
 +id: int
 +title: string
@@ -605,7 +604,7 @@ categories</panel_attributes>
     <coordinates>
       <x>224</x>
       <y>1134</y>
-      <w>63</w>
+      <w>70</w>
       <h>98</h>
     </coordinates>
     <panel_attributes>lt=-
@@ -663,7 +662,7 @@ m2=1
     </coordinates>
     <panel_attributes>bg=orange
 &lt;&lt;Route &amp; Notification&gt;&gt;
-MicroShop::Address
+Shop::Address
 --
 +id: int
 +province: string
@@ -715,7 +714,7 @@ Responsibilities
     <coordinates>
       <x>1057</x>
       <y>231</y>
-      <w>49</w>
+      <w>56</w>
       <h>105</h>
     </coordinates>
     <panel_attributes>lt=-
@@ -737,5 +736,69 @@ content</panel_attributes>
 این کلاس‌ها برای کم کردن حجم مدل
 و یا پیاده سازی استفاده می‌شه</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>364</x>
+      <y>651</y>
+      <w>147</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Product&gt;&gt;
+Shop::ProductMetafield
+--
++key: string
++value: string
++unit: string
++namespace: string
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>434</x>
+      <y>749</y>
+      <w>63</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1
+metafields</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>742</x>
+      <y>644</y>
+      <w>147</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Product&gt;&gt;
+Shop::ServiceMetafield
+--
++key: string
++value: string
++unit: string
++namespace: string
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>805</x>
+      <y>742</y>
+      <w>63</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1
+metafields</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
   </element>
 </diagram>
