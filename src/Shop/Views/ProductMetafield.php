@@ -72,7 +72,7 @@ class Shop_Views_ProductMetafield
         $metafield = null;
         if(isset($mfId)){
             $metafield = Pluf_Shortcuts_GetObjectOr404('Shop_ProductMetafield', $mfId);
-            if ($metafield->product_id !== $item->id) {
+            if ($metafield->product_id != $item->id) {
                 throw new Pluf_Exception_DoesNotExist('Metafield with id (' . $metafield->id . ') is not blong to the Product with id (' . $item->id . ')');
             }
         }else if(isset($mfKey)){
@@ -131,8 +131,8 @@ class Shop_Views_ProductMetafield
         $metafield = null;
         if(isset($mfId)){
             $metafield = Pluf_Shortcuts_GetObjectOr404('Shop_ProductMetafield', $mfId);
-            if ($metafield->product_id !== $match['modelId']) {
-                throw new Pluf_Exception_DoesNotExist('Metafield with id (' . $metafield->id . ') does not exist in the Product with id (' . $item->id . ')');
+            if ($metafield->product_id != $match['modelId']) {
+                throw new Pluf_Exception_DoesNotExist('Metafield with id (' . $metafield->id . ') is not blong to the Product with id (' . $match['modelId'] . ')');
             }
         }else{
             $sql = new Pluf_SQL('`key`=%s AND `product_id`=%s', array($request->REQUEST['key'], $match['modelId']));
