@@ -114,7 +114,7 @@ class Shop_Views_ProductMetafield
     
     /**
      * Extract Id or Key of metafield from given request and returns related Metafield
-     * @param Pluf_Http_Request $request
+     * @param Pluf_HTTP_Request $request
      * @param array $match
      * @throws Pluf_Exception_DoesNotExist if Id is given and Metafield with given id does not exist or is not blong to given Product 
      * @return NULL|Shop_ProductMetafield
