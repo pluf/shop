@@ -13,7 +13,8 @@
 		"Shop_Service",
 		"Shop_TaxClass",
 		"Shop_Zone",
-		"Shop_ProductMetafield"
+		"Shop_ProductMetafield",
+		"Shop_ServiceMetafield"
 	],
 	"init": {
 		"User_Role": [
