@@ -198,10 +198,10 @@ class Service_RestTest extends TestCase
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Service');
 
-        $cat = new Assort_Category();
+        $cat = new Shop_Category();
         $cat->name = 'category-' . rand();
         $cat->create();
-        Test_Assert::assertFalse($cat->isAnonymous(), 'Could not create Assort_Category');
+        Test_Assert::assertFalse($cat->isAnonymous(), 'Could not create Shop_Category');
 
         $item->setAssoc($cat);
 
@@ -242,10 +242,10 @@ class Service_RestTest extends TestCase
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Service');
 
-        $tag = new Assort_Tag();
+        $tag = new Shop_Tag();
         $tag->name = 'tag-' . rand();
         $tag->create();
-        Test_Assert::assertFalse($tag->isAnonymous(), 'Could not create Assort_Tag');
+        Test_Assert::assertFalse($tag->isAnonymous(), 'Could not create Shop_Tag');
 
         $item->setAssoc($tag);
 
