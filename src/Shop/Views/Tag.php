@@ -20,9 +20,11 @@ class Shop_Views_Tag
         // Find model of item
         switch ($match['item']){
             case 'product':
+            case 'products':
                 $model = 'Shop_Product';
                 break;
             case 'service':
+            case 'services':
                 $model = 'Shop_Service';
                 break;
             default:

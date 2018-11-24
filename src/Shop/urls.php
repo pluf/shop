@@ -9,7 +9,8 @@ $paths = array(
     'urls/order.php',
     'urls/product.php',
     'urls/service.php',
-    'urls/tag_category.php',
+    'urls/category.php',
+    'urls/tag.php',
     'urls/tax.php',
     'urls/zone.php'
 );
