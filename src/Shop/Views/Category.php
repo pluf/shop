@@ -31,7 +31,7 @@ class Shop_Views_Category
 
     public static function items($request, $match)
     {
-        $category = Pluf_Shortcuts_GetObjectOr404('Assort_Category', $match['categoryId']);
+        $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $match['categoryId']);
         $model = Shop_Views_Category::itemModel($request, $match);
         $item = Pluf::factory($model);
         $itemTable = $item->_a['table'];
@@ -74,7 +74,7 @@ class Shop_Views_Category
 
     public static function addItem($request, $match)
     {
-        $category = Pluf_Shortcuts_GetObjectOr404('Assort_Category', $match['categoryId']);
+        $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $match['categoryId']);
         if (isset($match['itemId'])) {
             $itemId = $match['itemId'];
         } else {
@@ -88,7 +88,7 @@ class Shop_Views_Category
 
     public static function removeItem($request, $match)
     {
-        $category = Pluf_Shortcuts_GetObjectOr404('Assort_Category', $match['categoryId']);
+        $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $match['categoryId']);
         if (isset($match['itemId'])) {
             $itemId = $match['itemId'];
         } else {

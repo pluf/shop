@@ -3,6 +3,7 @@ Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
 Pluf::loadFunction('Shop_Shortcuts_GetIdColumnName');
 Pluf::loadFunction('Shop_Shortcuts_GetAssociationTableName');
+Pluf::loadFunction('Shop_Shortcuts_GetTagByNameOr404');
 
 class Shop_Views_Tag
 {
@@ -32,16 +33,13 @@ class Shop_Views_Tag
     
     public static function getByName($request, $match)
     {
-        $tag = Assort_Views_Tag::getTagByName($request, $match);
-        // حق دسترسی
-        // CMS_Precondition::userCanAccessContent($request, $content);
-        // اجرای درخواست
-        return new Pluf_HTTP_Response_Json($tag);
+        $tag = Shop_Shortcuts_GetTagByNameOr404($match['name']);
+        return $tag;
     }
 
     public static function items($request, $match)
     {
-        $tag = Pluf_Shortcuts_GetObjectOr404('Assort_Tag', $match['tagId']);
+        $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $match['tagId']);
         $model = Shop_Views_Tag::itemModel($request, $match);
         $item = Pluf::factory($model);
         $itemTable = $item->_a['table'];
@@ -81,7 +79,7 @@ class Shop_Views_Tag
 
     public static function addItem($request, $match)
     {
-        $tag = Pluf_Shortcuts_GetObjectOr404('Assort_Tag', $match['tagId']);
+        $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $match['tagId']);
         if (isset($match['itemId'])) {
             $itemId = $match['itemId'];
         } else {
@@ -95,7 +93,7 @@ class Shop_Views_Tag
 
     public static function removeItem($request, $match)
     {
-        $tag = Pluf_Shortcuts_GetObjectOr404('Assort_Tag', $match['tagId']);
+        $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $match['tagId']);
         if (isset($match['itemId'])) {
             $itemId = $match['itemId'];
         } else {
@@ -106,4 +104,5 @@ class Shop_Views_Tag
         $tag->delAssoc($item);
         return new Pluf_HTTP_Response_Json($item);
     }
+
 }

@@ -40,14 +40,14 @@ class Shop_PricedObject extends Shop_DetailedObject
             // relations
             'categories' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
-                'model' => 'Assort_Category',
+                'model' => 'Shop_Category',
                 'relate_name' => 'categories',
                 'editable' => false,
                 'readable' => false
             ),
             'tags' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
-                'model' => 'Assort_Tag',
+                'model' => 'Shop_Tag',
                 'relate_name' => 'tags',
                 'editable' => false,
                 'readable' => false

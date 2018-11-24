@@ -97,3 +97,30 @@ function Shop_Shortcuts_GetObjectBySecureIdOr404($model, $secureId)
     }
     throw new Pluf_HTTP_Error404("Object whit given secure id not found (" . $model . ", " . $secureId . ")");
 }
+/**
+ * Returns Shop_Tag with given name.
+ * Throws an exception (with http code 404) if there is no tag with given name.
+ * @param string $name
+ * @throws Pluf_Exception_DoesNotExist if there is no tag with given name.
+ * @return Shop_Tag
+ */
+function Shop_Shortcuts_GetTagByNameOr404 ($name)
+{
+    $q = new Pluf_SQL('name=%s', array(
+        $name
+    ));
+    $item = new Shop_Tag();
+    $item = $item->getList(array(
+        'filter' => $q->gen()
+    ));
+    if (isset($item) && $item->count() == 1) {
+        return $item[0];
+    }
+    if ($item->count() > 1) {
+        Pluf_Log::error(
+            sprintf('more than one tag exist with the name $s', $name));
+        return $item[0];
+    }
+    throw new Pluf_Exception_DoesNotExist(
+        "Tag not found (Tag name:" . $name . ")");
+}
