@@ -23,7 +23,7 @@ class Shop_ProductMetafield extends Pluf_Model
                 'type' => 'Pluf_DB_Field_Varchar',
                 'is_null' => false,
                 'blank' => false,
-                'size' => 256,
+                'size' => 250,
                 'editable' => true,
                 'readable' => true
             ),
