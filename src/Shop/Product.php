@@ -17,16 +17,16 @@ class Shop_Product extends Shop_PricedObject
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'manufacturer' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
-                'blank' => false,
-                'is_null' => false,
+                'blank' => true,
+                'is_null' => true,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
             ),
             'brand' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
-                'blank' => false,
-                'is_null' => false,
+                'blank' => true,
+                'is_null' => true,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true

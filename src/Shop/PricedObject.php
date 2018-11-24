@@ -24,7 +24,8 @@ class Shop_PricedObject extends Shop_DetailedObject
             ),
             'off' => array(
                 'type' => 'Pluf_DB_Field_Integer',
-                'blank' => false,
+                'blank' => true,
+                'is_null' => true,
                 'default' => 0,
                 'editable' => true,
                 'readable' => true
