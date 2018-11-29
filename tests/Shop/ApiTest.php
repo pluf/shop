@@ -42,8 +42,12 @@ class Shop_ApiTest extends TestCase
     {
         $object = new Shop_Product();
         $this->assertTrue(isset($object), 'Shop_Product could not be created!');
+        $object = new Shop_ProductMetafield();
+        $this->assertTrue(isset($object), 'Shop_ProductMetafield could not be created!');
         $object = new Shop_Service();
         $this->assertTrue(isset($object), 'Shop_Service could not be created!');
+        $object = new Shop_ServiceMetafield();
+        $this->assertTrue(isset($object), 'Shop_ServiceMetafield could not be created!');
         $object = new Shop_Order();
         $this->assertTrue(isset($object), 'Shop_Order could not be created!');
         $object = new Shop_OrderHistory();

@@ -59,7 +59,46 @@ return array(
             'User_Precondition::memberRequired'
         )
     ), 
-
+    // ************************************************************* Metafields of service
+    array( //  Create
+        'regex' => '#^/services/(?P<modelId>\d+)/metafields$#',
+        'model' => 'Shop_Views_ServiceMetafield',
+        'method' => 'createOrUpdate',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Read (list)
+        'regex' => '#^/services/(?P<modelId>\d+)/metafields$#',
+        'model' => 'Shop_Views_ServiceMetafield',
+        'method' => 'find',
+        'http-method' => 'GET'
+    ),
+    array( // Read
+        'regex' => '#^/services/(?P<modelId>\d+)/metafields/(?P<mfId>\d+)$#',
+        'model' => 'Shop_Views_ServiceMetafield',
+        'method' => 'get',
+        'http-method' => 'GET'
+    ),
+    array( // Update
+        'regex' => '#^/services/(?P<modelId>\d+)/metafields/(?P<mfId>\d+)$#',
+        'model' => 'Shop_Views_ServiceMetafield',
+        'method' => 'createOrUpdate',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Delete
+        'regex' => '#^/services/(?P<modelId>\d+)/metafields/(?P<mfId>\d+)$#',
+        'model' => 'Shop_Views_ServiceMetafield',
+        'method' => 'remove',
+        'http-method' => 'DELETE',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
     // ************************************************************* Taxes of Service
     array(
         'regex' => '#^/services/(?P<serviceId>\d+)/taxes$#',

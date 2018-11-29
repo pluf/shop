@@ -59,6 +59,46 @@ return array(
             'User_Precondition::memberRequired'
         )
     ),
+    // ************************************************************* Metafields of product
+    array( //  Create
+        'regex' => '#^/products/(?P<modelId>\d+)/metafields$#',
+        'model' => 'Shop_Views_ProductMetafield',
+        'method' => 'createOrUpdate',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Read (list)
+        'regex' => '#^/products/(?P<modelId>\d+)/metafields$#',
+        'model' => 'Shop_Views_ProductMetafield',
+        'method' => 'find',
+        'http-method' => 'GET'
+    ),
+    array( // Read
+        'regex' => '#^/products/(?P<modelId>\d+)/metafields/(?P<mfId>\d+)$#',
+        'model' => 'Shop_Views_ProductMetafield',
+        'method' => 'get',
+        'http-method' => 'GET'
+    ),
+    array( // Update
+        'regex' => '#^/products/(?P<modelId>\d+)/metafields/(?P<mfId>\d+)$#',
+        'model' => 'Shop_Views_ProductMetafield',
+        'method' => 'createOrUpdate',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Delete
+        'regex' => '#^/products/(?P<modelId>\d+)/metafields/(?P<mfId>\d+)$#',
+        'model' => 'Shop_Views_ProductMetafield',
+        'method' => 'remove',
+        'http-method' => 'DELETE',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
     // ************************************************************* Taxes of Products
     array(
         'regex' => '#^/products/(?P<productId>\d+)/taxes$#',

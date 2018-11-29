@@ -15,7 +15,7 @@ class Shop_Views
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
-        $tag = new Assort_Tag();
+        $tag = new Shop_Tag();
         $tagTable = Shop_Shortcuts_GetTableName($tag);
         $tagIdColName = Shop_Shortcuts_GetIdColumnName($tag);
         $assocTable = Shop_Shortcuts_GetAssociationTableName($item, $tag);
@@ -60,7 +60,7 @@ class Shop_Views
         } else {
             $tagId = $request->REQUEST['tagId'];
         }
-        $tag = Pluf_Shortcuts_GetObjectOr404('Assort_Tag', $tagId);
+        $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $tagId);
         $item->setAssoc($tag);
         return new Pluf_HTTP_Response_Json($tag);
     }
@@ -74,7 +74,7 @@ class Shop_Views
         } else {
             $tagId = $request->REQUEST['tagId'];
         }
-        $tag = Pluf_Shortcuts_GetObjectOr404('Assort_Tag', $tagId);
+        $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $tagId);
         $item->delAssoc($tag);
         return new Pluf_HTTP_Response_Json($tag);
     }
@@ -86,7 +86,7 @@ class Shop_Views
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
-        $category = new Assort_Category();
+        $category = new Shop_Category();
         $categoryTable = Shop_Shortcuts_GetTableName($category);
         $catIdColName = Shop_Shortcuts_GetIdColumnName($category);
         $assocTable = Shop_Shortcuts_GetAssociationTableName($item, $category);
@@ -133,7 +133,7 @@ class Shop_Views
         } else {
             $categoryId = $request->REQUEST['categoryId'];
         }
-        $category = Pluf_Shortcuts_GetObjectOr404('Assort_Category', $categoryId);
+        $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $categoryId);
         $item->setAssoc($category);
         return new Pluf_HTTP_Response_Json($category);
     }
@@ -147,7 +147,7 @@ class Shop_Views
         } else {
             $categoryId = $request->REQUEST['categoryId'];
         }
-        $category = Pluf_Shortcuts_GetObjectOr404('Assort_Category', $categoryId);
+        $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $categoryId);
         $item->delAssoc($category);
         return new Pluf_HTTP_Response_Json($category);
     }

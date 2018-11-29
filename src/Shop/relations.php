@@ -20,8 +20,8 @@ return array(
     ),
     'Shop_DeliverType' => array(
         'relate_to_many' => array(
-            'Assort_Category',
-            'Assort_Tag'
+            'Shop_Category',
+            'Shop_Tag'
         )
     ),
     'Shop_Order' => array(
@@ -41,15 +41,17 @@ return array(
     'Shop_Product' => array(
         'relate_to_many' => array(
             'Shop_TaxClass',
-            'Assort_Category',
-            'Assort_Tag'
+            'Shop_ProductMetafield',
+            'Shop_Category',
+            'Shop_Tag'
         )
     ),
     'Shop_Service' => array(
         'relate_to_many' => array(
             'Shop_TaxClass',
-            'Assort_Category',
-            'Assort_Tag'
+            'Shop_ServiceMetafield',
+            'Shop_Category',
+            'Shop_Tag'
         )
     ),
     'Shop_Zone' => array(
@@ -59,5 +61,14 @@ return array(
         'relate_to_many' => array(
             'User_Account'
         )
-    )
+    ),
+    'Shop_Category' => array(
+        // XXX: note: hadi, 1396-03: commented to avoid casecade deleting *****
+        // 'relate_to' => array(
+        // 'CMS_Content',
+        // 'Shop_Category'
+        // ),
+        // *****
+    ),
+    'Shop_Tag' => array()
 );
