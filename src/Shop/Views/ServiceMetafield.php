@@ -55,11 +55,11 @@ class Shop_Views_ServiceMetafield
         // Extract metafield id or metafield key if id is not provided
         $mfId = null;
         $mfKey = null;
-        if (isset($match['mfId'])) {
-            $mfId = $match['mfId'];
+        if (isset($match['id'])) {
+            $mfId = $match['id'];
         } else if(isset($request->REQUEST['metafield'])){
             $mfId = $request->REQUEST['metafield'];
-        } else if(isset($match['mfId'])){
+        } else if(isset($match['mfKey'])){
             $mfKey = $match['mfKey'];            
         } else if(isset($request->REQUEST['key'])){
             $mfKey = $request->REQUEST['key'];
@@ -87,10 +87,10 @@ class Shop_Views_ServiceMetafield
     
     public static function remove($request, $match)
     {
-        if (isset($match['mfId'])) {
-            $mfId = $match['mfId'];
+        if (isset($match['id'])) {
+            $mfId = $match['id'];
         } else {
-            $mfId = $request->REQUEST['mfId'];
+            $mfId = $request->REQUEST['id'];
         }
         $mf = Pluf_Shortcuts_GetObjectOr404('Shop_ServiceMetafield', $mfId);
         $mf = $mf->delete();
@@ -122,8 +122,8 @@ class Shop_Views_ServiceMetafield
     private static function getMetafieldByIdOrKey($request, $match){
         $mfId = null;
         // Extract metafield id (if exist)
-        if (isset($match['mfId'])) {
-            $mfId = $match['mfId'];
+        if (isset($match['id'])) {
+            $mfId = $match['id'];
         } else if(isset($request->REQUEST['metafield'])){
             $mfId = $request->REQUEST['metafield'];
         }

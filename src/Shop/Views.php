@@ -55,10 +55,10 @@ class Shop_Views
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
-        if (isset($match['tagId'])) {
-            $tagId = $match['tagId'];
+        if (isset($match['id'])) {
+            $tagId = $match['id'];
         } else {
-            $tagId = $request->REQUEST['tagId'];
+            $tagId = $request->REQUEST['id'];
         }
         $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $tagId);
         $item->setAssoc($tag);
@@ -69,10 +69,10 @@ class Shop_Views
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
-        if (isset($match['tagId'])) {
-            $tagId = $match['tagId'];
+        if (isset($match['id'])) {
+            $tagId = $match['id'];
         } else {
-            $tagId = $request->REQUEST['tagId'];
+            $tagId = $request->REQUEST['id'];
         }
         $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $tagId);
         $item->delAssoc($tag);
@@ -128,10 +128,10 @@ class Shop_Views
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
-        if (isset($match['categoryId'])) {
-            $categoryId = $match['categoryId'];
+        if (isset($match['id'])) {
+            $categoryId = $match['id'];
         } else {
-            $categoryId = $request->REQUEST['categoryId'];
+            $categoryId = $request->REQUEST['id'];
         }
         $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $categoryId);
         $item->setAssoc($category);
@@ -142,10 +142,10 @@ class Shop_Views
     {
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
-        if (isset($match['categoryId'])) {
-            $categoryId = $match['categoryId'];
+        if (isset($match['id'])) {
+            $categoryId = $match['id'];
         } else {
-            $categoryId = $request->REQUEST['categoryId'];
+            $categoryId = $request->REQUEST['id'];
         }
         $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $categoryId);
         $item->delAssoc($category);

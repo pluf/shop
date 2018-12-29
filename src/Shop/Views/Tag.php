@@ -82,10 +82,10 @@ class Shop_Views_Tag
     public static function addItem($request, $match)
     {
         $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $match['tagId']);
-        if (isset($match['itemId'])) {
-            $itemId = $match['itemId'];
+        if (isset($match['id'])) {
+            $itemId = $match['id'];
         } else {
-            $itemId = $request->REQUEST['itemId'];
+            $itemId = $request->REQUEST['id'];
         }
         $model = Shop_Views_Tag::itemModel($request, $match);
         $item = Pluf_Shortcuts_GetObjectOr404($model, $itemId);
@@ -96,10 +96,10 @@ class Shop_Views_Tag
     public static function removeItem($request, $match)
     {
         $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $match['tagId']);
-        if (isset($match['itemId'])) {
-            $itemId = $match['itemId'];
+        if (isset($match['id'])) {
+            $itemId = $match['id'];
         } else {
-            $itemId = $request->REQUEST['itemId'];
+            $itemId = $request->REQUEST['id'];
         }
         $model = Shop_Views_Tag::itemModel($request, $match);
         $item = Pluf_Shortcuts_GetObjectOr404($model, $itemId);
