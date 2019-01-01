@@ -73,7 +73,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/categories/(?P<categoryId>\d+)/(?P<item>[^/]+)/(?P<itemId>\d+)$#',
+        'regex' => '#^/categories/(?P<categoryId>\d+)/(?P<item>[^/]+)/(?P<id>\d+)$#',
         'model' => 'Shop_Views_Category',
         'method' => 'addItem',
         'http-method' => 'POST',
@@ -82,7 +82,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/categories/(?P<categoryId>\d+)/(?P<item>[^/]+)/(?P<itemId>\d+)$#',
+        'regex' => '#^/categories/(?P<categoryId>\d+)/(?P<item>[^/]+)/(?P<id>\d+)$#',
         'model' => 'Shop_Views_Category',
         'method' => 'removeItem',
         'http-method' => 'DELETE',

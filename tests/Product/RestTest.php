@@ -225,9 +225,7 @@ class Product_RestTest extends TestCase
         $this->assertEquals($response->status_code, 200);
 
         // create
-        $response = $this->client->post('/shop/products/' . $item->id . '/categories', array(
-            'categoryId' => $cat->id
-        ));
+        $response = $this->client->post('/shop/products/' . $item->id . '/categories', $cat);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 
@@ -272,9 +270,7 @@ class Product_RestTest extends TestCase
         $this->assertEquals($response->status_code, 200);
 
         // create
-        $response = $this->client->post('/shop/products/' . $item->id . '/tags', array(
-            'tagId' => $tag->id
-        ));
+        $response = $this->client->post('/shop/products/' . $item->id . '/tags', $tag);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
 

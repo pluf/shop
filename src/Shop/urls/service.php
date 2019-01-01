@@ -76,13 +76,13 @@ return array(
         'http-method' => 'GET'
     ),
     array( // Read
-        'regex' => '#^/services/(?P<modelId>\d+)/metafields/(?P<mfId>\d+)$#',
+        'regex' => '#^/services/(?P<modelId>\d+)/metafields/(?P<id>\d+)$#',
         'model' => 'Shop_Views_ServiceMetafield',
         'method' => 'get',
         'http-method' => 'GET'
     ),
     array( // Update
-        'regex' => '#^/services/(?P<modelId>\d+)/metafields/(?P<mfId>\d+)$#',
+        'regex' => '#^/services/(?P<modelId>\d+)/metafields/(?P<id>\d+)$#',
         'model' => 'Shop_Views_ServiceMetafield',
         'method' => 'createOrUpdate',
         'http-method' => 'POST',
@@ -91,7 +91,7 @@ return array(
         )
     ),
     array( // Delete
-        'regex' => '#^/services/(?P<modelId>\d+)/metafields/(?P<mfId>\d+)$#',
+        'regex' => '#^/services/(?P<modelId>\d+)/metafields/(?P<id>\d+)$#',
         'model' => 'Shop_Views_ServiceMetafield',
         'method' => 'remove',
         'http-method' => 'DELETE',
@@ -117,7 +117,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/services/(?P<serviceId>\d+)/taxes/(?P<taxId>\d+)$#',
+        'regex' => '#^/services/(?P<serviceId>\d+)/taxes/(?P<id>\d+)$#',
         'model' => 'Shop_Views_Tax',
         'method' => 'addServiceTax',
         'http-method' => 'POST',
@@ -127,7 +127,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/services/(?P<serviceId>\d+)/taxes/(?P<taxId>\d+)$#',
+        'regex' => '#^/services/(?P<serviceId>\d+)/taxes/(?P<id>\d+)$#',
         'model' => 'Shop_Views_Tax',
         'method' => 'removeServiceTax',
         'http-method' => 'DELETE',
@@ -160,7 +160,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/services/(?P<modelId>\d+)/categories/(?P<categoryId>\d+)$#',
+        'regex' => '#^/services/(?P<modelId>\d+)/categories/(?P<id>\d+)$#',
         'model' => 'Shop_Views',
         'method' => 'addCategory',
         'http-method' => 'POST',
@@ -172,7 +172,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/services/(?P<modelId>\d+)/categories/(?P<categoryId>\d+)$#',
+        'regex' => '#^/services/(?P<modelId>\d+)/categories/(?P<id>\d+)$#',
         'model' => 'Shop_Views',
         'method' => 'removeCategory',
         'http-method' => 'DELETE',
@@ -207,7 +207,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/services/(?P<modelId>\d+)/tags/(?P<tagId>\d+)$#',
+        'regex' => '#^/services/(?P<modelId>\d+)/tags/(?P<id>\d+)$#',
         'model' => 'Shop_Views',
         'method' => 'addTag',
         'http-method' => 'POST',
@@ -219,7 +219,7 @@ return array(
         )
     ),
     array(
-        'regex' => '#^/services/(?P<modelId>\d+)/tags/(?P<tagId>\d+)$#',
+        'regex' => '#^/services/(?P<modelId>\d+)/tags/(?P<id>\d+)$#',
         'model' => 'Shop_Views',
         'method' => 'removeTag',
         'http-method' => 'DELETE',

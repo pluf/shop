@@ -50,10 +50,10 @@ class Shop_Views_Tax
     public static function addProductTax ($request, $match)
     {
         $product = Pluf_Shortcuts_GetObjectOr404('Shop_Product', $match['productId']);
-        if (isset($match['taxId'])) {
-            $taxId = $match['taxId'];
+        if (isset($match['id'])) {
+            $taxId = $match['id'];
         } else {
-            $taxId = $request->REQUEST['taxId'];
+            $taxId = $request->REQUEST['id'];
         }
         $tax = Pluf_Shortcuts_GetObjectOr404('Shop_TaxClass', $taxId);
         $product->setAssoc($tax);
@@ -63,10 +63,10 @@ class Shop_Views_Tax
     public static function removeProductTax ($request, $match)
     {
         $product = Pluf_Shortcuts_GetObjectOr404('Shop_Product', $match['productId']);
-        if (isset($match['taxId'])) {
-            $taxId = $match['taxId'];
+        if (isset($match['id'])) {
+            $taxId = $match['id'];
         } else {
-            $taxId = $request->REQUEST['taxId'];
+            $taxId = $request->REQUEST['id'];
         }
         $tax = Pluf_Shortcuts_GetObjectOr404('Shop_TaxClass', $taxId);
         $product->delAssoc($tax);
@@ -118,10 +118,10 @@ class Shop_Views_Tax
     public static function addServiceTax ($request, $match)
     {
         $service = Pluf_Shortcuts_GetObjectOr404('Shop_Service', $match['serviceId']);
-        if (isset($match['taxId'])) {
-            $taxId = $match['taxId'];
+        if (isset($match['id'])) {
+            $taxId = $match['id'];
         } else {
-            $taxId = $request->REQUEST['taxId'];
+            $taxId = $request->REQUEST['id'];
         }
         $tax = Pluf_Shortcuts_GetObjectOr404('Shop_TaxClass', $taxId);
         $service->setAssoc($tax);
@@ -131,10 +131,10 @@ class Shop_Views_Tax
     public static function removeServiceTax ($request, $match)
     {
         $service = Pluf_Shortcuts_GetObjectOr404('Shop_Service', $match['serviceId']);
-        if (isset($match['taxId'])) {
-            $taxId = $match['taxId'];
+        if (isset($match['id'])) {
+            $taxId = $match['id'];
         } else {
-            $taxId = $request->REQUEST['taxId'];
+            $taxId = $request->REQUEST['id'];
         }
         $tax = Pluf_Shortcuts_GetObjectOr404('Shop_TaxClass', $taxId);
         $service->delAssoc($tax);

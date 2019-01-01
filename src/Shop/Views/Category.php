@@ -78,9 +78,9 @@ class Shop_Views_Category
     {
         $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $match['categoryId']);
         if (isset($match['itemId'])) {
-            $itemId = $match['itemId'];
+            $itemId = $match['id'];
         } else {
-            $itemId = $request->REQUEST['itemId'];
+            $itemId = $request->REQUEST['id'];
         }
         $model = Shop_Views_Category::itemModel($request, $match);
         $item = Pluf_Shortcuts_GetObjectOr404($model, $itemId);
