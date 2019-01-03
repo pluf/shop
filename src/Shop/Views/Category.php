@@ -71,7 +71,7 @@ class Shop_Views_Category
         $page->configure(array(), $search_fields, $sort_fields);
         $page->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $page->setFromRequest($request);
-        return new Pluf_HTTP_Response_Json($page->render_object());
+        return $page->render_object();
     }
 
     public static function addItem($request, $match)
@@ -85,7 +85,7 @@ class Shop_Views_Category
         $model = Shop_Views_Category::itemModel($request, $match);
         $item = Pluf_Shortcuts_GetObjectOr404($model, $itemId);
         $category->setAssoc($item);
-        return new Pluf_HTTP_Response_Json($item);
+        return $item;
     }
 
     public static function removeItem($request, $match)
@@ -99,6 +99,6 @@ class Shop_Views_Category
         $model = Shop_Views_Category::itemModel($request, $match);
         $item = Pluf_Shortcuts_GetObjectOr404($model, $itemId);
         $category->delAssoc($item);
-        return new Pluf_HTTP_Response_Json($item);
+        return $item;
     }
 }

@@ -76,18 +76,24 @@ class Shop_Agency extends Shop_DetailedObject
                 'verbose' => __('modification date'),
                 'editable' => false
             ),
-            // رابطه‌ها
+            /*
+             * Relation
+             */
             'owner' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'User_Account',
-                'relate_name' => 'owner',
+                'name' => 'owner',
+                'graphql_name' => 'owner',
+                'relate_name' => 'agencies',
                 'editable' => true,
                 'readable' => true
             ),
             'content' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'CMS_Content',
-                'relate_name' => 'agency_content',
+                'name' => 'agency_content',
+                'graphql_name' => 'agency_content',
+                'relate_name' => 'agencies',
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true

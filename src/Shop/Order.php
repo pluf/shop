@@ -121,18 +121,15 @@ class Shop_Order extends Pluf_Model
                 'editable' => false,
                 'readable' => true
             ),
-            // relations
-            // 'items' => array(
-            // 'type' => 'Pluf_DB_Field_Manytomany',
-            // 'model' => 'Shop_OrderItem',
-            // 'relate_name' => 'items',
-            // 'editable' => false,
-            // 'readable' => false
-            // ),
+            /*
+             * Relations
+             */
             'customer' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'User_Account',
-                'relate_name' => 'customer',
+                'name' => 'customer',
+                'graphql_name' => 'customer',
+                'relate_name' => 'orders',
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true
@@ -140,7 +137,9 @@ class Shop_Order extends Pluf_Model
             'assignee' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'User_Account',
-                'relate_name' => 'assignee',
+                'name' => 'assignee',
+                'graphql_name' => 'assignee',
+                'relate_name' => 'orders',
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true
@@ -148,7 +147,9 @@ class Shop_Order extends Pluf_Model
             'deliver_type' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_DeliverType',
-                'relate_name' => 'deliver_type',
+                'name' => 'deliver_type',
+                'graphql_name' => 'deliver_type',
+                'relate_name' => 'orders',
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true
@@ -156,7 +157,9 @@ class Shop_Order extends Pluf_Model
             'payment' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Bank_Receipt',
-                'relate_name' => 'payment',
+                'name' => 'payment',
+                'graphql_name' => 'payment',
+                'relate_name' => 'orders',
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true
@@ -164,7 +167,9 @@ class Shop_Order extends Pluf_Model
             'zone' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Zone',
-                'relate_name' => 'zone',
+                'name' => 'zone',
+                'graphql_name' => 'zone',
+                'relate_name' => 'orders',
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true
@@ -172,7 +177,9 @@ class Shop_Order extends Pluf_Model
             'agency' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Agency',
-                'relate_name' => 'agency',
+                'name' => 'agency',
+                'graphql_name' => 'agency',
+                'relate_name' => 'orders',
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true

@@ -55,7 +55,6 @@ class Shop_DetailedObject extends Pluf_Model
                 'editable' => true,
                 'readable' => true
             )
-            // relations
         );
         
 //         $this->_a['idx'] = array(

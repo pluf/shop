@@ -51,11 +51,14 @@ class Shop_ProductMetafield extends Pluf_Model
                 'editable' => true,
                 'readable' => true
             ),
-            // relations
+            /*
+             * Relations
+             */
             'product_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Product',
                 'name' => 'product',
+                'graphql_name' => 'product',
                 'relate_name' => 'metafields',
                 'is_null' => false,
                 'blank' => false,

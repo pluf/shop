@@ -67,11 +67,15 @@ class Shop_Address extends Pluf_Model
                 'blank' => true,
                 'editable' => false
             ),
-            // رابطه‌ها
+            /*
+             * Relations
+             */
             'user' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'User_Account',
-                'relate_name' => 'user',
+                'name' => 'user',
+                'graphql_name' => 'user',
+                'relate_name' => 'addresses',
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true

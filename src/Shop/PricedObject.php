@@ -37,18 +37,22 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'editable' => false,
                 'readable' => false
             ),
-            // relations
+            /*
+             * Relations
+             */
             'categories' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'Shop_Category',
-                'relate_name' => 'categories',
+                'name' => 'categories',
+                'graphql_name' => 'categories',
                 'editable' => false,
                 'readable' => false
             ),
             'tags' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'Shop_Tag',
-                'relate_name' => 'tags',
+                'name' => 'tags',
+                'graphql_name' => 'tags',
                 'editable' => false,
                 'readable' => false
             )

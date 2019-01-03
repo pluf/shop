@@ -15,5 +15,8 @@ class Shop_DeliverType extends Shop_PricedObject
         $this->_a['verbose'] = 'Shop_DeliverType';
         // Merge parent columns with new columns
         $this->_a['cols'] = array_merge($this->_a['cols'], array());
+        // Set the field name in the another entity in the relationship
+        $this->_a['cols']['categories']['relate_name'] = 'deliver_types';
+        $this->_a['cols']['tags']['relate_name'] = 'deliver_types';
     }
 }
