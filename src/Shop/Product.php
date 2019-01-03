@@ -51,11 +51,16 @@ class Shop_Product extends Shop_PricedObject
             'taxes' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'Shop_TaxClass',
-                'relate_name' => 'taxes',
+                'name' => 'taxes',
+                'graphql_name' => 'taxes',
+                'relate_name' => 'products',
                 'editable' => false,
                 'readable' => false
             )
         ));
+        // Set the field name in the another entity in the relationship
+        $this->_a['cols']['categories']['relate_name'] = 'products';
+        $this->_a['cols']['tags']['relate_name'] = 'products';
     }
 
     function toString(){

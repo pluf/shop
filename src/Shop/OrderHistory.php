@@ -98,13 +98,17 @@ class Shop_OrderHistory extends Pluf_Model
             // 'editable' => false,
             // 'readable' => true
             // ),
-            // relations
+            /*
+             * Relations
+             */
             'order' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Order',
                 'blank' => false,
                 'is_null' => false,
-                'relate_name' => 'order_history',
+                'name' => 'order',
+                'graphql_name' => 'order',
+                'relate_name' => 'histories',
                 'editable' => false,
                 'readable' => true
             )

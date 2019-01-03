@@ -46,11 +46,15 @@ class Shop_Contact extends Pluf_Model
                 'editable' => false,
                 'readable' => true
             ),
-            // Relations
+            /*
+             * Relations
+             */
             'user' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'User_Account',
-                'relate_name' => 'user',
+                'name' => 'user',
+                'graphql_name' => 'user',
+                'relate_name' => 'contacts',
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true

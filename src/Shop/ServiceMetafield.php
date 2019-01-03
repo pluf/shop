@@ -57,6 +57,7 @@ class Shop_ServiceMetafield extends Pluf_Model
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Service',
                 'name' => 'service',
+                'graphql_name' => 'service',
                 'relate_name' => 'metafields',
                 'is_null' => false,
                 'blank' => false,

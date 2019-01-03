@@ -67,11 +67,15 @@ class Shop_Zone extends Shop_DetailedObject
                 'editable' => false,
                 'readable' => true
             ),
-            // رابطه‌ها
+            /*
+             * Relations
+             */
             'owner' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'User_Account',
-                'relate_name' => 'owner',
+                'name' => 'owner',
+                'graphql_name' => 'owner',
+                'relate_name' => 'zones',
                 'blank' => true,
                 'editable' => true,
                 'readable' => true
@@ -79,7 +83,9 @@ class Shop_Zone extends Shop_DetailedObject
             'member' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'User_Account',
-                'relate_name' => 'member',
+                'name' => 'members',
+                'graphql_name' => 'members',
+                'relate_name' => 'zones',
                 'blank' => false,
                 'editable' => false,
                 'readable' => false

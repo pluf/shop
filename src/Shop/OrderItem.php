@@ -78,12 +78,15 @@ class Shop_OrderItem extends Pluf_Model
                 'editable' => false,
                 'readable' => true
             ),
-            // relations
+            /*
+             * Relations
+             */
             'order_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Order',
                 'name' => 'order',
-                'relate_name' => 'order_item',
+                'graphql_name' => 'order',
+                'relate_name' => 'order_items',
                 'blank' => false,
                 'editable' => false,
                 'readable' => true
