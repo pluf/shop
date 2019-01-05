@@ -242,8 +242,9 @@ class Shop_Views_Order
             'amount' => $price, // مقدار پرداخت به تومان
             'title' => $order->id . ' - ' . $order->title,
             'description' => $order->id . ' - ' . $order->title,
-            'email' => $user->email,
+            // 'email' => $user->email,
             // 'phone' => $user->phone,
+            'email' => '',
             'phone' => '',
             'callbackURL' => $url,
             'backend' => $backend
