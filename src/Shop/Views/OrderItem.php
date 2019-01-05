@@ -42,7 +42,7 @@ class Shop_Views_OrderItem
         $form = Pluf_Shortcuts_GetFormForModel(Pluf::factory('Shop_OrderItem'), $request->REQUEST);
         $orderItem = $form->save();
         
-        $orderItem->__set('order', $order);
+        $orderItem->order_id = $order;
         $orderItem->update();
         
         // Remove payment because it is not valid yet.
