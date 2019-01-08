@@ -364,7 +364,16 @@ class Shop_Views_Order
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             self::checkAccess($request, $order);
         }
-        return $order->getManager()->transitions($order);
+        $items = $order->getManager()->transitions($order);
+        $page = array(
+            'items' => $items,
+            'counts' => count($items),
+            'current_page' => 0,
+            'items_per_page' => count($items),
+            'page_number' => 1
+        );
+        
+        return $page;
     }
 
     public static function doAction($request, $match)
