@@ -79,7 +79,7 @@ class Shop_Agency extends Shop_DetailedObject
             /*
              * Relation
              */
-            'owner' => array(
+            'owner_id' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'User_Account',
                 'name' => 'owner',
@@ -88,11 +88,11 @@ class Shop_Agency extends Shop_DetailedObject
                 'editable' => true,
                 'readable' => true
             ),
-            'content' => array(
+            'content_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'CMS_Content',
-                'name' => 'agency_content',
-                'graphql_name' => 'agency_content',
+                'name' => 'content',
+                'graphql_name' => 'content',
                 'relate_name' => 'agencies',
                 'is_null' => true,
                 'editable' => true,
