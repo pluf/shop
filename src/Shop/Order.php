@@ -124,7 +124,7 @@ class Shop_Order extends Pluf_Model
             /*
              * Relations
              */
-            'customer' => array(
+            'customer_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'User_Account',
                 'name' => 'customer',
@@ -134,7 +134,7 @@ class Shop_Order extends Pluf_Model
                 'editable' => false,
                 'readable' => true
             ),
-            'assignee' => array(
+            'assignee_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'User_Account',
                 'name' => 'assignee',
@@ -144,17 +144,17 @@ class Shop_Order extends Pluf_Model
                 'editable' => false,
                 'readable' => true
             ),
-            'deliver_type' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'Shop_DeliverType',
-                'name' => 'deliver_type',
-                'graphql_name' => 'deliver_type',
-                'relate_name' => 'orders',
-                'is_null' => true,
-                'editable' => false,
-                'readable' => true
-            ),
-            'payment' => array(
+//             'delivery_id' => array(
+//                 'type' => 'Pluf_DB_Field_Foreignkey',
+//                 'model' => 'Shop_DeliverType',
+//                 'name' => 'deliver_type',
+//                 'graphql_name' => 'deliver_type',
+//                 'relate_name' => 'orders',
+//                 'is_null' => true,
+//                 'editable' => false,
+//                 'readable' => true
+//             ),
+            'payment_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Bank_Receipt',
                 'name' => 'payment',
@@ -164,7 +164,7 @@ class Shop_Order extends Pluf_Model
                 'editable' => false,
                 'readable' => true
             ),
-            'zone' => array(
+            'zone_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Zone',
                 'name' => 'zone',
@@ -174,7 +174,7 @@ class Shop_Order extends Pluf_Model
                 'editable' => false,
                 'readable' => true
             ),
-            'agency' => array(
+            'agency_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Agency',
                 'name' => 'agency',
