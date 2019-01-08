@@ -16,7 +16,7 @@ class Shop_OrderHistory extends Pluf_Model
      */
     function init()
     {
-        $this->_a['table'] = 'shop_order_history';
+        $this->_a['table'] = 'shop_orderhistory';
         $this->_a['verbose'] = 'Shop Order History';
         $this->_a['cols'] = array(
             'id' => array(
@@ -101,7 +101,7 @@ class Shop_OrderHistory extends Pluf_Model
             /*
              * Relations
              */
-            'order' => array(
+            'order_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Shop_Order',
                 'blank' => false,
@@ -116,7 +116,7 @@ class Shop_OrderHistory extends Pluf_Model
         
         $this->_a['idx'] = array(
             'order_history_idx' => array(
-                'col' => 'order',
+                'col' => 'order_id',
                 'type' => 'normal', // normal, unique, fulltext, spatial
                 'index_type' => '', // hash, btree
                 'index_option' => '',
