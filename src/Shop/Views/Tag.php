@@ -76,7 +76,7 @@ class Shop_Views_Tag
         $page->configure(array(), $search_fields, $sort_fields);
         $page->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $page->setFromRequest($request);
-        return new Pluf_HTTP_Response_Json($page->render_object());
+        return $page;
     }
 
     public static function addItem($request, $match)

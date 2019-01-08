@@ -34,7 +34,7 @@ class Shop_Views_ProductMetafield
         $paginator->configure(array(), $search_fields, $sort_fields);
         $paginator->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $paginator->setFromRequest($request);
-        return new Pluf_HTTP_Response_Json($paginator->render_object());
+        return $paginator;
     }
 
 //     public static function create($request, $match)

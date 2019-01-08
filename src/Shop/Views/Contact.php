@@ -33,7 +33,7 @@ class Shop_Views_Contact
         $pag->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $pag->configure(array(), $search_fields, $sort_fields);
         $pag->setFromRequest($request);
-        return new Pluf_HTTP_Response_Json($pag->render_object());
+        return $pag;
     }
 
     /**
