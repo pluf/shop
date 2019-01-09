@@ -72,7 +72,8 @@ function Shop_Shortcuts_GetItemClass($itemType)
 {
     $mapper = array(
         'product' => 'Shop_Product',
-        'service' => 'Shop_Service'
+        'service' => 'Shop_Service',
+        'delivery' => 'Shop_Delivery'
     );
     if (isset($mapper[$itemType]))
         return $mapper[$itemType];

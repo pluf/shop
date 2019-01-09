@@ -18,7 +18,7 @@ return array(
             'User_Account'
         )
     ),
-    'Shop_DeliverType' => array(
+    'Shop_Delivery' => array(
         'relate_to_many' => array(
             'Shop_Category',
             'Shop_Tag'
@@ -28,7 +28,7 @@ return array(
         'relate_to' => array(
             'User_Account',
             'Bank_Receipt',
-            'Shop_DeliverType',
+            'Shop_Delivery',
             'Shop_Zone',
             'Shop_Agency'
         )
