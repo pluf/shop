@@ -22,65 +22,6 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
         ),
         // State
         'Live' => array(
-            // Transaction or event
-            'addItem' => array(
-                'next' => 'Live',
-                'visible' => true,
-                'title' => 'Add Item',
-                'description' => 'Add an item to order',
-                'properties' => array(
-                    array(
-                        'name' => 'itemId',
-                        'type' => 'Long',
-                        'unit' => 'none',
-                        'title' => 'Item Id',
-                        'description' => 'Id of item to add to order',
-                        'editable' => true,
-                        'visible' => true,
-                        'priority' => 5,
-                        'symbol' => 'id',
-                        'defaultValue' => 0,
-                        'validators' => [
-                            'NotNull',
-                            'NotEmpty',
-                            'Positive'
-                        ]
-                    ),
-                    array(
-                        'name' => 'itemType',
-                        'type' => 'String',
-                        'unit' => 'none',
-                        'title' => 'Item Type',
-                        'description' => 'Type of item to add to order',
-                        'editable' => true,
-                        'visible' => true,
-                        'priority' => 5,
-                        'symbol' => 'type',
-                        'defaultValue' => 'product',
-                        'validators' => [
-                            'NotNull',
-                            'NotEmpty'
-                        ]
-                    )
-                )
-            ),
-            'update' => array(
-                'next' => 'Live',
-                'visible' => false,
-                'title' => 'Update',
-                'action' => array(
-                    'Shop_Order_Manager_Default',
-                    'update'
-                ),
-                'preconditions' => array(
-                    'User_Precondition::isOwner'
-                )
-            ),
-            'read' => array(
-                'next' => 'Live',
-                'title' => 'Get Information',
-                'visible' => false
-            ),
             'delete' => array(
                 'next' => 'Deleted',
                 'title' => 'Delete',
@@ -144,28 +85,5 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
             $transtions[] = $trans;
         }
         return $transtions;
-    }
-
-    /**
-     * Update an order
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $object
-     */
-    public static function update($request, $object)
-    {
-        Pluf_Shortcuts_GetFormForUpdateModel($object, $request->REQUEST)->save();
-    }
-
-    /**
-     * Deletes an order
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $object
-     */
-    public static function delete($request, $object)
-    {
-        $object->deleted = true;
-        $object->update();
     }
 }
