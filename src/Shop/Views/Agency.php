@@ -7,13 +7,16 @@ class Shop_Views_Agency
     {
         $agency = Pluf_Shortcuts_GetObjectOr404('Shop_Agency', $match['agencyId']);
         $user = new User_Account();
+        $userTable = Shop_Shortcuts_GetTableName($user);
         $associationTable = Shop_Shortcuts_GetAssociationTableName($agency, $user);
+        $userIdName = Shop_Shortcuts_GetIdColumnName($user);
         $user->_a['views']['myView'] = array(
             'select' => $user->getSecureSelect(),
-            'join' => 'LEFT JOIN ' . $associationTable . ' ON users.id=' . $associationTable . '.pluf_user_id'
+            'join' => 'LEFT JOIN ' . $associationTable . ' ON '.$userTable.'.id=' . $associationTable . '.' . $userIdName
         );
+        $agencyIdName = Shop_Shortcuts_GetIdColumnName($agency);
         $page = new Pluf_Paginator($user);
-        $sql = new Pluf_SQL('shop_agency_id=%s', array(
+        $sql = new Pluf_SQL($agencyIdName . '=%s', array(
             $agency->id
         ));
         $page->forced_where = $sql;
@@ -59,7 +62,7 @@ class Shop_Views_Agency
         }
         $user = Pluf_Shortcuts_GetObjectOr404('User_Account', $userId);
         $agency->setAssoc($user);
-        return new Pluf_HTTP_Response_Json($user);
+        return $user;
     }
 
     public static function removeOwner($request, $match)
@@ -72,6 +75,6 @@ class Shop_Views_Agency
         }
         $user = Pluf_Shortcuts_GetObjectOr404('User_Account', $userId);
         $agency->delAssoc($user);
-        return new Pluf_HTTP_Response_Json($user);
+        return $user;
     }
 }
