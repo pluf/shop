@@ -112,7 +112,7 @@ class Order_ModelTest extends TestCase
         $order = $this->get_random_order();
         Test_Assert::assertTrue($order->create(), 'Impossible to create order');
         
-        $oitems = $order->get_order_item_list();
+        $oitems = $order->get_order_items_list();
         Test_Assert::assertEquals(0, $oitems->count());
     }
     
