@@ -6,7 +6,7 @@
 		"Shop_Address",
 		"Shop_Agency",
 		"Shop_Contact",
-		"Shop_DeliverType",
+		"Shop_Delivery",
 		"Shop_Order",
 		"Shop_OrderItem",
 		"Shop_OrderHistory",
