@@ -277,12 +277,12 @@ class Shop_Order extends Pluf_Model
     }
 
     function hasPayment(){
-        return $this->payment != null || $this->payment != 0;
+        return $this->payment_id != null || $this->payment_id != 0;
     }
     
     function isPayed()
     {
-        if (! $this->payment) {
+        if (! $this->payment_id) {
             return false;
         }
         $receipt = $this->get_payment();
@@ -291,6 +291,6 @@ class Shop_Order extends Pluf_Model
     }
     
     function invalidatePayment(){
-        $this->payment = null;
+        $this->payment_id = null;
     }
 }

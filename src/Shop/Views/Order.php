@@ -30,7 +30,7 @@ class Shop_Views_Order
          */
         $order = $form->save();
         if (isset($user)) {
-            $order->__set('customer', $user);
+            $order->customer_id = $user;
         }
         $order->update();
         $manager = $order->getManager();
@@ -223,7 +223,7 @@ class Shop_Views_Order
             $user = $request->user;
             // Note: Hadi - 1396-05-06: only customer of order could add item to
             // its order.
-            if (! isset($user) || $user->id !== $order->customer) {
+            if (! isset($user) || $user->id !== $order->customer_id) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -251,7 +251,7 @@ class Shop_Views_Order
 
         $payment = Bank_Service::create($receiptData, 'shop-order', $order->id);
 
-        $order->payment = $payment;
+        $order->payment_id = $payment;
         $order->update();
         return $payment;
     }
@@ -271,12 +271,14 @@ class Shop_Views_Order
         }
         $paid = self::updateReceiptInfo($order);
         $receipt = $order->get_payment();
+        $pag = new Pluf_Paginator(new Bank_Receipt());
         if ($receipt == null) {
-            return new Pluf_HTTP_Error404('Could not found payment');
+            $pag->items = array();            
+        }else{
+            $receipt->paid = $paid;
+            $pag->items = array($receipt);
         }
-        $receipt->paid = $paid;
-        // return new Pluf_HTTP_Response_Json($receipt);
-        return array_merge($receipt->jsonSerialize(), array('paid' => $paid));
+        return $pag;
     }
 
     /**
@@ -300,7 +302,7 @@ class Shop_Views_Order
      */
     private static function updateReceiptInfo($order)
     {
-        if (! $order->payment) {
+        if (! $order->payment_id) {
             return false;
         }
         $receipt = $order->get_payment();
@@ -368,7 +370,7 @@ class Shop_Views_Order
         $page = array(
             'items' => $items,
             'counts' => count($items),
-            'current_page' => 0,
+            'current_page' => 1,
             'items_per_page' => count($items),
             'page_number' => 1
         );

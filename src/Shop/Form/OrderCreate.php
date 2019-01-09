@@ -89,7 +89,7 @@ class Shop_Form_OrderCreate extends Pluf_Form
         $order = new Shop_Order();
         $order->setFromFormData($this->cleaned_data);
         if ($this->user != null) {
-            $order->customer = $this->user;
+            $order->customer_id = $this->user;
         }
         if ($commit) {
             $order->create();

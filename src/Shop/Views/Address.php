@@ -12,7 +12,7 @@ class Shop_Views_Address
         if(User_Precondition::ownerRequired($request)){            
             $pag->forced_where = new Pluf_SQL();
         }else{
-            $pag->forced_where = new Pluf_SQL('user=' . $request->user->id);
+            $pag->forced_where = new Pluf_SQL('user_id=' . $request->user->id);
         }
         $pag->list_filters = array(
             'id',
@@ -44,7 +44,7 @@ class Shop_Views_Address
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
      * @throws Pluf_Exception
-     * @return Pluf_HTTP_Response_Json
+     * @return 
      */
     public static function create($request, $match)
     {
@@ -55,16 +55,16 @@ class Shop_Views_Address
         $request->REQUEST['user'] = $request->user->id;
         $form = Pluf_Shortcuts_GetFormForModel(Pluf::factory('Shop_Address'), $request->REQUEST);
         $address = $form->save();
-        $address->__set('user', $request->user);
+        $address->user_id = $request->user;
         $address->update();
-        return new Pluf_HTTP_Response_Json($address);
+        return $address;
     }
 
     public static function get($request, $match)
     {
         $address = Pluf_Shortcuts_GetObjectOr404('Shop_Address', $match['addressId']);
         if (self::canAccess($request, $address))
-            return new Pluf_HTTP_Response_Json($address);
+            return $address;
         throw new Pluf_Exception_PermissionDenied("Permission is denied");
     }
 
@@ -73,7 +73,7 @@ class Shop_Views_Address
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
      * @throws Pluf_Exception_PermissionDenied
-     * @return Pluf_HTTP_Response_Json
+     * @return 
      */
     public static function update($request, $match)
     {
@@ -81,7 +81,7 @@ class Shop_Views_Address
         if (self::canAccess($request, $address)) {
             $form = Pluf_Shortcuts_GetFormForUpdateModel($address, $request->REQUEST);
             $updatedAddress = $form->save();
-            return new Pluf_HTTP_Response_Json($updatedAddress);
+            return $updatedAddress;
         }
         throw new Pluf_Exception_PermissionDenied("Permission is denied");
     }
@@ -91,7 +91,7 @@ class Shop_Views_Address
         $address = Pluf_Shortcuts_GetObjectOr404('Shop_Address', $match['addressId']);        
         if (self::canAccess($request, $address)) {
             $address->delete();
-            return new Pluf_HTTP_Response_Json($address);
+            return $address
         }
         throw new Pluf_Exception_PermissionDenied("Permission is denied");
     }

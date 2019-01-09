@@ -47,7 +47,7 @@ class Shop_Views_OrderItem
         
         // Remove payment because it is not valid yet.
         // TODO: Hadi 1396-05: remove related receipt / or uupdate receipt info instead of remove it
-        $order->__set('payment', null);
+        $order->__set('payment_id', null);
         $order->update();
         
         return new Pluf_HTTP_Response_Json($orderItem);
