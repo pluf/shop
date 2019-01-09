@@ -70,12 +70,12 @@ class Shop_Zone extends Shop_DetailedObject
             /*
              * Relations
              */
-            'owner' => array(
+            'owner_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'User_Account',
                 'name' => 'owner',
                 'graphql_name' => 'owner',
-                'relate_name' => 'zones',
+                'relate_name' => 'owned_zones',
                 'blank' => true,
                 'editable' => true,
                 'readable' => true

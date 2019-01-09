@@ -71,7 +71,7 @@ class Shop_Views_Category
         $page->configure(array(), $search_fields, $sort_fields);
         $page->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $page->setFromRequest($request);
-        return $page->render_object();
+        return $page;
     }
 
     public static function addItem($request, $match)

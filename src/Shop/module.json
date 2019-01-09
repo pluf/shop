@@ -9,6 +9,7 @@
 		"Shop_DeliverType",
 		"Shop_Order",
 		"Shop_OrderItem",
+		"Shop_OrderHistory",
 		"Shop_Product",
 		"Shop_Service",
 		"Shop_TaxClass",

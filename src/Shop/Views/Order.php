@@ -11,7 +11,7 @@ class Shop_Views_Order
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_Order
      */
     public static function create($request, $match)
     {
@@ -45,7 +45,7 @@ class Shop_Views_Order
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
-     * @return Pluf_HTTP_Response_Json
+     * @return 
      */
     public static function find($request, $match)
     {
@@ -60,10 +60,9 @@ class Shop_Views_Order
             'city',
             'point',
             'state',
-            'customer',
-            'deliver_type',
-            'zone',
-            'agency'
+            'customer_id',
+            'zone_id',
+            'agency_id'
         );
         $search_fields = array(
             'title',
@@ -92,7 +91,7 @@ class Shop_Views_Order
         $pag->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $pag->configure(array(), $search_fields, $sort_fields);
         $pag->setFromRequest($request);
-        return $pag->render_object();
+        return $pag;
     }
 
     /**
@@ -100,7 +99,7 @@ class Shop_Views_Order
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_Order
      */
     public static function get($request, $match)
     {
@@ -120,7 +119,7 @@ class Shop_Views_Order
      * @param Pluf_HTTP_Request $request
      * @param array $match
      * @throws Pluf_Exception_DoesNotExist
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_Order
      */
     public static function getBySecureId($request, $match)
     {
@@ -169,7 +168,7 @@ class Shop_Views_Order
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_Order
      */
     public static function delete($request, $match)
     {
@@ -254,7 +253,7 @@ class Shop_Views_Order
 
         $order->payment = $payment;
         $order->update();
-        return new Pluf_HTTP_Response_Json($payment);
+        return $payment;
     }
 
     public static function payInfo($request, $match)
@@ -289,7 +288,7 @@ class Shop_Views_Order
     {
         $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
         $payed = self::updateReceiptInfo($order);
-        return new Pluf_HTTP_Response_Json($payed);
+        return new $payed;
     }
 
     /**
@@ -317,7 +316,7 @@ class Shop_Views_Order
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
-     * @return Pluf_HTTP_Response_Json
+     * @return
      */
     public static function setDeliverType($request, $match)
     {
@@ -344,7 +343,7 @@ class Shop_Views_Order
         // instead of remove it
         $order->invalidatePayment();
         $order->update();
-        return new Pluf_HTTP_Response_Json($order);
+        return $order;
     }
 
     // ***********************************************************
@@ -365,7 +364,16 @@ class Shop_Views_Order
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             self::checkAccess($request, $order);
         }
-        return $order->getManager()->transitions($order);
+        $items = $order->getManager()->transitions($order);
+        $page = array(
+            'items' => $items,
+            'counts' => count($items),
+            'current_page' => 0,
+            'items_per_page' => count($items),
+            'page_number' => 1
+        );
+        
+        return $page;
     }
 
     public static function doAction($request, $match)
@@ -384,7 +392,7 @@ class Shop_Views_Order
         // $actions = $wf->act($order, $action);
         if ($manager->apply($order, $action)) {
             $updatedOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $order->id);
-            return new Pluf_HTTP_Response_Json($updatedOrder);
+            return $updatedOrder;
         }
         return new Pluf_Exception('An error is occurred while processing order');
     }
