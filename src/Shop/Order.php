@@ -144,16 +144,6 @@ class Shop_Order extends Pluf_Model
                 'editable' => false,
                 'readable' => true
             ),
-//             'delivery_id' => array(
-//                 'type' => 'Pluf_DB_Field_Foreignkey',
-//                 'model' => 'Shop_DeliverType',
-//                 'name' => 'deliver_type',
-//                 'graphql_name' => 'deliver_type',
-//                 'relate_name' => 'orders',
-//                 'is_null' => true,
-//                 'editable' => false,
-//                 'readable' => true
-//             ),
             'payment_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Bank_Receipt',

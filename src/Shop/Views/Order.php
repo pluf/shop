@@ -81,7 +81,6 @@ class Shop_Views_Order
             'city',
             'state',
             'state',
-            'deliver_type',
             'zone',
             'agency',
             'creation_dtime',
@@ -308,44 +307,6 @@ class Shop_Views_Order
         $receipt = $order->get_payment();
         Bank_Service::update($receipt);
         return $order->get_payment()->isPayed();
-    }
-
-    // ***********************************************************
-    // Deliver
-    // **********************************************************
-
-    /**
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param array $match
-     * @return
-     */
-    public static function setDeliverType($request, $match)
-    {
-        /**
-         *
-         * @var Shop_Order $order
-         */
-        $order = null;
-        if (isset($match['secureId'])) {
-            $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
-        } else {
-            $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-            self::checkAccess($request, $order);
-        }
-
-        if ($order->isPayed()) {
-            throw new Pluf_Exception_PermissionDenied('Could not change an already payed order');
-        }
-
-        $deliver = Pluf_Shortcuts_GetObjectOr404('Shop_DeliverType', $match['deliverId']);
-        $order->__set('deliver_type', $deliver);
-        // Remove payment because it is not valid yet.
-        // TODO: Hadi 1396-05: remove related receipt / or uupdate receipt info
-        // instead of remove it
-        $order->invalidatePayment();
-        $order->update();
-        return $order;
     }
 
     // ***********************************************************

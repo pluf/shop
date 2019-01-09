@@ -3,7 +3,7 @@ $paths = array(
     'urls/address.php',
     'urls/agency.php',
     'urls/contact.php',
-    'urls/deliver_type.php',
+    'urls/delivery.php',
     'urls/order_history.php',
     'urls/order_item.php',
     'urls/order.php',
