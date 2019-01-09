@@ -1,13 +1,13 @@
 <?php
 return array(
-    // ************************************************************* DeliverType
+    // ************************************************************* Delivery
     array( // Find
         'regex' => '#^/delivers$#',
         'model' => 'Pluf_Views',
         'method' => 'findObject',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_DeliverType'
+            'model' => 'Shop_Delivery'
         )
     ),
     array( // Create
@@ -16,7 +16,7 @@ return array(
         'method' => 'createObject',
         'http-method' => 'POST',
         'params' => array(
-            'model' => 'Shop_DeliverType'
+            'model' => 'Shop_Delivery'
         ),
         'precond' => array(
             'User_Precondition::ownerRequired'
@@ -28,7 +28,7 @@ return array(
         'method' => 'getObject',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_DeliverType'
+            'model' => 'Shop_Delivery'
         )
     ),
     array( // Delete
@@ -37,7 +37,7 @@ return array(
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
         'params' => array(
-            'model' => 'Shop_DeliverType',
+            'model' => 'Shop_Delivery',
             'permanently' => true
         ),
         'precond' => array(
@@ -51,7 +51,7 @@ return array(
         'method' => 'updateObject',
         'http-method' => 'POST',
         'params' => array(
-            'model' => 'Shop_DeliverType'
+            'model' => 'Shop_Delivery'
         ),
         'precond' => array(
             'User_Precondition::ownerRequired'

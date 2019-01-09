@@ -34,3 +34,12 @@ CREATE TABLE `shop_orderhistory` (
   KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+ALTER TABLE `shop_deliver_type` RENAME TO `shop_delivery`;
+
+ALTER TABLE `shop_category_shop_delivertype_assoc` RENAME TO `shop_category_shop_delivery_assoc`;
+ALTER TABLE `shop_category_shop_delivery_assoc` CHANGE `shop_delivertype_id` `shop_delivery_id` mediumint(9) unsigned NOT NULL DEFAULT 0;
+
+ALTER TABLE `shop_delivertype_shop_tag_assoc` RENAME TO `shop_delivery_shop_tag_assoc`;
+ALTER TABLE `shop_delivery_shop_tag_assoc` CHANGE `shop_delivertype_id` `shop_delivery_id` mediumint(9) unsigned NOT NULL DEFAULT 0;
+

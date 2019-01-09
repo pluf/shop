@@ -1,6 +1,6 @@
 <?php
 
-class Shop_DeliverType extends Shop_PricedObject
+class Shop_Delivery extends Shop_PricedObject
 {
 
     /**
@@ -11,12 +11,12 @@ class Shop_DeliverType extends Shop_PricedObject
     function init()
     {
         parent::init();
-        $this->_a['table'] = 'shop_deliver_type';
-        $this->_a['verbose'] = 'Shop_DeliverType';
+        $this->_a['table'] = 'shop_delivery';
+        $this->_a['verbose'] = 'Shop_Delivery';
         // Merge parent columns with new columns
         $this->_a['cols'] = array_merge($this->_a['cols'], array());
         // Set the field name in the another entity in the relationship
-        $this->_a['cols']['categories']['relate_name'] = 'deliver_types';
-        $this->_a['cols']['tags']['relate_name'] = 'deliver_types';
+        $this->_a['cols']['categories']['relate_name'] = 'deliveries';
+        $this->_a['cols']['tags']['relate_name'] = 'deliveries';
     }
 }
