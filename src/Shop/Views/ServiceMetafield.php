@@ -45,7 +45,7 @@ class Shop_Views_ServiceMetafield
 //         $mf = $form->save();
 //         $mf->service_id = $item;
 //         $mf->update();
-//         return new Pluf_HTTP_Response_Json($mf);
+//         return $mf;
 //     }
 
     public static function get($request, $match)
@@ -82,7 +82,7 @@ class Shop_Views_ServiceMetafield
         if(!isset($metafield)){
             throw new Pluf_Exception_DoesNotExist('There is no such Metafield');
         }
-        return new Pluf_HTTP_Response_Json($metafield);
+        return $metafield;
     }
     
     public static function remove($request, $match)
@@ -94,7 +94,7 @@ class Shop_Views_ServiceMetafield
         }
         $mf = Pluf_Shortcuts_GetObjectOr404('Shop_ServiceMetafield', $mfId);
         $mf = $mf->delete();
-        return new Pluf_HTTP_Response_Json($mf);
+        return $mf;
     }
 
     

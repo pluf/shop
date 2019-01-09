@@ -13,7 +13,7 @@ class Shop_Views_OrderItem
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_OrderItem
      */
     public static function create($request, $match)
     {
@@ -50,7 +50,7 @@ class Shop_Views_OrderItem
         $order->__set('payment_id', null);
         $order->update();
         
-        return new Pluf_HTTP_Response_Json($orderItem);
+        return $orderItem;
     }
 
     /**
@@ -58,7 +58,7 @@ class Shop_Views_OrderItem
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @return Pluf_HTTP_Response_Json
+     * @return Pluf_Paginator
      */
     public static function find($request, $match)
     {
@@ -103,7 +103,7 @@ class Shop_Views_OrderItem
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_OrderItem
      */
     public static function get($request, $match)
     {
@@ -122,7 +122,7 @@ class Shop_Views_OrderItem
             throw new Pluf_HTTP_Error404('Order with id ' . $order->id . ' has no item with id ' . $orderItem->id);
         }
         // اجرای درخواست
-        return new Pluf_HTTP_Response_Json($orderItem);
+        return $orderItem;
     }
 
     /**
@@ -165,7 +165,7 @@ class Shop_Views_OrderItem
         $order->invalidatePayment();
         $order->update();
         
-        return new Pluf_HTTP_Response_Json($orderItem);
+        return $orderItem;
     }
 
     /**
@@ -173,7 +173,7 @@ class Shop_Views_OrderItem
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_OrderItem
      */
     public static function delete($request, $match)
     {
@@ -206,6 +206,6 @@ class Shop_Views_OrderItem
         $order->invalidatePayment();
         $order->update();
         
-        return new Pluf_HTTP_Response_Json($orderItem);
+        return $orderItem;
     }
 }

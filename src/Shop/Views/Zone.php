@@ -59,7 +59,7 @@ class Shop_Views_Zone
         }
         $user = Pluf_Shortcuts_GetObjectOr404('User_Account', $userId);
         $zone->setAssoc($user);
-        return new Pluf_HTTP_Response_Json($user);
+        return $user;
     }
 
     public static function removeMember($request, $match)
@@ -72,6 +72,6 @@ class Shop_Views_Zone
         }
         $user = Pluf_Shortcuts_GetObjectOr404('User_Account', $userId);
         $zone->delAssoc($user);
-        return new Pluf_HTTP_Response_Json($user);
+        return $user;
     }
 }
