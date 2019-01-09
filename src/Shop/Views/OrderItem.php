@@ -29,7 +29,7 @@ class Shop_Views_OrderItem
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             $user = $request->user;
             // Note: Hadi - 1396-05-06: only customer of order could add item to its order.
-            if (! isset($user) || $user->id !== $order->customer) {
+            if (! isset($user) || $user->id !== $order->customer_id) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -188,7 +188,7 @@ class Shop_Views_OrderItem
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             $user = $request->user;
             // Note: Hadi - 1396-05-06: only customer of order could remove item from its order.
-            if (! isset($user) || $user->id !== $order->customer) {
+            if (! isset($user) || $user->id !== $order->customer_id) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
