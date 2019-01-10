@@ -106,7 +106,6 @@ class Shop_Views_Order
         $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
         // check access
         self::checkAccess($request, $order);
-        $order->getManager()->apply($order, 'read');
         return $order;
     }
 
@@ -124,7 +123,6 @@ class Shop_Views_Order
     {
         $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
         $request->REQUEST['secureId'] = $match['secureId'];
-        $order->getManager()->apply($order, 'read');
         return $order;
     }
 
