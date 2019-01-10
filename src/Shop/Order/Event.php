@@ -3,7 +3,7 @@
 class Shop_Order_Event
 {
 
-    public static $PROPERTY_COMMENT = array(
+    public const PROPERTY_COMMENT = array(
         'name' => 'comment',
         'type' => 'String',
         'unit' => 'none',
@@ -16,7 +16,7 @@ class Shop_Order_Event
         'validators' => []
     );
 
-    public static $PROPERTY_ZONE_ID = array(
+    public const PROPERTY_ZONE_ID = array(
         'name' => 'zone_id',
         'type' => 'Long',
         'unit' => 'none',
@@ -32,7 +32,7 @@ class Shop_Order_Event
         ]
     );
 
-    public static $PROPERTY_ACCOUNT_ID = array(
+    public const PROPERTY_ACCOUNT_ID = array(
         'name' => 'account_id',
         'type' => 'Long',
         'unit' => 'none',
@@ -48,87 +48,87 @@ class Shop_Order_Event
         ]
     );
 
-    public static $ACCEPT_ACTION = array(
+    public const ACCEPT_ACTION = array(
         'Shop_Order_Event',
         'setAssignee'
     );
 
-    public static $ACCEPT_PROPERTIES = array(
+    public const ACCEPT_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT
     );
 
-    public static $PAY_ACTION = array(
+    public const PAY_ACTION = array(
         'Shop_Order_Event',
         'pay'
     );
 
-    public static $PAY_PROPERTIES = array(
+    public const PAY_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT
     );
 
-    public static $REJECT_ACTION = array(
+    public const REJECT_ACTION = array(
         'Shop_Order_Event',
         'reject'
     );
 
-    public static $REJECT_PROPERTIES = array(
+    public const REJECT_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT
     );
 
-    public static $SET_ZONE_ACTION = array(
+    public const SET_ZONE_ACTION = array(
         'Shop_Order_Event',
         'setZone'
     );
 
-    public static $SET_ZONE_PROPERTIES = array(
+    public const SET_ZONE_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT,
         Shop_Order_Event::PROPERTY_ZONE_ID
     );
 
-    public static $SET_ASSIGNEE_ACTION = array(
+    public const SET_ASSIGNEE_ACTION = array(
         'Shop_Order_Event',
         'setAssignee'
     );
 
-    public static $SET_ASSIGNEE_PROPERTIES = array(
+    public const SET_ASSIGNEE_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT,
         Shop_Order_Event::PROPERTY_ACCOUNT_ID_ID
     );
 
-    public static $DONE_ACTION = array(
+    public const DONE_ACTION = array(
         'Shop_Order_Event',
         'setAssignee'
     );
 
-    public static $DONE_PROPERTIES = array(
+    public const DONE_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT
     );
 
-    public static $ARCHIVE_ACTION = array(
+    public const ARCHIVE_ACTION = array(
         'Shop_Order_Event',
         'archive'
     );
 
-    public static $ARCHIVE_PROPERTIES = array(
+    public const ARCHIVE_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT
     );
 
-    public static $UPDATE_ACTION = array(
+    public const UPDATE_ACTION = array(
         'Shop_Order_Event',
         'update'
     );
 
-    public static $UPDATE_PROPERTIES = array(
+    public const UPDATE_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT
         // TODO: maso, 2018: add all attributes
     );
 
-    public static $DELETE_ACTION = array(
+    public const DELETE_ACTION = array(
         'Shop_Order_Event',
         'delete'
     );
 
-    public static $DELETE_PROPERTIES = array(
+    public const DELETE_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT
         // TODO: maso, 2018: add all attributes
     );
@@ -220,16 +220,6 @@ class Shop_Order_Event
      * @param Shop_Order $object
      */
     public static function done($request, $object)
-    {
-        self::addComment($request, $object);
-    }
-
-    /**
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $object
-     */
-    public static function reject($request, $object)
     {
         self::addComment($request, $object);
     }
