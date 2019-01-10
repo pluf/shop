@@ -10,7 +10,7 @@ Pluf::loadFunction('Pluf_Shortcuts_GetRequestParam');
  * @author hadi<mohammad.hadi.mansouri@dpq.co.ir>
  * @author maso<mostafa.barmshory@dpq.co.ir>
  */
-class Shop_Order_Manager_Shopinak implements Shop_Order_Manager
+class Shop_Order_Manager_Shopinak extends Shop_Order_Manager_Abstract
 {
 
     /**
@@ -45,10 +45,8 @@ class Shop_Order_Manager_Shopinak implements Shop_Order_Manager
                 'next' => 'new',
                 'visible' => false,
                 'title' => 'Update',
-                'action' => array(
-                    'Shop_Order_Manager_Shopinak',
-                    'update'
-                ),
+                'action' => Shop_Order_Event::UPDATE_ACTION,
+                'properties' => Shop_Order_Event::UPDATE_PROPERTIES,
                 'preconditions' => array(
                     'User_Precondition::isOwner'
                 )
@@ -62,10 +60,8 @@ class Shop_Order_Manager_Shopinak implements Shop_Order_Manager
                 'next' => 'deleted',
                 'title' => 'Delete',
                 'visible' => false,
-                'action' => array(
-                    'Shop_Order_Manager_Shopinak',
-                    'delete'
-                ),
+                'action' => Shop_Order_Event::DELETE_ACTION,
+                'properties' => Shop_Order_Event::DELETE_PROPERTIES,
                 'preconditions' => array(
                     'User_Precondition::isOwner'
                 )
@@ -94,7 +90,7 @@ class Shop_Order_Manager_Shopinak implements Shop_Order_Manager
                 'next' => 'delivered',
                 'visible' => true,
                 'title' => 'Deliver',
-                'description' => 'Order is delivered by customer',
+                'description' => 'Order is delivered by customer'
             ),
             'read' => array(
                 'next' => 'sent',
@@ -130,10 +126,8 @@ class Shop_Order_Manager_Shopinak implements Shop_Order_Manager
                 'next' => 'deleted',
                 'title' => 'Delete',
                 'visible' => false,
-                'action' => array(
-                    'Shop_Order_Manager_Shopinak',
-                    'delete'
-                ),
+                'action' => Shop_Order_Event::DELETE_ACTION,
+                'properties' => Shop_Order_Event::DELETE_PROPERTIES,
                 'preconditions' => array(
                     'User_Precondition::isOwner'
                 )
@@ -167,23 +161,6 @@ class Shop_Order_Manager_Shopinak implements Shop_Order_Manager
     /**
      *
      * {@inheritdoc}
-     * @see Shop_Order_Manager::apply()
-     */
-    public function apply($object, $action)
-    {
-        $machine = new Workflow_Machine();
-        $machine->setStates(self::$STATE_MACHINE)
-            ->setSignals(array(
-            'Shot_Order::stateChange'
-        ))
-            ->setProperty('state')
-            ->apply($object, $action);
-        return true;
-    }
-
-    /**
-     *
-     * {@inheritdoc}
      * @see Shop_Order_Manager::transitions()
      */
     public function transitions($order)
@@ -198,28 +175,5 @@ class Shop_Order_Manager_Shopinak implements Shop_Order_Manager
             $transtions[] = $trans;
         }
         return $transtions;
-    }
-
-    /**
-     * Update an order
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $object
-     */
-    public static function update($request, $object)
-    {
-        Pluf_Shortcuts_GetFormForUpdateModel($object, $request->REQUEST)->save();
-    }
-
-    /**
-     * Deletes an order
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $object
-     */
-    public static function delete($request, $object)
-    {
-        $object->deleted = true;
-        $object->update();
     }
 }

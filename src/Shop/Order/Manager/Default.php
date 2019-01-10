@@ -10,7 +10,7 @@ Pluf::loadFunction('Pluf_Shortcuts_GetRequestParam');
  * @author hadi<mohammad.hadi.mansouri@dpq.co.ir>
  * @author maso<mostafa.barmshory@dpq.co.ir>
  */
-class Shop_Order_Manager_Default implements Shop_Order_Manager
+class Shop_Order_Manager_Default extends Shop_Order_Manager_Abstract
 {
 
     /**
@@ -25,14 +25,20 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
             'delete' => array(
                 'next' => 'Deleted',
                 'title' => 'Delete',
-                'visible' => false,
-                'action' => array(
-                    'Shop_Order_Manager_Default',
-                    'update'
-                ),
+                'visible' => true,
+                'action' => Shop_Order_Event::DELETE_ACTION,
+                'properties' => Shop_Order_Event::DELETE_PROPERTIES,
                 'preconditions' => array(
                     'User_Precondition::isOwner'
                 )
+            ),
+            'update' => array(
+                'next' => 'archived',
+                'visible' => false,
+                'title' => 'Update',
+                'description' => 'The order is updated',
+                'action' => Shop_Order_Event::UPDATE_ACTION,
+                'properties' => Shop_Order_Event::UPDATE_PROPERTIES
             )
         ),
         'Deleted' => array()
@@ -52,22 +58,6 @@ class Shop_Order_Manager_Default implements Shop_Order_Manager
         return new Pluf_SQL('false');
     }
 
-    /**
-     *
-     * {@inheritdoc}
-     * @see Shop_Order_Manager::apply()
-     */
-    public function apply($object, $action)
-    {
-        $machine = new Workflow_Machine();
-        $machine->setStates(self::$STATE_MACHINE)
-            ->setSignals(array(
-            'Shot_Order::stateChange'
-        ))
-            ->setProperty('state')
-            ->apply($object, $action);
-        return true;
-    }
 
     /**
      *

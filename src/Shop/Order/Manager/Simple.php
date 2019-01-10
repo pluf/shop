@@ -10,7 +10,7 @@ Pluf::loadFunction('Pluf_Shortcuts_GetRequestParam');
  * @author hadi<mohammad.hadi.mansouri@dpq.co.ir>
  * @author maso<mostafa.barmshory@dpq.co.ir>
  */
-class Shop_Order_Manager_Simple implements Shop_Order_Manager
+class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
 {
 
     /**
@@ -45,6 +45,14 @@ class Shop_Order_Manager_Simple implements Shop_Order_Manager
                 'description' => 'The order is not acceptable',
                 'properties' => Shop_Order_Event::REJECT_PROPERTIES,
                 'action' => Shop_Order_Event::REJECT_ACTION
+            ),
+            'update' => array(
+                'next' => 'archived',
+                'visible' => false,
+                'title' => 'Update',
+                'description' => 'The order is updated',
+                'properties' => Shop_Order_Event::UPDATE_PROPERTIES,
+                'action' => Shop_Order_Event::UPDATE_ACTION
             )
         ),
         'processing' => array(
@@ -106,21 +114,6 @@ class Shop_Order_Manager_Simple implements Shop_Order_Manager
         $sql = new Pluf_SQL();
         // Create filter
         return $sql;
-    }
-
-    /**
-     *
-     * {@inheritdoc}
-     * @see Shop_Order_Manager::apply()
-     */
-    public function apply($order, $action)
-    {
-        $machine = new Workflow_Machine();
-        $machine->setStates(self::$STATE_MACHINE)
-            ->setSignals(array('Shop_Order::stateChange'))
-            ->setProperty('state')
-            ->apply($order, $action);
-        return $order->update();
     }
 
     /**

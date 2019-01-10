@@ -37,9 +37,10 @@ interface Shop_Order_Manager
      *
      * @param Shop_Order $order
      * @param String $action
+     * @param Boolean $save to save or not the order
      * @return Shop_Order
      */
-    public function apply ($order, $action);
+    public function apply ($order, $action, $save = false);
 
     /**
      * Returns possible transitions for given order
