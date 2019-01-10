@@ -13,6 +13,9 @@ interface Shop_Order_Manager
 
     /**
      * Creates an order filter
+     * 
+     * This filter is used to list orders based on states and the request. For
+     * example, all orders will be displayed to the owner of the system.
      *
      * @param Pluf_HTTP_Request $request
      * @return Pluf_SQL
