@@ -266,15 +266,16 @@ class Shop_Views_Order
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             self::checkAccess($request, $order);
         }
-        $paid = self::updateReceiptInfo($order);
-        $receipt = $order->get_payment();
+//         $paid = self::updateReceiptInfo($order);
+//         $receipt = $order->get_payment();
         $pag = new Pluf_Paginator(new Bank_Receipt());
-        if ($receipt == null) {
-            $pag->items = array();            
-        }else{
-            $receipt->paid = $paid;
-            $pag->items = array($receipt);
-        }
+        $pag->forced_where = new Pluf_SQL('id=%s', array($order->payment_id));
+//         if ($receipt == null) {
+//             $pag->items = array();            
+//         }else{
+//             $receipt->paid = $paid;
+//             $pag->items = array($receipt);
+//         }
         return $pag;
     }
 
@@ -347,11 +348,7 @@ class Shop_Views_Order
         }
         $action = $request->REQUEST['action'];
         $manager = $order->getManager();
-        // TODO: hadi: complete code. I think it should be similar to following
-        // codes.
-        // $wf = $manager->getWorkflow();
-        // $actions = $wf->act($order, $action);
-        if ($manager->apply($order, $action)) {
+        if ($manager->apply($order, $action, true)) {
             $updatedOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $order->id);
             return $updatedOrder;
         }
