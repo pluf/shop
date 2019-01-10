@@ -111,19 +111,6 @@ class Delivery_ModelTest extends TestCase
         Test_Assert::assertEquals(0, $tags->count());
     }
     
-    /**
-     * @test
-     */
-    public function shouldPossibleToGetTaxes()
-    {
-        $delivery = $this->get_random_delivery();
-        Test_Assert::assertTrue($delivery->create(), 'Impossible to create delivery');
-        
-        $delivery = new Shop_Delivery($delivery->id);
-        $taxes = $delivery->get_taxes_list();
-        Test_Assert::assertEquals(0, $taxes->count());
-    }
-
 }
 
 
