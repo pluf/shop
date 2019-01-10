@@ -110,7 +110,7 @@ class Delivery_RestTest extends TestCase
             'price' => rand(),
             'off' => '10'
         );
-        $response = $this->client->post('/shop/delivers', $form);
+        $response = $this->client->post('/shop/deliveries', $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -128,7 +128,7 @@ class Delivery_RestTest extends TestCase
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
         // Get item
-        $response = $this->client->get('/shop/delivers/' . $item->id);
+        $response = $this->client->get('/shop/deliveries/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -149,7 +149,7 @@ class Delivery_RestTest extends TestCase
         $form = array(
             'title' => 'new title' . rand()
         );
-        $response = $this->client->post('/shop/delivers/' . $item->id, $form);
+        $response = $this->client->post('/shop/deliveries/' . $item->id, $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -168,7 +168,7 @@ class Delivery_RestTest extends TestCase
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
 
         // delete
-        $response = $this->client->delete('/shop/delivers/' . $item->id);
+        $response = $this->client->delete('/shop/deliveries/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -179,94 +179,94 @@ class Delivery_RestTest extends TestCase
      */
     public function findRestTest()
     {
-        $response = $this->client->get('/shop/delivers');
+        $response = $this->client->get('/shop/deliveries');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
 
-    /**
-     *
-     * @test
-     */
-    public function assocDeliveryCategoryRestTest()
-    {
-        $item = new Shop_Delivery();
-        $item->title = 'delivery-' . rand();
-        $item->model = 'model-' . rand();
-        $item->price = rand();
-        $item->off = 10;
-        $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
+//     /**
+//      *
+//      * @test
+//      */
+//     public function assocDeliveryCategoryRestTest()
+//     {
+//         $item = new Shop_Delivery();
+//         $item->title = 'delivery-' . rand();
+//         $item->model = 'model-' . rand();
+//         $item->price = rand();
+//         $item->off = 10;
+//         $item->create();
+//         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
 
-        $cat = new Shop_Category();
-        $cat->name = 'category-' . rand();
-        $cat->create();
-        Test_Assert::assertFalse($cat->isAnonymous(), 'Could not create Shop_Category');
+//         $cat = new Shop_Category();
+//         $cat->name = 'category-' . rand();
+//         $cat->create();
+//         Test_Assert::assertFalse($cat->isAnonymous(), 'Could not create Shop_Category');
 
-        $item->setAssoc($cat);
+//         $item->setAssoc($cat);
 
-        // find
-        $response = $this->client->get('/shop/delivers/' . $item->id . '/categories');
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+//         // find
+//         $response = $this->client->get('/shop/deliveries/' . $item->id . '/categories');
+//         $this->assertNotNull($response);
+//         $this->assertEquals($response->status_code, 200);
 
-        // create
-        $response = $this->client->post('/shop/delivers/' . $item->id . '/categories', $cat);
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+//         // create
+//         $response = $this->client->post('/shop/deliveries/' . $item->id . '/categories', $cat);
+//         $this->assertNotNull($response);
+//         $this->assertEquals($response->status_code, 200);
 
-        // TODO: hadi, 2018: add get method to delivery.url
-        // // get
-        // $response = $this->client->get('/shop/delivery/' . $item->id . '/category/' . $cat->id);
-        // $this->assertNotNull($response);
-        // $this->assertEquals($response->status_code, 200);
+//         // TODO: hadi, 2018: add get method to delivery.url
+//         // // get
+//         // $response = $this->client->get('/shop/delivery/' . $item->id . '/category/' . $cat->id);
+//         // $this->assertNotNull($response);
+//         // $this->assertEquals($response->status_code, 200);
 
-        // delete
-        $response = $this->client->delete('/shop/delivers/' . $item->id . '/categories/' . $cat->id);
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
-    }
+//         // delete
+//         $response = $this->client->delete('/shop/deliveries/' . $item->id . '/categories/' . $cat->id);
+//         $this->assertNotNull($response);
+//         $this->assertEquals($response->status_code, 200);
+//     }
 
-    /**
-     *
-     * @test
-     */
-    public function assocDeliveryTagRestTest()
-    {
-        $item = new Shop_Delivery();
-        $item->title = 'delivery-' . rand();
-        $item->price = rand();
-        $item->off = 10;
-        $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
+//     /**
+//      *
+//      * @test
+//      */
+//     public function assocDeliveryTagRestTest()
+//     {
+//         $item = new Shop_Delivery();
+//         $item->title = 'delivery-' . rand();
+//         $item->price = rand();
+//         $item->off = 10;
+//         $item->create();
+//         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
 
-        $tag = new Shop_Tag();
-        $tag->name = 'tag-' . rand();
-        $tag->create();
-        Test_Assert::assertFalse($tag->isAnonymous(), 'Could not create Shop_Tag');
+//         $tag = new Shop_Tag();
+//         $tag->name = 'tag-' . rand();
+//         $tag->create();
+//         Test_Assert::assertFalse($tag->isAnonymous(), 'Could not create Shop_Tag');
 
-        $item->setAssoc($tag);
+//         $item->setAssoc($tag);
 
-        // find
-        $response = $this->client->get('/shop/delivers/' . $item->id . '/tags');
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+//         // find
+//         $response = $this->client->get('/shop/deliveries/' . $item->id . '/tags');
+//         $this->assertNotNull($response);
+//         $this->assertEquals($response->status_code, 200);
 
-        // create
-        $response = $this->client->post('/shop/delivers/' . $item->id . '/tags', $tag);
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
+//         // create
+//         $response = $this->client->post('/shop/deliveries/' . $item->id . '/tags', $tag);
+//         $this->assertNotNull($response);
+//         $this->assertEquals($response->status_code, 200);
 
-        // // get
-        // $response = $this->client->get('/shop/delivery/' . $item->id . '/tag/' . $tag->id);
-        // $this->assertNotNull($response);
-        // $this->assertEquals($response->status_code, 200);
+//         // // get
+//         // $response = $this->client->get('/shop/delivery/' . $item->id . '/tag/' . $tag->id);
+//         // $this->assertNotNull($response);
+//         // $this->assertEquals($response->status_code, 200);
 
-        // delete
-        $response = $this->client->delete('/shop/delivers/' . $item->id . '/tags/' . $tag->id);
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
-    }
+//         // delete
+//         $response = $this->client->delete('/shop/deliveries/' . $item->id . '/tags/' . $tag->id);
+//         $this->assertNotNull($response);
+//         $this->assertEquals($response->status_code, 200);
+//     }
 }
 
 
