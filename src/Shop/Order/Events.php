@@ -15,7 +15,7 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
-    
+
     public static $PROPERTY_ZONE_ID = array(
         'name' => 'zone_id',
         'type' => 'Long',
@@ -31,7 +31,7 @@ class Shop_Order_Event
             'Positive'
         ]
     );
-    
+
     public static $PROPERTY_ACCOUNT_ID = array(
         'name' => 'account_id',
         'type' => 'Long',
@@ -112,21 +112,30 @@ class Shop_Order_Event
     public static $ARCHIVE_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT
     );
-    
+
     public static $UPDATE_ACTION = array(
         'Shop_Order_Event',
         'update'
     );
-    
+
     public static $UPDATE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT,
+        Shop_Order_Event::PROPERTY_COMMENT
         // TODO: maso, 2018: add all attributes
     );
-    
+
+    public static $DELETE_ACTION = array(
+        'Shop_Order_Event',
+        'delete'
+    );
+
+    public static $DELETE_PROPERTIES = array(
+        Shop_Order_Event::PROPERTY_COMMENT
+        // TODO: maso, 2018: add all attributes
+    );
 
     /**
      * Adds comment into the order
-     * 
+     *
      * @param Pluf_HTTP_Request $request
      * @param Shop_Order $object
      */
@@ -134,8 +143,7 @@ class Shop_Order_Event
     {
         // TODO: maso, 2018: add a comment to the order
     }
-    
-    
+
     /**
      * Accept an order
      *
@@ -176,12 +184,12 @@ class Shop_Order_Event
     public static function setZone($request, $order)
     {
         self::addComment($request, $order);
-        if(array_key_exists('zone_id', $request->REQUEST)) {
+        if (array_key_exists('zone_id', $request->REQUEST)) {
             throw new Pluf_Exception_BadRequest('zone_id is required');
         }
         $zoneId = $request->REQUEST['zone_id'];
         $zone = new Shop_Zone($zoneId);
-        if($zone->isAnonymous()){
+        if ($zone->isAnonymous()) {
             throw new Pluf_Exception('Requested zone dose not exist', 4000, null, 404);
         }
         $order->zone_id = $zone;
@@ -195,12 +203,12 @@ class Shop_Order_Event
     public static function setAssignee($request, $order)
     {
         self::addComment($request, $order);
-        if(array_key_exists('account_id', $request->REQUEST)) {
+        if (array_key_exists('account_id', $request->REQUEST)) {
             throw new Pluf_Exception_BadRequest('account_id is required');
         }
         $accountId = $request->REQUEST['account_id'];
         $account = new User_Account($accountId);
-        if($account->isAnonymous()){
+        if ($account->isAnonymous()) {
             throw new Pluf_Exception('Requested account dose not exist', 4000, null, 404);
         }
         $order->account_id = $account;
@@ -235,7 +243,7 @@ class Shop_Order_Event
     {
         self::addComment($request, $object);
     }
-    
+
     /**
      * Update an order
      *
@@ -248,7 +256,7 @@ class Shop_Order_Event
         $forme = Pluf_Shortcuts_GetFormForUpdateModel($order, $request->REQUEST);
         $forme->save(false);
     }
-    
+
     /**
      * Deletes an order
      *
