@@ -93,7 +93,7 @@ class Shop_Order extends Pluf_Model
                 'blank' => true,
                 'size' => 100,
                 'editable' => false,
-                'readable' => false
+                'readable' => true
             ),
             'state' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
