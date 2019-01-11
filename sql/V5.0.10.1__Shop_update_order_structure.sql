@@ -59,5 +59,6 @@ CREATE TABLE `shop_order_attachments` (
   `order_id` mediumint(9) unsigned NOT NULL DEFAULT 0,
   `tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  KEY `order_id_foreignkey_idx` (`order_id`)
+  KEY `order_id_foreignkey_idx` (`order_id`),
+  KEY `tenant_foreignkey_idx` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
