@@ -10,6 +10,7 @@
 		"Shop_Order",
 		"Shop_OrderItem",
 		"Shop_OrderHistory",
+		"Shop_OrderAttachment",
 		"Shop_Product",
 		"Shop_Service",
 		"Shop_TaxClass",

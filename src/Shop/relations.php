@@ -43,6 +43,11 @@ return array(
             'Shop_Order'
         )
     ),
+    'Shop_OrderAttachment' => array(
+        'relate_to' => array(
+            'Shop_Order'
+        )
+    ),
     'Shop_Product' => array(
         'relate_to_many' => array(
             'Shop_TaxClass',
