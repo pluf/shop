@@ -93,7 +93,7 @@ class Shop_Order extends Pluf_Model
                 'blank' => true,
                 'size' => 100,
                 'editable' => false,
-                'readable' => false
+                'readable' => true
             ),
             'state' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
@@ -144,16 +144,6 @@ class Shop_Order extends Pluf_Model
                 'editable' => false,
                 'readable' => true
             ),
-//             'delivery_id' => array(
-//                 'type' => 'Pluf_DB_Field_Foreignkey',
-//                 'model' => 'Shop_DeliverType',
-//                 'name' => 'deliver_type',
-//                 'graphql_name' => 'deliver_type',
-//                 'relate_name' => 'orders',
-//                 'is_null' => true,
-//                 'editable' => false,
-//                 'readable' => true
-//             ),
             'payment_id' => array(
                 'type' => 'Pluf_DB_Field_Foreignkey',
                 'model' => 'Bank_Receipt',
@@ -249,8 +239,11 @@ class Shop_Order extends Pluf_Model
     function getManager()
     {
         $managerClassName = $this->manager;
-        if (! isset($managerClassName) || empty($managerClassName))
-            $managerClassName = Tenant_Service::setting('Shop.Order.Manager', 'Shop_Order_Manager_Default');
+        if (! isset($managerClassName) || empty($managerClassName)){
+            $managerClassName = Tenant_Service::setting('Shop.Order.Manager', 'Default');
+            $this->manager = $managerClassName;
+        }
+        $managerClassName = 'Shop_Order_Manager_'.$managerClassName;
         return new $managerClassName();
     }
 
@@ -277,12 +270,12 @@ class Shop_Order extends Pluf_Model
     }
 
     function hasPayment(){
-        return $this->payment != null || $this->payment != 0;
+        return $this->payment_id != null || $this->payment_id != 0;
     }
     
     function isPayed()
     {
-        if (! $this->payment) {
+        if (! $this->payment_id) {
             return false;
         }
         $receipt = $this->get_payment();
@@ -291,6 +284,6 @@ class Shop_Order extends Pluf_Model
     }
     
     function invalidatePayment(){
-        $this->payment = null;
+        $this->payment_id = null;
     }
 }

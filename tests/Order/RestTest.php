@@ -185,30 +185,30 @@ class Order_RestTest extends TestCase
         $this->assertEquals($response->status_code, 200);
     }
 
-    /**
-     *
-     * @test
-     */
-    public function setOrderDeliverTypeRestTest()
-    {
-        $item = $this->get_random_order();
-        $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+//     /**
+//      *
+//      * @test
+//      */
+//     public function setOrderDeliveryRestTest()
+//     {
+//         $item = $this->get_random_order();
+//         $item->create();
+//         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
 
-        $dt = new Shop_DeliverType();
-        $dt->title = 'deliver-' . rand();
-        $dt->price = 20000;
-        $dt->off = 5000;
-        $dt->create();
-        Test_Assert::assertFalse($dt->isAnonymous(), 'Could not create Shop_DeliverType');
+//         $dt = new Shop_Delivery();
+//         $dt->title = 'deliver-' . rand();
+//         $dt->price = 20000;
+//         $dt->off = 5000;
+//         $dt->create();
+//         Test_Assert::assertFalse($dt->isAnonymous(), 'Could not create Shop_Delivery');
 
-        // set deliver type
-        $response = $this->client->post('/shop/orders/' . $item->id . '/delivers/' . $dt->id);
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
-        $t = json_decode($response->content, true);
-        $this->assertEquals($t['deliver_type'], $dt->id);
-    }
+//         // set deliver type
+//         $response = $this->client->post('/shop/orders/' . $item->id . '/delivers/' . $dt->id);
+//         $this->assertNotNull($response);
+//         $this->assertEquals($response->status_code, 200);
+//         $t = json_decode($response->content, true);
+//         $this->assertEquals($t['delivery'], $dt->id);
+//     }
 
 }
 

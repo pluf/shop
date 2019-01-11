@@ -57,7 +57,7 @@ class Shop_Views_Tax
         }
         $tax = Pluf_Shortcuts_GetObjectOr404('Shop_TaxClass', $taxId);
         $product->setAssoc($tax);
-        return new Pluf_HTTP_Response_Json($tax);
+        return $tax;
     }
 
     public static function removeProductTax ($request, $match)
@@ -70,7 +70,7 @@ class Shop_Views_Tax
         }
         $tax = Pluf_Shortcuts_GetObjectOr404('Shop_TaxClass', $taxId);
         $product->delAssoc($tax);
-        return new Pluf_HTTP_Response_Json($tax);
+        return $tax;
     }
   
     // *******************************************************************
@@ -125,7 +125,7 @@ class Shop_Views_Tax
         }
         $tax = Pluf_Shortcuts_GetObjectOr404('Shop_TaxClass', $taxId);
         $service->setAssoc($tax);
-        return new Pluf_HTTP_Response_Json($tax);
+        return $tax;
     }
     
     public static function removeServiceTax ($request, $match)
@@ -138,7 +138,7 @@ class Shop_Views_Tax
         }
         $tax = Pluf_Shortcuts_GetObjectOr404('Shop_TaxClass', $taxId);
         $service->delAssoc($tax);
-        return new Pluf_HTTP_Response_Json($tax);
+        return $tax;
     }
     
 }

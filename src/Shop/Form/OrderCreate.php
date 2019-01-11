@@ -72,12 +72,6 @@ class Shop_Form_OrderCreate extends Pluf_Form
             'help_text' => 'Description or Extra information about order'
         ));
         
-        $this->fields['deliver_type'] = new Pluf_Form_Field_Integer(array(
-            'required' => true,
-            'label' => 'Deliver Type',
-            'help_text' => 'Deliver Type of Order'
-        ));
-        
     }
 
     function save($commit = true)
@@ -89,7 +83,7 @@ class Shop_Form_OrderCreate extends Pluf_Form
         $order = new Shop_Order();
         $order->setFromFormData($this->cleaned_data);
         if ($this->user != null) {
-            $order->customer = $this->user;
+            $order->customer_id = $this->user;
         }
         if ($commit) {
             $order->create();
@@ -143,15 +137,6 @@ class Shop_Form_OrderCreate extends Pluf_Form
         return $extraInfo;
     }
     
-    public function clean_deliver_type()
-    {
-        // Check deliver type id
-        $dtId = trim($this->cleaned_data['deliver_type']);
-        $dt = Pluf_Shortcuts_GetObjectOr404('Shop_DeliverType', $dtId);
-        return isset($dt);
-    }
-
-
     /*
      *
      */

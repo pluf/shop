@@ -121,21 +121,5 @@ return array(
         'model' => 'Shop_Views_Order',
         'method' => 'payInfo',
         'http-method' => 'GET'
-    ),
-    // ************************************************************* Order Deliver Type
-    array( // set deliver type
-        'regex' => '#^/orders/(?P<orderId>\d+)/delivers/(?P<deliverId>\d+)$#',
-        'model' => 'Shop_Views_Order',
-        'method' => 'setDeliverType',
-        'http-method' => 'POST',
-        'precond' => array(
-            'User_Precondition::loginRequired'
-        )
-    ),
-    array( // set deliver type
-        'regex' => '#^/orders/(?P<secureId>[^/]+)/delivers/(?P<deliverId>\d+)$#',
-        'model' => 'Shop_Views_Order',
-        'method' => 'setDeliverType',
-        'http-method' => 'POST'
     )
 );

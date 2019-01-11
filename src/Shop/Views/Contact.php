@@ -41,7 +41,7 @@ class Shop_Views_Contact
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
      * @throws Pluf_Exception
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_Contact
      */
     public static function create($request, $match)
     {
@@ -50,14 +50,14 @@ class Shop_Views_Contact
         $contact = $form->save();
         $contact->__set('user', $request->user);
         $contact->update();
-        return new Pluf_HTTP_Response_Json($contact);
+        return $contact;
     }
 
     public static function get($request, $match)
     {
         $contact = Pluf_Shortcuts_GetObjectOr404('Shop_Contact', $match['contactId']);
         if (self::canAccess($request, $contact))
-            return new Pluf_HTTP_Response_Json($contact);
+            return $contact;
         throw new Pluf_Exception_PermissionDenied("Permission is denied");
     }
 
@@ -66,7 +66,7 @@ class Shop_Views_Contact
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
      * @throws Pluf_Exception_PermissionDenied
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_Contact
      */
     public static function update($request, $match)
     {
@@ -74,7 +74,7 @@ class Shop_Views_Contact
         if (self::canAccess($request, $contact)) {
             $form = Pluf_Shortcuts_GetFormForUpdateModel($contact, $request->REQUEST);
             $updatedContact = $form->save();
-            return new Pluf_HTTP_Response_Json($updatedContact);
+            return $updatedContact;
         }
         throw new Pluf_Exception_PermissionDenied("Permission is denied");
     }
@@ -84,7 +84,7 @@ class Shop_Views_Contact
         $contact = Pluf_Shortcuts_GetObjectOr404('Shop_Contact', $match['contactId']);
         if (self::canAccess($request, $contact)) {
             $contact->delete();
-            return new Pluf_HTTP_Response_Json($contact);
+            return $contact;
         }
         throw new Pluf_Exception_PermissionDenied("Permission is denied");
     }

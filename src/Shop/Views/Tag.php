@@ -27,8 +27,12 @@ class Shop_Views_Tag
             case 'services':
                 $model = 'Shop_Service';
                 break;
+            case 'delivers':
+            case 'deliveries':
+                $model = 'Shop_Delivery';
+                break;
             default:
-                throw new Pluf_Exception_DoesNotExist('Unkown item model. Valid item models are: product and service. ');
+                throw new Pluf_Exception_DoesNotExist('Unkown item model. Valid item models are: product, service and delivery. ');
         }
         return $model;
     }
@@ -90,7 +94,7 @@ class Shop_Views_Tag
         $model = Shop_Views_Tag::itemModel($request, $match);
         $item = Pluf_Shortcuts_GetObjectOr404($model, $itemId);
         $tag->setAssoc($item);
-        return new Pluf_HTTP_Response_Json($item);
+        return $item;
     }
 
     public static function removeItem($request, $match)
@@ -104,7 +108,7 @@ class Shop_Views_Tag
         $model = Shop_Views_Tag::itemModel($request, $match);
         $item = Pluf_Shortcuts_GetObjectOr404($model, $itemId);
         $tag->delAssoc($item);
-        return new Pluf_HTTP_Response_Json($item);
+        return $item;
     }
 
 }

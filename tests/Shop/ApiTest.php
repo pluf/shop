@@ -62,8 +62,8 @@ class Shop_ApiTest extends TestCase
         $this->assertTrue(isset($object), 'Shop_Agency could not be created!');
         $object = new Shop_Contact();
         $this->assertTrue(isset($object), 'Shop_Contact could not be created!');
-        $object = new Shop_DeliverType();
-        $this->assertTrue(isset($object), 'Shop_DeliverType could not be created!');
+        $object = new Shop_Delivery();
+        $this->assertTrue(isset($object), 'Shop_Delivery could not be created!');
         $object = new Shop_TaxClass();
         $this->assertTrue(isset($object), 'Shop_TaxClass could not be created!');
         

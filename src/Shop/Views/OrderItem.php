@@ -13,7 +13,7 @@ class Shop_Views_OrderItem
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_OrderItem
      */
     public static function create($request, $match)
     {
@@ -29,7 +29,7 @@ class Shop_Views_OrderItem
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             $user = $request->user;
             // Note: Hadi - 1396-05-06: only customer of order could add item to its order.
-            if (! isset($user) || $user->id !== $order->customer) {
+            if (! isset($user) || $user->id !== $order->customer_id) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -47,10 +47,10 @@ class Shop_Views_OrderItem
         
         // Remove payment because it is not valid yet.
         // TODO: Hadi 1396-05: remove related receipt / or uupdate receipt info instead of remove it
-        $order->__set('payment', null);
+        $order->__set('payment_id', null);
         $order->update();
         
-        return new Pluf_HTTP_Response_Json($orderItem);
+        return $orderItem;
     }
 
     /**
@@ -58,7 +58,7 @@ class Shop_Views_OrderItem
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @return Pluf_HTTP_Response_Json
+     * @return Pluf_Paginator
      */
     public static function find($request, $match)
     {
@@ -103,7 +103,7 @@ class Shop_Views_OrderItem
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_OrderItem
      */
     public static function get($request, $match)
     {
@@ -122,7 +122,7 @@ class Shop_Views_OrderItem
             throw new Pluf_HTTP_Error404('Order with id ' . $order->id . ' has no item with id ' . $orderItem->id);
         }
         // اجرای درخواست
-        return new Pluf_HTTP_Response_Json($orderItem);
+        return $orderItem;
     }
 
     /**
@@ -165,7 +165,7 @@ class Shop_Views_OrderItem
         $order->invalidatePayment();
         $order->update();
         
-        return new Pluf_HTTP_Response_Json($orderItem);
+        return $orderItem;
     }
 
     /**
@@ -173,7 +173,7 @@ class Shop_Views_OrderItem
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @return Pluf_HTTP_Response_Json
+     * @return Shop_OrderItem
      */
     public static function delete($request, $match)
     {
@@ -188,7 +188,7 @@ class Shop_Views_OrderItem
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             $user = $request->user;
             // Note: Hadi - 1396-05-06: only customer of order could remove item from its order.
-            if (! isset($user) || $user->id !== $order->customer) {
+            if (! isset($user) || $user->id !== $order->customer_id) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -206,6 +206,6 @@ class Shop_Views_OrderItem
         $order->invalidatePayment();
         $order->update();
         
-        return new Pluf_HTTP_Response_Json($orderItem);
+        return $orderItem;
     }
 }

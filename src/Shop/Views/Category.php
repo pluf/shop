@@ -25,8 +25,12 @@ class Shop_Views_Category
             case 'services':
                 $model = 'Shop_Service';
                 break;
+            case 'delivers':
+            case 'deliveries':
+                $model = 'Shop_Delivery';
+                break;
             default:
-                throw new Pluf_Exception_DoesNotExist('Unkown item model. Valid item models are: product and service. ');
+                throw new Pluf_Exception_DoesNotExist('Unkown item model. Valid item models are: product, service and delivery. ');
         }
         return $model;
     }

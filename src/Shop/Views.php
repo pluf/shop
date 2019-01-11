@@ -62,7 +62,7 @@ class Shop_Views
         }
         $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $tagId);
         $item->setAssoc($tag);
-        return new Pluf_HTTP_Response_Json($tag);
+        return $tag;
     }
 
     public static function removeTag($request, $match, $p)
@@ -76,7 +76,7 @@ class Shop_Views
         }
         $tag = Pluf_Shortcuts_GetObjectOr404('Shop_Tag', $tagId);
         $item->delAssoc($tag);
-        return new Pluf_HTTP_Response_Json($tag);
+        return $tag;
     }
 
     // *******************************************************************
@@ -135,7 +135,7 @@ class Shop_Views
         }
         $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $categoryId);
         $item->setAssoc($category);
-        return new Pluf_HTTP_Response_Json($category);
+        return $category;
     }
 
     public static function removeCategory($request, $match, $p)
@@ -149,6 +149,6 @@ class Shop_Views
         }
         $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $categoryId);
         $item->delAssoc($category);
-        return new Pluf_HTTP_Response_Json($category);
+        return $category;
     }
 }

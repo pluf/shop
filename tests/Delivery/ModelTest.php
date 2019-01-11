@@ -13,7 +13,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Gneral Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 use PHPUnit\Framework\TestCase;
@@ -27,7 +27,7 @@ Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Order_ModelTest extends TestCase
+class Delivery_ModelTest extends TestCase
 {
     /**
      * @beforeClass
@@ -69,13 +69,11 @@ class Order_ModelTest extends TestCase
         $m->unInstall();
     }
 
-    private function get_random_order(){
-        $order = new Shop_Order();
-        $order->title = 'order-' . rand();
-        $order->full_name = 'user-' . rand();
-        $order->phone = '0917' . rand(10000000, 100000000);
-        $order->email = 'email' . rand(1000, 10000) . '@test.ir';
-        return $order;
+    private function get_random_delivery(){
+        $delivery = new Shop_Delivery();
+        $delivery->title = 'delivery-' . rand();
+        $delivery->price = 20000;
+        return $delivery;
     }
     
     /**
@@ -83,37 +81,34 @@ class Order_ModelTest extends TestCase
      */
     public function shouldPossibleCreateNew()
     {
-        $order = $this->get_random_order();
-        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
+        $delivery = $this->get_random_delivery();
+        Test_Assert::assertTrue($delivery->create(), 'Impossible to create delivery');
     }
 
     /**
      * @test
      */
-    public function getPossibleTransitions()
+    public function shouldPossibleToGetCategories()
     {
-        $order = $this->get_random_order();
-        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
+        $delivery = $this->get_random_delivery();
+        Test_Assert::assertTrue($delivery->create(), 'Impossible to create delivery');
         
-        // Initial by order-manager
-        $manager = $order->getManager();
-        $manager->apply($order, 'create');
-        
-        $order = new Shop_Order($order->id);
-        $trans = $order->getManager()->transitions($order);
-        Test_Assert::assertNotNull($trans);
+        $delivery = new Shop_Delivery($delivery->id);
+        $cats = $delivery->get_categories_list();
+        Test_Assert::assertEquals(0, $cats->count());
     }
     
     /**
      * @test
      */
-    public function shouldPossibleToGetOrderitems()
+    public function shouldPossibleToGetTags()
     {
-        $order = $this->get_random_order();
-        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
+        $delivery = $this->get_random_delivery();
+        Test_Assert::assertTrue($delivery->create(), 'Impossible to create delivery');
         
-        $oitems = $order->get_order_items_list();
-        Test_Assert::assertEquals(0, $oitems->count());
+        $delivery = new Shop_Delivery($delivery->id);
+        $tags = $delivery->get_tags_list();
+        Test_Assert::assertEquals(0, $tags->count());
     }
     
 }

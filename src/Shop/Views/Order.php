@@ -30,7 +30,7 @@ class Shop_Views_Order
          */
         $order = $form->save();
         if (isset($user)) {
-            $order->__set('customer', $user);
+            $order->customer_id = $user;
         }
         $order->update();
         $manager = $order->getManager();
@@ -81,7 +81,6 @@ class Shop_Views_Order
             'city',
             'state',
             'state',
-            'deliver_type',
             'zone',
             'agency',
             'creation_dtime',
@@ -107,7 +106,6 @@ class Shop_Views_Order
         $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
         // check access
         self::checkAccess($request, $order);
-        $order->getManager()->apply($order, 'read');
         return $order;
     }
 
@@ -125,7 +123,6 @@ class Shop_Views_Order
     {
         $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
         $request->REQUEST['secureId'] = $match['secureId'];
-        $order->getManager()->apply($order, 'read');
         return $order;
     }
 
@@ -223,7 +220,7 @@ class Shop_Views_Order
             $user = $request->user;
             // Note: Hadi - 1396-05-06: only customer of order could add item to
             // its order.
-            if (! isset($user) || $user->id !== $order->customer) {
+            if (! isset($user) || $user->id !== $order->customer_id) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -251,7 +248,7 @@ class Shop_Views_Order
 
         $payment = Bank_Service::create($receiptData, 'shop-order', $order->id);
 
-        $order->payment = $payment;
+        $order->payment_id = $payment;
         $order->update();
         return $payment;
     }
@@ -269,14 +266,17 @@ class Shop_Views_Order
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             self::checkAccess($request, $order);
         }
-        $paid = self::updateReceiptInfo($order);
-        $receipt = $order->get_payment();
-        if ($receipt == null) {
-            return new Pluf_HTTP_Error404('Could not found payment');
-        }
-        $receipt->paid = $paid;
-        // return new Pluf_HTTP_Response_Json($receipt);
-        return array_merge($receipt->jsonSerialize(), array('paid' => $paid));
+//         $paid = self::updateReceiptInfo($order);
+//         $receipt = $order->get_payment();
+        $pag = new Pluf_Paginator(new Bank_Receipt());
+        $pag->forced_where = new Pluf_SQL('id=%s', array($order->payment_id));
+//         if ($receipt == null) {
+//             $pag->items = array();            
+//         }else{
+//             $receipt->paid = $paid;
+//             $pag->items = array($receipt);
+//         }
+        return $pag;
     }
 
     /**
@@ -300,50 +300,12 @@ class Shop_Views_Order
      */
     private static function updateReceiptInfo($order)
     {
-        if (! $order->payment) {
+        if (! $order->payment_id) {
             return false;
         }
         $receipt = $order->get_payment();
         Bank_Service::update($receipt);
         return $order->get_payment()->isPayed();
-    }
-
-    // ***********************************************************
-    // Deliver
-    // **********************************************************
-
-    /**
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param array $match
-     * @return
-     */
-    public static function setDeliverType($request, $match)
-    {
-        /**
-         *
-         * @var Shop_Order $order
-         */
-        $order = null;
-        if (isset($match['secureId'])) {
-            $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
-        } else {
-            $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-            self::checkAccess($request, $order);
-        }
-
-        if ($order->isPayed()) {
-            throw new Pluf_Exception_PermissionDenied('Could not change an already payed order');
-        }
-
-        $deliver = Pluf_Shortcuts_GetObjectOr404('Shop_DeliverType', $match['deliverId']);
-        $order->__set('deliver_type', $deliver);
-        // Remove payment because it is not valid yet.
-        // TODO: Hadi 1396-05: remove related receipt / or uupdate receipt info
-        // instead of remove it
-        $order->invalidatePayment();
-        $order->update();
-        return $order;
     }
 
     // ***********************************************************
@@ -368,7 +330,7 @@ class Shop_Views_Order
         $page = array(
             'items' => $items,
             'counts' => count($items),
-            'current_page' => 0,
+            'current_page' => 1,
             'items_per_page' => count($items),
             'page_number' => 1
         );
@@ -386,11 +348,7 @@ class Shop_Views_Order
         }
         $action = $request->REQUEST['action'];
         $manager = $order->getManager();
-        // TODO: hadi: complete code. I think it should be similar to following
-        // codes.
-        // $wf = $manager->getWorkflow();
-        // $actions = $wf->act($order, $action);
-        if ($manager->apply($order, $action)) {
+        if ($manager->apply($order, $action, true)) {
             $updatedOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $order->id);
             return $updatedOrder;
         }
