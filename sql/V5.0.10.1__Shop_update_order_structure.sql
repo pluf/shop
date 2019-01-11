@@ -43,3 +43,21 @@ ALTER TABLE `shop_category_shop_delivery_assoc` CHANGE `shop_delivertype_id` `sh
 ALTER TABLE `shop_delivertype_shop_tag_assoc` RENAME TO `shop_delivery_shop_tag_assoc`;
 ALTER TABLE `shop_delivery_shop_tag_assoc` CHANGE `shop_delivertype_id` `shop_delivery_id` mediumint(9) unsigned NOT NULL DEFAULT 0;
 
+/*
+ * Order attachment
+ *
+ * An attachment is a binary model attached to an order.
+ *
+ */
+CREATE TABLE `shop_order_attachments` (
+  `id` mediumint(9) unsigned NOT NULL AUTO_INCREMENT,
+  `description` varchar(2048) NOT NULL DEFAULT 'auto created content',
+  `mime_type` varchar(64) NOT NULL DEFAULT 'application/octet-stream',
+  `file_path` varchar(250) NOT NULL DEFAULT '',
+  `file_name` varchar(250) NOT NULL DEFAULT 'unknown',
+  `file_size` int(11) NOT NULL DEFAULT 0,
+  `order_id` mediumint(9) unsigned NOT NULL DEFAULT 0,
+  `tenant` mediumint(9) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `order_id_foreignkey_idx` (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
