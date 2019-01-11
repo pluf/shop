@@ -21,7 +21,7 @@ abstract class Shop_Order_Manager_Abstract implements Shop_Order_Manager
     public function apply($order, $action, $save = false)
     {
         $machine = new Workflow_Machine();
-        $machine->setStates(self::$STATE_MACHINE)
+        $machine->setStates($this->getStates())
             ->setSignals(array('Shop_Order::stateChange'))
             ->setProperty('state')
             ->apply($order, $action);
@@ -30,4 +30,29 @@ abstract class Shop_Order_Manager_Abstract implements Shop_Order_Manager
         }
         return true;
     }
+    
+    
+    /**
+     *
+     * {@inheritdoc}
+     * @see Shop_Order_Manager::transitions()
+     */
+    public function transitions($order)
+    {
+        $states = $this->getStates();
+        $transtions = array();
+        foreach ($states[$order->state] as $id => $trans) {
+            $trans['id'] = $id;
+            // TODO: chech preconditions and return only verified transitions
+            unset($trans['preconditions']);
+            unset($trans['action']);
+            $transtions[] = $trans;
+        }
+        return $transtions;
+    }
+    
+    /**
+     * Gets list of states
+     */
+    abstract function getStates();
 }
