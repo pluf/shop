@@ -7,6 +7,7 @@ $paths = array(
     'urls/order_history.php',
     'urls/order_item.php',
     'urls/order.php',
+    'urls/order_attachment.php',
     'urls/product.php',
     'urls/service.php',
     'urls/category.php',
