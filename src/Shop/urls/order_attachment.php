@@ -1,8 +1,15 @@
 <?php
 return array(
-    /*
-     * Attachment
-     */
+    // ************************************************************* Schema
+    array(
+        'regex' => '#^/orders/(?P<parentId>\d+)/attachments/schema$#',
+        'model' => 'Pluf_Views',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Category'
+        )
+    ),
     array( // Create
         'regex' => '#^/orders/(?P<parentId>\d+)/attachments$#',
         'model' => 'Shop_Views_OrderAttachment',
@@ -32,15 +39,15 @@ return array(
             'model' => 'Shop_OrderAttachment'
         )
     ),
-    
+
     array( // Delete
         'regex' => '#^/orders/(?P<orderId>\d+)/attachments/(?P<modelId>\d+)$#',
         'model' => 'Pluf_Views',
         'method' => 'deleteObject',
         'http-method' => 'DELETE',
-//         'precond' => array(
-//             'User_Precondition::ownerRequired'
-//         ),
+        // 'precond' => array(
+        // 'User_Precondition::ownerRequired'
+        // ),
         'params' => array(
             'model' => 'Shop_OrderAttachment'
         )

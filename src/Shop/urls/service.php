@@ -1,5 +1,15 @@
 <?php
 return array(
+    // ************************************************************* Schema
+    array(
+        'regex' => '#^/services/schema$#',
+        'model' => 'Pluf_Views',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Service'
+        )
+    ),
     // ************************************************************* Services
     array( // Find
         'regex' => '#^/services$#',
@@ -58,9 +68,9 @@ return array(
             'User_Precondition::loginRequired',
             'User_Precondition::memberRequired'
         )
-    ), 
+    ),
     // ************************************************************* Metafields of service
-    array( //  Create
+    array( // Create
         'regex' => '#^/services/(?P<modelId>\d+)/metafields$#',
         'model' => 'Shop_Views_ServiceMetafield',
         'method' => 'createOrUpdate',
@@ -136,7 +146,7 @@ return array(
             'User_Precondition::memberRequired'
         )
     ),
-    
+
     // ************************************************************* Categories of Service
     array(
         'regex' => '#^/services/(?P<modelId>\d+)/categories$#',
@@ -183,7 +193,7 @@ return array(
             'model' => 'Shop_Service'
         )
     ),
-    
+
     // ************************************************************* Tags on Service
     array(
         'regex' => '#^/services/(?P<modelId>\d+)/tags$#',
