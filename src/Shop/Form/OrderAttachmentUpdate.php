@@ -43,19 +43,6 @@ class Shop_Form_OrderAttachmentUpdate extends Pluf_Form_Model
         ));
     }
 
-    public function clean_name()
-    {
-        $name = $this->cleaned_data['name'];
-        if (empty($name))
-            return null;
-            // Note: If old name is same as new name we do not check uniqueness
-            // of the name.
-        if (strcmp($name, $this->model->name) === 0) {
-            return $name;
-        }
-        return CMS_Shortcuts_CleanName($name);
-    }
-
     /**
      *
      * {@inheritdoc}
