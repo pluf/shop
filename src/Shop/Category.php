@@ -46,6 +46,14 @@ class Shop_Category extends Pluf_Model
                 'editable' => true,
                 'readable' => true
             ),
+            'thumbnail' => array(
+                'type' => 'Pluf_DB_Field_Varchar',
+                'blank' => true,
+                'is_null' => true,
+                'size' => 512,
+                'editable' => true,
+                'readable' => true
+            ),
             /*
              * Relations
              */
@@ -65,16 +73,6 @@ class Shop_Category extends Pluf_Model
                 'blank' => true,
                 'name' => 'content',
                 'graphql_name' => 'content',
-                'relate_name' => 'categories',
-                'editable' => true,
-                'readable' => true
-            ),
-            'thumbnail_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'CMS_Content',
-                'blank' => true,
-                'name' => 'thumbnail',
-                'graphql_name' => 'thumbnail',
                 'relate_name' => 'categories',
                 'editable' => true,
                 'readable' => true
