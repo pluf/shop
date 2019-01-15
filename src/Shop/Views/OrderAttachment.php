@@ -46,7 +46,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
         $extra = array(
             'model' => $attachment
         );
-        $form = new Shop_Form_AttachmentUpdate(array_merge($request->REQUEST, $request->FILES), $extra);
+        $form = new Shop_Form_OrderAttachmentUpdate(array_merge($request->REQUEST, $request->FILES), $extra);
         return $form->save();
     }
 
@@ -71,5 +71,31 @@ class Shop_Views_OrderAttachment extends Pluf_Views
         return $response;
     }
 
+    /**
+     * Upload a file as comment
+     *
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
+     * @return object
+     */
+    public function updateFile($request, $match)
+    {
+        // GET data
+        $content = Pluf_Shortcuts_GetObjectOr404('Shop_OrderAttachment', $match['modelId']);
+        if (array_key_exists('file', $request->FILES)) {
+            return $this->upload($request, $match);
+        } else {
+            // Do
+            $myfile = fopen($content->getAbsloutPath(), "w") or die("Unable to open file!");
+            $entityBody = file_get_contents('php://input', 'r');
+            fwrite($myfile, $entityBody);
+            fclose($myfile);
+            // $content->file_size = filesize(
+            // $content->file_path . '/' . $content->id);
+            $content->update();
+        }
+        return $content;
+    }
+    
 }
 
