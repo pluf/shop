@@ -1,5 +1,15 @@
 <?php
 return array(
+    // ************************************************************* Schema
+    array(
+        'regex' => '#^/addresses/schema$#',
+        'model' => 'Pluf_Views',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Address'
+        )
+    ),
     // ************************************************************* Address
     array( // Find
         'regex' => '#^/addresses$#',

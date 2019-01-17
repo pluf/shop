@@ -17,8 +17,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-Pluf::loadFunction('Shop_Shortcuts_CleanName');
-
 /**
  * 
  * @author hadi <mohammad.hadi.mansouri@dpq.co.ir>

@@ -1,5 +1,15 @@
 <?php
 return array(
+    // ************************************************************* Schema
+    array(
+        'regex' => '#^/deliveries/schema$#',
+        'model' => 'Pluf_Views',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Delivery'
+        )
+    ),
     // ************************************************************* Delivery
     array( // Find
         'regex' => '#^/deliveries$#',

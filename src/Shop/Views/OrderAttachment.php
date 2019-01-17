@@ -46,7 +46,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
         $extra = array(
             'model' => $attachment
         );
-        $form = new Shop_Form_AttachmentUpdate(array_merge($request->REQUEST, $request->FILES), $extra);
+        $form = new Shop_Form_OrderAttachmentUpdate(array_merge($request->REQUEST, $request->FILES), $extra);
         return $form->save();
     }
 
@@ -54,7 +54,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @return Shop_OrderHistory
+     * @return Pluf_HTTP_Response_File
      */
     public static function download($request, $match)
     {
@@ -64,12 +64,38 @@ class Shop_Views_OrderAttachment extends Pluf_Views
         } 
         Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
         $attachment = Pluf_Shortcuts_GetObjectOr404('Shop_OrderAttachment', $match['modelId']);
-        // XXX: maso, 2019: check order too
-        // Do
+        $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+        if($order->id != $attachment->get_order()->id){
+            throw new Pluf_Exception_DoesNotExist('given attachment is not blong to given order');
+        }
         $response = new Pluf_HTTP_Response_File($attachment->getAbsloutPath(), $attachment->mime_type);
         $response->headers['Content-Disposition'] = sprintf('attachment; filename="%s"', $attachment->file_name);
         return $response;
     }
 
+    /**
+     * Upload a file as order-attachment
+     *
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
+     * @return object
+     */
+    public function updateFile($request, $match)
+    {
+        // TODO: hadi 1397-10-25: prevent update file if attachment has file already.
+        $content = Pluf_Shortcuts_GetObjectOr404('Shop_OrderAttachment', $match['modelId']);
+        if (array_key_exists('file', $request->FILES)) {
+            return $this->upload($request, $match);
+        } else {
+            // Do
+            $myfile = fopen($content->getAbsloutPath(), "w") or die("Unable to open file!");
+            $entityBody = file_get_contents('php://input', 'r');
+            fwrite($myfile, $entityBody);
+            fclose($myfile);
+            $content->update();
+        }
+        return $content;
+    }
+    
 }
 

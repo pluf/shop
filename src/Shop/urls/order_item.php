@@ -1,5 +1,15 @@
 <?php
 return array(
+    // ************************************************************* Schema
+    array(
+        'regex' => '#^/orders/(?P<parentId>\d+)/items/schema$#',
+        'model' => 'Pluf_Views',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_OrderItem'
+        )
+    ),
     // ************************************************************* OrderItem
     array( // Find
         'regex' => '#^/orders/(?P<orderId>\d+)/items$#',

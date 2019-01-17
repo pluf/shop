@@ -1,5 +1,15 @@
 <?php
 return array(
+    // ************************************************************* Schema
+    array(
+        'regex' => '#^/products/schema$#',
+        'model' => 'Pluf_Views',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_Product'
+        )
+    ),
     // ************************************************************* Product
     array( // Find
         'regex' => '#^/products$#',
@@ -60,7 +70,7 @@ return array(
         )
     ),
     // ************************************************************* Metafields of product
-    array( //  Create
+    array( // Create
         'regex' => '#^/products/(?P<modelId>\d+)/metafields$#',
         'model' => 'Shop_Views_ProductMetafield',
         'method' => 'createOrUpdate',

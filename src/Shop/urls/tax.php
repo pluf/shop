@@ -1,5 +1,15 @@
 <?php
 return array(
+    // ************************************************************* Schema
+    array(
+        'regex' => '#^/taxes/schema$#',
+        'model' => 'Pluf_Views',
+        'method' => 'getSchema',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_TaxClass'
+        )
+    ),
     // ************************************************************* TaxClass
     array( // Find
         'regex' => '#^/taxes$#',

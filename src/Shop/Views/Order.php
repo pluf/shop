@@ -243,7 +243,7 @@ class Shop_Views_Order
             'email' => '',
             'phone' => '',
             'callbackURL' => $url,
-            'backend' => $backend
+            'backend_id' => $backend
         );
 
         $payment = Bank_Service::create($receiptData, 'shop-order', $order->id);
