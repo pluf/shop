@@ -16,7 +16,7 @@ class Shop_Order_Manager_Shopinak extends Shop_Order_Manager_Abstract
     /**
      * State machine of the manager
      */
-    public static $STATE_MACHINE = array(
+    private static $STATE_MACHINE = array(
         Workflow_Machine::STATE_UNDEFINED => array(
             'next' => 'new'
         ),
@@ -161,19 +161,11 @@ class Shop_Order_Manager_Shopinak extends Shop_Order_Manager_Abstract
     /**
      *
      * {@inheritdoc}
-     * @see Shop_Order_Manager::transitions()
+     * @see Shop_Order_Manager::getStates()
      */
-    public function transitions($order)
+    public function getStates()
     {
-        $transtions = array();
-        // TODO: check if given state is defined in state machine
-        foreach (self::$STATE_MACHINE[$order->state] as $id => $trans) {
-            $trans['id'] = $id;
-            // TODO: chech preconditions and return only verified transitions
-            unset($trans['preconditions']);
-            unset($trans['action']);
-            $transtions[] = $trans;
-        }
-        return $transtions;
+        return self::$STATE_MACHINE;
     }
+
 }

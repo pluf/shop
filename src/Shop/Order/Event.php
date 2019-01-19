@@ -92,7 +92,7 @@ class Shop_Order_Event
 
     public const SET_ASSIGNEE_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT,
-        Shop_Order_Event::PROPERTY_ACCOUNT_ID_ID
+        Shop_Order_Event::PROPERTY_ACCOUNT_ID
     );
 
     public const DONE_ACTION = array(
