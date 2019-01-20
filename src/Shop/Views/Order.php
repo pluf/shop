@@ -266,7 +266,7 @@ class Shop_Views_Order
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             self::checkAccess($request, $order);
         }
-//         $paid = self::updateReceiptInfo($order);
+        self::updateReceiptInfo($order);
 //         $receipt = $order->get_payment();
         $pag = new Pluf_Paginator(new Bank_Receipt());
         $pag->forced_where = new Pluf_SQL('id=%s', array($order->payment_id));
