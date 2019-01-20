@@ -74,7 +74,7 @@ class Shop_Views_OrderHistory
          * @var Shop_OrderItem $orderItem
          */
         $orderHistory = Pluf_Shortcuts_GetObjectOr404('Shop_OrderHistory', $match['historyId']);
-        if (! $orderHistory->isBelongTo($order)) {
+        if ($orderHistory->order_id !== $order-id) {
             throw new Pluf_HTTP_Error404('Order with id ' . $order->id . ' has no history with id ' . $orderHistory->id);
         }
         // اجرای درخواست
