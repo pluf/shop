@@ -250,6 +250,8 @@ class Shop_Views_Order
 
         $order->payment_id = $payment;
         $order->update();
+        $manager = $order->getManager();
+        $manager->apply($order, 'pay');
         return $payment;
     }
 
