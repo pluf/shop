@@ -221,6 +221,7 @@ class Shop_Order extends Pluf_Model
     {
         while (1) {
             $key = md5(microtime() . rand(0, 123456789) . rand(0, 123456789) . Pluf::f('secret_key'));
+            $key = strtoupper(substr(base_convert($key, 16, 32), 0, 8));
             $sess = $this->getList(array(
                 'filter' => 'secureId=\'' . $key . '\''
             ));
