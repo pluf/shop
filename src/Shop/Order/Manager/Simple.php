@@ -115,6 +115,13 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
         if (User_Precondition::isOwner($request)) {
             return $sql;
         }
+        if (User_Precondition::isLogedIn($request)) {
+            $sql = $sql->Q('customer_id=%s OR assignee_id=%s', array(
+                $request->user->id,
+                $request->user->id                
+            ));
+            return $sql;
+        }
         return new Pluf_SQL('false');
     }
 
@@ -127,5 +134,4 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
     {
         return self::$STATE_MACHINE;
     }
-
 }

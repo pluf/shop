@@ -1,7 +1,5 @@
 <?php
-Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
-Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
 
 class Shop_Views_Order
 {
@@ -23,6 +21,7 @@ class Shop_Views_Order
             // TODO: hadi: get phone number from profile and set it if already
             // is not set.
         }
+        Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
         $form = Pluf_Shortcuts_GetFormForModel(Pluf::factory('Shop_Order'), $request->REQUEST);
         /**
          *
@@ -35,9 +34,9 @@ class Shop_Views_Order
         $order->update();
         $manager = $order->getManager();
         $manager->apply($order, 'create');
-        return array_merge($order->jsonSerialize(), array(
-            'secureId' => $order->secureId
-        ));
+        // Reveal secure id at creation time
+        $order->_a['cols']['secureId']['readable'] = true;
+        return $order;
     }
 
     /**
@@ -86,6 +85,8 @@ class Shop_Views_Order
             'creation_dtime',
             'modif_dtime'
         );
+        
+        Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
         // NOTE: maso, 1395: User_Account app are responsible to get more items
         $pag->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
         $pag->configure(array(), $search_fields, $sort_fields);
@@ -105,7 +106,10 @@ class Shop_Views_Order
         // Get order
         $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
         // check access
-        self::checkAccess($request, $order);
+        // self::checkAccess($request, $order);
+        if(!Shop_Precondition::canViewOrder($request, $order)){
+            return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
+        }
         return $order;
     }
 
@@ -122,7 +126,8 @@ class Shop_Views_Order
     public static function getBySecureId($request, $match)
     {
         $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
-        $request->REQUEST['secureId'] = $match['secureId'];
+        // Reveal secure id
+        $order->_a['cols']['secureId']['readable'] = true;
         return $order;
     }
 
@@ -137,8 +142,6 @@ class Shop_Views_Order
     {
         $myOrder = new Shop_Order();
         $order = $myOrder->getOne("secureId='" . $secureId . "'");
-        // TODO: hadi: check following also
-        // $list = $myOrder->getOne("secureId='$secureId'");
         return $order;
     }
 
@@ -217,23 +220,16 @@ class Shop_Views_Order
             $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-            $user = $request->user;
-            // Note: Hadi - 1396-05-06: only customer of order could add item to
-            // its order.
-            if (! isset($user) || $user->id !== $order->customer_id) {
+            if (!Shop_Precondition::canModifyOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
-
         if ($order->isPayed()) {
             throw new Pluf_Exception_PermissionDenied('Could not pay again for an already payed order');
         }
-
-        $user = $request->user;
         $url = $request->REQUEST['callback'];
         $backend = $request->REQUEST['backend'];
         $price = $order->computeTotalPrice();
-
         $receiptData = array(
             'amount' => $price, // مقدار پرداخت به تومان
             'title' => $order->id . ' - ' . $order->title,
