@@ -39,58 +39,98 @@ return array(
     ),
     array( // Read (list)
         'regex' => '#^/orders/(?P<parentId>\d+)/attachments$#',
-        'model' => 'Pluf_Views',
-        'method' => 'findManyToOne',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'find',
         'http-method' => 'GET',
-        'params' => array(
-            'parent' => 'Shop_Order',
-            'parentKey' => 'order_id',
-            'model' => 'Shop_OrderAttachment'
+        'precond' => array(
+            'User_Precondition::loginRequired'
         )
     ),
     array( // Read
         'regex' => '#^/orders/(?P<parentId>\d+)/attachments/(?P<modelId>\d+)$#',
-        'model' => 'Pluf_Views',
-        'method' => 'getManyToOne',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'get',
         'http-method' => 'GET',
-        'params' => array(
-            'model' => 'Shop_OrderAttachment',
-            'parent' => 'Shop_Order',
-            'prentKey' => 'order_id'
+        'precond' => array(
+            'User_Precondition::loginRequired'
         )
     ),
     array( // Update
         'regex' => '#^/orders/(?P<parentId>\d+)/attachments/(?P<modelId>\d+)$#',
-        'model' => 'Pluf_Views',
-        'method' => 'updateManyToOne',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'update',
         'http-method' => 'POST',
         'precond' => array(
-            'User_Precondition::ownerRequired'
-        ),
-        'params' => array(
-            'model' => 'Shop_OrderAttachment',
-            'parent' => 'Shop_Order',
-            'prentKey' => 'order_id'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // Delete
-        'regex' => '#^/orders/(?P<orderId>\d+)/attachments/(?P<modelId>\d+)$#',
-        'model' => 'Pluf_Views',
-        'method' => 'deleteObject',
+        'regex' => '#^/orders/(?P<parentId>\d+)/attachments/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'delete',
         'http-method' => 'DELETE',
-        // 'precond' => array(
-        // 'User_Precondition::ownerRequired'
-        // ),
-        'params' => array(
-            'model' => 'Shop_OrderAttachment'
+        'precond' => array(
+            'User_Precondition::loginRequired'
         )
     ),
-    
-    /*
-     * Binary content of content
-     */
+    // ************************************************************* Order Attachment (by secure id)
+    array( // Create
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/attachments$#',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'create',
+        'http-method' => 'POST'
+    ),
+    array( // Read (list)
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/attachments$#',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'find',
+        'http-method' => 'GET'
+    ),
+    array( // Read
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/attachments/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'get',
+        'http-method' => 'GET'
+    ),
+    array( // Update
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/attachments/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'update',
+        'http-method' => 'POST'
+    ),
+    array( // Delete
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/attachments/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'delete',
+        'http-method' => 'DELETE'
+    ),
+    // ************************************************************* Binary content of attachment
     array( // Read
         'regex' => '#^/orders/(?P<orderId>\d+)/attachments/(?P<modelId>\d+)/content$#',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'download',
+        'http-method' => 'GET',
+        // Cache apram
+        'cacheable' => true,
+        'revalidate' => true,
+        'intermediate_cache' => true,
+        'max_age' => 25000,
+        'precond' => array(
+            'User_Precondition::loginRequired'
+        )
+    ),
+    array( // Update
+        'regex' => '#^/orders/(?P<orderId>\d+)/attachments/(?P<modelId>\d+)/content$#',
+        'model' => 'Shop_Views_OrderAttachment',
+        'method' => 'upload',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::loginRequired'
+        )
+    ),
+    // ************************************************************* Binary content of attachment (by secure id)
+    array( // Read
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/attachments/(?P<modelId>\d+)/content$#',
         'model' => 'Shop_Views_OrderAttachment',
         'method' => 'download',
         'http-method' => 'GET',
@@ -101,14 +141,11 @@ return array(
         'max_age' => 25000
     ),
     array( // Update
-        'regex' => '#^/orders/(?P<orderId>\d+)/attachments/(?P<modelId>\d+)/content$#',
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/attachments/(?P<modelId>\d+)/content$#',
         'model' => 'Shop_Views_OrderAttachment',
-        'method' => 'updateFile',
-        'http-method' => 'POST',
-        'precond' => array(
-            'User_Precondition::loginRequired'
-        )
-    ),
+        'method' => 'upload',
+        'http-method' => 'POST'
+    )
 );
 
 
