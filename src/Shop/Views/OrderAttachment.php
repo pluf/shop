@@ -17,7 +17,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
             $match['parentId'] = $order->id;
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['parentId']);
-            if (!$this->canModifyOrder($request, $order)) {
+            if (!Shop_Precondition::canModifyOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -48,7 +48,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
             $match['parentId'] = $order->id;
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['parentId']);
-            if (! $this->canViewOrder($request, $order)) {
+            if (! Shop_Precondition::canViewOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -68,7 +68,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
             $match['parentId'] = $order->id;
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['parentId']);
-            if (! $this->canViewOrder($request, $order)) {
+            if (! Shop_Precondition::canViewOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -88,7 +88,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
             $match['parentId'] = $order->id;
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['parentId']);
-            if (! $this->canModifyOrder($request, $order)) {
+            if (! Shop_Precondition::canModifyOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -108,7 +108,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
             $match['parentId'] = $order->id;
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['parentId']);
-            if (! $this->canModifyOrder($request, $order)) {
+            if (! Shop_Precondition::canModifyOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -135,7 +135,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             // Check access to order
-            if (! $this->canViewOrder($request, $order)) {
+            if (! Shop_Precondition::canViewOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -167,7 +167,7 @@ class Shop_Views_OrderAttachment extends Pluf_Views
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             // Check access to order
-            if (! $this->canViewOrder($request, $order)) {
+            if (! Shop_Precondition::canViewOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -193,36 +193,5 @@ class Shop_Views_OrderAttachment extends Pluf_Views
         return $attachment;
     }
 
-    /**
-     * The creator of an order (customer who registers the order) or owner of tenant 
-     * can view the information of the order
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $order
-     * @return boolean
-     */
-    public function canViewOrder($request, $order)
-    {
-        if (User_Precondition::isOwner($request)) {
-            return true;
-        }
-        if (isset($request->user) && $request->user->id === $order->customer_id) {
-            return true;
-        }
-        return false;
-    }
-    
-    /**
-     * Only the creator of an order (customer who registers the order) can modify the order
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $order
-     * @return boolean
-     */
-    public function canModifyOrder($request, $order)
-    {
-        if (isset($request->user) && $request->user->id === $order->customer_id) {
-            return true;
-        }
-        return false;
-    }
 }
 
