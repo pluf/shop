@@ -230,6 +230,9 @@ class Shop_Views_Order
         $url = $request->REQUEST['callback'];
         $backend = $request->REQUEST['backend'];
         $price = $order->computeTotalPrice();
+        if($price <= 0){
+            throw new Pluf_Exception_BadRequest('Invalid amount: ' . $price);            
+        }
         $receiptData = array(
             'amount' => $price, // مقدار پرداخت به تومان
             'title' => $order->id . ' - ' . $order->title,
