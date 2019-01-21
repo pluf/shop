@@ -45,7 +45,7 @@ class Shop_Views_Order
      *
      * @param Pluf_HTTP_Request $request
      * @param array $match
-     * @return 
+     * @return
      */
     public static function find($request, $match)
     {
@@ -250,8 +250,6 @@ class Shop_Views_Order
 
         $order->payment_id = $payment;
         $order->update();
-        $manager = $order->getManager();
-        $manager->apply($order, 'pay');
         return $payment;
     }
 
@@ -268,16 +266,17 @@ class Shop_Views_Order
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             self::checkAccess($request, $order);
         }
-        self::updateReceiptInfo($order);
-//         $receipt = $order->get_payment();
+        $preState = $order->payment_id != null && $order->get_payment()->isPayed();
+        $paid = self::updateReceiptInfo($order);
+        if (! $preState && $paid) {
+            // Order is payed and it is first time that we inform about it
+            $manager = $order->getManager();
+            $manager->apply($order, 'pay');
+        }
         $pag = new Pluf_Paginator(new Bank_Receipt());
-        $pag->forced_where = new Pluf_SQL('id=%s', array($order->payment_id));
-//         if ($receipt == null) {
-//             $pag->items = array();            
-//         }else{
-//             $receipt->paid = $paid;
-//             $pag->items = array($receipt);
-//         }
+        $pag->forced_where = new Pluf_SQL('id=%s', array(
+            $order->payment_id
+        ));
         return $pag;
     }
 
@@ -290,7 +289,7 @@ class Shop_Views_Order
     {
         $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
         $payed = self::updateReceiptInfo($order);
-        return new $payed;
+        return new $payed();
     }
 
     /**
@@ -336,7 +335,7 @@ class Shop_Views_Order
             'items_per_page' => count($items),
             'page_number' => 1
         );
-        
+
         return $page;
     }
 
