@@ -50,7 +50,7 @@ class Shop_Order_Event
 
     public const ACCEPT_ACTION = array(
         'Shop_Order_Event',
-        'setAssignee'
+        'accept'
     );
 
     public const ACCEPT_PROPERTIES = array(
@@ -97,7 +97,7 @@ class Shop_Order_Event
 
     public const DONE_ACTION = array(
         'Shop_Order_Event',
-        'setAssignee'
+        'done'
     );
 
     public const DONE_PROPERTIES = array(
