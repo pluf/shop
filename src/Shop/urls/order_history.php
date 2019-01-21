@@ -17,7 +17,7 @@ return array(
         'method' => 'find',
         'http-method' => 'GET',
         'precond' => array(
-            'User_Precondition::memberRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array(
@@ -33,7 +33,7 @@ return array(
         'method' => 'get',
         'http-method' => 'GET',
         'precond' => array(
-            'User_Precondition::memberRequired'
+            'User_Precondition::loginRequired'
         )
     )
 );
