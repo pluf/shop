@@ -17,7 +17,7 @@ return array(
         'method' => 'find',
         'http-method' => 'GET',
         'precond' => array(
-            'User_Precondition::memberRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array(
@@ -33,25 +33,8 @@ return array(
         'method' => 'get',
         'http-method' => 'GET',
         'precond' => array(
-            'User_Precondition::memberRequired'
+            'User_Precondition::loginRequired'
         )
     )
-    // array(
-    // 'regex' => '#^/orders/(?P<orderId>\d+)/histories/(?P<historyId>\d+)$#',
-    // 'model' => 'Shop_Views_OrderHistory',
-    // 'method' => 'delete',
-    // 'http-method' => 'DELETE',
-    // 'precond' => array(
-    // 'User_Precondition::ownerRequired'
-    // )
-    // ),
-    // array(
-    // 'regex' => '#^/orders/(?P<orderId>\d+)/histories/(?P<historyId>\d+)$#',
-    // 'model' => 'Shop_Views_OrderHistory',
-    // 'method' => 'update',
-    // 'http-method' => 'POST',
-    // 'precond' => array(
-    // 'User_Precondition::ownerRequired'
-    // )
-    // )
 );
+

@@ -11,8 +11,8 @@ class Shop_Views_OrderItem
      * یا از طریق secureId تعیین می‌شود که در این صورت فرض می‌شود ایجاد کننده
      * درخواست مالک سفارش است و بررسی خاصی صورت نمی‌گیرد
      *
-     * @param Pluf_HTTP_Request $request            
-     * @param array $match            
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
      * @return Shop_OrderItem
      */
     public static function create($request, $match)
@@ -27,37 +27,36 @@ class Shop_Views_OrderItem
             $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-            $user = $request->user;
-            // Note: Hadi - 1396-05-06: only customer of order could add item to its order.
-            if (! isset($user) || $user->id !== $order->customer_id) {
+            if (! Shop_Precondition::canModifyOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
-        // if ($order->isPayed()) {
-        // throw new Pluf_Exception_PermissionDenied('Could not change items of already payed order');
-        // }
-        if(!isset($match['count']) || $match['count'] == 0){
+        if ($order->isPayed()) {
+            // Receipt for order is created and status of receipt is payed
+            throw new Pluf_Exception_PermissionDenied('Could not change items of already payed order');
+        }
+        if (! isset($match['count']) || $match['count'] == 0) {
             $match['count'] = 1;
         }
         $form = Pluf_Shortcuts_GetFormForModel(Pluf::factory('Shop_OrderItem'), $request->REQUEST);
         $orderItem = $form->save();
-        
+
         $orderItem->order_id = $order;
         $orderItem->update();
-        
-        // Remove payment because it is not valid yet.
+
+        // Remove payment because it is not valid yet (here receipt is created but is not payed yet).
         // TODO: Hadi 1396-05: remove related receipt / or uupdate receipt info instead of remove it
         $order->__set('payment_id', null);
         $order->update();
-        
+
         return $orderItem;
     }
 
     /**
      * فهرست کردن تقاضا‌های موجود
      *
-     * @param Pluf_HTTP_Request $request            
-     * @param array $match            
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
      * @return Pluf_Paginator
      */
     public static function find($request, $match)
@@ -101,8 +100,8 @@ class Shop_Views_OrderItem
     /**
      * یک درخواست را با شناسه تعیین می‌کند
      *
-     * @param Pluf_HTTP_Request $request            
-     * @param array $match            
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
      * @return Shop_OrderItem
      */
     public static function get($request, $match)
@@ -128,8 +127,8 @@ class Shop_Views_OrderItem
     /**
      * درخواست را به روز می‌کند
      *
-     * @param Pluf_HTTP_Request $request            
-     * @param array $match            
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
      */
     public static function update($request, $match)
     {
@@ -142,13 +141,13 @@ class Shop_Views_OrderItem
             $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-            Shop_Views_Order::checkAccess($request, $order);
+            if (! Shop_Precondition::canModifyOrder($request, $order)) {
+                return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
+            }
         }
-        
         if ($order->isPayed()) {
             throw new Pluf_Exception_PermissionDenied('Could not change info of already payed order');
         }
-        
         /**
          *
          * @var Shop_OrderItem $orderItem
@@ -159,20 +158,20 @@ class Shop_Views_OrderItem
         }
         $form = Pluf_Shortcuts_GetFormForUpdateModel($orderItem, $request->REQUEST);
         $orderItem = $form->save();
-        
+
         // Remove payment because it is not valid yet.
         // TODO: Hadi 1396-05: remove related receipt / or uupdate receipt info instead of remove it
         $order->invalidatePayment();
         $order->update();
-        
+
         return $orderItem;
     }
 
     /**
      * درخواست را حذف می‌کند.
      *
-     * @param Pluf_HTTP_Request $request            
-     * @param array $match            
+     * @param Pluf_HTTP_Request $request
+     * @param array $match
      * @return Shop_OrderItem
      */
     public static function delete($request, $match)
@@ -186,9 +185,7 @@ class Shop_Views_OrderItem
             $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-            $user = $request->user;
-            // Note: Hadi - 1396-05-06: only customer of order could remove item from its order.
-            if (! isset($user) || $user->id !== $order->customer_id) {
+            if (! Shop_Precondition::canModifyOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -200,12 +197,12 @@ class Shop_Views_OrderItem
             throw new Pluf_HTTP_Error404('Order with id ' . $order->id . ' has no item with id ' . $orderItem->id);
         }
         $orderItem->delete();
-        
+
         // Remove payment because it is not valid yet.
         // TODO: Hadi 1396-05: remove related receipt / or uupdate receipt info instead of remove it
         $order->invalidatePayment();
         $order->update();
-        
+
         return $orderItem;
     }
 }

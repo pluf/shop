@@ -1,4 +1,20 @@
 <?php
+
+/*
+ * Signals
+ */
+
+// Pluf_Signal::connect('Shop_Order::stateChange',
+//     array(
+//         'Shop_Views_Manager_Abstract',
+//         'sendNotification'
+//     ));
+Pluf_Signal::connect('Shop_Order::stateChange',
+    array(
+        'Shop_Order_Manager_Abstract',
+        'addOrderHistory'
+    ));
+
 return array(
     'Shop_Address' => array(
         'relate_to_many' => array(

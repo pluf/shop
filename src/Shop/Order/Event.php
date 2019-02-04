@@ -4,11 +4,11 @@ class Shop_Order_Event
 {
 
     public const PROPERTY_COMMENT = array(
-        'name' => 'comment',
+        'name' => 'description',
         'type' => 'String',
         'unit' => 'none',
-        'title' => 'Comment',
-        'description' => 'A text to put to the history',
+        'title' => 'Description',
+        'description' => 'A description text to put to the history',
         'editable' => true,
         'visible' => true,
         'priority' => 5,
@@ -50,7 +50,7 @@ class Shop_Order_Event
 
     public const ACCEPT_ACTION = array(
         'Shop_Order_Event',
-        'setAssignee'
+        'accept'
     );
 
     public const ACCEPT_PROPERTIES = array(
@@ -92,12 +92,12 @@ class Shop_Order_Event
 
     public const SET_ASSIGNEE_PROPERTIES = array(
         Shop_Order_Event::PROPERTY_COMMENT,
-        Shop_Order_Event::PROPERTY_ACCOUNT_ID_ID
+        Shop_Order_Event::PROPERTY_ACCOUNT_ID
     );
 
     public const DONE_ACTION = array(
         'Shop_Order_Event',
-        'setAssignee'
+        'done'
     );
 
     public const DONE_PROPERTIES = array(
@@ -184,7 +184,7 @@ class Shop_Order_Event
     public static function setZone($request, $order)
     {
         self::addComment($request, $order);
-        if (array_key_exists('zone_id', $request->REQUEST)) {
+        if (!array_key_exists('zone_id', $request->REQUEST)) {
             throw new Pluf_Exception_BadRequest('zone_id is required');
         }
         $zoneId = $request->REQUEST['zone_id'];
@@ -203,7 +203,7 @@ class Shop_Order_Event
     public static function setAssignee($request, $order)
     {
         self::addComment($request, $order);
-        if (array_key_exists('account_id', $request->REQUEST)) {
+        if (!array_key_exists('account_id', $request->REQUEST)) {
             throw new Pluf_Exception_BadRequest('account_id is required');
         }
         $accountId = $request->REQUEST['account_id'];
@@ -211,7 +211,7 @@ class Shop_Order_Event
         if ($account->isAnonymous()) {
             throw new Pluf_Exception('Requested account dose not exist', 4000, null, 404);
         }
-        $order->account_id = $account;
+        $order->assignee_id = $account;
     }
 
     /**

@@ -16,7 +16,7 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
     /**
      * State machine of the manager
      */
-    public static $STATE_MACHINE = array(
+    private static $STATE_MACHINE = array(
         Workflow_Machine::STATE_UNDEFINED => array(
             'next' => 'new'
         ),
@@ -111,26 +111,27 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
      */
     public function createOrderFilter($request)
     {
-        $sql = new Pluf_SQL();
-        // Create filter
-        return $sql;
+        $sql = new Pluf_SQL('deleted=false');
+        if (User_Precondition::isOwner($request)) {
+            return $sql;
+        }
+        if (User_Precondition::isLogedIn($request)) {
+            $sql = $sql->Q('customer_id=%s OR assignee_id=%s', array(
+                $request->user->id,
+                $request->user->id                
+            ));
+            return $sql;
+        }
+        return new Pluf_SQL('false');
     }
 
     /**
      *
      * {@inheritdoc}
-     * @see Shop_Order_Manager::transitions()
+     * @see Shop_Order_Manager::getStates()
      */
-    public function transitions($order)
+    public function getStates()
     {
-        $transtions = array();
-        foreach (self::$STATE_MACHINE[$order->state] as $id => $trans) {
-            $trans['id'] = $id;
-            // TODO: chech preconditions and return only verified transitions
-            unset($trans['preconditions']);
-            unset($trans['action']);
-            $transtions[] = $trans;
-        }
-        return $transtions;
+        return self::$STATE_MACHINE;
     }
 }
