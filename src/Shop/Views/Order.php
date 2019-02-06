@@ -125,23 +125,9 @@ class Shop_Views_Order
      */
     public static function getBySecureId($request, $match)
     {
-        $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
+        $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
         // Reveal secure id
         $order->_a['cols']['secureId']['readable'] = true;
-        return $order;
-    }
-
-    /**
-     * Returns a Shop_Order with given secureId
-     *
-     * @param string $secureId
-     * @throws Pluf_Exception_DoesNotExist
-     * @return Shop_Order
-     */
-    public static function getOrderBySecureId($secureId)
-    {
-        $myOrder = new Shop_Order();
-        $order = $myOrder->getOne("secureId='" . $secureId . "'");
         return $order;
     }
 
@@ -321,7 +307,7 @@ class Shop_Views_Order
     public function actions($request, $match)
     {
         if (isset($match['secureId'])) {
-            $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
+            $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             self::checkAccess($request, $order);
@@ -341,7 +327,7 @@ class Shop_Views_Order
     public static function doAction($request, $match)
     {
         if (isset($match['secureId'])) {
-            $order = Shop_Views_Order::getOrderBySecureId($match['secureId']);
+            $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
             self::checkAccess($request, $order);
