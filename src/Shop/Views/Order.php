@@ -85,7 +85,7 @@ class Shop_Views_Order
             'creation_dtime',
             'modif_dtime'
         );
-        
+
         Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
         // NOTE: maso, 1395: User_Account app are responsible to get more items
         $pag->items_per_page = Shop_Shortcuts_NormalizeItemPerPage($request);
@@ -107,7 +107,7 @@ class Shop_Views_Order
         $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
         // check access
         // self::checkAccess($request, $order);
-        if(!Shop_Precondition::canViewOrder($request, $order)){
+        if (! Shop_Precondition::canViewOrder($request, $order)) {
             return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
         }
         return $order;
@@ -206,7 +206,7 @@ class Shop_Views_Order
             $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
         } else {
             $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
-            if (!Shop_Precondition::canModifyOrder($request, $order)) {
+            if (! Shop_Precondition::canModifyOrder($request, $order)) {
                 return new Pluf_Exception_Unauthorized('You are not allowed to do this action.');
             }
         }
@@ -214,11 +214,21 @@ class Shop_Views_Order
             throw new Pluf_Exception_PermissionDenied('Could not pay again for an already payed order');
         }
         $url = $request->REQUEST['callback'];
-        $backend = $request->REQUEST['backend'];
-        $price = $order->computeTotalPrice();
-        if($price <= 0){
-            throw new Pluf_Exception_BadRequest('Invalid amount: ' . $price);            
+        $backend = Pluf_Shortcuts_GetObjectOr404('Bank_Backend', $request->REQUEST['backend']);
+        // Check if currency of backend is compatible with currency of tenant
+        $tenantCurrency = Tenant_Service::setting('tenant.currency');
+        Pluf::loadFunction('Bank_Shortcuts_IsCurrenciesCompatible');
+        if (! Bank_Shortcuts_IsCurrenciesCompatible($backend->currency, $tenantCurrency)) {
+            throw new Pluf_Exception_BadRequest('Invalid payment. ' . //
+            'Could not pay through a bank backend with different currency than the tenant currency ' . //
+            '[tenant: ' . $tenantCurrency . ', backend: ' . $backend->currency);
         }
+        $price = $order->computeTotalPrice();
+        if ($price <= 0) {
+            throw new Pluf_Exception_BadRequest('Invalid amount: ' . $price);
+        }
+        Pluf::loadFunction('Bank_Shortcuts_ConvertCurrency');
+        $price = Bank_Shortcuts_ConvertCurrency($price, $tenantCurrency, $backend->currency);
         $receiptData = array(
             'amount' => $price, // مقدار پرداخت به تومان
             'title' => $order->id . ' - ' . $order->title,
@@ -228,7 +238,7 @@ class Shop_Views_Order
             'email' => '',
             'phone' => '',
             'callbackURL' => $url,
-            'backend_id' => $backend
+            'backend_id' => $backend->id
         );
 
         $payment = Bank_Service::create($receiptData, 'shop-order', $order->id);
