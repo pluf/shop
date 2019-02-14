@@ -3,6 +3,7 @@
 	<name>shop</name>
 	<comment>Shop mudule of pluf</comment>
 	<projects>
+		<project>bank</project>
 		<project>core</project>
 		<project>tenant</project>
 		<project>user</project>
@@ -35,12 +36,12 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1547541308732</id>
+			<id>1550128697715</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-vendor</arguments>
+				<arguments>1.0-name-matches-false-false-vendor1</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>
