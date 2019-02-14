@@ -93,7 +93,7 @@ function Shop_Shortcuts_GetObjectBySecureIdOr404($model, $secureId)
 {
     $myObject = new $model();
     $obj = $myObject->getOne("secureId='" . $secureId . "'");
-    if ($obj != null && $obj->id > 0 && $obj->secureId === $secureId) {
+    if ($obj != null && $obj->id > 0) {
         return $obj;
     }
     throw new Pluf_HTTP_Error404("Object whit given secure id not found (" . $model . ", " . $secureId . ")");
