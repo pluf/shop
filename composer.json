@@ -21,15 +21,15 @@
 	],
 	"minimum-stability" : "stable",
 	"require" : {
-		"pluf/core" : "5.2.x",
-		"pluf/tenant" : "5.2.x",
-		"pluf/cache" : "5.2.x",
-		"pluf/cms" : "5.2.x",
-		"pluf/bank" : "5.2.x",
-		"pluf/monitor" : "5.2.x"
+		"pluf/core" : "5.3.x",
+		"pluf/tenant" : "5.3.x",
+		"pluf/cache" : "5.3.x",
+		"pluf/cms" : "5.3.x",
+		"pluf/bank" : "5.3.x",
+		"pluf/monitor" : "5.3.x"
 	},
 	"require-dev" : {
-		"pluf/test" : "5.2.x"
+		"pluf/test" : "5.3.x"
 	},
 	"include-path" : [
 		"src/"
