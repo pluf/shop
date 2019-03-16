@@ -34,8 +34,7 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'type' => 'Pluf_DB_Field_Boolean',
                 'blank' => false,
                 'default' => false,
-                'editable' => false,
-                'readable' => false
+                'editable' => false
             ),
             /*
              * Relations
@@ -45,16 +44,14 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'model' => 'Shop_Category',
                 'name' => 'categories',
                 'graphql_name' => 'categories',
-                'editable' => false,
-                'readable' => false
+                'editable' => false
             ),
             'tags' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
                 'model' => 'Shop_Tag',
                 'name' => 'tags',
                 'graphql_name' => 'tags',
-                'editable' => false,
-                'readable' => false
+                'editable' => false
             )
         ));
     }

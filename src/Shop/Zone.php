@@ -52,8 +52,7 @@ class Shop_Zone extends Shop_DetailedObject
                 'type' => 'Pluf_DB_Field_Boolean',
                 'blank' => false,
                 'default' => false,
-                'editable' => false,
-                'readable' => false
+                'editable' => false
             ),
             'creation_dtime' => array(
                 'type' => 'Pluf_DB_Field_Datetime',
@@ -87,8 +86,7 @@ class Shop_Zone extends Shop_DetailedObject
                 'graphql_name' => 'members',
                 'relate_name' => 'zones',
                 'blank' => false,
-                'editable' => false,
-                'readable' => false
+                'editable' => false
             )
         ));
     }

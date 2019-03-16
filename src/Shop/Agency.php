@@ -61,8 +61,7 @@ class Shop_Agency extends Shop_DetailedObject
                 'type' => 'Pluf_DB_Field_Boolean',
                 'is_null' => false,
                 'default' => false,
-                'editable' => false,
-                'readable' => false
+                'editable' => false
             ),
             'creation_dtime' => array(
                 'type' => 'Pluf_DB_Field_Datetime',
