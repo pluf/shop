@@ -216,7 +216,7 @@ class Shop_Views_Order
         $url = $request->REQUEST['callback'];
         $backend = Pluf_Shortcuts_GetObjectOr404('Bank_Backend', $request->REQUEST['backend']);
         // Check if currency of backend is compatible with currency of tenant
-        $tenantCurrency = Tenant_Service::setting('tenant.currency');
+        $tenantCurrency = Tenant_Service::setting('local.currency');
         Pluf::loadFunction('Bank_Shortcuts_IsCurrenciesCompatible');
         if (! Bank_Shortcuts_IsCurrenciesCompatible($backend->currency, $tenantCurrency)) {
             throw new Pluf_Exception_BadRequest('Invalid payment. ' . //
