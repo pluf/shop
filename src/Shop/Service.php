@@ -4,6 +4,7 @@ class Shop_Service extends Shop_PricedObject
 {
 
     /**
+     *
      * @brief مدل داده‌ای را بارگذاری می‌کند.
      *
      * @see Pluf_Model::init()
@@ -31,10 +32,11 @@ class Shop_Service extends Shop_PricedObject
                 'name' => 'taxes',
                 'graphql_name' => 'taxes',
                 'relate_name' => 'services',
-                'editable' => false
+                'editable' => false,
+                'readable' => false
             )
         ));
-        // Set the field name in the another entity in the relationship 
+        // Set the field name in the another entity in the relationship
         $this->_a['cols']['categories']['relate_name'] = 'services';
         $this->_a['cols']['tags']['relate_name'] = 'services';
     }
