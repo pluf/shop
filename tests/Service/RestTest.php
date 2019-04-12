@@ -119,6 +119,40 @@ class Service_RestTest extends TestCase
      *
      * @test
      */
+    public function getServiceListRestTest()
+    {
+        $item = new Shop_Service();
+        $item->title = 'service-' . rand();
+        $item->price = rand();
+        $item->off = 10;
+        $item->create();
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Service');
+
+        // Get items
+        $response = $this->client->get('/shop/services');
+        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
+        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
+        Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
+        Test_Assert::assertResponseNonEmptyPaginateList($response, 'No role is in group');
+
+        // Get items by parameters
+        $response = $this->client->get('/shop/services', array(
+            '_px_q' => 'service',
+            '_px_sk' => 'id',
+            '_px_so' => 'a'
+        ));
+        Test_Assert::assertResponseNotNull($response, 'Find result is empty');
+        Test_Assert::assertResponseStatusCode($response, 200, 'Find status code is not 200');
+        Test_Assert::assertResponsePaginateList($response, 'Find result is not JSON paginated list');
+        Test_Assert::assertResponseNonEmptyPaginateList($response, 'No role is in group');
+
+        $item->delete();
+    }
+
+    /**
+     *
+     * @test
+     */
     public function getRestTest()
     {
         $item = new Shop_Service();
@@ -131,6 +165,8 @@ class Service_RestTest extends TestCase
         $response = $this->client->get('/shop/services/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
+
+        $item->delete();
     }
 
     /**
