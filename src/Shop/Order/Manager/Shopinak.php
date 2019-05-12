@@ -151,7 +151,7 @@ class Shop_Order_Manager_Shopinak extends Shop_Order_Manager_Abstract
      */
     public function createOrderFilter($request)
     {
-        $sql = new Pluf_SQL('deleted=%s', array(FALSE));
+        $sql = new Pluf_SQL('deleted=false');
         if (User_Precondition::isOwner($request)) {
             return $sql;
         }
