@@ -42,8 +42,7 @@ abstract class Shop_Order_Manager_Abstract implements Shop_Order_Manager
     {
         $states = $this->getStates();
         $transtions = array();
-        if(!array_key_exists($order->state, $states) || 
-            (!is_array($states[$order->state]) && !is_object($states[$order->state]))){
+        if (! array_key_exists($order->state, $states) || (! is_array($states[$order->state]) && ! is_object($states[$order->state]))) {
             return $transtions;
         }
         foreach ($states[$order->state] as $id => $trans) {
@@ -94,8 +93,10 @@ abstract class Shop_Order_Manager_Abstract implements Shop_Order_Manager
 
         $history = new Shop_OrderHistory();
         $history->order_id = $event->object;
-        $history->object_type = $event->request->user->_model;
-        $history->object_id = $event->request->user->id;
+        if (isset($event->request->user)) {
+            $history->object_type = $event->request->user->_model;
+            $history->object_id = $event->request->user->id;
+        }
         $history->action = $underscored;
         $history->subject_type = $subject->_model;
         $history->subject_id = $subject->id;

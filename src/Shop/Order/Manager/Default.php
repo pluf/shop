@@ -54,7 +54,7 @@ class Shop_Order_Manager_Default extends Shop_Order_Manager_Abstract
      */
     public function createOrderFilter($request)
     {
-        $sql = new Pluf_SQL('deleted=false');
+        $sql = new Pluf_SQL('deleted=%d', array(FALSE));
         if (User_Precondition::isOwner($request)) {
             return $sql;
         }
