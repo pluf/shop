@@ -47,12 +47,15 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
                 'action' => Shop_Order_Event::REJECT_ACTION
             ),
             'update' => array(
-                'next' => 'archived',
+                'next' => 'new',
                 'visible' => false,
                 'title' => 'Update',
                 'description' => 'The order is updated',
                 'properties' => Shop_Order_Event::UPDATE_PROPERTIES,
-                'action' => Shop_Order_Event::UPDATE_ACTION
+                'action' => Shop_Order_Event::UPDATE_ACTION,
+                'preconditions' => array(
+                    'Shop_Order_Manager_SimplePreconditions::catUpdateOrder'
+                )
             )
         ),
         'processing' => array(
@@ -101,6 +104,16 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
         ),
         'archived' => array(
             // This is final state
+            'delete' => array(
+                'next' => 'deleted',
+                'title' => 'Delete',
+                'visible' => true,
+                'action' => Shop_Order_Event::DELETE_ACTION,
+                'properties' => Shop_Order_Event::DELETE_PROPERTIES,
+                'preconditions' => array(
+                    'User_Precondition::isOwner'
+                )
+            ),
         )
     );
 

@@ -1,9 +1,18 @@
 <?php
 
 /**
- * Manages order
+ * Manages orders in different states and handles events on orders.
  * 
- * If 'secureId' is sets into the REQUEST parameters, then access MUST not checked.
+ * The order manager should manage orders in different states and handle events on orders.
+ * Each implementation could define its own states and events for orders. 
+ * However all implementations should handle the following events:
+ * <ul>
+ * <li>create: to create a new order this event will be occured</li>
+ * <li>update: to update an order this event will be occured</li>
+ * <li>delete: to delete an order this event will be occured</li>
+ * </ul>
+ * 
+ * Note: If 'secureId' is sets in the REQUEST parameters, then access MUST not be checked.
  *
  * @author maso<mostafa.barmshory@dpq.co.ir>
  * @author hadi<mohammad.hadi.mansouri@dpq.co.ir>
