@@ -25,7 +25,7 @@ require_once 'Pluf.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Order_RestTest extends TestCase
+class Order_RestAnonymousTest extends TestCase
 {
 
     var $client;
@@ -92,11 +92,6 @@ class Order_RestTest extends TestCase
                 'sub' => include 'User/urls.php'
             )
         ));
-        // login
-        $response = $this->client->post('/user/login', array(
-            'login' => 'test',
-            'password' => 'test'
-        ));
     }
 
     /**
@@ -135,11 +130,27 @@ class Order_RestTest extends TestCase
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
         // Get item
+        $this->expectException(Pluf_Exception_Unauthorized::class);
         $response = $this->client->get('/shop/orders/' . $item->id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
     
+    /**
+     *
+     * @test
+     */
+    public function getBySecureIdRestTest()
+    {
+        $item = $this->get_random_order();
+        $item->create();
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+        // Get item
+        $response = $this->client->get('/shop/orders/' . $item->secureId);
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+    }
+
     /**
      *
      * @test
@@ -153,11 +164,30 @@ class Order_RestTest extends TestCase
         $form = array(
             'title' => 'new title' . rand()
         );
+        $this->expectException(Pluf_Exception_Unauthorized::class);
         $response = $this->client->post('/shop/orders/' . $item->id, $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
     
+    /**
+     *
+     * @test
+     */
+    public function updateBySecureIdRestTest()
+    {
+        $item = $this->get_random_order();
+        $item->create();
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+        // Update item
+        $form = array(
+            'title' => 'new title' . rand()
+        );
+        $response = $this->client->post('/shop/orders/' . $item->secureId, $form);
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+    }
+
     /**
      *
      * @test
@@ -168,6 +198,7 @@ class Order_RestTest extends TestCase
         $item->create();
         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
 
+        $this->expectException(Pluf_Exception_Unauthorized::class);
         // delete
         $response = $this->client->delete('/shop/orders/' . $item->id);
         $this->assertNotNull($response);
@@ -180,35 +211,11 @@ class Order_RestTest extends TestCase
      */
     public function findRestTest()
     {
+        $this->expectException(Pluf_Exception_Unauthorized::class);
         $response = $this->client->get('/shop/orders');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
-
-//     /**
-//      *
-//      * @test
-//      */
-//     public function setOrderDeliveryRestTest()
-//     {
-//         $item = $this->get_random_order();
-//         $item->create();
-//         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
-
-//         $dt = new Shop_Delivery();
-//         $dt->title = 'deliver-' . rand();
-//         $dt->price = 20000;
-//         $dt->off = 5000;
-//         $dt->create();
-//         Test_Assert::assertFalse($dt->isAnonymous(), 'Could not create Shop_Delivery');
-
-//         // set deliver type
-//         $response = $this->client->post('/shop/orders/' . $item->id . '/delivers/' . $dt->id);
-//         $this->assertNotNull($response);
-//         $this->assertEquals($response->status_code, 200);
-//         $t = json_decode($response->content, true);
-//         $this->assertEquals($t['delivery'], $dt->id);
-//     }
 
 }
 
