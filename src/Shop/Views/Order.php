@@ -237,7 +237,7 @@ class Shop_Views_Order
         Pluf::loadFunction('Bank_Shortcuts_ConvertCurrency');
         $price = Bank_Shortcuts_ConvertCurrency($price, $tenantCurrency, $backend->currency);
         $receiptData = array(
-            'amount' => $price, // مقدار پرداخت به تومان
+            'amount' => $price,
             'title' => $order->id . ' - ' . $order->title,
             'description' => $order->id . ' - ' . $order->title,
             // 'email' => $user->email,
