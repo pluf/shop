@@ -271,7 +271,7 @@ class Shop_Order extends Pluf_Model
     }
 
     function hasPayment(){
-        return $this->payment_id != null || $this->payment_id != 0;
+        return $this->payment_id != null && $this->payment_id != 0;
     }
     
     function isPayed()

@@ -35,7 +35,7 @@ class Shop_Order_Manager_Default extends Shop_Order_Manager_Abstract
                     )
                 ),
                 'update' => array(
-                    'next' => 'archived',
+                    'next' => 'Live',
                     'visible' => false,
                     'title' => 'Update',
                     'description' => 'The order is updated',

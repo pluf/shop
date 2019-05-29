@@ -143,7 +143,14 @@ class Shop_Views_Order
          *
          * @var Shop_Order $myOrder
          */
-        $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+        $order = null;
+        if (array_key_exists('secureId', $match)) {
+            Pluf::loadFunction('Shop_Shortcuts_GetObjectBySecureIdOr404');
+            $order = Shop_Shortcuts_GetObjectBySecureIdOr404('Shop_Order', $match['secureId']);
+            $request->REQUEST['secureId'] = $match['secureId'];
+        } else {
+            $order = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $match['orderId']);
+        }
         $order->getManager()->apply($order, 'update');
         $order = new Shop_Order($order->id);
         return $order;
@@ -230,7 +237,7 @@ class Shop_Views_Order
         Pluf::loadFunction('Bank_Shortcuts_ConvertCurrency');
         $price = Bank_Shortcuts_ConvertCurrency($price, $tenantCurrency, $backend->currency);
         $receiptData = array(
-            'amount' => $price, // مقدار پرداخت به تومان
+            'amount' => $price,
             'title' => $order->id . ' - ' . $order->title,
             'description' => $order->id . ' - ' . $order->title,
             // 'email' => $user->email,

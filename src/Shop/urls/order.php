@@ -50,6 +50,12 @@ return array(
             'User_Precondition::memberRequired'
         )
     ),
+    array( // Update (by secure id)
+        'regex' => '#^/orders/(?P<secureId>[^/]+)$#',
+        'model' => 'Shop_Views_Order',
+        'method' => 'update',
+        'http-method' => 'POST'
+    ),
     array( // Delete
         'regex' => '#^/orders/(?P<orderId>\d+)$#',
         'model' => 'Shop_Views_Order',
