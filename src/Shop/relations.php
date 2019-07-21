@@ -5,15 +5,14 @@
  */
 
 // Pluf_Signal::connect('Shop_Order::stateChange',
-//     array(
-//         'Shop_Views_Manager_Abstract',
-//         'sendNotification'
-//     ));
-Pluf_Signal::connect('Shop_Order::stateChange',
-    array(
-        'Shop_Order_Manager_Abstract',
-        'addOrderHistory'
-    ));
+// array(
+// 'Shop_Views_Manager_Abstract',
+// 'sendNotification'
+// ));
+Pluf_Signal::connect('Shop_Order::stateChange', array(
+    'Shop_Order_Manager_Abstract',
+    'addOrderHistory'
+));
 
 return array(
     'Shop_Address' => array(
@@ -89,12 +88,12 @@ return array(
         )
     ),
     'Shop_Category' => array(
-        // XXX: note: hadi, 1396-03: commented to avoid casecade deleting *****
-        // 'relate_to' => array(
-        // 'CMS_Content',
-        // 'Shop_Category'
-        // ),
-        // *****
+        // NOTE: hadi, 1396-03: commented to avoid casecade deleting *****
+        // XXX: maso, 2019: we must remove cascade delete from biz
+        'relate_to' => array(
+            // 'CMS_Content',
+            'Shop_Category'
+        )
     ),
     'Shop_Tag' => array()
 );

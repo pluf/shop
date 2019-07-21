@@ -10,6 +10,9 @@
 		<testsuite name="Service">
 			<directory>tests/Service/</directory>
 		</testsuite>
+		<testsuite name="Category">
+			<directory>tests/Categories/</directory>
+		</testsuite>
 		<testsuite name="Delivery">
 			<directory>tests/Delivery/</directory>
 		</testsuite>
