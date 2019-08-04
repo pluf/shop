@@ -28,7 +28,7 @@ Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Service_ModelTest extends TestCase
+class Categories_ModelTest extends TestCase
 {
 
     /**

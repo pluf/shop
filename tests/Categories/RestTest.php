@@ -25,7 +25,7 @@ require_once 'Pluf.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Service_RestTest extends TestCase
+class Categories_RestTest extends TestCase
 {
 
     var $client;
