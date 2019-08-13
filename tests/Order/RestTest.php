@@ -124,7 +124,7 @@ class Order_RestTest extends TestCase
         $order->email = 'email' . rand(1000, 10000) . '@test.ir';
         return $order;
     }
-    
+
     /**
      *
      * @test
@@ -139,7 +139,7 @@ class Order_RestTest extends TestCase
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
-    
+
     /**
      *
      * @test
@@ -157,7 +157,7 @@ class Order_RestTest extends TestCase
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
-    
+
     /**
      *
      * @test
@@ -181,6 +181,19 @@ class Order_RestTest extends TestCase
     public function findRestTest()
     {
         $response = $this->client->get('/shop/orders');
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+    }
+    /**
+     *
+     * @test
+     */
+    public function findOrderSortByIdRestTest()
+    {
+        $response = $this->client->get('/shop/orders', array(
+            '_px_sk' => 'id',
+            '_px_so' => 'd'
+        ));
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
