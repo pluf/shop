@@ -1,7 +1,8 @@
-# maso, 2018: .project is not reated to the developer environment
-#.project
+# Eclipse
+#.buildpath
+/.settings/
+.phpunit.result.cache
 .buildpath
-.settings
 
 
 # Examples
@@ -15,3 +16,6 @@ composer.phar
 
 clover.xml
 /build/
+
+# netbeans
+/nbproject/private/
