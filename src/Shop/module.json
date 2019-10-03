@@ -17,6 +17,7 @@
 		"Shop_Zone",
 		"Shop_ProductMetafield",
 		"Shop_ServiceMetafield",
+		"Shop_OrderMetafield",
 		"Shop_Category",
 		"Shop_Tag"
 	],
