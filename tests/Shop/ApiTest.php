@@ -40,33 +40,27 @@ class Shop_ApiTest extends TestCase
      */
     public function testClassInstance ()
     {
-        $object = new Shop_Product();
-        $this->assertTrue(isset($object), 'Shop_Product could not be created!');
-        $object = new Shop_ProductMetafield();
-        $this->assertTrue(isset($object), 'Shop_ProductMetafield could not be created!');
-        $object = new Shop_Service();
-        $this->assertTrue(isset($object), 'Shop_Service could not be created!');
-        $object = new Shop_ServiceMetafield();
-        $this->assertTrue(isset($object), 'Shop_ServiceMetafield could not be created!');
-        $object = new Shop_Order();
-        $this->assertTrue(isset($object), 'Shop_Order could not be created!');
-        $object = new Shop_OrderHistory();
-        $this->assertTrue(isset($object), 'Shop_OrderHistory could not be created!');
-        $object = new Shop_OrderItem();
-        $this->assertTrue(isset($object), 'Shop_OrderItem could not be created!');
-        $object = new Shop_Address();
-        $this->assertTrue(isset($object), 'Shop_Address could not be created!');
-        $object = new Shop_Zone();
-        $this->assertTrue(isset($object), 'Shop_Zone could not be created!');
-        $object = new Shop_Agency();
-        $this->assertTrue(isset($object), 'Shop_Agency could not be created!');
-        $object = new Shop_Contact();
-        $this->assertTrue(isset($object), 'Shop_Contact could not be created!');
-        $object = new Shop_Delivery();
-        $this->assertTrue(isset($object), 'Shop_Delivery could not be created!');
-        $object = new Shop_TaxClass();
-        $this->assertTrue(isset($object), 'Shop_TaxClass could not be created!');
+        $models = array(
+            'Shop_Product',
+            'Shop_ProductMetafield',
+            'Shop_Service',
+            'Shop_ServiceMetafield',
+            'Shop_Order',
+            'Shop_OrderMetafield',
+            'Shop_OrderHistory',
+            'Shop_OrderItem',
+            'Shop_Address',
+            'Shop_Zone',
+            'Shop_Agency',
+            'Shop_Contact',
+            'Shop_Delivery',
+            'Shop_TaxClass'
+        );
         
+        foreach ($models as $model){
+            $object = new $model();
+            $this->assertTrue(isset($object), "$model could not be created!");
+        }
     }
 }
 

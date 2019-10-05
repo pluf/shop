@@ -239,24 +239,14 @@ class Service_RestTest extends TestCase
         $cat->create();
         Test_Assert::assertFalse($cat->isAnonymous(), 'Could not create Shop_Category');
 
-        $item->setAssoc($cat);
-
-        // find
-        $response = $this->client->get('/shop/services/' . $item->id . '/categories');
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
-
         // create
         $response = $this->client->post('/shop/services/' . $item->id . '/categories', $cat->jsonSerialize());
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
-
-        // TODO: hadi, 2018: add get method to service.url
-        // // get
-        // $response = $this->client->get('/shop/service/' . $item->id . '/category/' . $cat->id);
-        // $this->assertNotNull($response);
-        // $this->assertEquals($response->status_code, 200);
-
+        // find
+        $response = $this->client->get('/shop/services/' . $item->id . '/categories');
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
         // delete
         $response = $this->client->delete('/shop/services/' . $item->id . '/categories/' . $cat->id);
         $this->assertNotNull($response);
@@ -281,23 +271,14 @@ class Service_RestTest extends TestCase
         $tag->create();
         Test_Assert::assertFalse($tag->isAnonymous(), 'Could not create Shop_Tag');
 
-        $item->setAssoc($tag);
-
-        // find
-        $response = $this->client->get('/shop/services/' . $item->id . '/tags');
-        $this->assertNotNull($response);
-        $this->assertEquals($response->status_code, 200);
-
         // create
         $response = $this->client->post('/shop/services/' . $item->id . '/tags', $tag->jsonSerialize());
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
-
-        // // get
-        // $response = $this->client->get('/shop/service/' . $item->id . '/tag/' . $tag->id);
-        // $this->assertNotNull($response);
-        // $this->assertEquals($response->status_code, 200);
-
+        // find
+        $response = $this->client->get('/shop/services/' . $item->id . '/tags');
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
         // delete
         $response = $this->client->delete('/shop/services/' . $item->id . '/tags/' . $tag->id);
         $this->assertNotNull($response);
