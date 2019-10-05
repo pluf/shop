@@ -135,7 +135,7 @@ return array(
         'http-method' => 'GET',
         'params' => array(
             'model' => 'Shop_OrderMetafield',
-            'parentModel' => 'Shop_Order',
+            'parent' => 'Shop_Order',
             'parentKey' => 'order_id'
         ),
     ),
@@ -146,7 +146,7 @@ return array(
         'http-method' => 'GET',
         'params' => array(
             'model' => 'Shop_OrderMetafield',
-            'parentModel' => 'Shop_Order',
+            'parent' => 'Shop_Order',
             'parentKey' => 'order_id'
         ),
     ),
@@ -163,7 +163,7 @@ return array(
         'http-method' => 'POST',
         'params' => array(
             'model' => 'Shop_OrderMetafield',
-            'parentModel' => 'Shop_Order',
+            'parent' => 'Shop_Order',
             'parentKey' => 'order_id'
         ),
         'precond' => array(
@@ -186,7 +186,7 @@ return array(
         'http-method' => 'DELETE',
         'params' => array(
             'model' => 'Shop_OrderMetafield',
-            'parentModel' => 'Shop_Order',
+            'parent' => 'Shop_Order',
             'parentKey' => 'order_id'
         ),
         'precond' => array(

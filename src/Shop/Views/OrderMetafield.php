@@ -1,4 +1,5 @@
 <?php
+
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
 
@@ -14,11 +15,12 @@ class Shop_Views_OrderMetafield extends Pluf_Views
         );
         // Check if metafield exist
         $metafield = self::getMetafieldByKey($match['parentId'], $request->REQUEST['key']);
+        $view = new Pluf_Views();
         if (!isset($metafield)) { // Should be created
-            return self::createManyToOne($request, $match, $p);
+            return $view->createManyToOne($request, $match, $p);
         }else{ // Should be updated
             $match['modelId'] = $metafield->id;
-            return self::updateManyToOne($request, $match, $p);
+            return $view->updateManyToOne($request, $match, $p);
         }
     }
     
@@ -66,6 +68,7 @@ class Shop_Views_OrderMetafield extends Pluf_Views
             'parentModel' => 'Shop_Order',
             'parentKey' => 'order_id'
         );
-        parent::updateManyToOne($request, $match, $p);
+        $view = new Pluf_Views();
+        $view->updateManyToOne($request, $match, $p);
     }
 }
