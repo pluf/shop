@@ -65,10 +65,10 @@ class Shop_Views_OrderMetafield extends Pluf_Views
         $match['modelId'] = $metaField->id;
         $p = array(
             'model' => 'Shop_OrderMetafield',
-            'parentModel' => 'Shop_Order',
+            'parent' => 'Shop_Order',
             'parentKey' => 'order_id'
         );
         $view = new Pluf_Views();
-        $view->updateManyToOne($request, $match, $p);
+        return $view->updateManyToOne($request, $match, $p);
     }
 }
