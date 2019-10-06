@@ -190,7 +190,7 @@ class Order_MetafieldsRestTest extends TestCase
         // Update
         $metafield['key'] = 'updated-key-' . rand();
         $metafield['value'] = 'updated-value-' . rand();
-        $response = $this->client->post('/shop/orders/' . $item->id . '/metafields/' . $key);
+        $response = $this->client->post('/shop/orders/' . $item->id . '/metafields/' . $key, $metafield);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
         $actual = json_decode($response->content, true);
