@@ -48,6 +48,11 @@ return array(
             'Shop_Agency'
         )
     ),
+    'Shop_OrderMetafield' => array(
+        'relate_to' => array(
+            'Shop_Order'
+        )
+    ),
     'Shop_OrderItem' => array(
         'relate_to' => array(
             'Shop_Order'
