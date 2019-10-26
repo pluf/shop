@@ -125,14 +125,36 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
     public function createOrderFilter($request)
     {
         $sql = new Pluf_SQL('deleted=%d', array(FALSE));
+        // Owner
         if (User_Precondition::isOwner($request)) {
             return $sql;
         }
         if (User_Precondition::isLogedIn($request)) {
-            $sql = $sql->Q('customer_id=%s OR assignee_id=%s', array(
+            // Customer or Assignee
+            $sql = $sql->Q('(customer_id=%s OR assignee_id=%s)', array(
                 $request->user->id,
                 $request->user->id                
             ));
+            // Agency Owner
+            $agencies = $request->user->get_agencies_list();
+            if($agencies->count() > 0){
+                $agIds = array();
+                foreach ($agencies as $ag){
+                    array_push($agIds, $ag->id);
+                }
+                $sql2 = new Pluf_SQL('agency_id IN (' . implode(',', $agIds) . ')');
+                $sql = $sql->SOr($sql2);
+            }
+            // Zone Owner
+            $zones = $request->user->get_owned_zones_list();
+            if($zones->count() > 0){
+                $zoneIds = array();
+                foreach ($zones as $zone){
+                    array_push($zoneIds, $zone->id);
+                }
+                $sql2 = new Pluf_SQL('zone_id IN (' . implode(',', $zoneIds) . ')');
+                $sql = $sql->SOr($sql2);
+            }
             return $sql;
         }
         return new Pluf_SQL('false');
