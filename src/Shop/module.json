@@ -34,6 +34,12 @@
 				"application": "shop",
 				"code_name": "agencyOwner",
 				"description": "Permission given to agency owner."
+			},
+			{
+				"name": "Shop staff",
+				"application": "shop",
+				"code_name": "staff",
+				"description": "Permission given to staff of the shop."
 			}
 		],
 		"Monitor_Metric": [
