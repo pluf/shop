@@ -15,6 +15,110 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
+    
+    public const PROPERTY_DESCRIPTION = array(
+        'name' => 'description',
+        'type' => 'String',
+        'unit' => 'none',
+        'title' => 'Description',
+        'description' => 'Description about order',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 5,
+        'defaultValue' => '',
+        'validators' => []
+    );
+    
+    public const PROPERTY_TITLE = array(
+        'name' => 'title',
+        'type' => 'String',
+        'unit' => 'none',
+        'title' => 'Title',
+        'description' => 'Title of order',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 5,
+        'defaultValue' => '',
+        'validators' => []
+    );
+    
+    public const PROPERTY_FULL_NAME = array(
+        'name' => 'full_name',
+        'type' => 'String',
+        'unit' => 'none',
+        'title' => 'Fullname',
+        'description' => 'Fullname of the customer',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 5,
+        'defaultValue' => '',
+        'validators' => []
+    );
+    
+    public const PROPERTY_PHONE = array(
+        'name' => 'phone',
+        'type' => 'String',
+        'unit' => 'none',
+        'title' => 'Phone',
+        'description' => 'Phone number of the customer',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 5,
+        'defaultValue' => '',
+        'validators' => []
+    );
+    
+    public const PROPERTY_EMAIL = array(
+        'name' => 'email',
+        'type' => 'String',
+        'unit' => 'none',
+        'title' => 'EMail',
+        'description' => 'EMail address of the customer',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 5,
+        'defaultValue' => '',
+        'validators' => []
+    );
+    
+    public const PROPERTY_PROVINCE = array(
+        'name' => 'province',
+        'type' => 'String',
+        'unit' => 'none',
+        'title' => 'Province',
+        'description' => 'Province which customer reside',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 5,
+        'defaultValue' => '',
+        'validators' => []
+    );
+    
+    public const PROPERTY_CITY = array(
+        'name' => 'city',
+        'type' => 'String',
+        'unit' => 'none',
+        'title' => 'City',
+        'description' => 'City which customer reside',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 5,
+        'defaultValue' => '',
+        'validators' => []
+    );
+    
+    public const PROPERTY_ADDRESS = array(
+        'name' => 'address',
+        'type' => 'String',
+        'unit' => 'none',
+        'title' => 'Address',
+        'description' => 'Address of the customer',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 5,
+        'defaultValue' => '',
+        'validators' => []
+    );
 
     public const PROPERTY_ZONE_ID = array(
         'name' => 'zone_id',
@@ -81,8 +185,8 @@ class Shop_Order_Event
     );
 
     public const SET_ZONE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT,
-        Shop_Order_Event::PROPERTY_ZONE_ID
+        Shop_Order_Event::PROPERTY_ZONE_ID,
+        Shop_Order_Event::PROPERTY_COMMENT
     );
 
     public const SET_ASSIGNEE_ACTION = array(
@@ -91,8 +195,8 @@ class Shop_Order_Event
     );
 
     public const SET_ASSIGNEE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT,
-        Shop_Order_Event::PROPERTY_ACCOUNT_ID
+        Shop_Order_Event::PROPERTY_ACCOUNT_ID,
+        Shop_Order_Event::PROPERTY_COMMENT
     );
 
     public const DONE_ACTION = array(
@@ -119,8 +223,14 @@ class Shop_Order_Event
     );
 
     public const UPDATE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT
-        // TODO: maso, 2018: add all attributes
+        Shop_Order_Event::PROPERTY_TITLE,
+        Shop_Order_Event::PROPERTY_DESCRIPTION,
+        Shop_Order_Event::PROPERTY_FULL_NAME,
+        Shop_Order_Event::PROPERTY_PHONE,
+        Shop_Order_Event::PROPERTY_EMAIL,
+        Shop_Order_Event::PROPERTY_PROVINCE,
+        Shop_Order_Event::PROPERTY_CITY,
+        Shop_Order_Event::PROPERTY_ADDRESS
     );
 
     public const DELETE_ACTION = array(
@@ -142,6 +252,9 @@ class Shop_Order_Event
     public static function addComment($request, $object)
     {
         // TODO: maso, 2018: add a comment to the order
+        
+        // Note: hadi, 98-08-04: there is no need to do any action.
+        // A history will be added by propagating an state change signal.
     }
 
     /**
