@@ -99,6 +99,15 @@ class Order_MetafieldsRestTest extends TestCase
         ));
     }
 
+    private function get_random_order(){
+        $order = new Shop_Order();
+        $order->title = 'order-' . rand();
+        $order->full_name = 'user-' . rand();
+        $order->phone = '0917' . rand(10000000, 100000000);
+        $order->email = 'email' . rand(1000, 10000) . '@test.ir';
+        return $order;
+    }
+    
     /**
      *
      * @test
@@ -143,15 +152,6 @@ class Order_MetafieldsRestTest extends TestCase
         $response = $this->client->delete('/shop/orders/' . $item->id . '/metafields/' . $id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
-    }
-
-    private function get_random_order(){
-        $order = new Shop_Order();
-        $order->title = 'order-' . rand();
-        $order->full_name = 'user-' . rand();
-        $order->phone = '0917' . rand(10000000, 100000000);
-        $order->email = 'email' . rand(1000, 10000) . '@test.ir';
-        return $order;
     }
 
     /**
@@ -199,7 +199,96 @@ class Order_MetafieldsRestTest extends TestCase
         $this->assertEquals($actual['namespace'], $metafield['namespace']);
     }
 
-
+    /**
+     *
+     * @test
+     */
+    public function metafieldCrudRestBySecureIdTest()
+    {
+        $item = $this->get_random_order();
+        $item->create();
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+        
+        $metafield = array(
+            'key' => 'key-' . rand(),
+            'value' => 'value-' . rand(),
+            'namespace' => 'namespace-' . rand()
+        );
+        
+        // create
+        $response = $this->client->post('/shop/orders/' . $item->secureId . '/metafields', $metafield);
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+        $actual = json_decode($response->content, true);
+        $this->assertEquals($actual['key'], $metafield['key']);
+        $this->assertEquals($actual['value'], $metafield['value']);
+        $this->assertEquals($actual['namespace'], $metafield['namespace']);
+        $id = $actual['id'];
+        // find
+        $response = $this->client->get('/shop/orders/' . $item->secureId . '/metafields');
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+        // Update
+        $metafield['key'] = 'updated-key-' . rand();
+        $metafield['value'] = 'updated-value-' . rand();
+        $response = $this->client->post('/shop/orders/' . $item->secureId . '/metafields/' . $id, $metafield);
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+        $actual = json_decode($response->content, true);
+        $this->assertEquals($actual['id'], $id);
+        $this->assertEquals($actual['key'], $metafield['key']);
+        $this->assertEquals($actual['value'], $metafield['value']);
+        $this->assertEquals($actual['namespace'], $metafield['namespace']);
+        // delete
+        $response = $this->client->delete('/shop/orders/' . $item->secureId . '/metafields/' . $id);
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+    }
+    
+    /**
+     *
+     * @test
+     */
+    public function metafieldCrudByKeyAndSecureIdRestTest()
+    {
+        $item = $this->get_random_order();
+        $item->create();
+        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+        
+        $metafield = array(
+            'key' => 'key-' . rand(),
+            'value' => 'value-' . rand(),
+            'namespace' => 'namespace-' . rand()
+        );
+        
+        // create
+        $response = $this->client->post('/shop/orders/' . $item->secureId . '/metafields', $metafield);
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+        $actual = json_decode($response->content, true);
+        $this->assertEquals($actual['key'], $metafield['key']);
+        $this->assertEquals($actual['value'], $metafield['value']);
+        $this->assertEquals($actual['namespace'], $metafield['namespace']);
+        $key = $actual['key'];
+        // Read
+        $response = $this->client->get('/shop/orders/' . $item->secureId . '/metafields/' . $key);
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+        $actual = json_decode($response->content, true);
+        $this->assertEquals($actual['key'], $metafield['key']);
+        $this->assertEquals($actual['value'], $metafield['value']);
+        $this->assertEquals($actual['namespace'], $metafield['namespace']);
+        // Update
+        $metafield['key'] = 'updated-key-' . rand();
+        $metafield['value'] = 'updated-value-' . rand();
+        $response = $this->client->post('/shop/orders/' . $item->secureId . '/metafields/' . $key, $metafield);
+        $this->assertNotNull($response);
+        $this->assertEquals($response->status_code, 200);
+        $actual = json_decode($response->content, true);
+        $this->assertEquals($actual['key'], $metafield['key']);
+        $this->assertEquals($actual['value'], $metafield['value']);
+        $this->assertEquals($actual['namespace'], $metafield['namespace']);
+    }
 }
 
 
