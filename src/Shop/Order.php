@@ -233,7 +233,9 @@ class Shop_Order extends Pluf_Model
     }
 
     /**
-     * Returns an object which manages order
+     * Returns an object which manages the order. This function find the manager from the setting of the tenant.
+     * The setting key which this function looks to find the manager of the order is named 'Shop.Order.Manager'.
+     * If there is no setting in the tenant with this key, this function uses the class 'Default'.
      * 
      * @return Shop_Order_Manager
      */
