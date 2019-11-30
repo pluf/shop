@@ -29,6 +29,7 @@ class Order_MetafieldsRestTest extends TestCase
 {
 
     var $client;
+    var $anonymousClient;
 
     /**
      *
@@ -96,6 +97,22 @@ class Order_MetafieldsRestTest extends TestCase
         $response = $this->client->post('/user/login', array(
             'login' => 'test',
             'password' => 'test'
+        ));
+        
+        // Anonymous Client
+        $this->anonymousClient = new Test_Client(array(
+            array(
+                'app' => 'Shop',
+                'regex' => '#^/shop#',
+                'base' => '',
+                'sub' => include 'Shop/urls.php'
+            ),
+            array(
+                'app' => 'User',
+                'regex' => '#^/user#',
+                'base' => '',
+                'sub' => include 'User/urls.php'
+            )
         ));
     }
 
@@ -216,7 +233,7 @@ class Order_MetafieldsRestTest extends TestCase
         );
         
         // create
-        $response = $this->client->post('/shop/orders/' . $item->secureId . '/metafields', $metafield);
+        $response = $this->anonymousClient->post('/shop/orders/' . $item->secureId . '/metafields', $metafield);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
         $actual = json_decode($response->content, true);
@@ -225,13 +242,13 @@ class Order_MetafieldsRestTest extends TestCase
         $this->assertEquals($actual['namespace'], $metafield['namespace']);
         $id = $actual['id'];
         // find
-        $response = $this->client->get('/shop/orders/' . $item->secureId . '/metafields');
+        $response = $this->anonymousClient->get('/shop/orders/' . $item->secureId . '/metafields');
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
         // Update
         $metafield['key'] = 'updated-key-' . rand();
         $metafield['value'] = 'updated-value-' . rand();
-        $response = $this->client->post('/shop/orders/' . $item->secureId . '/metafields/' . $id, $metafield);
+        $response = $this->anonymousClient->post('/shop/orders/' . $item->secureId . '/metafields/' . $id, $metafield);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
         $actual = json_decode($response->content, true);
@@ -240,7 +257,7 @@ class Order_MetafieldsRestTest extends TestCase
         $this->assertEquals($actual['value'], $metafield['value']);
         $this->assertEquals($actual['namespace'], $metafield['namespace']);
         // delete
-        $response = $this->client->delete('/shop/orders/' . $item->secureId . '/metafields/' . $id);
+        $response = $this->anonymousClient->delete('/shop/orders/' . $item->secureId . '/metafields/' . $id);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
@@ -262,7 +279,7 @@ class Order_MetafieldsRestTest extends TestCase
         );
         
         // create
-        $response = $this->client->post('/shop/orders/' . $item->secureId . '/metafields', $metafield);
+        $response = $this->anonymousClient->post('/shop/orders/' . $item->secureId . '/metafields', $metafield);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
         $actual = json_decode($response->content, true);
@@ -271,7 +288,7 @@ class Order_MetafieldsRestTest extends TestCase
         $this->assertEquals($actual['namespace'], $metafield['namespace']);
         $key = $actual['key'];
         // Read
-        $response = $this->client->get('/shop/orders/' . $item->secureId . '/metafields/' . $key);
+        $response = $this->anonymousClient->get('/shop/orders/' . $item->secureId . '/metafields/' . $key);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
         $actual = json_decode($response->content, true);
@@ -281,7 +298,7 @@ class Order_MetafieldsRestTest extends TestCase
         // Update
         $metafield['key'] = 'updated-key-' . rand();
         $metafield['value'] = 'updated-value-' . rand();
-        $response = $this->client->post('/shop/orders/' . $item->secureId . '/metafields/' . $key, $metafield);
+        $response = $this->anonymousClient->post('/shop/orders/' . $item->secureId . '/metafields/' . $key, $metafield);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
         $actual = json_decode($response->content, true);

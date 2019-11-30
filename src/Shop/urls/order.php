@@ -198,10 +198,7 @@ return array(
         'regex' => '#^/orders/(?P<secureId>[^/]+)/metafields$#',
         'model' => 'Shop_Views_OrderMetafield',
         'method' => 'createOrUpdate',
-        'http-method' => 'POST',
-        'precond' => array(
-            'User_Precondition::ownerRequired'
-        )
+        'http-method' => 'POST'
     ),
     array( // Read (list)
         'regex' => '#^/orders/(?P<secureId>[^/]+)/metafields$#',
@@ -225,27 +222,18 @@ return array(
         'regex' => '#^/orders/(?P<secureId>[^/]+)/metafields/(?P<modelId>\d+)$#',
         'model' => 'Shop_Views_OrderMetafield',
         'method' => 'updateByOrderSecureId',
-        'http-method' => 'POST',
-        'precond' => array(
-            'User_Precondition::ownerRequired'
-        )
+        'http-method' => 'POST'
     ),
     array( // Update (by key)
         'regex' => '#^/orders/(?P<secureId>[^/]+)/metafields/(?P<modelKey>[^/]+)$#',
         'model' => 'Shop_Views_OrderMetafield',
         'method' => 'updateByKey',
-        'http-method' => 'POST',
-        'precond' => array(
-            'User_Precondition::ownerRequired'
-        )
+        'http-method' => 'POST'
     ),
     array( // Delete
         'regex' => '#^/orders/(?P<secureId>[^/]+)/metafields/(?P<modelId>\d+)$#',
         'model' => 'Shop_Views_OrderMetafield',
         'method' => 'deleteByOrderSecureId',
-        'http-method' => 'DELETE',
-        'precond' => array(
-            'User_Precondition::ownerRequired'
-        )
+        'http-method' => 'DELETE'
     )
 );

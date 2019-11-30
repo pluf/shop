@@ -5,6 +5,7 @@
  * 
  * @author hadi <mohammad.hadi.mansouri@dpq.co.ir>
  *
+ * @deprecated It will be replaced by a mapped class of the User_Address in the near future.
  */
 class Shop_Address extends Pluf_Model
 {

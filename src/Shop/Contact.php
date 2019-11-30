@@ -4,6 +4,7 @@
  * مدل داده‌ای برای ذخیره انواع اطلاعات تماس مثل آدرس رایانامه، شماره تلفن، شماره همراه و ...
  * @author hadi
  *
+ * @deprecated It will be replaced by some mapped class of User_Email and User_Phone in the near future.
  */
 class Shop_Contact extends Pluf_Model
 {
