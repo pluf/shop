@@ -1,5 +1,4 @@
 <?php
-Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 Pluf::loadFunction('Pluf_Shortcuts_GetRequestParamOr403');
 Pluf::loadFunction('Pluf_Shortcuts_GetRequestParam');

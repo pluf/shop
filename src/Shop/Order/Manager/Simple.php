@@ -27,32 +27,32 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
                 'visible' => true,
                 'title' => 'Pay',
                 'description' => 'The order is payed',
-                'properties' => Shop_Order_Event::PAY_PROPERTIES,
-                'action' => Shop_Order_Event::PAY_ACTION
+                'properties' => Shop_Order_Event_Simple::PAY_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::PAY_ACTION
             ),
             'accept' => array(
                 'next' => 'processing',
                 'visible' => true,
                 'title' => 'Accept',
                 'description' => 'Accept the order',
-                'properties' => Shop_Order_Event::ACCEPT_PROPERTIES,
-                'action' => Shop_Order_Event::ACCEPT_ACTION
+                'properties' => Shop_Order_Event_Simple::ACCEPT_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::ACCEPT_ACTION
             ),
             'reject' => array(
                 'next' => 'archived',
                 'visible' => true,
                 'title' => 'Reject',
                 'description' => 'The order is not acceptable',
-                'properties' => Shop_Order_Event::REJECT_PROPERTIES,
-                'action' => Shop_Order_Event::REJECT_ACTION
+                'properties' => Shop_Order_Event_Simple::REJECT_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::REJECT_ACTION
             ),
             'update' => array(
                 'next' => 'new',
                 'visible' => false,
                 'title' => 'Update',
                 'description' => 'The order is updated',
-                'properties' => Shop_Order_Event::UPDATE_PROPERTIES,
-                'action' => Shop_Order_Event::UPDATE_ACTION,
+                'properties' => Shop_Order_Event_Simple::UPDATE_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::UPDATE_ACTION,
                 'preconditions' => array(
                     'Shop_Order_Manager_SimplePreconditions::catUpdateOrder'
                 )
@@ -64,32 +64,32 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
                 'visible' => true,
                 'title' => 'Done',
                 'description' => 'The order is completed',
-                'properties' => Shop_Order_Event::DONE_PROPERTIES,
-                'action' => Shop_Order_Event::DONE_ACTION
+                'properties' => Shop_Order_Event_Simple::DONE_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::DONE_ACTION
             ),
             'reject' => array(
                 'next' => 'archived',
                 'visible' => true,
                 'title' => 'Reject',
                 'description' => 'Reject the order',
-                'properties' => Shop_Order_Event::REJECT_PROPERTIES,
-                'action' => Shop_Order_Event::REJECT_ACTION
+                'properties' => Shop_Order_Event_Simple::REJECT_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::REJECT_ACTION
             ),
             'set_zone' => array(
                 'next' => 'processing',
                 'visible' => true,
                 'title' => 'Set zone',
                 'description' => 'Set a zone to the order',
-                'properties' => Shop_Order_Event::SET_ZONE_PROPERTIES,
-                'action' => Shop_Order_Event::SET_ZONE_ACTION
+                'properties' => Shop_Order_Event_Simple::SET_ZONE_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::SET_ZONE_ACTION
             ),
             'set_assignee' => array(
                 'next' => 'processing',
                 'visible' => true,
                 'title' => 'Set assignee',
                 'description' => 'Set assignee to the order',
-                'properties' => Shop_Order_Event::SET_ASSIGNEE_PROPERTIES,
-                'action' => Shop_Order_Event::SET_ASSIGNEE_ACTION
+                'properties' => Shop_Order_Event_Simple::SET_ASSIGNEE_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::SET_ASSIGNEE_ACTION
             )
         ),
         'complete' => array(
@@ -98,8 +98,8 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
                 'visible' => true,
                 'title' => 'Archive',
                 'description' => 'Archive the order',
-                'properties' => Shop_Order_Event::ARCHIVE_PROPERTIES,
-                'action' => Shop_Order_Event::ARCHIVE_ACTION
+                'properties' => Shop_Order_Event_Simple::ARCHIVE_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::ARCHIVE_ACTION
             )
         ),
         'archived' => array(
@@ -108,8 +108,8 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
                 'next' => 'deleted',
                 'title' => 'Delete',
                 'visible' => true,
-                'action' => Shop_Order_Event::DELETE_ACTION,
-                'properties' => Shop_Order_Event::DELETE_PROPERTIES,
+                'action' => Shop_Order_Event_Simple::DELETE_ACTION,
+                'properties' => Shop_Order_Event_Simple::DELETE_PROPERTIES,
                 'preconditions' => array(
                     'User_Precondition::isOwner'
                 )

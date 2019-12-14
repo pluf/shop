@@ -3,6 +3,9 @@
 class Shop_Order_Event
 {
 
+    /*
+     * Properties
+     */
     public const PROPERTY_COMMENT = array(
         'name' => 'description',
         'type' => 'String',
@@ -135,6 +138,22 @@ class Shop_Order_Event
             'Positive'
         ]
     );
+    
+    public const PROPERTY_AGENCY_ID = array(
+        'name' => 'agency_id',
+        'type' => 'Long',
+        'unit' => 'none',
+        'title' => 'Agency',
+        'description' => 'An agency to set to the order',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 10,
+        'defaultValue' => '',
+        'validators' => [
+            'NotNull',
+            'Positive'
+        ]
+    );
 
     public const PROPERTY_ACCOUNT_ID = array(
         'name' => 'account_id',
@@ -151,32 +170,18 @@ class Shop_Order_Event
             'Positive'
         ]
     );
-
-    public const ACCEPT_ACTION = array(
-        'Shop_Order_Event',
-        'accept'
-    );
-
-    public const ACCEPT_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT
-    );
-
+    // End of properties
+    
+    /*
+     * Actions 
+     */
     public const PAY_ACTION = array(
         'Shop_Order_Event',
         'pay'
     );
 
     public const PAY_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT
-    );
-
-    public const REJECT_ACTION = array(
-        'Shop_Order_Event',
-        'reject'
-    );
-
-    public const REJECT_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT
+        self::PROPERTY_COMMENT
     );
 
     public const SET_ZONE_ACTION = array(
@@ -185,8 +190,18 @@ class Shop_Order_Event
     );
 
     public const SET_ZONE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_ZONE_ID,
-        Shop_Order_Event::PROPERTY_COMMENT
+        self::PROPERTY_ZONE_ID,
+        self::PROPERTY_COMMENT
+    );
+
+    public const SET_AGENCY_ACTION = array(
+        'Shop_Order_Event',
+        'setAgency'
+    );
+
+    public const SET_AGENCY_PROPERTIES = array(
+        self::PROPERTY_AGENCY_ID,
+        self::PROPERTY_COMMENT
     );
 
     public const SET_ASSIGNEE_ACTION = array(
@@ -195,26 +210,8 @@ class Shop_Order_Event
     );
 
     public const SET_ASSIGNEE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_ACCOUNT_ID,
-        Shop_Order_Event::PROPERTY_COMMENT
-    );
-
-    public const DONE_ACTION = array(
-        'Shop_Order_Event',
-        'done'
-    );
-
-    public const DONE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT
-    );
-
-    public const ARCHIVE_ACTION = array(
-        'Shop_Order_Event',
-        'archive'
-    );
-
-    public const ARCHIVE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT
+        self::PROPERTY_ACCOUNT_ID,
+        self::PROPERTY_COMMENT
     );
 
     public const UPDATE_ACTION = array(
@@ -223,14 +220,14 @@ class Shop_Order_Event
     );
 
     public const UPDATE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_TITLE,
-        Shop_Order_Event::PROPERTY_DESCRIPTION,
-        Shop_Order_Event::PROPERTY_FULL_NAME,
-        Shop_Order_Event::PROPERTY_PHONE,
-        Shop_Order_Event::PROPERTY_EMAIL,
-        Shop_Order_Event::PROPERTY_PROVINCE,
-        Shop_Order_Event::PROPERTY_CITY,
-        Shop_Order_Event::PROPERTY_ADDRESS
+        self::PROPERTY_TITLE,
+        self::PROPERTY_DESCRIPTION,
+        self::PROPERTY_FULL_NAME,
+        self::PROPERTY_PHONE,
+        self::PROPERTY_EMAIL,
+        self::PROPERTY_PROVINCE,
+        self::PROPERTY_CITY,
+        self::PROPERTY_ADDRESS
     );
 
     public const DELETE_ACTION = array(
@@ -239,10 +236,12 @@ class Shop_Order_Event
     );
 
     public const DELETE_PROPERTIES = array(
-        Shop_Order_Event::PROPERTY_COMMENT
+        self::PROPERTY_COMMENT
         // TODO: maso, 2018: add all attributes
     );
-
+    // End of actions
+    
+    
     /**
      * Adds comment into the order
      *
@@ -255,28 +254,6 @@ class Shop_Order_Event
         
         // Note: hadi, 98-08-04: there is no need to do any action.
         // A history will be added by propagating an state change signal.
-    }
-
-    /**
-     * Accept an order
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $object
-     */
-    public static function accept($request, $object)
-    {
-        self::addComment($request, $object);
-    }
-
-    /**
-     * Reject an order
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $object
-     */
-    public static function reject($request, $object)
-    {
-        self::addComment($request, $object);
     }
 
     /**
@@ -307,6 +284,25 @@ class Shop_Order_Event
         }
         $order->zone_id = $zone;
     }
+    
+    /**
+     *
+     * @param Pluf_HTTP_Request $request
+     * @param Shop_Order $object
+     */
+    public static function setAgency($request, $order)
+    {
+        self::addComment($request, $order);
+        if (!array_key_exists('agency_id', $request->REQUEST)) {
+            throw new Pluf_Exception_BadRequest('agency_id is required');
+        }
+        $agencyId = $request->REQUEST['agency_id'];
+        $agency = new Shop_Agency($agencyId);
+        if ($agency->isAnonymous()) {
+            throw new Pluf_Exception('Requested agency dose not exist', 4000, null, 404);
+        }
+        $order->agency_id = $agency; 
+    }
 
     /**
      *
@@ -325,26 +321,6 @@ class Shop_Order_Event
             throw new Pluf_Exception('Requested account dose not exist', 4000, null, 404);
         }
         $order->assignee_id = $account;
-    }
-
-    /**
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $object
-     */
-    public static function done($request, $object)
-    {
-        self::addComment($request, $object);
-    }
-
-    /**
-     *
-     * @param Pluf_HTTP_Request $request
-     * @param Shop_Order $object
-     */
-    public static function archive($request, $object)
-    {
-        self::addComment($request, $object);
     }
 
     /**
