@@ -86,5 +86,128 @@ return array(
         'model' => 'Shop_Views_OrderItem',
         'method' => 'update',
         'http-method' => 'POST'
+    ),
+    
+    // ************************************************************* Metafields of OrderItem
+    array( // Create
+        'regex' => '#^/order_items/(?P<parentId>\d+)/metafields$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'createOrUpdate',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Read (list)
+        'regex' => '#^/order_items/(?P<parentId>\d+)/metafields$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'findManyToOne',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_OrderItemMetafield',
+            'parent' => 'Shop_OrderItem',
+            'parentKey' => 'order_item_id'
+        )
+    ),
+    array( // Read
+        'regex' => '#^/order_items/(?P<parentId>\d+)/metafields/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'getManyToOne',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_OrderItemMetafield',
+            'parent' => 'Shop_OrderItem',
+            'parentKey' => 'order_item_id'
+        )
+    ),
+    array( // Read
+        'regex' => '#^/order_items/(?P<parentId>\d+)/metafields/(?P<modelKey>[^/]+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'getByKey',
+        'http-method' => 'GET'
+    ),
+    array( // Update
+        'regex' => '#^/order_items/(?P<parentId>\d+)/metafields/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'updateManyToOne',
+        'http-method' => 'POST',
+        'params' => array(
+            'model' => 'Shop_OrderItemMetafield',
+            'parent' => 'Shop_OrderItem',
+            'parentKey' => 'order_item_id'
+        ),
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Update (by key)
+        'regex' => '#^/order_items/(?P<parentId>\d+)/metafields/(?P<modelKey>[^/]+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'updateByKey',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Delete
+        'regex' => '#^/order_items/(?P<parentId>\d+)/metafields/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'deleteManyToOne',
+        'http-method' => 'DELETE',
+        'params' => array(
+            'model' => 'Shop_OrderItemMetafield',
+            'parent' => 'Shop_OrderItem',
+            'parentKey' => 'order_item_id'
+        ),
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    // ************************************************************* Metafields of OrderItem (by Secure Id of Order)
+    array( // Create
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)/metafields$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'createOrUpdate',
+        'http-method' => 'POST'
+    ),
+    array( // Read (list)
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)/metafields$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'findByOrderSecureId',
+        'http-method' => 'GET'
+    ),
+    array( // Read
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)/metafields/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'getByOrderSecureId',
+        'http-method' => 'GET'
+    ),
+    array( // Read
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)/metafields/(?P<modelKey>[^/]+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'getByKey',
+        'http-method' => 'GET'
+    ),
+    array( // Update
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)/metafields/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'updateByOrderSecureId',
+        'http-method' => 'POST'
+    ),
+    array( // Update (by key)
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)/metafields/(?P<modelKey>[^/]+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'updateByKey',
+        'http-method' => 'POST'
+    ),
+    array( // Delete
+        'regex' => '#^/orders/(?P<secureId>[^/]+)/items/(?P<itemId>\d+)/metafields/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_OrderItemMetafield',
+        'method' => 'deleteByOrderSecureId',
+        'http-method' => 'DELETE'
     )
+    
+    
+    
+    
 );
