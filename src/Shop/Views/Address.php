@@ -91,7 +91,7 @@ class Shop_Views_Address
         $address = Pluf_Shortcuts_GetObjectOr404('Shop_Address', $match['addressId']);        
         if (self::canAccess($request, $address)) {
             $address->delete();
-            return $address
+            return $address;
         }
         throw new Pluf_Exception_PermissionDenied("Permission is denied");
     }
