@@ -1,5 +1,4 @@
 <?php
-use phpDocumentor\Reflection\Types\This;
 
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
