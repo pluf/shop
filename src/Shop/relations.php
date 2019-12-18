@@ -58,6 +58,11 @@ return array(
             'Shop_Order'
         )
     ),
+    'Shop_OrderItemMetafield' => array(
+        'relate_to' => array(
+            'Shop_OrderItem'
+        )
+    ),
     'Shop_OrderHistory' => array(
         'relate_to' => array(
             'Shop_Order'
