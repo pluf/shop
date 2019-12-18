@@ -105,5 +105,10 @@ return array(
             'Shop_Category'
         )
     ),
+    'Shop_CategoryMetafield' => array(
+        'relate_to' => array(
+            'Shop_Category'
+        )
+    ),
     'Shop_Tag' => array()
 );

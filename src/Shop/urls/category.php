@@ -66,6 +66,81 @@ return array(
             'User_Precondition::ownerRequired'
         )
     ),
+    // ************************************************************* Metafields of Category
+    array( // Create
+        'regex' => '#^/categories/(?P<parentId>\d+)/metafields$#',
+        'model' => 'Shop_Views_CategoryMetafield',
+        'method' => 'createOrUpdate',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Read (list)
+        'regex' => '#^/categories/(?P<parentId>\d+)/metafields$#',
+        'model' => 'Shop_Views_CategoryMetafield',
+        'method' => 'findManyToOne',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_CategoryMetafield',
+            'parent' => 'Shop_Category',
+            'parentKey' => 'category_id'
+        )
+    ),
+    array( // Read
+        'regex' => '#^/categories/(?P<parentId>\d+)/metafields/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_CategoryMetafield',
+        'method' => 'getManyToOne',
+        'http-method' => 'GET',
+        'params' => array(
+            'model' => 'Shop_CategoryMetafield',
+            'parent' => 'Shop_Category',
+            'parentKey' => 'category_id'
+        )
+    ),
+    array( // Read
+        'regex' => '#^/categories/(?P<parentId>\d+)/metafields/(?P<modelKey>[^/]+)$#',
+        'model' => 'Shop_Views_CategoryMetafield',
+        'method' => 'getByKey',
+        'http-method' => 'GET'
+    ),
+    array( // Update
+        'regex' => '#^/categories/(?P<parentId>\d+)/metafields/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_CategoryMetafield',
+        'method' => 'updateManyToOne',
+        'http-method' => 'POST',
+        'params' => array(
+            'model' => 'Shop_CategoryMetafield',
+            'parent' => 'Shop_Category',
+            'parentKey' => 'category_id'
+        ),
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Update (by key)
+        'regex' => '#^/categories/(?P<parentId>\d+)/metafields/(?P<modelKey>[^/]+)$#',
+        'model' => 'Shop_Views_CategoryMetafield',
+        'method' => 'updateByKey',
+        'http-method' => 'POST',
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
+    array( // Delete
+        'regex' => '#^/categories/(?P<parentId>\d+)/metafields/(?P<modelId>\d+)$#',
+        'model' => 'Shop_Views_CategoryMetafield',
+        'method' => 'deleteManyToOne',
+        'http-method' => 'DELETE',
+        'params' => array(
+            'model' => 'Shop_CategoryMetafield',
+            'parent' => 'Shop_Category',
+            'parentKey' => 'category_id'
+        ),
+        'precond' => array(
+            'User_Precondition::ownerRequired'
+        )
+    ),
     // ************************************************************* Items (product or service) in Category
     array(
         'regex' => '#^/categories/(?P<categoryId>\d+)/(?P<item>[^/]+)$#',
