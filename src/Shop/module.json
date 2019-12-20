@@ -18,7 +18,9 @@
 		"Shop_ProductMetafield",
 		"Shop_ServiceMetafield",
 		"Shop_OrderMetafield",
+		"Shop_OrderItemMetafield",
 		"Shop_Category",
+		"Shop_CategoryMetafield",
 		"Shop_Tag"
 	],
 	"init": {

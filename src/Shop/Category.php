@@ -94,8 +94,7 @@ class Shop_Category extends Pluf_Model
     /**
      * \brief پیش ذخیره را انجام می‌دهد
      *
-     * @param $create حالت
-     *            ساخت یا به روز رسانی را تعیین می‌کند
+     * @param $create
      */
     function preSave($create = false)
     {

@@ -58,6 +58,11 @@ return array(
             'Shop_Order'
         )
     ),
+    'Shop_OrderItemMetafield' => array(
+        'relate_to' => array(
+            'Shop_OrderItem'
+        )
+    ),
     'Shop_OrderHistory' => array(
         'relate_to' => array(
             'Shop_Order'
@@ -97,6 +102,11 @@ return array(
         // XXX: maso, 2019: we must remove cascade delete from biz
         'relate_to' => array(
             // 'CMS_Content',
+            'Shop_Category'
+        )
+    ),
+    'Shop_CategoryMetafield' => array(
+        'relate_to' => array(
             'Shop_Category'
         )
     ),
