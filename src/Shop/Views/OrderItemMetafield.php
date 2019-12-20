@@ -89,7 +89,7 @@ class Shop_Views_OrderItemMetafield extends Pluf_Views
     {
         $metaField = self::getByKey($request, $match);
         $match['modelId'] = $metaField->id;
-        $match['parentId'] = $metaField->order_id;
+        $match['parentId'] = $metaField->order_item_id;
         $p = array(
             'model' => 'Shop_OrderItemMetafield',
             'parent' => 'Shop_OrderItem',
