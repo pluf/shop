@@ -76,7 +76,6 @@ return array(
     'Shop_Product' => array(
         'relate_to_many' => array(
             'Shop_TaxClass',
-            'Shop_ProductMetafield',
             'Shop_Category',
             'Shop_Tag'
         )
@@ -84,7 +83,6 @@ return array(
     'Shop_Service' => array(
         'relate_to_many' => array(
             'Shop_TaxClass',
-            'Shop_ServiceMetafield',
             'Shop_Category',
             'Shop_Tag'
         )
@@ -108,6 +106,16 @@ return array(
     'Shop_CategoryMetafield' => array(
         'relate_to' => array(
             'Shop_Category'
+        )
+    ),
+    'Shop_ProductMetafield' => array(
+        'relate_to' => array(
+            'Shop_Product'
+        )
+    ),
+    'Shop_ServiceMetafield' => array(
+        'relate_to' => array(
+            'Shop_Service'
         )
     ),
     'Shop_Tag' => array()
