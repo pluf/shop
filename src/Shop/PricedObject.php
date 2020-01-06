@@ -45,7 +45,7 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'name' => 'categories',
                 'graphql_name' => 'categories',
                 'editable' => false,
-                'readable' => false
+                'readable' => true
             ),
             'tags' => array(
                 'type' => 'Pluf_DB_Field_Manytomany',
@@ -53,7 +53,7 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'name' => 'tags',
                 'graphql_name' => 'tags',
                 'editable' => false,
-                'readable' => false
+                'readable' => true
             )
         ));
     }

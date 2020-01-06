@@ -33,7 +33,7 @@ class Shop_Service extends Shop_PricedObject
                 'graphql_name' => 'taxes',
                 'relate_name' => 'services',
                 'editable' => false,
-                'readable' => false
+                'readable' => true
             )
         ));
         // Set the field name in the another entity in the relationship
