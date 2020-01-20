@@ -16,9 +16,17 @@ class Shop_Views_Order
         $user = $request->user;
         $data = $request->REQUEST;
         if (isset($user)) {
-            $request->REQUEST['full_name'] = isset($data['full_name']) ? $data['full_name'] : $user->first_name . ' ' . $user->last_name;
-            $request->REQUEST['email'] = isset($data['email']) ? $data['email'] : $user->email;
-            // TODO: hadi: get phone number from profile and set it if already
+            // fullname
+            if(!array_key_exists('full_name', $data)){                
+                $profiles = $user->get_profiles_list();
+                if($profiles->count() > 0){
+                    $fullname = $profiles[0]->first_name . ' ' . $profiles[0]->last_name;
+                    $request->REQUEST['full_name'] = $fullname;
+                }
+            }
+            // $request->REQUEST['full_name'] = isset($data['full_name']) ? $data['full_name'] : $user->first_name . ' ' . $user->last_name;
+            // $request->REQUEST['email'] = isset($data['email']) ? $data['email'] : $user->email;
+            // TODO: hadi: get phone number, full name, and email from profile and set it if already
             // is not set.
         }
         Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
