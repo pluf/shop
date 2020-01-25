@@ -21,9 +21,7 @@ abstract class Shop_Order_Manager_Abstract implements Shop_Order_Manager
     {
         $machine = new Workflow_Machine();
         $machine->setStates($this->getStates())
-            ->setSignals(array(
-            'Shop_Order::stateChange'
-        ))
+            ->setSignals(array('Shop_Order::stateChange'))
             ->setProperty('state')
             ->apply($order, $action);
         if ($save) {
