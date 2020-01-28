@@ -67,13 +67,13 @@ abstract class Shop_Order_Manager_Abstract implements Shop_Order_Manager
     {
         switch ($event->event) {
             case 'set_zone':
-                $subject = $event->object->get_zone();
+                $object = $event->object->get_zone();
                 break;
             case 'pay':
-                $subject = $event->object->get_payment();
+                $object = $event->object->get_payment();
                 break;
             case 'set_assignee':
-                $subject = $event->object->get_assignee();
+                $object = $event->object->get_assignee();
                 break;
             case 'accept':
             case 'reject':
@@ -81,7 +81,7 @@ abstract class Shop_Order_Manager_Abstract implements Shop_Order_Manager
             case 'done':
             case 'archive':
             default:
-                $subject = $event->object;
+                $object = $event->object;
                 break;
         }
 
@@ -91,12 +91,12 @@ abstract class Shop_Order_Manager_Abstract implements Shop_Order_Manager
         $history = new Shop_OrderHistory();
         $history->order_id = $event->object;
         if (isset($event->request->user)) {
-            $history->object_type = $event->request->user->_model;
-            $history->object_id = $event->request->user->id;
+            $history->subject_type = $event->request->user->_model;
+            $history->subject_id = $event->request->user->id;
         }
         $history->action = $underscored;
-        $history->subject_type = $subject->_model;
-        $history->subject_id = $subject->id;
+        $history->object_type = $object->_model;
+        $history->object_id = $object->id;
         $history->description = '' . Pluf_Shortcuts_GetRequestParam($event->request, 'description');
         $history->create();
     }
