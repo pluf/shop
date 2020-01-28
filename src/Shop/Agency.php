@@ -55,7 +55,9 @@ class Shop_Agency extends Shop_DetailedObject
             ),
             'point' => array(
                 'type' => 'Pluf_DB_Field_Geometry',
-                'is_null' => false
+                'is_null' => true,
+                'editable' => true,
+                'readable' => true
             ),
             'deleted' => array(
                 'type' => 'Pluf_DB_Field_Boolean',
