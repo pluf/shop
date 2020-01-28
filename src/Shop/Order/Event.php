@@ -18,7 +18,7 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
-    
+
     public const PROPERTY_DESCRIPTION = array(
         'name' => 'description',
         'type' => 'String',
@@ -31,7 +31,7 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
-    
+
     public const PROPERTY_TITLE = array(
         'name' => 'title',
         'type' => 'String',
@@ -44,7 +44,7 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
-    
+
     public const PROPERTY_FULL_NAME = array(
         'name' => 'full_name',
         'type' => 'String',
@@ -57,7 +57,7 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
-    
+
     public const PROPERTY_PHONE = array(
         'name' => 'phone',
         'type' => 'String',
@@ -70,7 +70,7 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
-    
+
     public const PROPERTY_EMAIL = array(
         'name' => 'email',
         'type' => 'String',
@@ -83,7 +83,7 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
-    
+
     public const PROPERTY_PROVINCE = array(
         'name' => 'province',
         'type' => 'String',
@@ -96,7 +96,7 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
-    
+
     public const PROPERTY_CITY = array(
         'name' => 'city',
         'type' => 'String',
@@ -109,7 +109,7 @@ class Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
-    
+
     public const PROPERTY_ADDRESS = array(
         'name' => 'address',
         'type' => 'String',
@@ -138,7 +138,7 @@ class Shop_Order_Event
             'Positive'
         ]
     );
-    
+
     public const PROPERTY_AGENCY_ID = array(
         'name' => 'agency_id',
         'type' => 'Long',
@@ -170,10 +170,11 @@ class Shop_Order_Event
             'Positive'
         ]
     );
+
     // End of properties
-    
+
     /*
-     * Actions 
+     * Actions
      */
     public const PAY_ACTION = array(
         'Shop_Order_Event',
@@ -239,9 +240,14 @@ class Shop_Order_Event
         self::PROPERTY_COMMENT
         // TODO: maso, 2018: add all attributes
     );
+
+    public const SEND_NOTIFICATION_ACTION = array(
+        'Shop_Order_Event',
+        'sendNotification'
+    );
+
     // End of actions
-    
-    
+
     /**
      * Adds comment into the order
      *
@@ -251,7 +257,7 @@ class Shop_Order_Event
     public static function addComment($request, $object)
     {
         // TODO: maso, 2018: add a comment to the order
-        
+
         // Note: hadi, 98-08-04: there is no need to do any action.
         // A history will be added by propagating an state change signal.
     }
@@ -274,7 +280,7 @@ class Shop_Order_Event
     public static function setZone($request, $order)
     {
         self::addComment($request, $order);
-        if (!array_key_exists('zone_id', $request->REQUEST)) {
+        if (! array_key_exists('zone_id', $request->REQUEST)) {
             throw new Pluf_Exception_BadRequest('zone_id is required');
         }
         $zoneId = $request->REQUEST['zone_id'];
@@ -284,7 +290,7 @@ class Shop_Order_Event
         }
         $order->zone_id = $zone;
     }
-    
+
     /**
      *
      * @param Pluf_HTTP_Request $request
@@ -293,7 +299,7 @@ class Shop_Order_Event
     public static function setAgency($request, $order)
     {
         self::addComment($request, $order);
-        if (!array_key_exists('agency_id', $request->REQUEST)) {
+        if (! array_key_exists('agency_id', $request->REQUEST)) {
             throw new Pluf_Exception_BadRequest('agency_id is required');
         }
         $agencyId = $request->REQUEST['agency_id'];
@@ -301,7 +307,7 @@ class Shop_Order_Event
         if ($agency->isAnonymous()) {
             throw new Pluf_Exception('Requested agency dose not exist', 4000, null, 404);
         }
-        $order->agency_id = $agency; 
+        $order->agency_id = $agency;
     }
 
     /**
@@ -312,7 +318,7 @@ class Shop_Order_Event
     public static function setAssignee($request, $order)
     {
         self::addComment($request, $order);
-        if (!array_key_exists('account_id', $request->REQUEST)) {
+        if (! array_key_exists('account_id', $request->REQUEST)) {
             throw new Pluf_Exception_BadRequest('account_id is required');
         }
         $accountId = $request->REQUEST['account_id'];
@@ -346,5 +352,31 @@ class Shop_Order_Event
     {
         self::addComment($request, $order);
         $order->deleted = true;
+    }
+
+    public static function sendNotification($request, $object)
+    {
+        try {
+            // Load notifier engine
+            $type = class_exists('Tenant_Service') ? //
+            Tenant_Service::setting('shop_order.notifier.engine', 'nonotify') : //
+            Pluf::f('shop_order.notifier.engine', 'nonotify');
+
+            $engine = Notifier_Service::getEngine($type);
+            if (! $engine) {
+                throw new Notifier_Exception_EngineLoad('Defined notifier engine does not exist.');
+            }
+            // TODO: hadi, 1398-11: improve to consider email notifiers or other type of notifiers (following code should be general)
+            $data = array(
+                'code' => $object->secureId,
+                'receiver' => $object->phone
+            );
+            $engineResponse = $engine->send($data);
+            if (! $engineResponse) {
+                throw new Notifier_Exception_NotificationSend();
+            }
+        } catch (Exception $e) {
+            // TODO: hadi, 1398-11: log the error
+        }
     }
 }
