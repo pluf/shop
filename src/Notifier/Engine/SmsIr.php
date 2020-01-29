@@ -106,7 +106,7 @@ class Notifier_Engine_SmsIr extends Notifier_Engine
         $path = $templateId > 0 ? '/api/UltraFastSend' : '/api/VerificationCode';
         $param = array();
         if ($templateId > 0) {
-            $param['MobileNumber'] = $receiver;
+            $param['Mobile'] = $receiver;
             $param['TemplateId'] = $templateId;
             $param['ParameterArray'] = array(
                 array(
@@ -115,7 +115,7 @@ class Notifier_Engine_SmsIr extends Notifier_Engine
                 )
             );
         } else {
-            $param['MobileNumber'] = $receiver;
+            $param['Mobile'] = $receiver;
             $param['Code'] = $code;
         }
         $client = new GuzzleHttp\Client();
