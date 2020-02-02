@@ -115,7 +115,7 @@ class Notifier_Engine_SmsIr extends Notifier_Engine
                 )
             );
         } else {
-            $param['Mobile'] = $receiver;
+            $param['MobileNumber'] = $receiver;
             $param['Code'] = $code;
         }
         $client = new GuzzleHttp\Client();
