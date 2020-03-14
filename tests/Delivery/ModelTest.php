@@ -16,29 +16,22 @@
  * You should have received a copy of the GNU Gneral Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
+use Pluf\Test\TestCase;
 
-require_once 'Pluf.php';
-
-Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
-
-/**
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class Delivery_ModelTest extends TestCase
 {
+
     /**
+     *
      * @beforeClass
      */
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
-        
+
         // Test user
         $user = new User_Account();
         $user->login = 'test';
@@ -55,62 +48,66 @@ class Delivery_ModelTest extends TestCase
         if (true !== $credit->create()) {
             throw new Exception();
         }
-        
+
         $per = User_Role::getFromString('tenant.owner');
         $user->setAssoc($per);
     }
 
     /**
+     *
      * @afterClass
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
-    private function get_random_delivery(){
+    private function get_random_delivery()
+    {
         $delivery = new Shop_Delivery();
         $delivery->title = 'delivery-' . rand();
         $delivery->price = 20000;
         return $delivery;
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleCreateNew()
     {
         $delivery = $this->get_random_delivery();
-        Test_Assert::assertTrue($delivery->create(), 'Impossible to create delivery');
+        $this->assertTrue($delivery->create(), 'Impossible to create delivery');
     }
 
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetCategories()
     {
         $delivery = $this->get_random_delivery();
-        Test_Assert::assertTrue($delivery->create(), 'Impossible to create delivery');
-        
+        $this->assertTrue($delivery->create(), 'Impossible to create delivery');
+
         $delivery = new Shop_Delivery($delivery->id);
         $cats = $delivery->get_categories_list();
-        Test_Assert::assertEquals(0, $cats->count());
+        $this->assertEquals(0, $cats->count());
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetTags()
     {
         $delivery = $this->get_random_delivery();
-        Test_Assert::assertTrue($delivery->create(), 'Impossible to create delivery');
-        
+        $this->assertTrue($delivery->create(), 'Impossible to create delivery');
+
         $delivery = new Shop_Delivery($delivery->id);
         $tags = $delivery->get_tags_list();
-        Test_Assert::assertEquals(0, $tags->count());
+        $this->assertEquals(0, $tags->count());
     }
-    
 }
 
 

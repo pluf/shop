@@ -1,5 +1,6 @@
 {
 	"name" : "pluf/shop",
+	"version" : "6.0.5",
 	"description" : "Simple online shop and service",
 	"type" : "library",
 	"license" : "MIT",
@@ -21,19 +22,14 @@
 	],
 	"minimum-stability" : "stable",
 	"require" : {
-		"pluf/core" : "5.13.x",
-		"pluf/tenant" : "5.13.x",
-		"pluf/cache" : "5.13.x",
-		"pluf/cms" : "5.13.x",
-		"pluf/bank" : "5.13.x",
-		"pluf/monitor" : "5.13.x"
+		"pluf/core" : "6.x",
+		"pluf/tenant" : "6.x",
+		"pluf/bank" : "6.x",
+		"pluf/monitor" : "6.x"
 	},
 	"require-dev" : {
-		"pluf/test" : "5.13.x"
+		"pluf/test" : "6.x"
 	},
-	"include-path" : [
-		"src/"
-	],
 	"homepage" : "https://gitlab.com/microshop/shop",
 	"support" : {
 		"email" : "info@pluf.ir",
@@ -46,5 +42,86 @@
 		"shop",
 		"sell",
 		"service"
+	],
+	"include-path" : [
+		"src/"
+	],
+	"autoload" : {
+		"psr-4" : {
+			"Pluf\\Shop\\" : "src6"
+		},
+		"psr-0" : {
+			"" : "src"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"Pluf\\Test\\" : "tests"
+		}
+	},
+	"repositories" : [{
+			"type" : "path",
+			"url" : "../core",
+			"name" : "pluf/core",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../test",
+			"name" : "pluf/test",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../http2",
+			"name" : "pluf/http2",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../user",
+			"name" : "pluf/user",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../workflow",
+			"name" : "pluf/workflow",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../discount",
+			"name" : "pluf/discount",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../bank",
+			"name" : "pluf/bank",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../monitor",
+			"name" : "pluf/monitor",
+			"options" : {
+				"symlink" : true
+			}
+		}, {
+			"type" : "path",
+			"url" : "../tenant",
+			"name" : "pluf/tenant",
+			"options" : {
+				"symlink" : true
+			}
+		}
 	]
 }

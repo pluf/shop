@@ -16,19 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
-require_once 'Pluf.php';
+use Pluf\Test\Client;
+use Pluf\Test\TestCase;
 
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class Categories_MetafieldsRestTest extends TestCase
 {
 
     var $client;
+
     var $anonymousClient;
 
     /**
@@ -38,7 +33,7 @@ class Categories_MetafieldsRestTest extends TestCase
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
 
@@ -69,8 +64,8 @@ class Categories_MetafieldsRestTest extends TestCase
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
     /**
@@ -79,50 +74,25 @@ class Categories_MetafieldsRestTest extends TestCase
      */
     public function init()
     {
-        $this->client = new Test_Client(array(
-            array(
-                'app' => 'Shop',
-                'regex' => '#^/shop#',
-                'base' => '',
-                'sub' => include 'Shop/urls.php'
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls.php'
-            )
-        ));
+        $this->client = new Client();
         // login
         $response = $this->client->post('/user/login', array(
             'login' => 'test',
             'password' => 'test'
         ));
-        
+
         // Anonymous Client
-        $this->anonymousClient = new Test_Client(array(
-            array(
-                'app' => 'Shop',
-                'regex' => '#^/shop#',
-                'base' => '',
-                'sub' => include 'Shop/urls.php'
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls.php'
-            )
-        ));
+        $this->anonymousClient = new Client();
     }
 
-    private function get_random_category(){
+    private function get_random_category()
+    {
         $category = new Shop_Category();
         $category->name = 'category-' . rand();
         $category->description = 'a test catego' . rand();
         return $category;
     }
-    
+
     /**
      *
      * @test
@@ -131,13 +101,13 @@ class Categories_MetafieldsRestTest extends TestCase
     {
         $item = $this->get_random_category();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Category');
-        
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Category');
+
         $metafield = array(
             'key' => 'key-' . rand(),
             'value' => 'value-' . rand()
         );
-        
+
         // create
         $response = $this->client->post('/shop/categories/' . $item->id . '/metafields', $metafield);
         $this->assertNotNull($response);
@@ -174,13 +144,13 @@ class Categories_MetafieldsRestTest extends TestCase
     {
         $item = $this->get_random_category();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Category');
-        
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Category');
+
         $metafield = array(
             'key' => 'key-' . rand(),
             'value' => 'value-' . rand()
         );
-        
+
         // create
         $response = $this->client->post('/shop/categories/' . $item->id . '/metafields', $metafield);
         $this->assertNotNull($response);
@@ -206,7 +176,6 @@ class Categories_MetafieldsRestTest extends TestCase
         $this->assertEquals($actual['key'], $metafield['key']);
         $this->assertEquals($actual['value'], $metafield['value']);
     }
-
 }
 
 

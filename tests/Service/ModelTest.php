@@ -16,29 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
+use Pluf\Test\TestCase;
+use Pluf\Test\Test_Assert;
 
-require_once 'Pluf.php';
-
-Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
-
-/**
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class Service_ModelTest extends TestCase
 {
+
     /**
+     *
      * @beforeClass
      */
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
-        
+
         // Test user
         $user = new User_Account();
         $user->login = 'test';
@@ -55,75 +49,80 @@ class Service_ModelTest extends TestCase
         if (true !== $credit->create()) {
             throw new Exception();
         }
-        
+
         $per = User_Role::getFromString('tenant.owner');
         $user->setAssoc($per);
     }
 
     /**
+     *
      * @afterClass
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
-    private function get_random_service(){
+    private function get_random_service()
+    {
         $service = new Shop_Service();
         $service->title = 'service-' . rand();
         $service->price = 20000;
         return $service;
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleCreateNew()
     {
         $service = $this->get_random_service();
-        Test_Assert::assertTrue($service->create(), 'Impossible to create service');
+        $this->assertTrue($service->create(), 'Impossible to create service');
     }
 
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetCategories()
     {
         $service = $this->get_random_service();
-        Test_Assert::assertTrue($service->create(), 'Impossible to create service');
-        
+        $this->assertTrue($service->create(), 'Impossible to create service');
+
         $service = new Shop_Service($service->id);
         $cats = $service->get_categories_list();
-        Test_Assert::assertEquals(0, $cats->count());
+        $this->assertEquals(0, $cats->count());
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetTags()
     {
         $service = $this->get_random_service();
-        Test_Assert::assertTrue($service->create(), 'Impossible to create service');
-        
+        $this->assertTrue($service->create(), 'Impossible to create service');
+
         $service = new Shop_Service($service->id);
         $tags = $service->get_tags_list();
-        Test_Assert::assertEquals(0, $tags->count());
+        $this->assertEquals(0, $tags->count());
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetTaxes()
     {
         $service = $this->get_random_service();
-        Test_Assert::assertTrue($service->create(), 'Impossible to create service');
-        
+        $this->assertTrue($service->create(), 'Impossible to create service');
+
         $service = new Shop_Service($service->id);
         $taxes = $service->get_taxes_list();
-        Test_Assert::assertEquals(0, $taxes->count());
+        $this->assertEquals(0, $taxes->count());
     }
-
 }
 
 

@@ -10,6 +10,7 @@ class Shop_Agency extends Shop_DetailedObject
 {
 
     /**
+     *
      * @brief مدل داده‌ای را بارگذاری می‌کند.
      *
      * تمام فیلدهای مورد نیاز برای این مدل داده‌ای در این متد تعیین شده و به
@@ -23,7 +24,7 @@ class Shop_Agency extends Shop_DetailedObject
         $this->_a['table'] = 'shop_agency';
         $this->_a['model'] = 'Shop_Agency';
         $this->_model = 'Shop_Agency';
-        
+
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'province' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
@@ -88,16 +89,6 @@ class Shop_Agency extends Shop_DetailedObject
                 'relate_name' => 'agencies',
                 'editable' => true,
                 'readable' => true
-            ),
-            'content_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'CMS_Content',
-                'name' => 'content',
-                'graphql_name' => 'content',
-                'relate_name' => 'agencies',
-                'is_null' => true,
-                'editable' => true,
-                'readable' => true
             )
         ));
     }
@@ -105,7 +96,7 @@ class Shop_Agency extends Shop_DetailedObject
     /**
      * Checks if given user is a owner of zone
      *
-     * @param User_Account $user            
+     * @param User_Account $user
      * @return boolean
      */
     function isOwner($user)

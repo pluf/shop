@@ -1,4 +1,6 @@
 <?php
+use Pluf\Workflow;
+
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 Pluf::loadFunction('Pluf_Shortcuts_GetRequestParamOr403');
 Pluf::loadFunction('Pluf_Shortcuts_GetRequestParam');
@@ -19,9 +21,11 @@ abstract class Shop_Order_Manager_Abstract implements Shop_Order_Manager
      */
     public function apply($order, $action, $save = false)
     {
-        $machine = new Workflow_Machine();
+        $machine = new Workflow\Machine();
         $machine->setStates($this->getStates())
-            ->setSignals(array('Shop_Order::stateChange'))
+            ->setSignals(array(
+            'Shop_Order::stateChange'
+        ))
             ->setProperty('state')
             ->apply($order, $action);
         if ($save) {

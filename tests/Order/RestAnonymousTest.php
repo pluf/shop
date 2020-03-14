@@ -16,15 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
-require_once 'Pluf.php';
-
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
+use Pluf\Test\Client;
+use Pluf\Test\TestCase;
 class Order_RestAnonymousTest extends TestCase
 {
 
@@ -37,7 +30,7 @@ class Order_RestAnonymousTest extends TestCase
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
 
@@ -68,8 +61,8 @@ class Order_RestAnonymousTest extends TestCase
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
     /**
@@ -78,20 +71,7 @@ class Order_RestAnonymousTest extends TestCase
      */
     public function init()
     {
-        $this->client = new Test_Client(array(
-            array(
-                'app' => 'Shop',
-                'regex' => '#^/shop#',
-                'base' => '',
-                'sub' => include 'Shop/urls.php'
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls.php'
-            )
-        ));
+        $this->client = new Client();
     }
 
     /**
@@ -128,7 +108,7 @@ class Order_RestAnonymousTest extends TestCase
     {
         $item = $this->get_random_order();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
         // Get item
         $this->expectException(Pluf_Exception_Unauthorized::class);
         $response = $this->client->get('/shop/orders/' . $item->id);
@@ -144,7 +124,7 @@ class Order_RestAnonymousTest extends TestCase
     {
         $item = $this->get_random_order();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
         // Get item
         $response = $this->client->get('/shop/orders/' . $item->secureId);
         $this->assertNotNull($response);
@@ -159,7 +139,7 @@ class Order_RestAnonymousTest extends TestCase
     {
         $item = $this->get_random_order();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
         // Update item
         $form = array(
             'title' => 'new title' . rand()
@@ -178,7 +158,7 @@ class Order_RestAnonymousTest extends TestCase
     {
         $item = $this->get_random_order();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
         // Update item
         $form = array(
             'title' => 'new title' . rand()
@@ -196,7 +176,7 @@ class Order_RestAnonymousTest extends TestCase
     {
         $item = $this->get_random_order();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Order');
 
         $this->expectException(Pluf_Exception_Unauthorized::class);
         // delete

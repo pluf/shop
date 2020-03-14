@@ -66,16 +66,6 @@ class Shop_Category extends Pluf_Model
                 'relate_name' => 'children',
                 'editable' => true,
                 'readable' => true
-            ),
-            'content_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'CMS_Content',
-                'blank' => true,
-                'name' => 'content',
-                'graphql_name' => 'content',
-                'relate_name' => 'categories',
-                'editable' => true,
-                'readable' => true
             )
         );
 
@@ -94,7 +84,8 @@ class Shop_Category extends Pluf_Model
     /**
      * \brief پیش ذخیره را انجام می‌دهد
      *
-     * @param $create
+     * @param
+     *            $create
      */
     function preSave($create = false)
     {

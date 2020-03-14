@@ -16,32 +16,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
+use Pluf\Test\TestCase;
 
-require_once 'Pluf.php';
-
-Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
-
-/**
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class OrderItem_ModelTest extends TestCase
 {
+
     private $order;
+
     private $product;
-    
+
     /**
+     *
      * @beforeClass
      */
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
-        
+
         // Test user
         $user = new User_Account();
         $user->login = 'test';
@@ -58,22 +52,23 @@ class OrderItem_ModelTest extends TestCase
         if (true !== $credit->create()) {
             throw new Exception();
         }
-        
+
         $per = User_Role::getFromString('tenant.owner');
         $user->setAssoc($per);
-        
     }
 
     /**
+     *
      * @afterClass
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
-    private function get_random_orderItem(){
+    private function get_random_orderItem()
+    {
         $item = new Shop_OrderItem();
         $item->item_id = $this->product->id;
         $item->item_type = 'product';
@@ -83,17 +78,18 @@ class OrderItem_ModelTest extends TestCase
     }
 
     /**
-     * 
+     *
      * @before
      */
-    public function init(){
+    public function init()
+    {
         $this->product = new Shop_Product();
         $this->product->manufacturer = 'manufacturer-' . rand();
         $this->product->brand = 'brand-' . rand();
         $this->product->model = 'model-' . rand();
         $this->product->price = 20000;
         $this->product->create();
-        
+
         $this->order = new Shop_Order();
         $this->order->title = 'order-' . rand();
         $this->order->full_name = 'user-' . rand();
@@ -101,28 +97,29 @@ class OrderItem_ModelTest extends TestCase
         $this->order->email = 'email' . rand(1000, 10000) . '@test.ir';
         $this->order->create();
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleCreateNew()
     {
         $orderItem = $this->get_random_orderItem();
-        Test_Assert::assertTrue($orderItem->create(), 'Impossible to create order-item');
+        $this->assertTrue($orderItem->create(), 'Impossible to create order-item');
     }
 
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetOrder()
     {
         $orderItem = $this->get_random_orderItem();
-        Test_Assert::assertTrue($orderItem->create(), 'Impossible to create order-item');
-        
+        $this->assertTrue($orderItem->create(), 'Impossible to create order-item');
+
         $order = $orderItem->get_order();
-        Test_Assert::assertNotNull($order);
+        $this->assertNotNull($order);
     }
-    
 }
 
 
