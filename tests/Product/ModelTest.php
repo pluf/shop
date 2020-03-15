@@ -16,29 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
+use Pluf\Test\TestCase;
+use Pluf\Test\Test_Assert;
 
-require_once 'Pluf.php';
-
-Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
-
-/**
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class Product_ModelTest extends TestCase
 {
+
     /**
+     *
      * @beforeClass
      */
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
-        
+
         // Test user
         $user = new User_Account();
         $user->login = 'test';
@@ -55,21 +49,23 @@ class Product_ModelTest extends TestCase
         if (true !== $credit->create()) {
             throw new Exception();
         }
-        
+
         $per = User_Role::getFromString('tenant.owner');
         $user->setAssoc($per);
     }
 
     /**
+     *
      * @afterClass
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
     /**
+     *
      * @test
      */
     public function shouldPossibleCreateNew()
@@ -79,10 +75,11 @@ class Product_ModelTest extends TestCase
         $product->brand = 'brand-' . rand();
         $product->model = 'model-' . rand();
         $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
+        $this->assertTrue($product->create(), 'Impossible to create product');
     }
 
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetCategories()
@@ -92,14 +89,15 @@ class Product_ModelTest extends TestCase
         $product->brand = 'brand-' . rand();
         $product->model = 'model-' . rand();
         $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
-        
+        $this->assertTrue($product->create(), 'Impossible to create product');
+
         $product = new Shop_Product($product->id);
         $cats = $product->get_categories_list();
-        Test_Assert::assertEquals(0, $cats->count());
+        $this->assertEquals(0, $cats->count());
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetTags()
@@ -109,14 +107,15 @@ class Product_ModelTest extends TestCase
         $product->brand = 'brand-' . rand();
         $product->model = 'model-' . rand();
         $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
-        
+        $this->assertTrue($product->create(), 'Impossible to create product');
+
         $product = new Shop_Product($product->id);
         $tags = $product->get_tags_list();
-        Test_Assert::assertEquals(0, $tags->count());
+        $this->assertEquals(0, $tags->count());
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetTaxes()
@@ -126,13 +125,12 @@ class Product_ModelTest extends TestCase
         $product->brand = 'brand-' . rand();
         $product->model = 'model-' . rand();
         $product->price = 20000;
-        Test_Assert::assertTrue($product->create(), 'Impossible to create product');
-        
+        $this->assertTrue($product->create(), 'Impossible to create product');
+
         $product = new Shop_Product($product->id);
         $taxes = $product->get_taxes_list();
-        Test_Assert::assertEquals(0, $taxes->count());
+        $this->assertEquals(0, $taxes->count());
     }
-
 }
 
 

@@ -16,18 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
+use Pluf\Test\TestCase;
 
-require_once 'Pluf.php';
-
-Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
-
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class Categories_ModelTest extends TestCase
 {
 
@@ -38,7 +28,7 @@ class Categories_ModelTest extends TestCase
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
 
@@ -69,8 +59,8 @@ class Categories_ModelTest extends TestCase
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
     private function get_random_model()
@@ -88,7 +78,7 @@ class Categories_ModelTest extends TestCase
     public function shouldPossibleCreateNew()
     {
         $model = $this->get_random_model();
-        Test_Assert::assertTrue($model->create(), 'Impossible to create model');
+        $this->assertTrue($model->create(), 'Impossible to create model');
     }
 }
 

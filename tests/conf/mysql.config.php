@@ -1,8 +1,7 @@
 <?php
-
 /*
  * This file is part of Pluf Framework, a simple PHP Application Framework.
- * Copyright (C) 2010-2020 Phoinex Scholars Co. http://dpq.co.ir
+ * Copyright (C) 2010-2020 Phoinex Scholars Co. (http://dpq.co.ir)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,10 +26,15 @@ $cfg['db_password'] = '';
 $cfg['db_server'] = 'localhost';
 $cfg['db_database'] = 'test';
 
+// Must be shared by all the installed_apps and the core framework.
+// That way you can have several installations of the core framework.
+$cfg['db_table_prefix'] = 'st_unit_tests_';
+
 // Starting version 4.1 of MySQL the utf-8 support is "correct".
 // The reason of the db_version for MySQL is only for that.
 $cfg['db_version'] = '5.5.33';
 $cfg['db_engine'] = 'MySQL';
 
 return $cfg;
+
 

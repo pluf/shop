@@ -4,6 +4,7 @@ class Shop_Order extends Pluf_Model
 {
 
     /**
+     *
      * @brief مدل داده‌ای را بارگذاری می‌کند.
      *
      * @see Pluf_Model::init()
@@ -175,23 +176,13 @@ class Shop_Order extends Pluf_Model
                 'readable' => true
             )
         );
-        
-        // $this->_a['idx'] = array(
-        // 'page_class_idx' => array(
-        // 'col' => 'title',
-        // 'type' => 'unique', // normal, unique, fulltext, spatial
-        // 'index_type' => '', // hash, btree
-        // 'index_option' => '',
-        // 'algorithm_option' => '',
-        // 'lock_option' => ''
-        // )
-        // );
     }
 
     /**
      * \brief پیش ذخیره را انجام می‌دهد
      *
-     * @param $create bool status of creation
+     * @param $create bool
+     *            status of creation
      */
     function preSave($create = false)
     {
@@ -233,26 +224,27 @@ class Shop_Order extends Pluf_Model
     }
 
     /**
-     * Returns an object which manages the order. This function find the manager from the setting of the tenant.
+     * Returns an object which manages the order.
+     * This function find the manager from the setting of the tenant.
      * The setting key which this function looks to find the manager of the order is named 'Shop.Order.Manager'.
      * If there is no setting in the tenant with this key, this function uses the class 'Default'.
-     * 
+     *
      * @return Shop_Order_Manager
      */
     function getManager()
     {
         $managerClassName = $this->manager;
-        if (! isset($managerClassName) || empty($managerClassName)){
+        if (! isset($managerClassName) || empty($managerClassName)) {
             $managerClassName = Tenant_Service::setting('Shop.Order.Manager', 'Default');
             $this->manager = $managerClassName;
         }
-        $managerClassName = 'Shop_Order_Manager_'.$managerClassName;
+        $managerClassName = 'Shop_Order_Manager_' . $managerClassName;
         return new $managerClassName();
     }
 
     /**
      * Computes and returns total price of order
-     * 
+     *
      * @return number
      */
     function computeTotalPrice()
@@ -272,10 +264,11 @@ class Shop_Order extends Pluf_Model
         return $totalPrice;
     }
 
-    function hasPayment(){
+    function hasPayment()
+    {
         return $this->payment_id != null && $this->payment_id != 0;
     }
-    
+
     function isPayed()
     {
         if (! $this->payment_id) {
@@ -285,8 +278,9 @@ class Shop_Order extends Pluf_Model
         Bank_Service::update($receipt);
         return $this->get_payment()->isPayed();
     }
-    
-    function invalidatePayment(){
+
+    function invalidatePayment()
+    {
         $this->payment_id = null;
     }
 }

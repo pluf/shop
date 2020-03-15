@@ -16,14 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
+use Pluf\Test\TestCase;
 
-require_once 'Pluf.php';
-
-/**
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class Shop_ApiTest extends TestCase
 {
 

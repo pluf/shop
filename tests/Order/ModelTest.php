@@ -16,29 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
+use Pluf\Test\TestCase;
 
-require_once 'Pluf.php';
-
-Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
-
-/**
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class Order_ModelTest extends TestCase
 {
+
     /**
+     *
      * @beforeClass
      */
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
-        
+
         // Test user
         $user = new User_Account();
         $user->login = 'test';
@@ -55,21 +48,23 @@ class Order_ModelTest extends TestCase
         if (true !== $credit->create()) {
             throw new Exception();
         }
-        
+
         $per = User_Role::getFromString('tenant.owner');
         $user->setAssoc($per);
     }
 
     /**
+     *
      * @afterClass
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
-    private function get_random_order(){
+    private function get_random_order()
+    {
         $order = new Shop_Order();
         $order->title = 'order-' . rand();
         $order->full_name = 'user-' . rand();
@@ -77,45 +72,47 @@ class Order_ModelTest extends TestCase
         $order->email = 'email' . rand(1000, 10000) . '@test.ir';
         return $order;
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleCreateNew()
     {
         $order = $this->get_random_order();
-        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
+        $this->assertTrue($order->create(), 'Impossible to create order');
     }
 
     /**
+     *
      * @test
      */
     public function getPossibleTransitions()
     {
         $order = $this->get_random_order();
-        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
-        
+        $this->assertTrue($order->create(), 'Impossible to create order');
+
         // Initial by order-manager
         $manager = $order->getManager();
         $manager->apply($order, 'create');
-        
+
         $order = new Shop_Order($order->id);
         $trans = $order->getManager()->transitions($order);
-        Test_Assert::assertNotNull($trans);
+        $this->assertNotNull($trans);
     }
-    
+
     /**
+     *
      * @test
      */
     public function shouldPossibleToGetOrderitems()
     {
         $order = $this->get_random_order();
-        Test_Assert::assertTrue($order->create(), 'Impossible to create order');
-        
+        $this->assertTrue($order->create(), 'Impossible to create order');
+
         $oitems = $order->get_order_items_list();
-        Test_Assert::assertEquals(0, $oitems->count());
+        $this->assertEquals(0, $oitems->count());
     }
-    
 }
 
 

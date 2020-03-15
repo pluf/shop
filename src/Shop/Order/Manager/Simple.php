@@ -1,4 +1,6 @@
 <?php
+use Pluf\Workflow;
+
 Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 Pluf::loadFunction('Pluf_Shortcuts_GetRequestParamOr403');
@@ -17,7 +19,7 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
      * State machine of the manager
      */
     private static $STATE_MACHINE = array(
-        Workflow_Machine::STATE_UNDEFINED => array(
+        Workflow\Machine::STATE_UNDEFINED => array(
             'next' => 'new'
         ),
         // States
@@ -113,7 +115,7 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
                 'preconditions' => array(
                     'User_Precondition::isOwner'
                 )
-            ),
+            )
         )
     );
 
@@ -124,7 +126,9 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
      */
     public function createOrderFilter($request)
     {
-        $sql = new Pluf_SQL('deleted=%d', array(FALSE));
+        $sql = new Pluf_SQL('deleted=%d', array(
+            FALSE
+        ));
         // Owner
         if (User_Precondition::isOwner($request)) {
             return $sql;
@@ -133,13 +137,13 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
             // Customer or Assignee
             $sql = $sql->Q('(customer_id=%s OR assignee_id=%s)', array(
                 $request->user->id,
-                $request->user->id                
+                $request->user->id
             ));
             // Agency Owner
             $agencies = $request->user->get_agencies_list();
-            if($agencies->count() > 0){
+            if ($agencies->count() > 0) {
                 $agIds = array();
-                foreach ($agencies as $ag){
+                foreach ($agencies as $ag) {
                     array_push($agIds, $ag->id);
                 }
                 $sql2 = new Pluf_SQL('agency_id IN (' . implode(',', $agIds) . ')');
@@ -147,9 +151,9 @@ class Shop_Order_Manager_Simple extends Shop_Order_Manager_Abstract
             }
             // Zone Owner
             $zones = $request->user->get_owned_zones_list();
-            if($zones->count() > 0){
+            if ($zones->count() > 0) {
                 $zoneIds = array();
-                foreach ($zones as $zone){
+                foreach ($zones as $zone) {
                     array_push($zoneIds, $zone->id);
                 }
                 $sql2 = new Pluf_SQL('zone_id IN (' . implode(',', $zoneIds) . ')');

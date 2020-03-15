@@ -16,15 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
-require_once 'Pluf.php';
+use Pluf\Test\Client;
+use Pluf\Test\TestCase;
 
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class Delivery_RestTest extends TestCase
 {
 
@@ -37,7 +31,7 @@ class Delivery_RestTest extends TestCase
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
 
@@ -68,8 +62,8 @@ class Delivery_RestTest extends TestCase
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
     /**
@@ -78,20 +72,7 @@ class Delivery_RestTest extends TestCase
      */
     public function init()
     {
-        $this->client = new Test_Client(array(
-            array(
-                'app' => 'Shop',
-                'regex' => '#^/shop#',
-                'base' => '',
-                'sub' => include 'Shop/urls.php'
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls.php'
-            )
-        ));
+        $this->client = new Client();
         // login
         $response = $this->client->post('/user/login', array(
             'login' => 'test',
@@ -126,7 +107,7 @@ class Delivery_RestTest extends TestCase
         $item->price = rand();
         $item->off = 10;
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
         // Get item
         $response = $this->client->get('/shop/deliveries/' . $item->id);
         $this->assertNotNull($response);
@@ -144,7 +125,7 @@ class Delivery_RestTest extends TestCase
         $item->price = rand();
         $item->off = 10;
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
         // Update item
         $form = array(
             'title' => 'new title' . rand()
@@ -165,7 +146,7 @@ class Delivery_RestTest extends TestCase
         $item->price = rand();
         $item->off = 10;
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
 
         // delete
         $response = $this->client->delete('/shop/deliveries/' . $item->id);
@@ -184,89 +165,89 @@ class Delivery_RestTest extends TestCase
         $this->assertEquals($response->status_code, 200);
     }
 
-//     /**
-//      *
-//      * @test
-//      */
-//     public function assocDeliveryCategoryRestTest()
-//     {
-//         $item = new Shop_Delivery();
-//         $item->title = 'delivery-' . rand();
-//         $item->model = 'model-' . rand();
-//         $item->price = rand();
-//         $item->off = 10;
-//         $item->create();
-//         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
+    // /**
+    // *
+    // * @test
+    // */
+    // public function assocDeliveryCategoryRestTest()
+    // {
+    // $item = new Shop_Delivery();
+    // $item->title = 'delivery-' . rand();
+    // $item->model = 'model-' . rand();
+    // $item->price = rand();
+    // $item->off = 10;
+    // $item->create();
+    // $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
 
-//         $cat = new Shop_Category();
-//         $cat->name = 'category-' . rand();
-//         $cat->create();
-//         Test_Assert::assertFalse($cat->isAnonymous(), 'Could not create Shop_Category');
+    // $cat = new Shop_Category();
+    // $cat->name = 'category-' . rand();
+    // $cat->create();
+    // $this->assertFalse($cat->isAnonymous(), 'Could not create Shop_Category');
 
-//         $item->setAssoc($cat);
+    // $item->setAssoc($cat);
 
-//         // find
-//         $response = $this->client->get('/shop/deliveries/' . $item->id . '/categories');
-//         $this->assertNotNull($response);
-//         $this->assertEquals($response->status_code, 200);
+    // // find
+    // $response = $this->client->get('/shop/deliveries/' . $item->id . '/categories');
+    // $this->assertNotNull($response);
+    // $this->assertEquals($response->status_code, 200);
 
-//         // create
-//         $response = $this->client->post('/shop/deliveries/' . $item->id . '/categories', $cat);
-//         $this->assertNotNull($response);
-//         $this->assertEquals($response->status_code, 200);
+    // // create
+    // $response = $this->client->post('/shop/deliveries/' . $item->id . '/categories', $cat);
+    // $this->assertNotNull($response);
+    // $this->assertEquals($response->status_code, 200);
 
-//         // TODO: hadi, 2018: add get method to delivery.url
-//         // // get
-//         // $response = $this->client->get('/shop/delivery/' . $item->id . '/category/' . $cat->id);
-//         // $this->assertNotNull($response);
-//         // $this->assertEquals($response->status_code, 200);
+    // // TODO: hadi, 2018: add get method to delivery.url
+    // // // get
+    // // $response = $this->client->get('/shop/delivery/' . $item->id . '/category/' . $cat->id);
+    // // $this->assertNotNull($response);
+    // // $this->assertEquals($response->status_code, 200);
 
-//         // delete
-//         $response = $this->client->delete('/shop/deliveries/' . $item->id . '/categories/' . $cat->id);
-//         $this->assertNotNull($response);
-//         $this->assertEquals($response->status_code, 200);
-//     }
+    // // delete
+    // $response = $this->client->delete('/shop/deliveries/' . $item->id . '/categories/' . $cat->id);
+    // $this->assertNotNull($response);
+    // $this->assertEquals($response->status_code, 200);
+    // }
 
-//     /**
-//      *
-//      * @test
-//      */
-//     public function assocDeliveryTagRestTest()
-//     {
-//         $item = new Shop_Delivery();
-//         $item->title = 'delivery-' . rand();
-//         $item->price = rand();
-//         $item->off = 10;
-//         $item->create();
-//         Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
+    // /**
+    // *
+    // * @test
+    // */
+    // public function assocDeliveryTagRestTest()
+    // {
+    // $item = new Shop_Delivery();
+    // $item->title = 'delivery-' . rand();
+    // $item->price = rand();
+    // $item->off = 10;
+    // $item->create();
+    // $this->assertFalse($item->isAnonymous(), 'Could not create Shop_Delivery');
 
-//         $tag = new Shop_Tag();
-//         $tag->name = 'tag-' . rand();
-//         $tag->create();
-//         Test_Assert::assertFalse($tag->isAnonymous(), 'Could not create Shop_Tag');
+    // $tag = new Shop_Tag();
+    // $tag->name = 'tag-' . rand();
+    // $tag->create();
+    // $this->assertFalse($tag->isAnonymous(), 'Could not create Shop_Tag');
 
-//         $item->setAssoc($tag);
+    // $item->setAssoc($tag);
 
-//         // find
-//         $response = $this->client->get('/shop/deliveries/' . $item->id . '/tags');
-//         $this->assertNotNull($response);
-//         $this->assertEquals($response->status_code, 200);
+    // // find
+    // $response = $this->client->get('/shop/deliveries/' . $item->id . '/tags');
+    // $this->assertNotNull($response);
+    // $this->assertEquals($response->status_code, 200);
 
-//         // create
-//         $response = $this->client->post('/shop/deliveries/' . $item->id . '/tags', $tag);
-//         $this->assertNotNull($response);
-//         $this->assertEquals($response->status_code, 200);
+    // // create
+    // $response = $this->client->post('/shop/deliveries/' . $item->id . '/tags', $tag);
+    // $this->assertNotNull($response);
+    // $this->assertEquals($response->status_code, 200);
 
-//         // // get
-//         // $response = $this->client->get('/shop/delivery/' . $item->id . '/tag/' . $tag->id);
-//         // $this->assertNotNull($response);
-//         // $this->assertEquals($response->status_code, 200);
+    // // // get
+    // // $response = $this->client->get('/shop/delivery/' . $item->id . '/tag/' . $tag->id);
+    // // $this->assertNotNull($response);
+    // // $this->assertEquals($response->status_code, 200);
 
-//         // delete
-//         $response = $this->client->delete('/shop/deliveries/' . $item->id . '/tags/' . $tag->id);
-//         $this->assertNotNull($response);
-//         $this->assertEquals($response->status_code, 200);
-//     }
+    // // delete
+    // $response = $this->client->delete('/shop/deliveries/' . $item->id . '/tags/' . $tag->id);
+    // $this->assertNotNull($response);
+    // $this->assertEquals($response->status_code, 200);
+    // }
 }
 
 

@@ -16,15 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
-require_once 'Pluf.php';
+use Pluf\Test\Client;
+use Pluf\Test\TestCase;
 
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class OrderItem_MetafieldsRestTest extends TestCase
 {
 
@@ -43,7 +37,7 @@ class OrderItem_MetafieldsRestTest extends TestCase
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
 
@@ -74,8 +68,8 @@ class OrderItem_MetafieldsRestTest extends TestCase
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
     /**
@@ -84,41 +78,14 @@ class OrderItem_MetafieldsRestTest extends TestCase
      */
     public function init()
     {
-        $this->client = new Test_Client(array(
-            array(
-                'app' => 'Shop',
-                'regex' => '#^/shop#',
-                'base' => '',
-                'sub' => include 'Shop/urls.php'
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls.php'
-            )
-        ));
-        // login
-        $response = $this->client->post('/user/login', array(
+        $this->client = new Client();
+        $this->client->post('/user/login', array(
             'login' => 'test',
             'password' => 'test'
         ));
 
         // Anonymous Client
-        $this->anonymousClient = new Test_Client(array(
-            array(
-                'app' => 'Shop',
-                'regex' => '#^/shop#',
-                'base' => '',
-                'sub' => include 'Shop/urls.php'
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls.php'
-            )
-        ));
+        $this->anonymousClient = new Client();
 
         // Order
         $this->order = new Shop_Order();
@@ -127,14 +94,14 @@ class OrderItem_MetafieldsRestTest extends TestCase
         $this->order->phone = '0917' . rand(10000000, 100000000);
         $this->order->email = 'email' . rand(1000, 10000) . '@test.ir';
         $this->order->create();
-        Test_Assert::assertFalse($this->order->isAnonymous(), 'Could not create Shop_Order');
+        $this->assertFalse($this->order->isAnonymous(), 'Could not create Shop_Order');
         // Product
         $this->product = new Shop_Product();
         $this->product->title = 'order-item-' . rand();
         $this->product->description = 'description of the product';
         $this->product->price = rand(1000, 100000);
         $this->product->create();
-        Test_Assert::assertFalse($this->order->isAnonymous(), 'Could not create Shop_Product');
+        $this->assertFalse($this->order->isAnonymous(), 'Could not create Shop_Product');
     }
 
     private function get_random_order_item()
@@ -157,7 +124,7 @@ class OrderItem_MetafieldsRestTest extends TestCase
     {
         $item = $this->get_random_order_item();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
 
         $metafield = array(
             'key' => 'key-' . rand(),
@@ -200,7 +167,7 @@ class OrderItem_MetafieldsRestTest extends TestCase
     {
         $item = $this->get_random_order_item();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
 
         $metafield = array(
             'key' => 'key-' . rand(),
@@ -241,7 +208,7 @@ class OrderItem_MetafieldsRestTest extends TestCase
     {
         $item = $this->get_random_order_item();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
 
         $metafield = array(
             'key' => 'key-' . rand(),
@@ -284,7 +251,7 @@ class OrderItem_MetafieldsRestTest extends TestCase
     {
         $item = $this->get_random_order_item();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
 
         $metafield = array(
             'key' => 'key-' . rand(),

@@ -1,4 +1,5 @@
 <?php
+use Pluf\Workflow;
 Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 Pluf::loadFunction('Pluf_Shortcuts_GetRequestParamOr403');
@@ -17,7 +18,7 @@ class Shop_Order_Manager_Shopinak extends Shop_Order_Manager_Abstract
      * State machine of the manager
      */
     private static $STATE_MACHINE = array(
-        Workflow_Machine::STATE_UNDEFINED => array(
+        Workflow\Machine::STATE_UNDEFINED => array(
             'next' => 'new'
         ),
         // State
@@ -151,7 +152,9 @@ class Shop_Order_Manager_Shopinak extends Shop_Order_Manager_Abstract
      */
     public function createOrderFilter($request)
     {
-        $sql = new Pluf_SQL('deleted=%d', array(FALSE));
+        $sql = new Pluf_SQL('deleted=%d', array(
+            FALSE
+        ));
         if (User_Precondition::isOwner($request)) {
             return $sql;
         }
@@ -167,5 +170,4 @@ class Shop_Order_Manager_Shopinak extends Shop_Order_Manager_Abstract
     {
         return self::$STATE_MACHINE;
     }
-
 }

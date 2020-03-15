@@ -1,4 +1,5 @@
 <?php
+use Pluf\Workflow;
 
 /**
  * DigiDoki Order manager
@@ -20,9 +21,9 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
         // 'preconditions' => array()
         // ),
         // Empty state (start state machine
-        Workflow_Machine::STATE_UNDEFINED => array(
+        Workflow\Machine::STATE_UNDEFINED => array(
             'next' => 'new',
-            'action' => Shop_Order_Event_DigiDoki::SEND_NOTIFICATION_ACTION,
+            'action' => Shop_Order_Event_DigiDoki::SEND_NOTIFICATION_ACTION
         ),
         // State
         'new' => array(

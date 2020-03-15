@@ -16,20 +16,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\IncompleteTestError;
-require_once 'Pluf.php';
+use Pluf\Test\Client;
+use Pluf\Test\TestCase;
 
-/**
- *
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class OrderItem_RestTest extends TestCase
 {
 
     var $client;
+
     private $product;
+
     private $order;
 
     /**
@@ -39,7 +35,7 @@ class OrderItem_RestTest extends TestCase
     public static function createDataBase()
     {
         Pluf::start(__DIR__ . '/../conf/config.php');
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
+        $m = new Pluf_Migration();
         $m->install();
         $m->init();
 
@@ -70,8 +66,8 @@ class OrderItem_RestTest extends TestCase
      */
     public static function removeDatabses()
     {
-        $m = new Pluf_Migration(Pluf::f('installed_apps'));
-        $m->unInstall();
+        $m = new Pluf_Migration();
+        $m->uninstall();
     }
 
     /**
@@ -80,33 +76,20 @@ class OrderItem_RestTest extends TestCase
      */
     public function init()
     {
-        $this->client = new Test_Client(array(
-            array(
-                'app' => 'Shop',
-                'regex' => '#^/shop#',
-                'base' => '',
-                'sub' => include 'Shop/urls.php'
-            ),
-            array(
-                'app' => 'User',
-                'regex' => '#^/user#',
-                'base' => '',
-                'sub' => include 'User/urls.php'
-            )
-        ));
+        $this->client = new Client();
         // login
         $this->client->post('/user/login', array(
             'login' => 'test',
             'password' => 'test'
         ));
-        // product 
+        // product
         $this->product = new Shop_Product();
         $this->product->manufacturer = 'manufacturer-' . rand();
         $this->product->brand = 'brand-' . rand();
         $this->product->model = 'model-' . rand();
         $this->product->price = 20000;
         $this->product->create();
-        
+
         // order
         $this->order = new Shop_Order();
         $this->order->title = 'order-' . rand();
@@ -125,14 +108,15 @@ class OrderItem_RestTest extends TestCase
         $form = array(
             'item_id' => $this->product->id,
             'item_type' => 'product',
-            'count' => rand(1,10)
+            'count' => rand(1, 10)
         );
         $response = $this->client->post('/shop/orders/' . $this->order->id . '/items', $form);
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
 
-    private function get_random_orderItem(){
+    private function get_random_orderItem()
+    {
         $item = new Shop_OrderItem();
         $item->item_id = $this->product->id;
         $item->item_type = 'product';
@@ -140,7 +124,7 @@ class OrderItem_RestTest extends TestCase
         $item->order_id = $this->order;
         return $item;
     }
-    
+
     /**
      *
      * @test
@@ -149,7 +133,7 @@ class OrderItem_RestTest extends TestCase
     {
         $item = $this->get_random_orderItem();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
         // Get item
         $response = $this->client->get('/shop/orders/' . $this->order->id . '/items/' . $item->id);
         $this->assertNotNull($response);
@@ -164,7 +148,7 @@ class OrderItem_RestTest extends TestCase
     {
         $item = $this->get_random_orderItem();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
         // Update item
         $form = array(
             'count' => rand(1, 10)
@@ -182,7 +166,7 @@ class OrderItem_RestTest extends TestCase
     {
         $item = $this->get_random_orderItem();
         $item->create();
-        Test_Assert::assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
+        $this->assertFalse($item->isAnonymous(), 'Could not create Shop_OrderItem');
 
         // delete
         $response = $this->client->delete('/shop/orders/' . $this->order->id . '/items/' . $item->id);
@@ -200,7 +184,6 @@ class OrderItem_RestTest extends TestCase
         $this->assertNotNull($response);
         $this->assertEquals($response->status_code, 200);
     }
-
 }
 
 
