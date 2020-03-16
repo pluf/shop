@@ -40,10 +40,7 @@ $cfg['multitenant'] = false;
  * Middlewares
  */
 $cfg['middleware_classes'] = array(
-    // find tenant
-    'Pluf_Middleware_TenantEmpty',
-    // Sessions
-    'Pluf_Middleware_Session',
+    '\Pluf\Middleware\Session',
     'User_Middleware_Session'
 );
 
