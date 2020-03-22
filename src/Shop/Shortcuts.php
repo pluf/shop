@@ -65,7 +65,7 @@ function Shop_Shortcuts_GetTableName($model)
  * product => Shop_Product
  *
  * @param string $itemType            
- * @throws Pluf_Exception
+ * @throws \Pluf\Exception
  * @return string
  */
 function Shop_Shortcuts_GetItemClass($itemType)
@@ -77,7 +77,7 @@ function Shop_Shortcuts_GetItemClass($itemType)
     );
     if (isset($mapper[$itemType]))
         return $mapper[$itemType];
-    throw new Pluf_Exception('Unknown order item: ' . $itemType);
+    throw new \Pluf\Exception('Unknown order item: ' . $itemType);
 }
 
 /**

@@ -286,7 +286,7 @@ class Shop_Order_Event
         $zoneId = $request->REQUEST['zone_id'];
         $zone = new Shop_Zone($zoneId);
         if ($zone->isAnonymous()) {
-            throw new Pluf_Exception('Requested zone dose not exist', 4000, null, 404);
+            throw new \Pluf\Exception('Requested zone dose not exist', 4000, null, 404);
         }
         $order->zone_id = $zone;
     }
@@ -305,7 +305,7 @@ class Shop_Order_Event
         $agencyId = $request->REQUEST['agency_id'];
         $agency = new Shop_Agency($agencyId);
         if ($agency->isAnonymous()) {
-            throw new Pluf_Exception('Requested agency dose not exist', 4000, null, 404);
+            throw new \Pluf\Exception('Requested agency dose not exist', 4000, null, 404);
         }
         $order->agency_id = $agency;
     }
@@ -324,7 +324,7 @@ class Shop_Order_Event
         $accountId = $request->REQUEST['account_id'];
         $account = new User_Account($accountId);
         if ($account->isAnonymous()) {
-            throw new Pluf_Exception('Requested account dose not exist', 4000, null, 404);
+            throw new \Pluf\Exception('Requested account dose not exist', 4000, null, 404);
         }
         $order->assignee_id = $account;
     }

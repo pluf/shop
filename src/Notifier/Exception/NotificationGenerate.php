@@ -23,13 +23,13 @@
  * @author hadi
  *        
  */
-class Notifier_Exception_NotificationGenerate extends Pluf_Exception
+class Notifier_Exception_NotificationGenerate extends \Pluf\Exception
 {
 
     /**
      *
      * @param string $message
-     * @param Pluf_Exception $previous
+     * @param \Pluf\Exception $previous
      * @param string $link
      * @param string $developerMessage
      */

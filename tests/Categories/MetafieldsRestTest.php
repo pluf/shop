@@ -42,7 +42,7 @@ class Categories_MetafieldsRestTest extends TestCase
         $user->login = 'test';
         $user->is_active = true;
         if (true !== $user->create()) {
-            throw new Pluf_Exception();
+            throw new  \Pluf\Exception();
         }
         // Credential of user
         $credit = new User_Credential();
@@ -51,7 +51,7 @@ class Categories_MetafieldsRestTest extends TestCase
         ));
         $credit->setPassword('test');
         if (true !== $credit->create()) {
-            throw new Pluf_Exception();
+            throw new  \Pluf\Exception();
         }
 
         $per = User_Role::getFromString('tenant.owner');

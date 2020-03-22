@@ -184,7 +184,7 @@ class Shop_Views_Order
      *
      * @param Pluf_HTTP_Request $request
      * @param Shop_Order $order
-     * @throws Pluf_Exception
+     * @throws \Pluf\Exception
      * @return boolean
      */
     public static function checkAccess($request, $order)
@@ -196,7 +196,7 @@ class Shop_Views_Order
         if (0 == $order->getCount(array(
             'filter' => $sql->gen()
         ))) {
-            throw new Pluf_Exception("You are not allowed to access to this order.");
+            throw new \Pluf\Exception("You are not allowed to access to this order.");
         }
         return true;
     }
@@ -363,6 +363,6 @@ class Shop_Views_Order
             $updatedOrder = Pluf_Shortcuts_GetObjectOr404('Shop_Order', $order->id);
             return $updatedOrder;
         }
-        return new Pluf_Exception('An error is occurred while processing order');
+        return new \Pluf\Exception('An error is occurred while processing order');
     }
 }

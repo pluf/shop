@@ -40,7 +40,7 @@ class Shop_Views_Contact
      *
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @throws Pluf_Exception
+     * @throws \Pluf\Exception
      * @return Shop_Contact
      */
     public static function create($request, $match)
