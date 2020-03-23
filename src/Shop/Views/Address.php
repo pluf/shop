@@ -43,14 +43,14 @@ class Shop_Views_Address
      * 
      * @param Pluf_HTTP_Request $request            
      * @param array $match            
-     * @throws Pluf_Exception
+     * @throws \Pluf\Exception
      * @return 
      */
     public static function create($request, $match)
     {
         $data = $request->REQUEST;
         if(!isset($data['point']) && !(isset($data['province']) && isset($data['city']) && isset($data['address']))){
-            throw new Pluf_Exception('Illegal data: could not create Address without any address information');
+            throw new \Pluf\Exception('Illegal data: could not create Address without any address information');
         }
         $request->REQUEST['user'] = $request->user->id;
         $form = Pluf_Shortcuts_GetFormForModel(Pluf::factory('Shop_Address'), $request->REQUEST);
