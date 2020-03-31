@@ -1,7 +1,5 @@
 <?php
-
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
-Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
 
 class Shop_Views_CategoryMetafield extends Pluf_Views
 {
@@ -79,5 +77,4 @@ class Shop_Views_CategoryMetafield extends Pluf_Views
         $view = new Pluf_Views();
         return $view->updateManyToOne($request, $match, $p);
     }
-
 }

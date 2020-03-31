@@ -27,44 +27,44 @@ class Shop_Address extends Pluf_Model
         
         $this->_a['cols'] = array(
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'blank' => true,
                 'editable' => false
             ),
             'province' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 100,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'city' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 100,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'address' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 500,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'point' => array(
-                'type' => 'Pluf_DB_Field_Geometry',
+                'type' => 'Geometry',
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'creation_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false
             ),
             'modif_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false
             ),
@@ -72,7 +72,7 @@ class Shop_Address extends Pluf_Model
              * Relations
              */
             'user_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'User_Account',
                 'name' => 'user',
                 'graphql_name' => 'user',

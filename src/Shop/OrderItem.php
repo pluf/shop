@@ -15,27 +15,27 @@ class Shop_OrderItem extends Pluf_Model
         $this->_a['verbose'] = 'Shop_OrderItem';
         $this->_a['cols'] = array(
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'blank' => false,
                 'editable' => false,
                 'readable' => true
             ),
             'title' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'size' => 250,
                 'editable' => false,
                 'readable' => true
             ),
             'item_id' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'blank' => false,
                 'is_null' => false,
                 'editable' => true,
                 'readable' => true
             ),
             'item_type' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'is_null' => false,
                 'size' => 50,
@@ -43,14 +43,14 @@ class Shop_OrderItem extends Pluf_Model
                 'readable' => true
             ),
 //             'properties' => array(
-//                 'type' => 'Pluf_DB_Field_Text',
+//                 'type' => 'Text',
 //                 'blank' => true,
 //                 'size' => 3000,
 //                 'editable' => true,
 //                 'readable' => true
 //             ),
             'count' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'blank' => false,
                 'is_null' => false,
                 'default' => 1,
@@ -58,14 +58,14 @@ class Shop_OrderItem extends Pluf_Model
                 'readable' => true
             ),
             'price' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'blank' => false,
                 'is_null' => false,
                 'editable' => false,
                 'readable' => true
             ),
             'off' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'blank' => false,
                 'is_null' => false,
                 'default' => 0,
@@ -73,7 +73,7 @@ class Shop_OrderItem extends Pluf_Model
                 'readable' => true
             ),
             'creation_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false,
                 'readable' => true
@@ -82,7 +82,7 @@ class Shop_OrderItem extends Pluf_Model
              * Relations
              */
             'order_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'Shop_Order',
                 'name' => 'order',
                 'graphql_name' => 'order',

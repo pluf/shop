@@ -16,14 +16,14 @@ class Shop_PricedObject extends Shop_DetailedObject
         // Merge parent columns with new columns
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'price' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'blank' => false,
                 'is_null' => false,
                 'editable' => true,
                 'readable' => true
             ),
             'off' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'blank' => true,
                 'is_null' => true,
                 'default' => 0,
@@ -31,7 +31,7 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'readable' => true
             ),
             'deleted' => array(
-                'type' => 'Pluf_DB_Field_Boolean',
+                'type' => 'Boolean',
                 'blank' => false,
                 'default' => false,
                 'editable' => false
@@ -40,7 +40,7 @@ class Shop_PricedObject extends Shop_DetailedObject
              * Relations
              */
             'categories' => array(
-                'type' => 'Pluf_DB_Field_Manytomany',
+                'type' => 'Manytomany',
                 'model' => 'Shop_Category',
                 'name' => 'categories',
                 'graphql_name' => 'categories',
@@ -48,7 +48,7 @@ class Shop_PricedObject extends Shop_DetailedObject
                 'readable' => true
             ),
             'tags' => array(
-                'type' => 'Pluf_DB_Field_Manytomany',
+                'type' => 'Manytomany',
                 'model' => 'Shop_Tag',
                 'name' => 'tags',
                 'graphql_name' => 'tags',

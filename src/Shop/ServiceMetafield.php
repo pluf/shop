@@ -15,13 +15,13 @@ class Shop_ServiceMetafield extends Pluf_Model
         $this->_a['verbose'] = 'Shop_ServiceMetafield';
         $this->_a['cols'] = array(
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'blank' => false,
                 'editable' => false,
                 'readable' => true
             ),
             'key' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'blank' => false,
                 'size' => 250,
@@ -29,7 +29,7 @@ class Shop_ServiceMetafield extends Pluf_Model
                 'readable' => true
             ),
             'value' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'blank' => false,
                 'size' => 256,
@@ -37,7 +37,7 @@ class Shop_ServiceMetafield extends Pluf_Model
                 'readable' => true
             ),
             'unit' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'is_null' => true,
                 'size' => 64,
@@ -45,7 +45,7 @@ class Shop_ServiceMetafield extends Pluf_Model
                 'readable' => true
             ),
             'namespace' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => true,
                 'blank' => true,
                 'size' => 128,
@@ -54,7 +54,7 @@ class Shop_ServiceMetafield extends Pluf_Model
             ),
             // relations
             'service_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'Shop_Service',
                 'name' => 'service',
                 'graphql_name' => 'service',

@@ -16,7 +16,7 @@ class Shop_Product extends Shop_PricedObject
         // Merge parent columns with new columns
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'manufacturer' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'is_null' => true,
                 'size' => 250,
@@ -24,7 +24,7 @@ class Shop_Product extends Shop_PricedObject
                 'readable' => true
             ),
             'brand' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'is_null' => true,
                 'size' => 250,
@@ -32,7 +32,7 @@ class Shop_Product extends Shop_PricedObject
                 'readable' => true
             ),
             'model' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'is_null' => true,
                 'size' => 250,
@@ -40,7 +40,7 @@ class Shop_Product extends Shop_PricedObject
                 'readable' => true
             ),
             'properties' => array(
-                'type' => 'Pluf_DB_Field_Text',
+                'type' => 'Text',
                 'blank' => true,
                 'is_null' => true,
                 'size' => 3000,
@@ -49,7 +49,7 @@ class Shop_Product extends Shop_PricedObject
             ),
             // relations
             'taxes' => array(
-                'type' => 'Pluf_DB_Field_Manytomany',
+                'type' => 'Manytomany',
                 'model' => 'Shop_TaxClass',
                 'name' => 'taxes',
                 'graphql_name' => 'taxes',

@@ -15,20 +15,20 @@ class Shop_Order extends Pluf_Model
         $this->_a['verbose'] = 'Shop_Order';
         $this->_a['cols'] = array(
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'is_null' => false,
                 'editable' => false,
                 'readable' => true
             ),
             'secureId' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'size' => 50,
                 'readable' => false,
                 'editable' => false
             ),
             'title' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'is_null' => false,
                 'size' => 250,
@@ -36,88 +36,88 @@ class Shop_Order extends Pluf_Model
                 'readable' => true
             ),
             'full_name' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'size' => 50,
                 'readable' => true,
                 'editable' => true
             ),
             'phone' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'size' => 30,
                 'readable' => true,
                 'editable' => true
             ),
             'email' => array(
-                'type' => 'Pluf_DB_Field_Email',
+                'type' => 'Email',
                 'blank' => true,
                 'readable' => true,
                 'editable' => true
             ),
             'province' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 100,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'city' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 100,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'address' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 500,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'point' => array(
-                'type' => 'Pluf_DB_Field_Geometry',
+                'type' => 'Geometry',
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'description' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
             ),
             'manager' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'size' => 100,
                 'editable' => false,
                 'readable' => true
             ),
             'state' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'size' => 50,
                 'editable' => true,
                 'readable' => true
             ),
             'deleted' => array(
-                'type' => 'Pluf_DB_Field_Boolean',
+                'type' => 'Boolean',
                 'blank' => false,
                 'default' => false,
                 'readable' => true,
                 'editable' => false
             ),
             'creation_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false,
                 'readable' => true
             ),
             'modif_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false,
                 'readable' => true
@@ -126,7 +126,7 @@ class Shop_Order extends Pluf_Model
              * Relations
              */
             'customer_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'User_Account',
                 'name' => 'customer',
                 'graphql_name' => 'customer',
@@ -136,7 +136,7 @@ class Shop_Order extends Pluf_Model
                 'readable' => true
             ),
             'assignee_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'User_Account',
                 'name' => 'assignee',
                 'graphql_name' => 'assignee',
@@ -146,7 +146,7 @@ class Shop_Order extends Pluf_Model
                 'readable' => true
             ),
             'payment_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'Bank_Receipt',
                 'name' => 'payment',
                 'graphql_name' => 'payment',
@@ -156,7 +156,7 @@ class Shop_Order extends Pluf_Model
                 'readable' => true
             ),
             'zone_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'Shop_Zone',
                 'name' => 'zone',
                 'graphql_name' => 'zone',
@@ -166,7 +166,7 @@ class Shop_Order extends Pluf_Model
                 'readable' => true
             ),
             'agency_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'Shop_Agency',
                 'name' => 'agency',
                 'graphql_name' => 'agency',

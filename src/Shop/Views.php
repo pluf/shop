@@ -16,15 +16,23 @@ class Shop_Views
         $model = $p['model'];
         $item = Pluf_Shortcuts_GetObjectOr404($model, $match['modelId']);
         $tag = new Shop_Tag();
-        $tagTable = Shop_Shortcuts_GetTableName($tag);
-        $tagIdColName = Shop_Shortcuts_GetIdColumnName($tag);
-        $assocTable = Shop_Shortcuts_GetAssociationTableName($item, $tag);
-        $tag->_a['views']['myView'] = array(
-            'select' => $tag->getSelect(),
+
+        $engine = $tag->getEngine();
+        $schema = $engine->getSchema();
+
+        $tagTable = $schema->getTableName($tag);
+        // Shop_Shortcuts_GetTableName($tag);
+        $tagIdColName = $schema->getAssocField($tag);
+        // Shop_Shortcuts_GetIdColumnName($tag);
+        $assocTable = $schema->getRelationTable($tag, $item);
+        // Shop_Shortcuts_GetAssociationTableName($item, $tag);
+        $itemIdColName = $schema->getAssocField($item);
+        // Shop_Shortcuts_GetIdColumnName($item);
+
+        $tag->setView('myView', array(
             'join' => 'LEFT JOIN ' . $assocTable . ' ON ' . $tagTable . '.id=' . $assocTable . '.' . $tagIdColName
-        );
-        
-        $itemIdColName = Shop_Shortcuts_GetIdColumnName($item);
+        ));
+
         $paginator = new Pluf_Paginator($tag);
         $sql = new Pluf_SQL($itemIdColName . '=%s', array(
             $item->id
@@ -94,7 +102,7 @@ class Shop_Views
             'select' => $category->getSelect(),
             'join' => 'LEFT JOIN ' . $assocTable . ' ON ' . $categoryTable . '.id=' . $assocTable . '.' . $catIdColName
         );
-        
+
         $itemIdColName = Shop_Shortcuts_GetIdColumnName($item);
         $paginator = new Pluf_Paginator($category);
         $sql = new Pluf_SQL($itemIdColName . '=%s', array(

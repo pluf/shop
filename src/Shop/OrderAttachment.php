@@ -39,14 +39,14 @@ class Shop_OrderAttachment extends Pluf_Model
         $this->_a['cols'] = array(
             // شناسه‌ها
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'blank' => false,
                 'verbose' => 'first name',
                 'help_text' => 'id',
                 'editable' => false
             ),
             'description' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'size' => 2048,
                 'default' => 'auto created content',
@@ -55,7 +55,7 @@ class Shop_OrderAttachment extends Pluf_Model
                 'editable' => true
             ),
             'mime_type' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'size' => 64,
                 'default' => 'application/octet-stream',
@@ -64,7 +64,7 @@ class Shop_OrderAttachment extends Pluf_Model
                 'editable' => true
             ),
             'file_path' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'size' => 250,
                 'verbose' => 'File path',
@@ -73,7 +73,7 @@ class Shop_OrderAttachment extends Pluf_Model
                 'readable' => false
             ),
             'file_name' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'size' => 250,
                 'default' => 'unknown',
@@ -82,7 +82,7 @@ class Shop_OrderAttachment extends Pluf_Model
                 'editable' => false
             ),
             'file_size' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'blank' => false,
                 'default' => 'no title',
                 'verbose' => 'file size',
@@ -93,7 +93,7 @@ class Shop_OrderAttachment extends Pluf_Model
              * Relations
              */
             'order_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'Shop_Order',
                 'name' => 'order',
                 'graphql_name' => 'order',

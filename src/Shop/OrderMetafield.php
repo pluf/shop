@@ -14,24 +14,24 @@ class Shop_OrderMetafield extends Pluf_Model
         $this->_a['verbose'] = 'Shop_OrderMetafield';
         $this->_a['cols'] = array(
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'is_null' => false,
                 'editable' => false
             ),
             'key' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'size' => 250,
                 'editable' => true
             ),
             'value' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => false,
                 'size' => 256,
                 'editable' => true
             ),
             'namespace' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'is_null' => true,
                 'size' => 128,
                 'editable' => true
@@ -40,7 +40,7 @@ class Shop_OrderMetafield extends Pluf_Model
              * Relations
              */
             'order_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'Shop_Order',
                 'name' => 'order',
                 'graphql_name' => 'order',
