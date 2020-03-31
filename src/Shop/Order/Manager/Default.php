@@ -43,6 +43,14 @@ class Shop_Order_Manager_Default extends Shop_Order_Manager_Abstract
                     'description' => 'The order is updated',
                     'action' => Shop_Order_Event::UPDATE_ACTION,
                     'properties' => Shop_Order_Event::UPDATE_PROPERTIES
+                ),
+                'pay' => array(
+                    'next' => 'Live',
+                    'visible' => true,
+                    'title' => 'Pay',
+                    'description' => 'The order is payed',
+                    'properties' => Shop_Order_Event_Simple::PAY_PROPERTIES,
+                    'action' => Shop_Order_Event_Simple::PAY_ACTION
                 )
             ),
             'Deleted' => array()
