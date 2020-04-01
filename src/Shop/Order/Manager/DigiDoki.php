@@ -125,7 +125,7 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                 'visible' => true,
                 'title' => 'Schedule',
                 'description' => '',
-                'properties' => array(),
+                'properties' => Shop_Order_Event_DigiDoki::SCHEDULE_PROPERTIES,
                 'action' => Shop_Order_Event_DigiDoki::SCHEDULE_ACTION,
                 'preconditions' => array(
                     'Shop_Order_Event_DigiDoki::isFixer'
@@ -171,7 +171,7 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                 'visible' => true,
                 'title' => 'Fix',
                 'description' => '',
-                'properties' => array(),
+                'properties' => Shop_Order_Event_DigiDoki::FIX_PROPERTIES,
                 'action' => Shop_Order_Event_DigiDoki::FIX_ACTION,
                 'preconditions' => array(
                     'Shop_Order_Event_DigiDoki::isFixer'
