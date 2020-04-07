@@ -31,18 +31,18 @@ function Shop_Shortcuts_GetAssociationTableName($model1, $model2)
     return $table;
 }
 
-/**
- * Returns name of field for id of given model in a association table.
- * Returned name is base of rule which Pluf is used to define columns in a association table
- * for two model in a many-to-many relation.
- *
- * @param Pluf_Model $model            
- * @return string
- */
-function Shop_Shortcuts_GetIdColumnName($model)
-{
-    return strtolower($model->_a['model']) . '_id';
-}
+// /**
+//  * Returns name of field for id of given model in a association table.
+//  * Returned name is base of rule which Pluf is used to define columns in a association table
+//  * for two model in a many-to-many relation.
+//  *
+//  * @param Pluf_Model $model            
+//  * @return string
+//  */
+// function Shop_Shortcuts_GetIdColumnName($model)
+// {
+//     return strtolower($model->_a['model']) . '_id';
+// }
 
 /**
  * Returns name of table for given model.
@@ -63,10 +63,10 @@ function Shop_Shortcuts_GetTableName($model)
  *
  * service => Shop_Service
  * product => Shop_Product
+ * delivery => Shop_Delivery
  *
  * @param string $itemType            
- * @throws \Pluf\Exception
- * @return string
+ * @return string class type of order item or null if it is unknown or not set
  */
 function Shop_Shortcuts_GetItemClass($itemType)
 {
@@ -77,7 +77,7 @@ function Shop_Shortcuts_GetItemClass($itemType)
     );
     if (isset($mapper[$itemType]))
         return $mapper[$itemType];
-    throw new \Pluf\Exception('Unknown order item: ' . $itemType);
+    return null;
 }
 
 /**

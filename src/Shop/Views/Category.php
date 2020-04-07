@@ -1,7 +1,6 @@
 <?php
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
-Pluf::loadFunction('Shop_Shortcuts_GetIdColumnName');
 Pluf::loadFunction('Shop_Shortcuts_GetAssociationTableName');
 
 class Shop_Views_Category
@@ -40,16 +39,19 @@ class Shop_Views_Category
         $category = Pluf_Shortcuts_GetObjectOr404('Shop_Category', $match['categoryId']);
         $model = Shop_Views_Category::itemModel($request, $match);
         $item = Pluf::factory($model);
-        $itemTable = $item->_a['table'];
-        // Find association table
-        $assocTable = Shop_Shortcuts_GetAssociationTableName($item, $category);
         
-        $itemIdColName = Shop_Shortcuts_GetIdColumnName($item);
-        $item->_a['views']['myView'] = array(
-            'select' => $item->getSelect(),
+        $engine = $item->getEngine();
+        $schema = $engine->getSchema();
+        
+        $itemTable = $schema->getTableName($item);
+        // Find association table
+        $assocTable = $schema->getRelationTable($item, $category);
+        
+        $itemIdColName = $schema->getAssocField($item);
+        $item->setView('myView', array(            
             'join' => 'LEFT JOIN ' . $assocTable . ' ON ' . $itemTable . '.id=' . $assocTable . '.' . $itemIdColName
-        );
-        $catIdColName = Shop_Shortcuts_GetIdColumnName($category);
+        ));
+        $catIdColName = $schema->getAssocField($category);
         $page = new Pluf_Paginator($item);
         $sql = new Pluf_SQL($catIdColName . '=%s', array(
             $category->id

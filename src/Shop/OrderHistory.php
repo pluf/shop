@@ -20,14 +20,14 @@ class Shop_OrderHistory extends Pluf_Model
         $this->_a['verbose'] = 'Shop Order History';
         $this->_a['cols'] = array(
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'blank' => false,
                 'is_null' => false,
                 'editable' => false,
                 'readable' => true
             ),
             'object_type' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'is_null' => false,
                 'size' => 100,
@@ -35,14 +35,14 @@ class Shop_OrderHistory extends Pluf_Model
                 'readable' => true
             ),
             'object_id' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'blank' => false,
                 'is_null' => false,
                 'editable' => false,
                 'readable' => true
             ),
             'subject_type' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'is_null' => true,
                 'size' => 100,
@@ -50,14 +50,14 @@ class Shop_OrderHistory extends Pluf_Model
                 'readable' => true
             ),
             'subject_id' => array(
-                'type' => 'Pluf_DB_Field_Integer',
+                'type' => 'Integer',
                 'blank' => true,
                 'is_null' => true,
                 'editable' => false,
                 'readable' => true
             ),
             'action' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'is_null' => false,
                 'size' => 100,
@@ -65,21 +65,21 @@ class Shop_OrderHistory extends Pluf_Model
                 'readable' => true
             ),
             'workflow' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'size' => 100,
                 'editable' => true,
                 'readable' => true
             ),
             'state' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'size' => 50,
                 'editable' => true,
                 'readable' => true
             ),
             'description' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'is_null' => true,
                 'size' => 250,
@@ -87,13 +87,13 @@ class Shop_OrderHistory extends Pluf_Model
                 'readable' => true
             ),
             'creation_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false,
                 'readable' => true
             ),
             // 'modif_dtime' => array(
-            // 'type' => 'Pluf_DB_Field_Datetime',
+            // 'type' => 'Datetime',
             // 'blank' => true,
             // 'editable' => false,
             // 'readable' => true
@@ -102,7 +102,7 @@ class Shop_OrderHistory extends Pluf_Model
              * Relations
              */
             'order_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'Shop_Order',
                 'blank' => false,
                 'is_null' => false,

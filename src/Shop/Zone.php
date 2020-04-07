@@ -22,46 +22,46 @@ class Shop_Zone extends Shop_DetailedObject
         $this->_a['verbose'] = 'Shop zone';
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'province' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 100,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'city' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 100,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'address' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 500,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'polygon' => array(
-                'type' => 'Pluf_DB_Field_Geometry',
+                'type' => 'Geometry',
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'deleted' => array(
-                'type' => 'Pluf_DB_Field_Boolean',
+                'type' => 'Boolean',
                 'blank' => false,
                 'default' => false,
                 'editable' => false
             ),
             'creation_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false,
                 'readable' => true
             ),
             'modif_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false,
                 'readable' => true
@@ -70,7 +70,7 @@ class Shop_Zone extends Shop_DetailedObject
              * Relations
              */
             'owner_id' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
+                'type' => 'Foreignkey',
                 'model' => 'User_Account',
                 'name' => 'owner',
                 'graphql_name' => 'owner',
@@ -80,7 +80,7 @@ class Shop_Zone extends Shop_DetailedObject
                 'readable' => true
             ),
             'member' => array(
-                'type' => 'Pluf_DB_Field_Manytomany',
+                'type' => 'Manytomany',
                 'model' => 'User_Account',
                 'name' => 'members',
                 'graphql_name' => 'members',

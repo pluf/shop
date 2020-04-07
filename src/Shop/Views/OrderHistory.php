@@ -1,6 +1,7 @@
 <?php
 Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
+Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
 
 class Shop_Views_OrderHistory
 {

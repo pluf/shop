@@ -17,7 +17,7 @@ class Shop_Service extends Shop_PricedObject
         // Merge parent columns with new columns
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'properties' => array(
-                'type' => 'Pluf_DB_Field_Text',
+                'type' => 'Text',
                 'blank' => true,
                 'size' => 3000,
                 'editable' => true,
@@ -27,7 +27,7 @@ class Shop_Service extends Shop_PricedObject
              * Relations
              */
             'taxes' => array(
-                'type' => 'Pluf_DB_Field_Manytomany',
+                'type' => 'Manytomany',
                 'model' => 'Shop_TaxClass',
                 'name' => 'taxes',
                 'graphql_name' => 'taxes',

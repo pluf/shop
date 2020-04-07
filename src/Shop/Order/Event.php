@@ -289,6 +289,7 @@ class Shop_Order_Event
             throw new \Pluf\Exception('Requested zone dose not exist', 4000, null, 404);
         }
         $order->zone_id = $zone;
+        $order->assignee_id = $zone->get_owner();
     }
 
     /**
@@ -308,6 +309,7 @@ class Shop_Order_Event
             throw new \Pluf\Exception('Requested agency dose not exist', 4000, null, 404);
         }
         $order->agency_id = $agency;
+//         $order->assignee_id = $agency->get_owner();
     }
 
     /**
@@ -337,7 +339,6 @@ class Shop_Order_Event
      */
     public static function update($request, $order)
     {
-        self::addComment($request, $order);
         $forme = Pluf_Shortcuts_GetFormForUpdateModel($order, $request->REQUEST);
         $forme->save(false);
     }

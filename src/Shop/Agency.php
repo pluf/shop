@@ -27,68 +27,66 @@ class Shop_Agency extends Shop_DetailedObject
 
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'province' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 100,
-                'is_null' => false,
+                'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'city' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 100,
-                'is_null' => false,
+                'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'address' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 500,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'phone' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'size' => 50,
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'point' => array(
-                'type' => 'Pluf_DB_Field_Geometry',
+                'type' => 'Geometry',
                 'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'deleted' => array(
-                'type' => 'Pluf_DB_Field_Boolean',
+                'type' => 'Boolean',
                 'is_null' => false,
                 'default' => false,
                 'editable' => false
             ),
             'creation_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
-                'blank' => true,
-                'verbose' => __('creation date'),
+                'type' => 'Datetime',
+                'is_null' => true,
                 'editable' => false
             ),
             'modif_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
-                'blank' => true,
-                'verbose' => __('modification date'),
+                'type' => 'Datetime',
+                'is_null' => true,
                 'editable' => false
             ),
             /*
              * Relation
              */
             'owner_id' => array(
-                'type' => 'Pluf_DB_Field_Manytomany',
+                'type' => 'Manytomany',
                 'model' => 'User_Account',
                 'name' => 'owner',
                 'graphql_name' => 'owner',
                 'relate_name' => 'agencies',
                 'editable' => true,
-                'readable' => true
+                'readable' => true,
             )
         ));
     }

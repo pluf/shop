@@ -14,13 +14,13 @@ class Shop_DetailedObject extends Pluf_Model
 //         $this->_a['verbose'] = 'Shop_DetailedObject';
         $this->_a['cols'] = array(
             'id' => array(
-                'type' => 'Pluf_DB_Field_Sequence',
+                'type' => 'Sequence',
                 'blank' => false,
                 'editable' => false,
                 'readable' => true
             ),
             'title' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => false,
                 'is_null' => false,
                 'size' => 250,
@@ -28,7 +28,7 @@ class Shop_DetailedObject extends Pluf_Model
                 'readable' => true
             ),
             'description' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'is_null' => true,
                 'size' => 250,
@@ -36,19 +36,19 @@ class Shop_DetailedObject extends Pluf_Model
                 'readable' => true
             ),
             'creation_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false,
                 'readable' => true
             ),
             'modif_dtime' => array(
-                'type' => 'Pluf_DB_Field_Datetime',
+                'type' => 'Datetime',
                 'blank' => true,
                 'editable' => false,
                 'readable' => true
             ),
             'avatar' => array(
-                'type' => 'Pluf_DB_Field_Varchar',
+                'type' => 'Varchar',
                 'blank' => true,
                 'is_null' => true,
                 'size' => 300,

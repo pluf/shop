@@ -1,6 +1,7 @@
 <?php
 Pluf::loadFunction('Pluf_Shortcuts_GetFormForModel');
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
+Pluf::loadFunction('Shop_Shortcuts_NormalizeItemPerPage');
 
 class Shop_Views_OrderItem
 {
@@ -39,10 +40,9 @@ class Shop_Views_OrderItem
             $match['count'] = 1;
         }
         $form = Pluf_Shortcuts_GetFormForModel(Pluf::factory('Shop_OrderItem'), $request->REQUEST);
-        $orderItem = $form->save();
-
+        $orderItem = $form->save(false);
         $orderItem->order_id = $order;
-        $orderItem->update();
+        $orderItem->create();
 
         // Remove payment because it is not valid yet (here receipt is created but is not payed yet).
         // TODO: Hadi 1396-05: remove related receipt / or uupdate receipt info instead of remove it
