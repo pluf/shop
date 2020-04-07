@@ -13,7 +13,7 @@ ALTER TABLE `shop_orderhistory` CHANGE `state` `state` varchar(50) DEFAULT '';
 ALTER TABLE `shop_order_item` CHANGE `item_id` `item_id` int(11) DEFAULT '0';
 ALTER TABLE `shop_order_item` CHANGE `item_type` `item_type` varchar(50) DEFAULT '';
 
-ALTER TABLE `shop_agency`  CHANGE `description` `description` varchar(250) DEFAULT '',
+ALTER TABLE `shop_agency`  CHANGE `description` `description` varchar(250) DEFAULT '';
 ALTER TABLE `shop_agency`  CHANGE `avatar` `avatar` varchar(300) DEFAULT '';
 ALTER TABLE `shop_agency`  CHANGE `province` `province` varchar(100) DEFAULT '';
 ALTER TABLE `shop_agency`  CHANGE `city` `city` varchar(100) DEFAULT '';
