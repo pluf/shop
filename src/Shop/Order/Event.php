@@ -309,7 +309,7 @@ class Shop_Order_Event
             throw new \Pluf\Exception('Requested agency dose not exist', 4000, null, 404);
         }
         $order->agency_id = $agency;
-        $order->assignee_id = $agency->get_owner();
+//         $order->assignee_id = $agency->get_owner();
     }
 
     /**

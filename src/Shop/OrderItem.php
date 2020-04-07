@@ -1,10 +1,13 @@
 <?php
+use phpDocumentor\Reflection\Types\Null_;
+
 Pluf::loadFunction('Shop_Shortcuts_GetItemClass');
 
 class Shop_OrderItem extends Pluf_Model
 {
 
     /**
+     *
      * @brief مدل داده‌ای را بارگذاری می‌کند.
      *
      * @see Pluf_Model::init()
@@ -29,26 +32,26 @@ class Shop_OrderItem extends Pluf_Model
             ),
             'item_id' => array(
                 'type' => 'Integer',
-                'blank' => false,
-                'is_null' => false,
+                'blank' => true,
+                'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'item_type' => array(
                 'type' => 'Varchar',
-                'blank' => false,
-                'is_null' => false,
+                'blank' => true,
+                'is_null' => true,
                 'size' => 50,
                 'editable' => true,
                 'readable' => true
             ),
-//             'properties' => array(
-//                 'type' => 'Text',
-//                 'blank' => true,
-//                 'size' => 3000,
-//                 'editable' => true,
-//                 'readable' => true
-//             ),
+            // 'properties' => array(
+            // 'type' => 'Text',
+            // 'blank' => true,
+            // 'size' => 3000,
+            // 'editable' => true,
+            // 'readable' => true
+            // ),
             'count' => array(
                 'type' => 'Integer',
                 'blank' => false,
@@ -106,18 +109,22 @@ class Shop_OrderItem extends Pluf_Model
             $this->creation_dtime = gmdate('Y-m-d H:i:s');
         }
         $itemClassName = Shop_Shortcuts_GetItemClass($this->item_type);
-        $originItem = Pluf_Shortcuts_GetObjectOr404($itemClassName, $this->item_id);
-        $this->title = $originItem->toString();
-        $this->price = $originItem->price;
-        $this->off = $originItem->off;
+        if ($itemClassName != NULL) {
+            $originItem = Pluf_Shortcuts_GetObjectOr404($itemClassName, $this->item_id);
+            $this->title = $originItem->toString();
+            $this->price = $originItem->price;
+            $this->off = $originItem->off;
+        }
     }
-    
+
     /**
      * Check if this item is blong to given Shop_Order
+     *
      * @param Shop_Order $order
      * @return boolean
      */
-    function isBelongTo($order){
+    function isBelongTo($order)
+    {
         return $this->order_id === $order->id;
     }
 }

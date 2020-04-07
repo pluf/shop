@@ -60,7 +60,8 @@ class Shop_Category extends Pluf_Model
             'parent_id' => array(
                 'type' => 'Foreignkey',
                 'model' => 'Shop_Category',
-                'blank' => true,
+                'is_null' => true,
+                'default' => 0,
                 'name' => 'parent',
                 'graphql_name' => 'parent',
                 'relate_name' => 'children',

@@ -29,14 +29,14 @@ class Shop_Agency extends Shop_DetailedObject
             'province' => array(
                 'type' => 'Varchar',
                 'size' => 100,
-                'is_null' => false,
+                'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
             'city' => array(
                 'type' => 'Varchar',
                 'size' => 100,
-                'is_null' => false,
+                'is_null' => true,
                 'editable' => true,
                 'readable' => true
             ),
@@ -68,14 +68,12 @@ class Shop_Agency extends Shop_DetailedObject
             ),
             'creation_dtime' => array(
                 'type' => 'Datetime',
-                'blank' => true,
-                'verbose' => __('creation date'),
+                'is_null' => true,
                 'editable' => false
             ),
             'modif_dtime' => array(
                 'type' => 'Datetime',
-                'blank' => true,
-                'verbose' => __('modification date'),
+                'is_null' => true,
                 'editable' => false
             ),
             /*
@@ -88,7 +86,7 @@ class Shop_Agency extends Shop_DetailedObject
                 'graphql_name' => 'owner',
                 'relate_name' => 'agencies',
                 'editable' => true,
-                'readable' => true
+                'readable' => true,
             )
         ));
     }

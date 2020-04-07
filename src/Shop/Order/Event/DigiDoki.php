@@ -7,6 +7,7 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
      * Properties
      */
     public const PROPERTY_WORKSHOP_ID = self::PROPERTY_AGENCY_ID;
+
     public const PROPERTY_DATETIME = array(
         'name' => 'datetime',
         'type' => 'Datetime',
@@ -19,6 +20,7 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         'defaultValue' => '',
         'validators' => []
     );
+
     public const PROPERTY_TOTAL_PRICE = array(
         'name' => 'total_cost',
         'type' => 'Long',
@@ -34,6 +36,7 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
             'Positive'
         ]
     );
+
     public const PROPERTY_SPARE_PRICE = array(
         'name' => 'spare_cost',
         'type' => 'Long',
@@ -49,8 +52,9 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
             'Positive'
         ]
     );
-    // End of properties 
-    
+
+    // End of properties
+
     /*
      * Actions
      */
@@ -58,106 +62,109 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         'Shop_Order_Event_DigiDoki',
         'archive'
     );
-    
+
     public const ARCHIVE_PROPERTIES = array(
         self::PROPERTY_COMMENT
     );
-    
+
     public const REPORT_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'report'
     );
-    
+
     public const REPORT_PROPERTIES = array(
         Self::PROPERTY_COMMENT
     );
-    
+
     public const SET_FIXER_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'setFixer'
     );
-    
+
     public const SET_FIXER_PROPERTIES = array(
         self::PROPERTY_ACCOUNT_ID,
         Self::PROPERTY_COMMENT
-        
     );
-    
+
     public const CLOSE_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'close'
     );
-    
+
     public const CLOSE_PROPERTIES = array(
         self::PROPERTY_ACCOUNT_ID,
         Self::PROPERTY_COMMENT
-        
     );
-    
+
     public const SET_WORKSHOP_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'setWorkshop'
     );
-    
+
     public const SET_WORKSHOP_PROPERTIES = array(
         self::PROPERTY_WORKSHOP_ID,
         Self::PROPERTY_COMMENT
     );
-    
+
     public const SCHEDULE_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'schedule'
     );
-    
+
     public const SCHEDULE_PROPERTIES = array(
         self::PROPERTY_DATETIME,
         Self::PROPERTY_ADDRESS,
         self::PROPERTY_COMMENT
     );
-    
+
     public const FIX_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'fix'
     );
-    
+
     public const FIX_PROPERTIES = array(
         self::PROPERTY_TOTAL_PRICE,
         self::PROPERTY_SPARE_PRICE,
         self::PROPERTY_COMMENT
     );
-    
+
     public const WORKSHOP_FIX_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'workshopFix'
     );
-    
+
     public const REOPEN_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'reopen'
     );
+
     // End of actions
-    
-    
+
     /*
      * Preconditions
      */
-    public static function isCrm($request){
+    public static function isCrm($request)
+    {
         return User_Precondition::isOwner($request);
     }
-    
-    public static function isZoneOwner($request){
+
+    public static function isZoneOwner($request)
+    {
         return User_Precondition::isOwner($request);
     }
-    
-    public static function isFixer($request){
+
+    public static function isFixer($request)
+    {
         return User_Precondition::isOwner($request);
     }
-    
-    public static function isWorkshopOwner($request){
+
+    public static function isWorkshopOwner($request)
+    {
         return User_Precondition::isOwner($request);
     }
+
     // End of perconditions
-    
+
     /**
      * Registers a report for the order
      *
@@ -168,21 +175,21 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
     {
         return self::addComment($request, $object);
     }
-    
+
     public static function setFixer($request, $order)
     {
         self::addComment($request, $order);
-        if (! array_key_exists('fixer_id', $request->REQUEST)) {
-            throw new Pluf_Exception_BadRequest('fixer_id is required');
+        if (! array_key_exists('account_id', $request->REQUEST)) {
+            throw new Pluf_Exception_BadRequest('account_id of fixer is required');
         }
-        $fixerId = $request->REQUEST['fixer_id'];
-        $fixer = new Shop_Zone($fixerId);
+        $fixerId = $request->REQUEST['account_id'];
+        $fixer = new User_Account($fixerId);
         if ($fixer->isAnonymous()) {
-            throw new Pluf_Exception_DoesNotExist('Determined fixer dose not exist', 4000, null, 404);
+            throw new Pluf_Exception_DoesNotExist('Determined fixer dose not exist');
         }
         $order->assignee_id = $fixer;
     }
-    
+
     public static function setCosts($request, $order)
     {
         $totalCost = $request->REQUEST['total_cost'];
@@ -191,20 +198,21 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         self::creatOrderItem('Spares', $spareCost, 1, $order);
         self::creatOrderItem('Wages', $totalCost - $spareCost, 1, $order);
     }
-    
-    private static function verifyCosts($request){
-        if(!isset($request->REQUEST['total_cost'])){
+
+    private static function verifyCosts($request)
+    {
+        if (! isset($request->REQUEST['total_cost'])) {
             throw new Pluf_Exception_BadRequest('total_cost is required');
         }
-        if(!isset($request->REQUEST['spare_cost'])){
+        if (! isset($request->REQUEST['spare_cost'])) {
             throw new Pluf_Exception_BadRequest('spare_cost is required');
         }
         $totalCost = $request->REQUEST['total_cost'];
         $spareCost = $request->REQUEST['spare_cost'];
-        if (!is_numeric($totalCost)) {
+        if (! is_numeric($totalCost)) {
             throw new Pluf_Exception_BadRequest('Total cost is not a valid value: ' . $totalCost);
         }
-        if (!is_numeric($spareCost)) {
+        if (! is_numeric($spareCost)) {
             throw new Pluf_Exception_BadRequest('Spare cost is not a valid value: ' . $spareCost);
         }
         if ($totalCost < $spareCost) {
@@ -212,25 +220,27 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         }
         return true;
     }
-    
+
     /**
      * Creates an order-item with given data
+     *
      * @param string $title
      * @param number $price
      * @param number $count
      * @param Shop_Order $order
-     * @return Shop_OrderItem 
+     * @return Shop_OrderItem
      */
-    private static function creatOrderItem($title, $price, $count, $order){
+    private static function creatOrderItem($title, $price, $count, $order)
+    {
         $item = new Shop_OrderItem();
         $item->title = $title;
         $item->count = $count;
         $item->price = $price;
-        $item->order = $order;
+        $item->order_id = $order;
         $item->create();
         return $item;
     }
-    
+
     /**
      * Transfers the commission from wallet of current user to the main wallet of the tenant.
      * The main wallet of the tenant could be determined in the settings of tenant by the key 'digidoci.main_wallet_id'.
@@ -248,8 +258,12 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
             throw new Pluf_Exception_BadRequest('Invalid value for commission. Commission should be a positive value.');
         }
         // Get wallet of current user
-        $wallets = Bank_Service::getWallets($request->user, Tenant_Service::setting('local.currency'));
-        if ($wallets->count() === 0) {
+        $currency = Tenant_Service::setting('local.currency', NULL);
+        if($currency == NULL){
+            throw new Pluf_Exception_SettingError('Local currency of tenant is not set. Set it first.');
+        }
+        $wallets = Bank_Service::getWallets($request->user, $currency);
+        if (count($wallets) === 0) {
             throw new Pluf_Exception_DoesNotExist('You have not any wallet with current currency, so you can not do this action.');
         }
         $fromWallet = $wallets[0]; // Get first wallet as main wallet of user
@@ -292,34 +306,43 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
             $toWallet->update();
         }
     }
-    
+
     public static function setWorkshop($request, $object)
     {
         return self::setAgency($request, $object);
     }
-    
+
     public static function schedule($request, $order)
     {
-        $time = Pluf_Shortcuts_GetRequestParamOr403($request, 'time');
+        $time = Pluf_Shortcuts_GetRequestParamOr403($request, 'datetime');
         $address = Pluf_Shortcuts_GetRequestParamOr403($request, 'address');
         $desc = Pluf_Shortcuts_GetRequestParam($request, 'description');
         $desc = "$desc - $address - $time";
         $request->REQUEST['description'] = $desc;
         // Add meta data for time and location:
         self::createOrderMetafeild('time', $time, 'workflow', $order);
-        self::createOrderMetafeild('address', $address, 'workflow', $order);        
+        self::createOrderMetafeild('address', $address, 'workflow', $order);
     }
-    
-    private static function createOrderMetafeild($key, $value, $namespace, $order){
+
+    private static function createOrderMetafeild($key, $value, $namespace, $order)
+    {
         $meta = new Shop_OrderMetafield();
-        $meta->key = $key;
-        $meta->value = $value;
-        $meta->namespace = $namespace;
-        $meta->order_id = $order;
-        $meta->create();
-        return $meta();
+        $temp = $meta->getMetafield($key, $order->id);
+        if ($temp !== false) {
+            $meta = $temp;
+            $meta->value = $value;
+            $meta->namespace = $namespace;
+            $meta->update();
+        } else {
+            $meta->key = $key;
+            $meta->value = $value;
+            $meta->namespace = $namespace;
+            $meta->order_id = $order;
+            $meta->create();
+        }
+        return $meta;
     }
-    
+
     public static function fix($request, $object)
     {
         self::verifyCosts($request);
@@ -327,22 +350,22 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         // transfer commision from fixer wallet to the main wallet of the tenant
         self::transferCommission($request, $object);
     }
-    
+
     public static function workshopFix($request, $object)
     {
         return self::fix($request, $object);
     }
-    
+
     public static function reopen($request, $object)
     {
         return self::addComment($request, $object);
     }
-    
+
     public static function close($request, $object)
     {
         return self::addComment($request, $object);
     }
-    
+
     public static function archive($request, $object)
     {
         self::addComment($request, $object);

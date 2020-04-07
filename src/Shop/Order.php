@@ -29,29 +29,28 @@ class Shop_Order extends Pluf_Model
             ),
             'title' => array(
                 'type' => 'Varchar',
-                'blank' => false,
-                'is_null' => false,
+                'is_null' => true,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
             ),
             'full_name' => array(
                 'type' => 'Varchar',
-                'blank' => false,
+                'is_null' => true,
                 'size' => 50,
                 'readable' => true,
                 'editable' => true
             ),
             'phone' => array(
                 'type' => 'Varchar',
-                'blank' => false,
+                'is_null' => true,
                 'size' => 30,
                 'readable' => true,
                 'editable' => true
             ),
             'email' => array(
                 'type' => 'Email',
-                'blank' => true,
+                'is_null' => true,
                 'readable' => true,
                 'editable' => true
             ),
@@ -84,41 +83,41 @@ class Shop_Order extends Pluf_Model
             ),
             'description' => array(
                 'type' => 'Varchar',
-                'blank' => true,
+                'is_null' => true,
                 'size' => 250,
                 'editable' => true,
                 'readable' => true
             ),
             'manager' => array(
                 'type' => 'Varchar',
-                'blank' => true,
+                'is_null' => true,
                 'size' => 100,
                 'editable' => false,
                 'readable' => true
             ),
             'state' => array(
                 'type' => 'Varchar',
-                'blank' => true,
+                'is_null' => true,
                 'size' => 50,
                 'editable' => true,
                 'readable' => true
             ),
             'deleted' => array(
                 'type' => 'Boolean',
-                'blank' => false,
+                'is_null' => false,
                 'default' => false,
                 'readable' => true,
                 'editable' => false
             ),
             'creation_dtime' => array(
                 'type' => 'Datetime',
-                'blank' => true,
+                'is_null' => true,
                 'editable' => false,
                 'readable' => true
             ),
             'modif_dtime' => array(
                 'type' => 'Datetime',
-                'blank' => true,
+                'is_null' => true,
                 'editable' => false,
                 'readable' => true
             ),
