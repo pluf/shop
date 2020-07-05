@@ -438,7 +438,11 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
         if (User_Precondition::isOwner($request)) {
             return $sql;
         }
-        return new Pluf_SQL('false');
+        return new Pluf_SQL('deleted=%d AND (customer_id=%d OR assignee_id=%d)', array(
+            FALSE, 
+            $request->user->id,
+            $request->user->id
+        ));
     }
 
     /**
