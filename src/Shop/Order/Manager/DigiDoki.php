@@ -301,7 +301,7 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
             'workshopDelivered' => array(
                 'next' => 'in-queue',
                 'visible' => true,
-                'title' => 'Workshop Delivered',
+                'title' => 'Delivered in Workshop',
                 'description' => '',
                 'properties' => Shop_Order_Event_DigiDoki::REPORT_PROPERTIES,
                 'action' => Shop_Order_Event_DigiDoki::REPORT_ACTION,
@@ -336,7 +336,7 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
             'workshopStartFix' => array(
                 'next' => 'repairing',
                 'visible' => true,
-                'title' => 'Workshop Fix',
+                'title' => 'Start Fix',
                 'description' => '',
                 'properties' => Shop_Order_Event_DigiDoki::REPORT_PROPERTIES,
                 'action' => Shop_Order_Event_DigiDoki::REPORT_ACTION,
@@ -360,7 +360,7 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
             'workshopFailFix' => array(
                 'next' => 'giving-back',
                 'visible' => true,
-                'title' => 'Close',
+                'title' => 'Failed',
                 'description' => 'Close the order',
                 'properties' => Shop_Order_Event_DigiDoki::CLOSE_PROPERTIES,
                 'action' => Shop_Order_Event_DigiDoki::CLOSE_ACTION,
@@ -371,7 +371,7 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
             'workshopEndFix' => array(
                 'next' => 'giving-back',
                 'visible' => true,
-                'title' => 'Workshop Fix',
+                'title' => 'End Fix',
                 'description' => '',
                 'action' => Shop_Order_Event_DigiDoki::WORKSHOP_FIX_ACTION,
                 'preconditions' => array(
