@@ -382,7 +382,20 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                 'next' => 'in-queue',
                 'visible' => true,
                 'title' => 'Need More Time',
-                'description' => '',
+                'description' => 'We need more time to fix',
+                'properties' => Shop_Order_Event_DigiDoki::REPORT_PROPERTIES,
+                'action' => Shop_Order_Event_DigiDoki::REPORT_ACTION,
+                'preconditions' => array(
+                    'Shop_Order_Event_DigiDoki::isWorkshopOwner'
+                )
+            ),
+            'workshopNeedSpare' => array(
+                'next' => 'in-queue',
+                'visible' => true,
+                'title' => 'Need to Spare',
+                'description' => 'We need spares to fix',
+                'properties' => Shop_Order_Event_DigiDoki::REPORT_PROPERTIES,
+                'action' => Shop_Order_Event_DigiDoki::REPORT_ACTION,
                 'preconditions' => array(
                     'Shop_Order_Event_DigiDoki::isWorkshopOwner'
                 )
