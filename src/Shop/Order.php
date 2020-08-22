@@ -255,7 +255,7 @@ class Shop_Order extends Pluf_Model
         $items = $orderItem->getList(array(
             'filter' => $q->gen()
         ));
-        $totalPrice = 0;
+        $totalPrice = 0.0;
         foreach ($items as $item) {
             $totalPrice += ($item->price - $item->off) * $item->count;
         }

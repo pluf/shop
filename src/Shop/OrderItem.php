@@ -61,14 +61,14 @@ class Shop_OrderItem extends Pluf_Model
                 'readable' => true
             ),
             'price' => array(
-                'type' => 'Integer',
+                'type' => 'Float',
                 'blank' => false,
                 'is_null' => false,
                 'editable' => false,
                 'readable' => true
             ),
             'off' => array(
-                'type' => 'Integer',
+                'type' => 'Float',
                 'blank' => false,
                 'is_null' => false,
                 'default' => 0,

@@ -255,9 +255,7 @@ class Shop_Views_Order
             'callbackURL' => $url,
             'backend_id' => $backend->id
         );
-
         $payment = Bank_Service::create($receiptData, 'shop-order', $order->id);
-
         $order->payment_id = $payment;
         $order->update();
         return $payment;

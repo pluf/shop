@@ -16,14 +16,14 @@ class Shop_PricedObject extends Shop_DetailedObject
         // Merge parent columns with new columns
         $this->_a['cols'] = array_merge($this->_a['cols'], array(
             'price' => array(
-                'type' => 'Integer',
+                'type' => 'Float',
                 'blank' => false,
                 'is_null' => false,
                 'editable' => true,
                 'readable' => true
             ),
             'off' => array(
-                'type' => 'Integer',
+                'type' => 'Float',
                 'blank' => true,
                 'is_null' => true,
                 'default' => 0,
