@@ -117,6 +117,25 @@ class Shop_Zone extends Shop_DetailedObject
         return $this->get_owner()->getId() == $user->getId();
     }
 
+    public function loadViews(): array
+    {
+        $engine = $this->getEngine();
+        $schema = $engine->getSchema();
+        
+        /*
+         * Views
+         */
+        $u_asso = $schema->getRelationTable($this, new User_Account());
+        $t_zone = $schema->getTableName($this);
+        
+        $zone_fk = $schema->getAssocField($this);
+        return array(
+            'join_user' => array(
+                'join' => 'LEFT JOIN ' . $u_asso . ' ON ' . $t_zone . '.id=' . $zone_fk
+            )
+        );
+    }
+    
     /**
      * پیش ذخیره را انجام می‌دهد
      *
