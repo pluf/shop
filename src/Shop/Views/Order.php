@@ -67,6 +67,7 @@ class Shop_Views_Order
             'city',
             'point',
             'state',
+            'manager',
             'customer_id',
             'zone_id',
             'agency_id'

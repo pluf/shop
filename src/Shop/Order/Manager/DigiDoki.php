@@ -13,11 +13,11 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
     /**
      * State machine of the manager
      */
-    private static $STATE_MACHINE;
+    private static $STATE_MACHINE = null;
 
-    function __construct()
+    private static function initStateMachine()
     {
-        // TODO: replace the role with fixer role
+        // TODO: replace the following role with an appropriate role
         $role = User_Role::getFromString('tenant.member');
         $url = $role ? "/api/v2/user/roles/$role->id/accounts" : '/api/v2/user/accounts';
         $setFixerProp = Shop_Order_Event_DigiDoki::SET_FIXER_PROPERTIES;
@@ -503,6 +503,9 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
      */
     public function getStates()
     {
+        if(self::$STATE_MACHINE == null){
+            self::initStateMachine();
+        }
         return self::$STATE_MACHINE;
     }
 }
