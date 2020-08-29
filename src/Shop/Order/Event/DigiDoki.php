@@ -92,7 +92,6 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
     );
 
     public const CLOSE_PROPERTIES = array(
-        self::PROPERTY_ACCOUNT_ID,
         Self::PROPERTY_COMMENT
     );
 
