@@ -18,7 +18,7 @@ return array(
         'http-method' => 'GET',
         'params' => array(
             'model' => 'Shop_Zone',
-            'sql' => new Pluf_SQL('deleted=false')
+            'sql' => 'deleted=false'
         )
     ),
     array( // Create
