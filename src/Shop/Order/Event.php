@@ -37,7 +37,7 @@ class Shop_Order_Event
         'type' => 'String',
         'unit' => 'none',
         'title' => 'Title',
-        'description' => 'Title of order',
+        'description' => 'Title of the entity',
         'editable' => true,
         'visible' => true,
         'priority' => 5,

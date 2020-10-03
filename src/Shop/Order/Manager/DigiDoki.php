@@ -76,6 +76,17 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                         'Shop_Order_Event_DigiDoki::isCrm'
                     )
                 ),
+                'failedToConnect' => array(
+                    'next' => 'notResponded',
+                    'visible' => true,
+                    'title' => 'Failed to Connect',
+                    'description' => 'Failed to connect to the customer',
+                    'properties' => Shop_Order_Event_DigiDoki::FAILED_TO_CONNECT_PROPERTIES,
+                    'action' => Shop_Order_Event_DigiDoki::FAILED_TO_CONNECT_ACTION,
+                    'preconditions' => array(
+                        'Shop_Order_Event_DigiDoki::isCrm'
+                    )
+                ),
                 'archive' => array(
                     'next' => 'archived',
                     'visible' => true,
@@ -96,6 +107,63 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                     'action' => Shop_Order_Event_DigiDoki::REPORT_ACTION,
                     'preconditions' => array(
                         'Shop_Order_Event_DigiDoki::isCrm'
+                    )
+                )
+            ),
+            'notResponded' => array(
+                'setZone' => array(
+                    'next' => 'check',
+                    'visible' => true,
+                    'title' => 'Set Zone',
+                    'description' => 'Set a zone to the order',
+                    'properties' => $setZoneProp,
+                    'action' => Shop_Order_Event_DigiDoki::SET_ZONE_ACTION,
+                    'preconditions' => array(
+                        'Shop_Order_Event_DigiDoki::isCrm'
+                    )
+                ),
+                'setFixer' => array(
+                    'next' => 'waiting',
+                    'visible' => true,
+                    'title' => 'Set Fixer',
+                    'description' => 'Set fixer for the order',
+                    'properties' => $setFixerProp,
+                    'action' => Shop_Order_Event_DigiDoki::SET_FIXER_ACTION,
+                    'preconditions' => array(
+                        'Shop_Order_Event_DigiDoki::isZoneOwner'
+                    )
+                ),
+                'setWorkshop' => array(
+                    'next' => 'workshop-check',
+                    'visible' => true,
+                    'title' => 'Set Workshop',
+                    'description' => '',
+                    'properties' => $setWorkshopProp,
+                    'action' => Shop_Order_Event_DigiDoki::SET_WORKSHOP_ACTION,
+                    'preconditions' => array(
+                        'Shop_Order_Event_DigiDoki::isZoneOwner'
+                    )
+                ),
+                'close' => array(
+                    'next' => 'close',
+                    'visible' => true,
+                    'title' => 'Close',
+                    'description' => 'Close the order',
+                    'properties' => Shop_Order_Event_DigiDoki::CLOSE_PROPERTIES,
+                    'action' => Shop_Order_Event_DigiDoki::CLOSE_ACTION,
+                    'preconditions' => array(
+                        'Shop_Order_Event_DigiDoki::isZoneOwner'
+                    )
+                ),
+                'report' => array(
+                    'next' => 'check',
+                    'visible' => true,
+                    'title' => 'Report',
+                    'description' => 'Add report to the order',
+                    'properties' => Shop_Order_Event_DigiDoki::REPORT_PROPERTIES,
+                    'action' => Shop_Order_Event_DigiDoki::REPORT_ACTION,
+                    'preconditions' => array(
+                        'Shop_Order_Event_DigiDoki::isZoneOwner'
                     )
                 )
             ),
@@ -142,6 +210,17 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                     'action' => Shop_Order_Event_DigiDoki::SET_WORKSHOP_ACTION,
                     'preconditions' => array(
                         'Shop_Order_Event_DigiDoki::isZoneOwner'
+                    )
+                ),
+                'failedToConnect' => array(
+                    'next' => 'notResponded',
+                    'visible' => true,
+                    'title' => 'Failed to Connect',
+                    'description' => 'Failed to connect to the customer',
+                    'properties' => Shop_Order_Event_DigiDoki::FAILED_TO_CONNECT_PROPERTIES,
+                    'action' => Shop_Order_Event_DigiDoki::FAILED_TO_CONNECT_ACTION,
+                    'preconditions' => array(
+                        'Shop_Order_Event_DigiDoki::isCrm'
                     )
                 ),
                 'report' => array(
@@ -203,6 +282,17 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                 )
             ),
             'schedule' => array(
+                'addCost' => array(
+                    'next' => 'schedule',
+                    'visible' => true,
+                    'title' => 'Add Cost',
+                    'description' => 'Add cost to the order',
+                    'properties' => Shop_Order_Event_DigiDoki::ADD_COST_PROPERTIES,
+                    'action' => Shop_Order_Event_DigiDoki::ADD_COST_ACTION,
+                    'preconditions' => array(
+                        'Shop_Order_Event_DigiDoki::isFixer'
+                    )
+                ),
                 'fix' => array(
                     'next' => 'fixed',
                     'visible' => true,
@@ -349,7 +439,7 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                 'close' => array(
                     'next' => 'close',
                     'visible' => true,
-                    'title' => 'Close',
+                    'title' => 'Not Delivered',
                     'description' => 'Close the order',
                     'properties' => Shop_Order_Event_DigiDoki::CLOSE_PROPERTIES,
                     'action' => Shop_Order_Event_DigiDoki::CLOSE_ACTION,
@@ -394,6 +484,17 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                 )
             ),
             'repairing' => array(
+                'addCost' => array(
+                    'next' => 'repairing',
+                    'visible' => true,
+                    'title' => 'Add Cost',
+                    'description' => 'Add cost to the order',
+                    'properties' => Shop_Order_Event_DigiDoki::ADD_COST_PROPERTIES,
+                    'action' => Shop_Order_Event_DigiDoki::ADD_COST_ACTION,
+                    'preconditions' => array(
+                        'Shop_Order_Event_DigiDoki::isFixer'
+                    )
+                ),
                 'workshopFailFix' => array(
                     'next' => 'giving-back',
                     'visible' => true,

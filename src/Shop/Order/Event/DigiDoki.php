@@ -53,6 +53,38 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         ]
     );
 
+    public const PROPERTY_PRICE = array(
+        'name' => 'price',
+        'type' => 'Float',
+        'unit' => 'none',
+        'title' => 'Price',
+        'description' => 'The price of the item',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 11,
+        'defaultValue' => '',
+        'validators' => [
+            'NotNull',
+            'Positive'
+        ]
+    );
+    
+    public const PROPERTY_COUNT = array(
+        'name' => 'count',
+        'type' => 'Long',
+        'unit' => 'none',
+        'title' => 'Count',
+        'description' => 'The number of the item to add',
+        'editable' => true,
+        'visible' => true,
+        'priority' => 11,
+        'defaultValue' => '',
+        'validators' => [
+            'NotNull',
+            'Positive'
+        ]
+    );
+    
     // End of properties
 
     /*
@@ -71,8 +103,17 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         'Shop_Order_Event_DigiDoki',
         'report'
     );
+    
+    public const FAILED_TO_CONNECT_ACTION = array(
+        'Shop_Order_Event_DigiDoki',
+        'report'
+    );
 
     public const REPORT_PROPERTIES = array(
+        Self::PROPERTY_COMMENT
+    );
+    
+    public const FAILED_TO_CONNECT_PROPERTIES = array(
         Self::PROPERTY_COMMENT
     );
 
@@ -127,6 +168,18 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         self::PROPERTY_COMMENT
     );
 
+    public const ADD_COST_ACTION = array(
+        'Shop_Order_Event_DigiDoki',
+        'addCost'
+    );
+    
+    public const ADD_COST_PROPERTIES = array(
+        self::PROPERTY_TITLE,
+        self::PROPERTY_PRICE,
+        self::PROPERTY_COUNT,
+        self::PROPERTY_COMMENT
+    );
+    
     public const WORKSHOP_FIX_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'workshopFix'
@@ -189,6 +242,16 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         $order->assignee_id = $fixer;
     }
 
+    public static function addCost($request, $order){
+        $title = Pluf_Shortcuts_GetRequestParam($request, 'title');
+        $price = Pluf_Shortcuts_GetRequestParam($request, 'price');
+        $count = Pluf_Shortcuts_GetRequestParam($request, 'count');
+        $title = $title == null ? 'no title' : $title;
+        $price = $price == null ? 0 : $price;
+        $count = $count == null ? 1 : $count;
+        self::creatOrderItem($title, $price, $count, $order);
+    }
+    
     public static function setCosts($request, $order)
     {
         $totalCost = $request->REQUEST['total_cost'];
@@ -344,10 +407,11 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
 
     public static function fix($request, $object)
     {
-        self::verifyCosts($request);
-        self::setCosts($request, $object);
-        // transfer commision from fixer wallet to the main wallet of the tenant
-        self::transferCommission($request, $object);
+        return self::addComment($request, $object);
+//         self::verifyCosts($request);
+//         self::setCosts($request, $object);
+//         // transfer commision from fixer wallet to the main wallet of the tenant
+//         self::transferCommission($request, $object);
     }
 
     public static function workshopFix($request, $object)
