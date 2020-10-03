@@ -512,6 +512,7 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
                     'title' => 'End Fix',
                     'description' => '',
                     'action' => Shop_Order_Event_DigiDoki::WORKSHOP_FIX_ACTION,
+                    'properties' => Shop_Order_Event_DigiDoki::FIX_PROPERTIES,
                     'preconditions' => array(
                         'Shop_Order_Event_DigiDoki::isWorkshopOwner'
                     )

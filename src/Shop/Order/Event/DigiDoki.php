@@ -163,8 +163,8 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
     );
 
     public const FIX_PROPERTIES = array(
-        self::PROPERTY_TOTAL_PRICE,
-        self::PROPERTY_SPARE_PRICE,
+//         self::PROPERTY_TOTAL_PRICE,
+//         self::PROPERTY_SPARE_PRICE,
         self::PROPERTY_COMMENT
     );
 
