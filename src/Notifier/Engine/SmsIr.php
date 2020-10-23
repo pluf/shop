@@ -27,7 +27,6 @@ class Notifier_Engine_SmsIr extends Notifier_Engine
 {
     const ENGINE_PARAMETER_API_KEY = 'notifier.engine.SmsIr.ApiKey';
     const ENGINE_PARAMETER_SECRET_KEY = 'notifier.engine.SmsIr.SecretKey';
-    const ENGINE_PARAMETER_TEMPLATE_ID = 'notifier.engine.SmsIr.TemplateId';
     
     /*
      *
@@ -102,7 +101,7 @@ class Notifier_Engine_SmsIr extends Notifier_Engine
             'x-sms-ir-secure-token' => $token,
             'Content-Type' => 'application/json'
         );
-        $templateId = (int) Tenant_Service::setting(self::ENGINE_PARAMETER_TEMPLATE_ID, 0);
+        $templateId = array_key_exists('messageId', $data) ? $data['messageId'] : 0;
         $path = $templateId > 0 ? '/api/UltraFastSend' : '/api/VerificationCode';
         $param = array();
         if ($templateId > 0) {

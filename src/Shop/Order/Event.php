@@ -2,6 +2,10 @@
 
 class Shop_Order_Event
 {
+    /*
+     * Constants
+     */
+    const NOTIFIER_PARAMETER_MESSAGE_ID = 'notifier.parameter.messageId';
 
     /*
      * Properties
@@ -355,29 +359,37 @@ class Shop_Order_Event
         $order->deleted = true;
     }
 
+    
     public static function sendNotification($request, $object)
     {
         try {
-            // Load notifier engine
-            $type = class_exists('Tenant_Service') ? //
-            Tenant_Service::setting('shop_order.notifier.engine', 'nonotify') : //
-            Pluf::f('shop_order.notifier.engine', 'nonotify');
-
-            $engine = Notifier_Service::getEngine($type);
-            if (! $engine) {
-                throw new Notifier_Exception_EngineLoad('Defined notifier engine does not exist.');
-            }
+            
             // TODO: hadi, 1398-11: improve to consider email notifiers or other type of notifiers (following code should be general)
+            $msgId = (int) Tenant_Service::setting(self::NOTIFIER_PARAMETER_MESSAGE_ID, 0);
             $data = array(
                 'code' => $object->secureId,
-                'receiver' => $object->phone
+                'receiver' => $object->phone,
+                'messageId' => $msgId
             );
-            $engineResponse = $engine->send($data);
-            if (! $engineResponse) {
-                throw new Notifier_Exception_NotificationSend();
-            }
+            self::sendMessage($data);
         } catch (Exception $e) {
             // TODO: hadi, 1398-11: log the error
+        }
+    }
+    
+    public static function sendMessage($data){
+        // Load notifier engine
+        $type = class_exists('Tenant_Service') ? //
+        Tenant_Service::setting('shop_order.notifier.engine', 'nonotify') : //
+        Pluf::f('shop_order.notifier.engine', 'nonotify');
+        
+        $engine = Notifier_Service::getEngine($type);
+        if (! $engine) {
+            throw new Notifier_Exception_EngineLoad('Defined notifier engine does not exist.');
+        }
+        $engineResponse = $engine->send($data);
+        if (! $engineResponse) {
+            throw new Notifier_Exception_NotificationSend();
         }
     }
 }
