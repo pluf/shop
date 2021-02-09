@@ -7,7 +7,7 @@ return array(
         'method' => 'getSchema',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_Tags'
+            'model' => 'Shop_Tag'
         )
     ),
     // ************************************************************* Tag
