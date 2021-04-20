@@ -84,7 +84,7 @@ return array(
         'method' => 'doAction',
         'http-method' => 'POST',
         'precond' => array(
-            'User_Precondition::ownerRequired'
+            'User_Precondition::memberRequired'
         )
     ),
     // ************************************************************* Order Payments

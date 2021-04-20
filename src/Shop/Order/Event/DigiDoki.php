@@ -214,22 +214,26 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
      */
     public static function isCrm($request)
     {
-        return User_Precondition::isOwner($request);
+        // FIXME: hadi 2021-04: fix it
+        return User_Precondition::isMember($request);
     }
 
     public static function isZoneOwner($request)
     {
-        return User_Precondition::isOwner($request);
+        // FIXME: hadi 2021-04: fix it
+        return User_Precondition::isMember($request);
     }
 
     public static function isFixer($request)
     {
-        return User_Precondition::isOwner($request);
+        // FIXME: hadi 2021-04: fix it
+        return User_Precondition::isMember($request);
     }
 
     public static function isWorkshopOwner($request)
     {
-        return User_Precondition::isOwner($request);
+        // FIXME: hadi 2021-04: fix it
+        return User_Precondition::isMember($request);
     }
 
     // End of perconditions
