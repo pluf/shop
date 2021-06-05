@@ -10,6 +10,11 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
 
     const NOTIFIER_PARAMETER_FAILED_CALL_MESSAGE_ID = 'notifier.parameter.messageId.failedCall';
 
+    const NOTIFIER_PARAMETER_CLOSE_MESSAGE = 'notifier.parameter.message.close';
+    
+    const NOTIFIER_PARAMETER_FIX_DAY_MESSAGE = 'notifier.parameter.message.fixed.day';
+    const NOTIFIER_PARAMETER_FIX_WEEK_MESSAGE = 'notifier.parameter.message.fixed.week';
+    
     /*
      * Properties
      */
@@ -434,6 +439,18 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         // self::setCosts($request, $object);
         // // transfer commision from fixer wallet to the main wallet of the tenant
         // self::transferCommission($request, $object);
+        $msg = Tenant_Service::setting(self::NOTIFIER_PARAMETER_FIX_DAY_MESSAGE, NULL);
+        if($msg){
+            $expiryDay = ' +1 day';
+            $sendDtime = date('Y-m-d H:i:s', strtotime($expiryDay));
+            self::sendCrmNotification($request, $object, $msg, $sendDtime);
+        }
+        $msg = Tenant_Service::setting(self::NOTIFIER_PARAMETER_FIX_WEEK_MESSAGE, NULL);
+        if($msg){
+            $expiryDay = ' +7 day';
+            $sendDtime = date('Y-m-d H:i:s', strtotime($expiryDay));
+            self::sendCrmNotification($request, $object, $msg, $sendDtime);
+        }
     }
 
     public static function workshopFix($request, $object)
@@ -448,7 +465,11 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
 
     public static function close($request, $object)
     {
-        return self::addComment($request, $object);
+        self::addComment($request, $object);
+        $msg = Tenant_Service::setting(self::NOTIFIER_PARAMETER_CLOSE_MESSAGE, NULL);
+        if($msg){
+            self::sendCrmNotification($request, $object, $msg, NULL);
+        }
     }
 
     public static function archive($request, $object)
@@ -494,6 +515,22 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
     {
         self::report($request, $object);
         self::sendFailedCallNotification($request, $object);
+    }
+    
+    public static function sendCrmNotification($request, $object, $msg, $sendDtime)
+    {
+        try {
+            
+            // TODO: hadi, 1398-11: improve to consider email notifiers or other type of notifiers (following code should be general)
+            $data = array(
+                'sendDateTime' => $sendDtime,
+                'receiver' => $object->phone,
+                'message' => $msg,
+            );
+            self::sendMessage($data);
+        } catch (Exception $e) {
+            // TODO: hadi, 1398-11: log the error
+        }
     }
 }
 
