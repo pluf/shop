@@ -29,12 +29,12 @@ class Shop_ServiceMetafield extends Pluf_Model
                 'readable' => true
             ),
             'value' => array(
-                'type' => 'Varchar',
+                'type' => 'Text',
                 'is_null' => false,
                 'blank' => false,
-                'size' => 256,
                 'editable' => true,
-                'readable' => true
+                'readable' => true,
+                'default' => ''
             ),
             'unit' => array(
                 'type' => 'Varchar',
