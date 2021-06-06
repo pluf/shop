@@ -1,6 +1,6 @@
 {
 	"name" : "pluf/shop",
-	"version" : "6.0.22",
+	"version" : "6.0.23",
 	"description" : "Simple online shop and service",
 	"type" : "library",
 	"license" : "MIT",
