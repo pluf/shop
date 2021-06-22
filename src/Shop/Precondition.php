@@ -41,7 +41,8 @@ class Shop_Precondition
         if (User_Precondition::isOwner($request)) {
             return true;
         }
-        if (isset($request->user) && $request->user->id === $order->customer_id) {
+        // If user is creator of the order or user is assignee of the order
+        if (isset($request->user) && ($request->user->id === $order->customer_id || $request->user->id === $order->assignee_id)) {
             return true;
         }
         return false;

@@ -19,12 +19,12 @@
 return array(
     // ************************************************************* Schema
     array(
-        'regex' => '#^/orders/(?P<parentId>\d+)/attachments/schema$#',
+        'regex' => '#^/order-attachments/schema$#',
         'model' => 'Pluf_Views',
         'method' => 'getSchema',
         'http-method' => 'GET',
         'params' => array(
-            'model' => 'Shop_Category'
+            'model' => 'Shop_OrderAttachment'
         )
     ),
     // ************************************************************* Order Attachment

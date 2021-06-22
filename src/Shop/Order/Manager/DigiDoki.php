@@ -60,7 +60,7 @@ class Shop_Order_Manager_DigiDoki extends Shop_Order_Manager_Abstract
             // Empty state (start state machine
             Workflow\Machine::STATE_UNDEFINED => array(
                 'next' => 'new',
-                'action' => Shop_Order_Event_DigiDoki::SEND_NOTIFICATION_ACTION
+                'action' => Shop_Order_Event_DigiDoki::SEND_NEW_ORDER_NOTIFICATION_ACTION
             ),
             // State
             'new' => array(

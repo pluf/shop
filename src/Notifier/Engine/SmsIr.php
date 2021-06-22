@@ -27,7 +27,6 @@ class Notifier_Engine_SmsIr extends Notifier_Engine
 {
     const ENGINE_PARAMETER_API_KEY = 'notifier.engine.SmsIr.ApiKey';
     const ENGINE_PARAMETER_SECRET_KEY = 'notifier.engine.SmsIr.SecretKey';
-    const ENGINE_PARAMETER_TEMPLATE_ID = 'notifier.engine.SmsIr.TemplateId';
     
     /*
      *
@@ -102,10 +101,12 @@ class Notifier_Engine_SmsIr extends Notifier_Engine
             'x-sms-ir-secure-token' => $token,
             'Content-Type' => 'application/json'
         );
-        $templateId = (int) Tenant_Service::setting(self::ENGINE_PARAMETER_TEMPLATE_ID, 0);
-        $path = $templateId > 0 ? '/api/UltraFastSend' : '/api/VerificationCode';
+        $templateId = array_key_exists('messageId', $data) ? $data['messageId'] : 0;
+        $path = '';
+        $sendDTime = array_key_exists('sendDateTime', $data) ? $data['sendDateTime'] : null;
         $param = array();
-        if ($templateId > 0) {
+        if ($templateId > 0) { // Send message by using a message template
+            $path = '/api/UltraFastSend';
             $param['Mobile'] = $receiver;
             $param['TemplateId'] = $templateId;
             $param['ParameterArray'] = array(
@@ -114,9 +115,23 @@ class Notifier_Engine_SmsIr extends Notifier_Engine
                     'ParameterValue' => $code
                 )
             );
-        } else {
+        } else if(!$code){ // Send instant message without using template.
+            $path = '/api/VerificationCode';
             $param['MobileNumber'] = $receiver;
             $param['Code'] = $code;
+        } else{ // Send message at specific date time
+            $path = '/api/MessageSend';
+            $lineNumber = Tenant_Service::setting('notifier.engine.SmsIr.LineNumber', '');
+            $message = $data['message'];
+            
+            $param['LineNumber'] = $lineNumber;
+            $param['MobileNumbers'] = array($receiver);
+            $param['Messages'] = array($message);
+            if($sendDTime){                
+                $sendDateTime = date('Y-m-d\TH:i:s', strtotime($sendDTime));
+                $param['SendDateTime'] = $sendDateTime;
+            }
+            $param['CanContinueInCaseOfError'] = 'false';
         }
         $client = new GuzzleHttp\Client();
         $response = $client->request('POST', $backend . $path, [

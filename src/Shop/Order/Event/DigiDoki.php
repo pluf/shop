@@ -4,6 +4,18 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
 {
 
     /*
+     * Constants
+     */
+    const NOTIFIER_PARAMETER_NEW_ORDER_MESSAGE_ID = 'notifier.parameter.messageId.newOrder';
+
+    const NOTIFIER_PARAMETER_FAILED_CALL_MESSAGE_ID = 'notifier.parameter.messageId.failedCall';
+
+    const NOTIFIER_PARAMETER_CLOSE_MESSAGE = 'notifier.parameter.message.close';
+    
+    const NOTIFIER_PARAMETER_FIX_DAY_MESSAGE = 'notifier.parameter.message.fixed.day';
+    const NOTIFIER_PARAMETER_FIX_WEEK_MESSAGE = 'notifier.parameter.message.fixed.week';
+    
+    /*
      * Properties
      */
     public const PROPERTY_WORKSHOP_ID = self::PROPERTY_AGENCY_ID;
@@ -68,7 +80,7 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
             'Positive'
         ]
     );
-    
+
     public const PROPERTY_COUNT = array(
         'name' => 'count',
         'type' => 'Long',
@@ -84,7 +96,7 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
             'Positive'
         ]
     );
-    
+
     // End of properties
 
     /*
@@ -103,16 +115,16 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         'Shop_Order_Event_DigiDoki',
         'report'
     );
-    
+
     public const FAILED_TO_CONNECT_ACTION = array(
         'Shop_Order_Event_DigiDoki',
-        'report'
+        'failedToConnect'
     );
 
     public const REPORT_PROPERTIES = array(
         Self::PROPERTY_COMMENT
     );
-    
+
     public const FAILED_TO_CONNECT_PROPERTIES = array(
         Self::PROPERTY_COMMENT
     );
@@ -163,8 +175,8 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
     );
 
     public const FIX_PROPERTIES = array(
-//         self::PROPERTY_TOTAL_PRICE,
-//         self::PROPERTY_SPARE_PRICE,
+        // self::PROPERTY_TOTAL_PRICE,
+        // self::PROPERTY_SPARE_PRICE,
         self::PROPERTY_COMMENT
     );
 
@@ -172,14 +184,14 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         'Shop_Order_Event_DigiDoki',
         'addCost'
     );
-    
+
     public const ADD_COST_PROPERTIES = array(
         self::PROPERTY_TITLE,
         self::PROPERTY_PRICE,
         self::PROPERTY_COUNT,
         self::PROPERTY_COMMENT
     );
-    
+
     public const WORKSHOP_FIX_ACTION = array(
         'Shop_Order_Event_DigiDoki',
         'workshopFix'
@@ -190,6 +202,16 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         'reopen'
     );
 
+    public const SEND_NEW_ORDER_NOTIFICATION_ACTION = array(
+        'Shop_Order_Event_DigiDoki',
+        'sendNewOrderNotification'
+    );
+
+    public const SEND_FAILED_CALL_NOTIFICATION_ACTION = array(
+        'Shop_Order_Event_DigiDoki',
+        'sendFailedCallNotification'
+    );
+
     // End of actions
 
     /*
@@ -197,22 +219,26 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
      */
     public static function isCrm($request)
     {
-        return User_Precondition::isOwner($request);
+        // FIXME: hadi 2021-04: fix it
+        return User_Precondition::isMember($request);
     }
 
     public static function isZoneOwner($request)
     {
-        return User_Precondition::isOwner($request);
+        // FIXME: hadi 2021-04: fix it
+        return User_Precondition::isMember($request);
     }
 
     public static function isFixer($request)
     {
-        return User_Precondition::isOwner($request);
+        // FIXME: hadi 2021-04: fix it
+        return User_Precondition::isMember($request);
     }
 
     public static function isWorkshopOwner($request)
     {
-        return User_Precondition::isOwner($request);
+        // FIXME: hadi 2021-04: fix it
+        return User_Precondition::isMember($request);
     }
 
     // End of perconditions
@@ -242,7 +268,8 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         $order->assignee_id = $fixer;
     }
 
-    public static function addCost($request, $order){
+    public static function addCost($request, $order)
+    {
         $title = Pluf_Shortcuts_GetRequestParam($request, 'title');
         $price = Pluf_Shortcuts_GetRequestParam($request, 'price');
         $count = Pluf_Shortcuts_GetRequestParam($request, 'count');
@@ -251,7 +278,7 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         $count = $count == null ? 1 : $count;
         self::creatOrderItem($title, $price, $count, $order);
     }
-    
+
     public static function setCosts($request, $order)
     {
         $totalCost = $request->REQUEST['total_cost'];
@@ -321,7 +348,7 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
         }
         // Get wallet of current user
         $currency = Tenant_Service::setting('local.currency', NULL);
-        if($currency == NULL){
+        if ($currency == NULL) {
             throw new Pluf_Exception_SettingError('Local currency of tenant is not set. Set it first.');
         }
         $wallets = Bank_Service::getWallets($request->user, $currency);
@@ -408,10 +435,22 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
     public static function fix($request, $object)
     {
         return self::addComment($request, $object);
-//         self::verifyCosts($request);
-//         self::setCosts($request, $object);
-//         // transfer commision from fixer wallet to the main wallet of the tenant
-//         self::transferCommission($request, $object);
+        // self::verifyCosts($request);
+        // self::setCosts($request, $object);
+        // // transfer commision from fixer wallet to the main wallet of the tenant
+        // self::transferCommission($request, $object);
+        $msg = Tenant_Service::setting(self::NOTIFIER_PARAMETER_FIX_DAY_MESSAGE, NULL);
+        if($msg){
+            $expiryDay = ' +1 day';
+            $sendDtime = date('Y-m-d H:i:s', strtotime($expiryDay));
+            self::sendCrmNotification($request, $object, $msg, $sendDtime);
+        }
+        $msg = Tenant_Service::setting(self::NOTIFIER_PARAMETER_FIX_WEEK_MESSAGE, NULL);
+        if($msg){
+            $expiryDay = ' +7 day';
+            $sendDtime = date('Y-m-d H:i:s', strtotime($expiryDay));
+            self::sendCrmNotification($request, $object, $msg, $sendDtime);
+        }
     }
 
     public static function workshopFix($request, $object)
@@ -426,12 +465,72 @@ class Shop_Order_Event_DigiDoki extends Shop_Order_Event
 
     public static function close($request, $object)
     {
-        return self::addComment($request, $object);
+        self::addComment($request, $object);
+        $msg = Tenant_Service::setting(self::NOTIFIER_PARAMETER_CLOSE_MESSAGE, NULL);
+        if($msg){
+            self::sendCrmNotification($request, $object, $msg, NULL);
+        }
     }
 
     public static function archive($request, $object)
     {
         self::addComment($request, $object);
+    }
+
+    public static function sendNewOrderNotification($request, $object)
+    {
+        try {
+
+            // TODO: hadi, 1398-11: improve to consider email notifiers or other type of notifiers (following code should be general)
+            $msgId = (int) Tenant_Service::setting(self::NOTIFIER_PARAMETER_NEW_ORDER_MESSAGE_ID, 0);
+            $data = array(
+                'code' => $object->secureId,
+                'receiver' => $object->phone,
+                'messageId' => $msgId
+            );
+            self::sendMessage($data);
+        } catch (Exception $e) {
+            // TODO: hadi, 1398-11: log the error
+        }
+    }
+
+    public static function sendFailedCallNotification($request, $object)
+    {
+        try {
+
+            // TODO: hadi, 1398-11: improve to consider email notifiers or other type of notifiers (following code should be general)
+            $msgId = (int) Tenant_Service::setting(self::NOTIFIER_PARAMETER_FAILED_CALL_MESSAGE_ID, 0);
+            $data = array(
+                'code' => $object->secureId,
+                'receiver' => $object->phone,
+                'messageId' => $msgId
+            );
+            self::sendMessage($data);
+        } catch (Exception $e) {
+            // TODO: hadi, 1398-11: log the error
+        }
+    }
+
+    public static function failedToConnect($request, $object, $action)
+    {
+        self::report($request, $object);
+        self::sendFailedCallNotification($request, $object);
+    }
+    
+    public static function sendCrmNotification($request, $object, $msg, $sendDtime)
+    {
+        try {
+            
+            // TODO: hadi, 1398-11: improve to consider email notifiers or other type of notifiers (following code should be general)
+            $data = array(
+                'sendDateTime' => $sendDtime,
+                'receiver' => $object->phone,
+                'message' => $msg,
+            );
+            self::sendMessage($data);
+        } catch (Exception $e) {
+            // TODO: hadi, 1398-11: log the error
+        }
     }
 }
 
